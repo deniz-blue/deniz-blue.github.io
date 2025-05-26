@@ -28,7 +28,7 @@ const vertexShaderSrc = `
     void main() {
         gl_PointSize = u_pointSize;
 
-        vec2 position = mod(a_position - u_scrollPosition, u_dim);
+        vec2 position = mod(a_position - u_scrollPosition * u_scroll, u_dim);
 
         //float mouseDistance = sqrt(pow(position.x - u_mousePosition.x, 2.0) + pow(position.y - u_mousePosition.y, 2.0));
         // float threshold = 50.0;

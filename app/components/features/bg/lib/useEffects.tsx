@@ -19,6 +19,17 @@ export const useEffects = ({
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const workerRef = useRef<Worker | null>(null);
 
+    const getDimensions = (): Vec2 => {
+        // const canvas = canvasRef.current!;
+        const customScale = 1;
+        const dprScale = Math.min(window.devicePixelRatio, 1);
+
+        return {
+            x: window.innerWidth * dprScale * customScale,
+            y: window.innerHeight * dprScale * customScale,
+        };
+    };
+
     useEffect(() => {
         if (!canvasRef.current) return;
 
@@ -32,10 +43,7 @@ export const useEffects = ({
             type: "init",
             data: {
                 canvas: offscreen,
-                dimensions: {
-                    x: canvas.clientWidth,
-                    y: canvas.clientHeight,
-                },
+                dimensions: getDimensions(),
             },
         } as EffectsWorkerInput, [offscreen]);
 
@@ -66,10 +74,7 @@ export const useEffects = ({
 
     useWindowEvent("resize", () => {
         if (!canvasRef.current) return;
-        const dimensions = vec2(
-            canvasRef.current.clientWidth,
-            canvasRef.current.clientHeight,
-        );
+        const dimensions = getDimensions();
         workerRef.current?.postMessage({
             type: "dimensionsChange",
             data: {
@@ -77,6 +82,16 @@ export const useEffects = ({
             },
         } as EffectsWorkerInput);
     });
+
+    useWindowEvent("scroll", () => {
+        if (!canvasRef.current) return;
+        workerRef.current?.postMessage({
+            type: "scroll",
+            data: {
+                pos: vec2(0, window.scrollY),
+            },
+        } as EffectsWorkerInput);
+    }, { capture: true });
 
     return {
         ref: canvasRef,

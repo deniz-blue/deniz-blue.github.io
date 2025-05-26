@@ -12,6 +12,10 @@ export type EffectsWorkerInput = Enum<{
     mousemove: {
         pos: Vec2;
     };
+    scroll: {
+        pos: Vec2;
+    };
+    scrollend: {};
 }>;
 
 export type EffectsWorkerOutput = Enum<{

@@ -6,33 +6,38 @@ import { match } from "@alan404/enum";
 let canvas: OffscreenCanvas;
 let gl: WebGL2RenderingContext;
 let store: Effect[] = [];
-let lastTime = performance.now();
 
-function startLoop() {
-    function renderLoop(time: number) {
-        gl.clearColor(0, 0, 0, 0);
-        gl.clear(gl.COLOR_BUFFER_BIT);
+let mode: "a" | "t" = "t";
+function renderLoop() {
+    gl.clearColor(0, 0, 0, 0);
+    gl.clear(gl.COLOR_BUFFER_BIT);
 
-        for (let effect of store) {
-            effect.render();
-        }
+    for (let effect of store) {
+        effect.render();
+    }
 
+    if(mode == "t") {
+        setTimeout(renderLoop, 1000 / 24);
+    } else {
         requestAnimationFrame(renderLoop);
     }
+}
 
-    function updateLoop() {
-        const now = performance.now();
-        const dt = (now - lastTime) / 1000;
-        lastTime = now;
+let lastTime = performance.now();
+function updateLoop() {
+    const now = performance.now();
+    const dt = (now - lastTime) / 1000;
+    lastTime = now;
 
-        for (let effect of store) {
-            effect.update(dt);
-        }
-
-        setTimeout(updateLoop, 1000 / 24); // 24 fps
+    for (let effect of store) {
+        effect.update(dt);
     }
 
-    requestAnimationFrame(renderLoop);
+    setTimeout(updateLoop, 1000 / 24); // 24 fps
+}
+
+function startLoop() {
+    renderLoop();
     updateLoop();
 }
 
@@ -47,6 +52,7 @@ self.onmessage = (e: MessageEvent<EffectsWorkerInput>) => {
                 powerPreference: "low-power",
                 desynchronized: true,
                 failIfMajorPerformanceCaveat: true,
+
             });
             if (!ctx) {
                 console.error("WebGL2 not supported");
@@ -86,6 +92,17 @@ self.onmessage = (e: MessageEvent<EffectsWorkerInput>) => {
             for (let effect of store) {
                 effect.onMouseMove(pos);
             }
+        },
+
+        scroll: ({ pos }) => {
+            mode = "a";
+            for (let effect of store) {
+                effect.onScrollPositionChange(pos);
+            }
+        },
+
+        scrollend: () => {
+            mode = "t";
         },
     });
 };
