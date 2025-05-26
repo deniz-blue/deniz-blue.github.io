@@ -1,4 +1,4 @@
-import{j as t}from"./jsx-runtime-BjG_zV1W.js";import{c as k,k as z,j as C,l as $,i as P,h as O,e as B,d as X,f as N,I as A,a as L,b as R,m as F}from"./IconBrandVite-Hzf7Ru-_.js";const E=(...[n])=>new Proxy({},{get:(e,r)=>i=>({type:r,data:i,...n==null?void 0:n({type:r,data:i})})});/**
+import{j as t}from"./jsx-runtime-BjG_zV1W.js";import{c as k,k as z,j as C,l as $,i as P,h as O,e as B,d as X,f as N,I as A,a as L,b as R,m as F}from"./IconBrandVite-CoTowxze.js";const E=(...[n])=>new Proxy({},{get:(e,r)=>i=>({type:r,data:i,...n==null?void 0:n({type:r,data:i})})});/**
  * @license @tabler/icons-react v3.33.0 - MIT
  *
  * This source code is licensed under the MIT license.

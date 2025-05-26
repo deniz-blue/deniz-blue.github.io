@@ -1,1 +1,0 @@
-import{r as a}from"./chunk-D4RADZKF-C40GpW0S.js";function r(e,n,t){a.useEffect(()=>(window.addEventListener(e,n,t),()=>window.removeEventListener(e,n,t)),[e,n])}const u=a.createContext({language:"en",setLanguage:()=>{},supportedLanguages:["en"]});export{u as L,r as u};
