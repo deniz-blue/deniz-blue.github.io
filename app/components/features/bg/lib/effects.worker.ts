@@ -41,6 +41,7 @@ function startLoop() {
     updateLoop();
 }
 
+let scrollendTimeout: number | undefined;
 self.onmessage = (e: MessageEvent<EffectsWorkerInput>) => {
     const msg = e.data;
 
@@ -67,6 +68,7 @@ self.onmessage = (e: MessageEvent<EffectsWorkerInput>) => {
 
             for (let effect of store) {
                 effect.onDimensionsChange(dimensions);
+                if(effect instanceof FarewellBackgroundEffect) effect.createStarfields();
             }
 
             canvas.width = dimensions.x;
@@ -96,13 +98,17 @@ self.onmessage = (e: MessageEvent<EffectsWorkerInput>) => {
 
         scroll: ({ pos }) => {
             mode = "a";
+            clearTimeout(scrollendTimeout);
             for (let effect of store) {
                 effect.onScrollPositionChange(pos);
             }
         },
 
         scrollend: () => {
-            mode = "t";
+            clearTimeout(scrollendTimeout);
+            scrollendTimeout = setTimeout(() => {
+                mode = "t";
+            }, 100);
         },
     });
 };

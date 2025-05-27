@@ -185,7 +185,10 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
 
     onDimensionsChange(newDims: Vec2): void {
         this.dimensions = newDims;
-        this.createStarfields();
+        // this.createStarfields();
+        for(let starfield of this.starfields) {
+            // starfield.config.yNodes = this.createYNodes();
+        }
     }
 
     isSmallDims() {
@@ -259,7 +262,7 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
     };
 
     createStars(config: StarfieldConfig) {
-        let amount = this.isSmallDims() ? 16 : 128;
+        let amount = this.isSmallDims() ? 16 : 64;
 
         let stars = new Array(amount).fill(0).map((): Star => {
             let num3 = randFloat(1.0);
