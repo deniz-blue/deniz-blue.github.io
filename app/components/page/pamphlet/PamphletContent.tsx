@@ -12,18 +12,24 @@ import { Experiments } from "./sections/Experiments";
 import { Motd } from "./sections/Motd";
 import { ArtPiece } from "./sections/Artpiece";
 import { Socials } from "./sections/Socials";
+import { Shields } from "./sections/Shields";
+import { Uptime } from "./sections/Uptime";
+import { CosplayWebring } from "./sections/webring/CosplayWebring";
+import { Projects } from "./sections/Projects";
 
 export const PamphletContent = () => {
     return (
-        <Stack align="center">
+        <Stack align="center" pt="xs">
             <Socials />
+            <Shields />
             <Motd />
             <AboutMe />
             <ArtPiece />
-            <FeaturedProjects />
             <StuffIUse />
+            <FeaturedProjects />
+            {/* <Projects /> */}
             <MoreMe />
-            <DeltaruneRelease />
+            {/* <DeltaruneRelease /> */}
             <Specs />
             <Group justify="end" w="100%" pos="relative" px="xl">
                 <Image
@@ -35,7 +41,9 @@ export const PamphletContent = () => {
                 />
             </Group>
             <Friends />
+            <Uptime />
             <ButtonsSection />
+            <CosplayWebring />
 
             {/* <Experiments /> */}
 

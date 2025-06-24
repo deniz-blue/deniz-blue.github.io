@@ -123,13 +123,14 @@ export interface Star {
 type IncompleteStar = Pick<Star, "NodeIndex" | "NodePercent" | "Distance" | "Sine">;
 
 export const starfieldConfigurations: Partial<StarfieldConfig>[] = [
-    //{ color: "ffffff", scroll: vec(0.1, 0.1), flowSpeed: 1 }),
     { color: "ab6ffa", scroll: vec2(0.3, 0.3) },
     { color: "71d5ff", scroll: vec2(0.3, 0.3), flowSpeed: 2.5 },
-    //{ color: "f8ffb0", scroll: vec(0.3, 0.3), flowSpeed: 3 }),
     { color: "53f3dd", scroll: vec2(0.5, 0.5) },
-    //{ color: "46fffd", scroll: vec(0.5, 0.5), flowSpeed: 2.75 }),
     { color: "cefdff", scroll: vec2(0.5, 0.5), flowSpeed: 3 },
+    
+    // { color: "ffffff", scroll: vec2(0.1, 0.1), flowSpeed: 1 },
+    // { color: "f8ffb0", scroll: vec2(0.3, 0.3), flowSpeed: 3 },
+    // { color: "46fffd", scroll: vec2(0.5, 0.5), flowSpeed: 2.75 },
 ];
 
 export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindings> {
@@ -149,7 +150,9 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
     speedMultiplier = 1;
     speedMultiplierDecay = 1;
 
-    constructor(gl: WebGL2RenderingContext) {
+    configs: Partial<StarfieldConfig>[] = [];
+
+    constructor(gl: WebGL2RenderingContext, cfgs?: Partial<StarfieldConfig>[]) {
         super(gl);
 
         this.program = createProgram(gl, [
@@ -174,6 +177,7 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
             pointSize: this.binding("u", "pointSize"),
         };
 
+        this.configs = cfgs || starfieldConfigurations;
         this.createStarfields();
 
         this.buffers = {
@@ -196,6 +200,7 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
     }
 
     update(dt: number): void {
+        return;
         for (let starfield of this.starfields) {
             for (let star of starfield.stars) {
                 this.updateStar(starfield.config, star, dt);
@@ -204,7 +209,7 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
     }
 
     createStarfields() {
-        this.starfields = starfieldConfigurations.map(c => this.createStarfield(c));
+        this.starfields = this.configs.map(c => this.createStarfield(c));
     }
 
     createStarfield(

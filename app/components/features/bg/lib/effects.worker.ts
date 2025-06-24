@@ -53,7 +53,6 @@ self.onmessage = (e: MessageEvent<EffectsWorkerInput>) => {
                 powerPreference: "low-power",
                 desynchronized: true,
                 failIfMajorPerformanceCaveat: true,
-
             });
             if (!ctx) {
                 console.error("WebGL2 not supported");

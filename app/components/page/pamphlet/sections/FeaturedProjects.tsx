@@ -1,6 +1,6 @@
 import { useLanguage, Localized } from "@alan404/react-localization";
-import { Anchor, Divider, Group, Stack, Text } from "@mantine/core";
-import { IconAffiliate, IconAlertCircle, IconBrandReact, IconCalendar, IconTerminal2 } from "@tabler/icons-react";
+import { Anchor, Button, Divider, Group, Image, Stack, Text } from "@mantine/core";
+import { IconAffiliate, IconAlertCircle, IconBrandReact, IconCalendar, IconExternalLink, IconTerminal2 } from "@tabler/icons-react";
 
 export const FeaturedProjects = () => {
     const { language } = useLanguage();
@@ -17,25 +17,31 @@ export const FeaturedProjects = () => {
                 w="80%"
             />
 
-            {/* TODO: uncomment when activity is restored */}
-
-            {/* <Stack px="xl" w="100%" gap={4}>
+            <Stack px="xl" w="100%" gap={4}>
                 <Button
                     fullWidth
                     variant="light"
                     h="auto"
                     rightSection={<IconExternalLink />}
+                    leftSection={(
+                        <Image
+                            src="https://events.deniz.blue/eventsdenizblue.svg"
+                            w={24}
+                            h={24}
+                        />
+                    )}
+                    justify="space-between"
                     component="a"
                     href="https://events.deniz.blue"
                     target="_blank"
                 >
                     <Stack gap={0} style={{ textWrap: "wrap" }} py={4}>
                         <Text>Deniz's Events Site</Text>
-                        <Text fz="xs">A website to list geeky events in Turkey</Text>
+                        <Text fz="xs">List of geeky events in Turkey</Text>
                     </Stack>
                 </Button>
 
-                <Group justify="end" ta="end" c="yellow" gap={4} wrap="nowrap">
+                {/* <Group justify="end" ta="end" c="yellow" gap={4} wrap="nowrap">
                     <Stack flex="1">
                         <Text fz="xs" inline>Most events are postponed due to the recent events happening in Turkey</Text>
                     </Stack>
@@ -44,10 +50,10 @@ export const FeaturedProjects = () => {
                 <Group justify="end" ta="end" c="dimmed" gap={4}>
                     <Text fz="xs">...not to mention it's still in beta</Text>
                     <IconInfoCircle size={18} />
-                </Group>
-            </Stack> */}
+                </Group> */}
+            </Stack>
 
-            <Group wrap="nowrap" align="start" px="lg" gap={4}>
+            {/* <Group wrap="nowrap" align="start" px="lg" gap={4}>
                 <IconCalendar />
                 <Stack w="100%" gap={4} flex="1">
                     <Text fz="sm">
@@ -99,7 +105,7 @@ export const FeaturedProjects = () => {
                         </Stack>
                     </Group>
                 </Stack>
-            </Group>
+            </Group> */}
 
             <Group wrap="nowrap" align="start" px="lg" gap={4}>
                 <IconTerminal2 />

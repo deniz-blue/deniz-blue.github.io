@@ -1,4 +1,5 @@
 import { useEffects } from "./lib/useEffects";
+// import { ParallaxBackground } from "./optimized/ParallaxBackground";
 
 export const PageBackground = () => {
     const { ref } = useEffects({});
@@ -7,8 +8,7 @@ export const PageBackground = () => {
         <div
             className="pageBackground"
         >
-            <div id="rr1" style={{ position: "absolute", left: 0, bottom: 0 }} />
-            <div id="rr2" style={{ position: "absolute", right: 0, bottom: 0 }} />
+            {/* <ParallaxBackground /> */}
             <canvas
                 className="pageBackground"
                 style={{

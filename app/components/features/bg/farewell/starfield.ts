@@ -1,0 +1,133 @@
+import { vec2, Vec2, vec2add, vec2div, vec2mul, vec2normalize, vec2sub } from "@alan404/vec2";
+import { clamp } from "@mantine/hooks";
+import { choose, lerp, randFloat, randInt } from "~/utils/math";
+
+export type StarTexture = 0 | 1 | 2 | 3;
+
+export class Star {
+    texture: StarTexture = 0;
+    position: Vec2 = vec2();
+    opacity: number = 1;
+    NodeIndex: number = 0;
+    NodePercent: number = 0;
+    Distance: number = 0;
+    Sine: number = 0;
+
+    constructor() {
+        let num3 = randFloat(1.0);
+        this.NodeIndex = randInt(yNodeLen - 1);
+        this.NodePercent = randFloat(1.0);
+        this.Distance = 4.0 + num3 * 20.0;
+        this.Sine = randFloat(Math.PI * 2.0);
+        this.texture = Math.floor(clamp(0.0, Math.pow(1.0 - num3, 3) * 4, 4 - 1)) as StarTexture;
+        this.opacity = lerp(0.6, 0, num3 * 0.5);
+    }
+}
+
+type IncompleteStar = Pick<Star, "NodeIndex" | "NodePercent" | "Distance" | "Sine">;
+
+const yNodeLen = 15;
+export const createYNodes = (dims: Vec2) => {
+    let yNodes: number[] = [];
+    let num = randFloat(dims.y);
+
+    let i = 0;
+    while (yNodeLen > i) {
+        i++;
+        yNodes.push(num);
+        num += choose(-1, 1) * (16 * 2 + randFloat((24 * (dims.y / 360)) * 2));
+    }
+
+    for (let i = 0; i < 4; i++) {
+        yNodes[yNodes.length - 1 - i] = lerp(
+            yNodes[yNodes.length - 1 - i],
+            yNodes[0],
+            clamp(0, 1.0 - i / 4.0, 1)
+        );
+    }
+
+    return yNodes;
+};
+
+export const DEFAULT_DIM = vec2(320, 180);
+
+export class StaticStarfield {
+    stars: Star[] = [];
+    yNodes: number[] = createYNodes(DEFAULT_DIM);
+    color: string = "#ffffff";
+
+    flowSpeed = 1;
+
+    constructor() {
+        this.stars = Array(128).fill(0).map(() => new Star());
+    }
+
+    update(dt = 1) {
+        for (let star of this.stars) {
+            let target = this.targetOfStar(star);
+            star.Sine += dt * this.flowSpeed;
+            star.NodePercent += dt * 0.25 * this.flowSpeed;
+            if (star.NodePercent >= 1) {
+                star.NodePercent -= 1;
+                star.NodeIndex++;
+                if (star.NodeIndex >= yNodeLen - 1) {
+                    star.NodeIndex = 0;
+                    star.position.x = 0;
+                }
+            }
+            star.position = vec2add(star.position, vec2div(vec2sub(target, star.position), vec2(50, 50)));
+        }
+    }
+
+    targetOfStar(star: Star) {
+        let StepSize = 32;
+        let currentNode = {
+            x: star.NodeIndex * StepSize,
+            y: this.yNodes[star.NodeIndex],
+        };
+        let nextNode = {
+            x: (star.NodeIndex + 1) * StepSize,
+            y: this.yNodes[star.NodeIndex + 1],
+        };
+        let vector3 = vec2add(currentNode, vec2mul(vec2sub(nextNode, currentNode), vec2(star.NodePercent)));
+        let vector4 = vec2normalize(vec2sub(nextNode, currentNode));
+
+        return {
+            x: (vector3.x) + (((-vector4.x) * (star.Distance)) * (Math.sin(star.Sine))),
+            y: (vector3.y) + (((vector4.y) * (star.Distance)) * (Math.sin(star.Sine))),
+        };
+    }
+
+    render2d(
+        ctx: OffscreenCanvasRenderingContext2D | CanvasRenderingContext2D,
+        textures: CanvasImageSource[]
+    ) {
+        for (let star of this.stars) {
+            this.render2dStar(ctx, textures, star);
+        }
+    }
+
+    render2dStar(
+        ctx: OffscreenCanvasRenderingContext2D | CanvasRenderingContext2D,
+        textures: CanvasImageSource[],
+        star: Star,
+    ) {
+        const vec2mod = (a: Vec2, b: Vec2) => vec2(a.x % b.x, a.y % b.y);
+        const mod = (x: Vec2, m: Vec2) => vec2mod((
+            vec2add(vec2mod(x, m), m)
+        ), m);
+
+        let vec = vec2add(
+            vec2(-64, -16),
+            mod(star.position, vec2(448, 212))
+        );
+
+        vec = vec2sub(vec, 16);
+        // vec = star.position
+        console.log(vec);
+        ctx.fillStyle = "green";
+        ctx.fillRect(310, 170, 10, 10);
+        ctx.drawImage(textures[star.texture], vec.x, vec.y, 16, 16);
+    }
+};
+
