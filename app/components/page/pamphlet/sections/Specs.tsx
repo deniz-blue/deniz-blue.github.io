@@ -1,7 +1,10 @@
 import { Box, Divider, Group, Stack, Table, Text } from "@mantine/core";
 import { IconBrandWindows, IconCpu, IconCpu2, IconDeviceSim, TablerIcon } from "@tabler/icons-react";
+import { useFeatures } from "../../../base/FeaturesContext";
 
 export const Specs = () => {
+    const { displayNeoFetch } = useFeatures();
+    if(!displayNeoFetch) return null;
     return (
         <Stack align="center" w="100%">
             <Divider

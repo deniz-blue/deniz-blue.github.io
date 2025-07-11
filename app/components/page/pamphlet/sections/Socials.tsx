@@ -14,34 +14,34 @@ export const Socials = () => {
             icon: IconBrandGithub,
             url: "https://github.com/deniz-blue",
         },
-        {
-            icon: IconBrandDiscord,
-            url: "https://discord.com/users/258638629839175681",
-        },
-        {
-            icon: IconBrandTelegram,
-            url: "https://t.me/TheDennis",
-        },
-        {
-            icon: IconBrandInstagram,
-            url: "https://www.instagram.com/neko_deniz/",
-        },
-        {
-            icon: IconBrandX,
-            url: "https://x.com/gokcedenizblue",
-        },
-        {
-            icon: IconBrandReddit,
-            url: "https://reddit.com/u/TheAlan404",
-        },
-        {
-            icon: OsuLogo,
-            url: "https://osu.ppy.sh/users/19238315",
-        },
-        {
-            icon: IconBrandSteam,
-            url: "https://steamcommunity.com/id/denizblue",
-        },
+        // {
+        //     icon: IconBrandDiscord,
+        //     url: "https://discord.com/users/258638629839175681",
+        // },
+        // {
+        //     icon: IconBrandTelegram,
+        //     url: "https://t.me/TheDennis",
+        // },
+        // {
+        //     icon: IconBrandInstagram,
+        //     url: "https://www.instagram.com/neko_deniz/",
+        // },
+        // {
+        //     icon: IconBrandX,
+        //     url: "https://x.com/gokcedenizblue",
+        // },
+        // {
+        //     icon: IconBrandReddit,
+        //     url: "https://reddit.com/u/TheAlan404",
+        // },
+        // {
+        //     icon: OsuLogo,
+        //     url: "https://osu.ppy.sh/users/19238315",
+        // },
+        // {
+        //     icon: IconBrandSteam,
+        //     url: "https://steamcommunity.com/id/denizblue",
+        // },
         {
             icon: IconMail,
             url: "mailto:deniz@deniz.blue",

@@ -1,5 +1,5 @@
-import { WebGLEffect } from "../lib/types";
-import { compileShader, createGLTexture, createProgram } from "../lib/webglHelpers";
+import { WebGLEffect } from "./types";
+import { compileShader, createGLTexture, createProgram } from "./webglHelpers";
 import { vec2, Vec2 } from "@alan404/vec2";
 
 // Vertex Shader Code

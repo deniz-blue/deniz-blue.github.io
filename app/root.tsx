@@ -13,9 +13,9 @@ import { ModalsProvider } from "@mantine/modals";
 import { LocalizationProvider } from "./components/localization/LocalizationProvider";
 
 export const meta: Route.MetaFunction = () => [
-    { title: "deniz.blue 🌸🎀" },
-    { property: "og:title", content: "deniz.blue 🌸🎀" },
-    { property: "og:description", content: "hi, i'm Gökçe" },
+    { title: "deniz.blue 💡" },
+    { property: "og:title", content: "deniz.blue 💡" },
+    { property: "og:description", content: "[...]" },
 ];
 
 export const links: Route.LinksFunction = () => [

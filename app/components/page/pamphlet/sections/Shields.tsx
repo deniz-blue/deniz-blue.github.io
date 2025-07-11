@@ -8,13 +8,13 @@ export const Shields = () => {
         src: string;
         link?: string;
     }[] = [
-            {
-                src: "https://img.shields.io/discord/1197520507617153064?logo=discord" + c({
-                    labelColor,
-                    color: "rgba(64, 192, 87, 0.15)",
-                }),
-                link: "https://deniz.blue/discord-invite?id=1197520507617153064",
-            },
+            // {
+            //     src: "https://img.shields.io/discord/1197520507617153064?logo=discord" + c({
+            //         labelColor,
+            //         color: "rgba(64, 192, 87, 0.15)",
+            //     }),
+            //     link: "https://deniz.blue/discord-invite?id=1197520507617153064",
+            // },
             {
                 src: "https://img.shields.io/github/sponsors/deniz-blue?style=flat&logo=github" + c({
                     labelColor,

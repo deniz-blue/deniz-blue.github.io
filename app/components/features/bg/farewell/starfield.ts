@@ -58,8 +58,17 @@ export class StaticStarfield {
 
     flowSpeed = 1;
 
+    // therefore, stepAmount = 10 (px)
+    stepSize: number = 32;
+
     constructor() {
         this.stars = Array(128).fill(0).map(() => new Star());
+    }
+
+    resize(dims = DEFAULT_DIM) {
+        this.yNodes = createYNodes(dims);
+        this.stepSize = dims.x / 10;
+        return this;
     }
 
     update(dt = 1) {
@@ -80,13 +89,12 @@ export class StaticStarfield {
     }
 
     targetOfStar(star: Star) {
-        let StepSize = 32;
         let currentNode = {
-            x: star.NodeIndex * StepSize,
+            x: star.NodeIndex * this.stepSize,
             y: this.yNodes[star.NodeIndex],
         };
         let nextNode = {
-            x: (star.NodeIndex + 1) * StepSize,
+            x: (star.NodeIndex + 1) * this.stepSize,
             y: this.yNodes[star.NodeIndex + 1],
         };
         let vector3 = vec2add(currentNode, vec2mul(vec2sub(nextNode, currentNode), vec2(star.NodePercent)));
@@ -98,36 +106,19 @@ export class StaticStarfield {
         };
     }
 
-    render2d(
-        ctx: OffscreenCanvasRenderingContext2D | CanvasRenderingContext2D,
-        textures: CanvasImageSource[]
-    ) {
-        for (let star of this.stars) {
-            this.render2dStar(ctx, textures, star);
-        }
-    }
-
-    render2dStar(
-        ctx: OffscreenCanvasRenderingContext2D | CanvasRenderingContext2D,
-        textures: CanvasImageSource[],
+    static ScreenPosOfStar(
         star: Star,
+        dim: Vec2 = vec2(448, 212),
     ) {
         const vec2mod = (a: Vec2, b: Vec2) => vec2(a.x % b.x, a.y % b.y);
         const mod = (x: Vec2, m: Vec2) => vec2mod((
             vec2add(vec2mod(x, m), m)
         ), m);
 
-        let vec = vec2add(
+        return vec2sub(vec2add(
             vec2(-64, -16),
-            mod(star.position, vec2(448, 212))
-        );
-
-        vec = vec2sub(vec, 16);
-        // vec = star.position
-        console.log(vec);
-        ctx.fillStyle = "green";
-        ctx.fillRect(310, 170, 10, 10);
-        ctx.drawImage(textures[star.texture], vec.x, vec.y, 16, 16);
+            mod(star.position, dim)
+        ), 16);
     }
 };
 

@@ -2,6 +2,7 @@ import { Localized } from "@alan404/react-localization";
 import { Anchor, Divider, Group, Image, Loader, Paper, Stack, Text } from "@mantine/core"
 import { useFetch } from "@mantine/hooks";
 import { IconExternalLink } from "@tabler/icons-react";
+import { useFeatures } from "../../../base/FeaturesContext";
 
 export const Uptime = () => {
     const {
@@ -19,6 +20,9 @@ export const Uptime = () => {
     }[]>("https://raw.githubusercontent.com/deniz-blue/upptime/master/history/summary.json", {
         autoInvoke: true,
     });
+
+    const { displayUptime } = useFeatures();
+    if(!displayUptime) return null;
 
     return (
         <Stack align="center" w="100%" px="sm">

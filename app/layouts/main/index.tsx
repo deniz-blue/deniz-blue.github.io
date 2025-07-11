@@ -8,16 +8,19 @@ import { MusicPickerOverlay } from "~/components/features/music/components/Music
 import { useAudioState } from "~/components/features/music/hooks/useAudioState";
 import { Localized, useLanguage } from "@alan404/react-localization";
 import { Pamphlet } from "~/components/page/pamphlet/Pamphlet";
+import { MyBurden } from "./MyBurden";
 
 export default function Layout() {
     return (
         <Box>
-            <Box className="pamphlet_container">
-                <Pamphlet />
-            </Box>
 
-            <MusicPickerOverlay />
-            <MusicSeekbarOverlay />
+            <MyBurden />
+            {/* <Box className="pamphlet_container">
+                <Pamphlet />
+            </Box> */}
+
+            {/* <MusicPickerOverlay /> */}
+            {/* <MusicSeekbarOverlay /> */}
 
             <PageControlsOverlay />
         </Box>
@@ -69,12 +72,12 @@ export const PageControlsOverlay = () => {
                                     </Box>
                                 )}
                             </Transition>
-                            <Group>
+                            {/* <Group>
                                 <LanguagePickerButton />
-                            </Group>
-                            <MusicPopoutButton />
+                            </Group> */}
+                            {/* <MusicPopoutButton /> */}
                         </Stack>
-                        <Box id="mobile-spacer" data-active={scroll.y < 5} />
+                        {/* <Box id="mobile-spacer" data-active={scroll.y < 5} /> */}
                     </Stack>
                 )}
             </Transition>

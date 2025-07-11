@@ -1,6 +1,6 @@
 import { Stack } from "@mantine/core";
 import { useContext, useEffect, useRef } from "react";
-import { useUpdateInterval } from "~/components/features/bg/lib/useUpdateInterval";
+import { useUpdateInterval } from "~/components/features/bg/farewell/useUpdateInterval";
 import { MusicPlayerContext } from "~/components/features/music/MusicPlayerContext";
 import { magicFunction, useAmplitude } from "~/components/features/music/temp";
 import { useAudioFFT } from "~/components/features/music/hooks/useAudioFFT";

@@ -1,5 +1,5 @@
 import { vec2 } from "@alan404/vec2";
-import { FarewellBackgroundEffect, StarfieldConfig } from "../farewell/FarewellBackgroundEffect";
+import { FarewellBackgroundEffect, StarfieldConfig } from "../farewell/_FarewellBackgroundEffect";
 import { Star, StaticStarfield } from "../farewell/starfield";
 import { createTextureStore, textureWithColor } from "./textureWithColor";
 import { starTextureSources } from "../farewell/textures";

@@ -22,16 +22,14 @@ export const PamphletContent = () => {
         <Stack align="center" pt="xs">
             <Socials />
             <Shields />
-            <Motd />
-            <AboutMe />
+            {/* <Motd /> */}
+            {/* <AboutMe /> */}
             <ArtPiece />
-            <StuffIUse />
-            <FeaturedProjects />
-            {/* <Projects /> */}
-            <MoreMe />
-            {/* <DeltaruneRelease /> */}
-            <Specs />
-            <Group justify="end" w="100%" pos="relative" px="xl">
+            {/* <StuffIUse /> */}
+            {/* <FeaturedProjects /> */}
+            {/* <MoreMe /> */}
+            {/* <Specs /> */}
+            {/* <Group justify="end" w="100%" pos="relative" px="xl">
                 <Image
                     src="/assets/img/trinkets/jumping.gif"
                     h="5rem"
@@ -39,13 +37,11 @@ export const PamphletContent = () => {
                     pos="absolute"
                     style={{ top: "-4rem" }}
                 />
-            </Group>
-            <Friends />
-            <Uptime />
-            <ButtonsSection />
-            <CosplayWebring />
-
-            {/* <Experiments /> */}
+            </Group> */}
+            {/* <Friends /> */}
+            {/* <Uptime /> */}
+            {/* <ButtonsSection /> */}
+            {/* <CosplayWebring /> */}
 
             <Divider
                 w="80%"

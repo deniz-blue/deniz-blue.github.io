@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useAudioFFT } from "./hooks/useAudioFFT";
-import { useUpdateInterval } from "../bg/lib/useUpdateInterval";
+import { useUpdateInterval } from "../bg/farewell/useUpdateInterval";
 
 export const useAmplitude = () => {
     let value = useRef(0);

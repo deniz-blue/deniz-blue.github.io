@@ -1,8 +1,7 @@
-import { WebGLEffect } from "../lib/types";
-import { compileShader, createGLTexture, createProgram } from "../lib/webglHelpers";
-import { vec2, Vec2, vec2add, vec2div, vec2mul, vec2normalize, vec2sub } from "@alan404/vec2";
-import { choose, lerp, randFloat, randInt } from "../../../../utils/math";
-import { clamp } from "@mantine/hooks";
+import { WebGLEffect } from "./types";
+import { compileShader, createGLTexture, createProgram } from "./webglHelpers";
+import { vec2, Vec2 } from "@alan404/vec2";
+import { createYNodes, StaticStarfield } from "./starfield";
 
 const textureData = [
     "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAHUlEQVR4Ae3OAQ0AAAABMP1Lo4UxT3Dg1tGqwhcjpd4D/epMC1wAAAAASUVORK5CYII=",
@@ -152,6 +151,8 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
 
     configs: Partial<StarfieldConfig>[] = [];
 
+    _static: StaticStarfield[] = [];
+
     constructor(gl: WebGL2RenderingContext, cfgs?: Partial<StarfieldConfig>[]) {
         super(gl);
 
@@ -188,10 +189,11 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
     }
 
     onDimensionsChange(newDims: Vec2): void {
-        this.dimensions = newDims;
-        // this.createStarfields();
-        for(let starfield of this.starfields) {
-            // starfield.config.yNodes = this.createYNodes();
+        super.onDimensionsChange(newDims);
+
+        for(let _static of this._static) {
+            _static.yNodes = createYNodes(newDims);
+            _static.stepSize = newDims.x / 10;
         }
     }
 
@@ -200,129 +202,15 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
     }
 
     update(dt: number): void {
-        return;
-        for (let starfield of this.starfields) {
-            for (let star of starfield.stars) {
-                this.updateStar(starfield.config, star, dt);
-            }
-        }
+        for(let _static of this._static) _static.update(dt);
     }
 
     createStarfields() {
-        this.starfields = this.configs.map(c => this.createStarfield(c));
-    }
-
-    createStarfield(
-        partial: Partial<StarfieldConfig>,
-    ): Starfield {
-        let config: StarfieldConfig = {
-            yNodes: [],
-            color: "ffffff",
-            flowSpeed: 1,
-            scroll: vec2(1),
-            ...partial,
-        };
-
-        config.yNodes = this.createYNodes();
-        let stars = this.createStars(config);
-
-        return {
-            config,
-            stars,
-        };
-    };
-
-    stepsH() {
-        return 100;
-    };
-
-    stepsW() {
-        return 100;
-    };
-
-    stepSize() {
-        return this.stepsW();
-    }
-
-    createYNodes() {
-        let yNodes: number[] = [];
-        let num = randFloat(this.dimensions.y);
-
-        let i = 0;
-        while (this.stepsH() > i) {
-            i++;
-            yNodes.push(num);
-            num += choose(-1, 1) * (16 * 2 + randFloat((24 * (this.dimensions.y / 360)) * 2));
-        }
-
-        for (let i = 0; i < 4; i++) {
-            yNodes[yNodes.length - 1 - i] = lerp(
-                yNodes[yNodes.length - 1 - i],
-                yNodes[0],
-                clamp(0, 1.0 - i / 4.0, 1)
-            );
-        }
-
-        return yNodes;
-    };
-
-    createStars(config: StarfieldConfig) {
-        let amount = this.isSmallDims() ? 16 : 64;
-
-        let stars = new Array(amount).fill(0).map((): Star => {
-            let num3 = randFloat(1.0);
-
-            let incomplete: IncompleteStar = {
-                NodeIndex: randInt(config.yNodes.length - 1),
-                NodePercent: randFloat(1.0),
-                Distance: 4.0 + num3 * 20.0,
-                Sine: randFloat(Math.PI * 2.0),
-            };
-
-            let index = Math.floor(clamp(0.0, Math.pow(1.0 - num3, 3) * 4, 4 - 1));
-
-            return {
-                ...incomplete,
-                Position: this.targetOfStar(config, incomplete),
-                Opacity: lerp(0.6, 0, num3 * 0.5),
-                Texture: index,
-            };
+        this._static = this.configs.map(c => {
+            let f = new StaticStarfield();
+            if(c.color) f.color = c.color
+            return f;
         });
-
-        return stars;
-    }
-
-    targetOfStar({ yNodes }: StarfieldConfig, star: IncompleteStar) {
-        let StepSize = this.stepSize();
-        let currentNode = {
-            x: star.NodeIndex * StepSize,
-            y: yNodes[star.NodeIndex],
-        };
-        let nextNode = {
-            x: (star.NodeIndex + 1) * StepSize,
-            y: yNodes[star.NodeIndex + 1],
-        };
-        let vector3 = vec2add(currentNode, vec2mul(vec2sub(nextNode, currentNode), vec2(star.NodePercent)));
-        let vector4 = vec2normalize(vec2sub(nextNode, currentNode));
-
-        return {
-            x: (vector3.x) + (((-vector4.x) * (star.Distance)) * (Math.sin(star.Sine))),
-            y: (vector3.y) + (((vector4.y) * (star.Distance)) * (Math.sin(star.Sine))),
-        };
-    }
-
-    updateStar(config: StarfieldConfig, star: Star, dt: number = 1) {
-        star.Sine += dt * config.flowSpeed * this.deltaTimeMultiplier * this.speedMultiplier;
-        star.NodePercent += dt * 0.25 * config.flowSpeed * this.deltaTimeMultiplier * this.speedMultiplier;
-        if (star.NodePercent >= 1) {
-            star.NodePercent -= 1;
-            star.NodeIndex++;
-            if (star.NodeIndex >= config.yNodes.length - 1) {
-                star.NodeIndex = 0;
-                star.Position.x = 0;
-            }
-        }
-        star.Position = vec2add(star.Position, vec2div(vec2sub(this.targetOfStar(config, star), star.Position), vec2(50, 50)));
     }
 
     render(): void {
@@ -348,15 +236,16 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
             this.gl.uniform1i(this.gl.getUniformLocation(this.program, `u_textures[${i}]`), i);
         }
 
-        for (let starfield of this.starfields)
-            this.renderDrawStarfield(starfield);
+        // for (let starfield of this.starfields)
+        //     this.renderDrawStarfield(starfield);
+        for (let _static of this._static)
+            this.renderDrawStarfieldStatic(_static);
     }
 
-    renderDrawStarfield(starfield: Starfield) {
-        this.uniformVec2("scroll", starfield.config.scroll);
-        const r = parseInt(starfield.config.color.slice(0, 2), 16) / 255;
-        const g = parseInt(starfield.config.color.slice(2, 4), 16) / 255;
-        const b = parseInt(starfield.config.color.slice(4, 6), 16) / 255;
+    renderDrawStarfieldStatic(starfield: StaticStarfield) {
+        const r = parseInt(starfield.color.slice(0, 2), 16) / 255;
+        const g = parseInt(starfield.color.slice(2, 4), 16) / 255;
+        const b = parseInt(starfield.color.slice(4, 6), 16) / 255;
         this.gl.uniform3f(this.bindings.color, r, g, b);
 
         const starPositions: number[] = [];
@@ -364,9 +253,9 @@ export class FarewellBackgroundEffect extends WebGLEffect<StarfieldProgramBindin
         const starTextures: number[] = [];
 
         starfield.stars.forEach(star => {
-            starPositions.push(star.Position.x, star.Position.y);
-            starOpacities.push(star.Opacity);
-            starTextures.push(star.Texture);
+            starPositions.push(star.position.x, star.position.y);
+            starOpacities.push(star.opacity);
+            starTextures.push(star.texture);
         });
 
         this.writeAndBindBuffer("position", this.buffers.position, new Float32Array(starPositions), 2);

@@ -1,9 +1,5 @@
 body[data-starry] {
-    background-image: url("/assets/img/detail/sky.png");
-    background-attachment: fixed;
-    background-repeat: repeat;
     background-color: #050505;
-    image-rendering: pixelated;
 }
 
 .mist {

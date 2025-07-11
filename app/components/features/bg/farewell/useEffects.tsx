@@ -5,16 +5,8 @@ import { useWindowEvent } from "@mantine/hooks";
 import EffectsWorker from './effects.worker.ts?worker';
 import { match } from "@alan404/enum";
 
-// type EffectConstructor = new (gl: WebGL2RenderingContext) => Effect;
-
-export const useEffects = ({
-    // effects,
-    onDimensionsChange,
-    onInitialized,
+export const useFarewellEffect = ({
 }: {
-    // effects: [string][];
-    onDimensionsChange?: (dims: Vec2) => void;
-    onInitialized?: () => void;
 }) => {
     const canvasRef = useRef<HTMLCanvasElement | null>(null);
     const workerRef = useRef<Worker | null>(null);

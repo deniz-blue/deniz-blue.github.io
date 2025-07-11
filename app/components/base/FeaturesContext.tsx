@@ -2,10 +2,33 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 export interface Features {
     farewellBackground: boolean;
+
+    myBurdenIsDead: boolean;
+
+
+    displayName: boolean;
+    displayDiscordGuild: boolean;
+    displayFeaturedProjects: boolean;
+    displayAboutMe: boolean;
+    displayPreviousWork: boolean;
+    displayNeoFetch: boolean;
+    displayFriends: boolean;
+    displayUptime: boolean;
+    displayBadges: boolean;
 };
 
 export const defaultFeatures = {
-    farewellBackground: true,
+    farewellBackground: false,
+    displayName: false,
+    displayDiscordGuild: false,
+    displayAboutMe: false,
+    displayPreviousWork: false,
+    displayBadges: false,
+    displayFeaturedProjects: false,
+    displayFriends: false,
+    displayNeoFetch: false,
+    displayUptime: false,
+    myBurdenIsDead: false,
 } satisfies Features;
 
 export type FeaturesControls = {
