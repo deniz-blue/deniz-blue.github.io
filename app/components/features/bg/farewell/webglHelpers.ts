@@ -1,12 +1,25 @@
-export const setupWebGL = (gl: WebGL2RenderingContext) => {
-    gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
-    gl.blendEquation(gl.FUNC_ADD);
-    gl.enable(gl.BLEND);
+// export const setupWebGL = (gl: WebGL2RenderingContext) => {
+//     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+//     gl.blendEquation(gl.FUNC_ADD);
+//     gl.enable(gl.BLEND);
+// };
+
+export const glWriteBind = (
+    gl: WebGL2RenderingContext,
+    loc: GLuint,
+    buf: WebGLBuffer,
+    data: ArrayBuffer,
+    size = 1,
+) => {
+    gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
+    gl.enableVertexAttribArray(loc);
+    gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
 };
 
 export const compileShader = (gl: WebGL2RenderingContext, type: GLenum, source: string) => {
     const shader = gl.createShader(type);
-    if(!shader) return null;
+    if (!shader) return null;
     gl.shaderSource(shader, source);
     gl.compileShader(shader);
     if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
@@ -20,7 +33,7 @@ export const compileShader = (gl: WebGL2RenderingContext, type: GLenum, source: 
 
 export const createProgram = (gl: WebGL2RenderingContext, shaders: WebGLShader[]) => {
     const program = gl.createProgram();
-    for(let shader of shaders)
+    for (let shader of shaders)
         gl.attachShader(program, shader);
     gl.linkProgram(program);
     if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {

@@ -1,5 +1,5 @@
 import { vec2, Vec2, vec2add, vec2sub } from "@alan404/vec2";
-import { StaticStarfield } from "./starfield";
+import { StaticStarfield } from "../../../background/starfield/impl/starfield";
 
 export const starfield_render2d = (
     starfield: StaticStarfield,

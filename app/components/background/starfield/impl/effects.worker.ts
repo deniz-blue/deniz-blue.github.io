@@ -1,6 +1,5 @@
-import { vec2, Vec2 } from "@alan404/vec2";
 import { Effect, EffectsWorkerInput, EffectsWorkerOutput } from "./types";
-import { FarewellBackgroundEffect } from "./_FarewellBackgroundEffect";
+import { FarewellBackgroundEffect } from "./gl2/_FarewellBackgroundEffect";
 import { match } from "@alan404/enum";
 
 let canvas: OffscreenCanvas;

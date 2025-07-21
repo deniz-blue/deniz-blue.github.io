@@ -1,10 +1,10 @@
-import { useMemo } from "react";
-import { useFeatures } from "../../../base/FeaturesContext";
+import { useMemo, useState } from "react";
+import { useFeatures } from "../../base/FeaturesContext";
 
 export const OneShotBackground = () => {
     const { myBurdenIsDead } = useFeatures();
 
-    const values = useMemo(() => {
+    const [values] = useState(() => {
         return [1, -1].map((dir) => (
             Array(128).fill(0).map((_, i) => {
                 const size = Math.floor(Math.random() * 4) * 5;
@@ -17,14 +17,14 @@ export const OneShotBackground = () => {
                 };
             })
         )).flat()
-    }, []);
+    });
 
     return (
         <div
             className="pageBackground"
             style={{
                 backgroundImage: "linear-gradient(#250630, #63173d)",
-
+                height: "100vh",
             }}
         >
             {values.map(({ key, size, color, top, left }) => (

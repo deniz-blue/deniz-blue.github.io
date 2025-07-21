@@ -3,57 +3,8 @@ import { useFeatures } from "../../components/base/FeaturesContext";
 import { useDocumentTitle, useHotkeys, useWindowEvent } from "@mantine/hooks";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export function useBurden(myBurdenIsDead: boolean) {
-    const lightRef = useRef<HTMLAudioElement | null>(null);
-    const deadRef = useRef<HTMLAudioElement | null>(null);
-
-    const [interactionRequired, setInteractionRequired] = useState(false);
-
-    /** helper that actually starts / restarts both tracks */
-    const attemptStart = useCallback(async () => {
-        if (!lightRef.current || !deadRef.current) return;
-        try {
-            await Promise.all([lightRef.current.play(), deadRef.current.play()]);
-            setInteractionRequired(false);           // success
-        } catch {
-            setInteractionRequired(true);            // blocked – need a click
-        }
-    }, []);
-
-    // load & try autoplay once on mount
-    useEffect(() => {
-        const light = new Audio('/assets/audio/oneshot/MyBurdenIsLight.ogg');
-        const dead = new Audio('/assets/audio/oneshot/MyBurdenIsDead.ogg');
-
-        light.loop = dead.loop = true;
-        lightRef.current = light;
-        deadRef.current = dead;
-
-        attemptStart();
-
-        return () => {
-            light.pause();
-            dead.pause();
-        };
-    }, [attemptStart]);
-
-    // volume toggle on prop change
-    useEffect(() => {
-        if (!lightRef.current || !deadRef.current) return;
-        lightRef.current.volume = myBurdenIsDead ? 0 : 1;
-        deadRef.current.volume = myBurdenIsDead ? 1 : 0;
-    }, [myBurdenIsDead]);
-
-    // expose both the flag and a manual play handler
-    return { interactionRequired, play: attemptStart };
-}
-
 export const MyBurden = () => {
     const { disable, myBurdenIsDead, enable, toggle } = useFeatures();
-
-    let { interactionRequired, play } = useBurden(myBurdenIsDead);
-
-    useWindowEvent("click", () => play());
 
     useDocumentTitle(myBurdenIsDead ? "[You killed Niko]" : "deniz.blue 💡");
 
@@ -106,27 +57,6 @@ export const MyBurden = () => {
                     </ActionIcon>
                 )}
             </Stack>
-
-            <Affix
-                position={{ bottom: 5, right: 5 }}
-            >
-                <Transition
-                    mounted={interactionRequired}
-                    transition={"fade-up"}
-                    keepMounted
-                >
-                    {(styles) => (
-                        <Button
-                            style={styles}
-                            variant="light"
-                            color="gray"
-                            onClick={play}
-                        >
-                            Audio blocked
-                        </Button>
-                    )}
-                </Transition>
-            </Affix>
         </Box >
     );
 };

@@ -1,6 +1,6 @@
 import { useFarewellEffect } from "./useEffects";
 
-export const FarewellBackground = () => {
+export const StarfieldBackground = () => {
     const { ref } = useFarewellEffect({});
 
     return (

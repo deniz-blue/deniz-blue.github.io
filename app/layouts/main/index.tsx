@@ -9,12 +9,15 @@ import { useAudioState } from "~/components/features/music/hooks/useAudioState";
 import { Localized, useLanguage } from "@alan404/react-localization";
 import { Pamphlet } from "~/components/page/pamphlet/Pamphlet";
 import { MyBurden } from "./MyBurden";
+import { useBackgroundContext } from "../../contexts/background/BackgroundContext";
 
 export default function Layout() {
+    const [{ type }] = useBackgroundContext();
+
     return (
         <Box>
-
-            <MyBurden />
+            {type == "oneshot" && <MyBurden />}
+            
             {/* <Box className="pamphlet_container">
                 <Pamphlet />
             </Box> */}

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useWebGL } from "./useWebGL";
-import { Effect } from "./types";
+import { Effect } from "../../../background/starfield/impl/types";
 import { vec2, Vec2, vec2eq } from "@alan404/vec2";
 import { useRequestAnimationFrame } from "./useRequestAnimationFrame";
 import { useUpdateInterval } from "./useUpdateInterval";

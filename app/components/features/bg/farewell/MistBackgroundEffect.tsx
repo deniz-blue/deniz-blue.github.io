@@ -1,4 +1,4 @@
-import { WebGLEffect } from "./types";
+import { WebGLEffect } from "../../../background/starfield/impl/types";
 import { compileShader, createGLTexture, createProgram } from "./webglHelpers";
 import { vec2, Vec2 } from "@alan404/vec2";
 

@@ -73,6 +73,21 @@ body[data-starry=true] .frost {
     pointer-events: none;
 }
 
+.untouchable {
+    pointer-events: none;
+    user-select: none;
+}
+
+.fullscreen {
+    width: 100vw;
+    height: 100vh;
+}
+
+.fullscreenDynamic {
+    width: 100dvw;
+    height: 100dvh;
+}
+
 @keyframes heartBurst {
     0% {
         transform: scale(0);
@@ -351,7 +366,8 @@ html {
     image-rendering: auto;
 }
 
-.noLabelMargin .mantine-Divider-label::before, .noLabelMargin .mantine-Divider-label::after {
+.noLabelMargin .mantine-Divider-label::before,
+.noLabelMargin .mantine-Divider-label::after {
     margin-inline-start: 0px;
     margin-inline-end: 0px;
-} 
+}
