@@ -7,13 +7,6 @@ body[data-starry] {
     background-repeat: repeat;
 }
 
-@font-face {
-    font-family: "Lexend-VariableFont";
-    src:
-        local("Lexend-VariableFont"),
-        url("/assets/fonts/Lexend-VariableFont_wght.ttf");
-}
-
 .hoverable:hover {
     background-color: var(--mantine-color-dark-6);
 }

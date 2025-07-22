@@ -46,8 +46,9 @@ export const OneShotBackground = () => {
                 src="/assets/img/detail/oneshot/NikoPromoTransparent.png"
                 style={{
                     position: "absolute",
-                    bottom: "-60px",
+                    bottom: "calc(-60px)",
                     maxHeight: "200px",
+                    maxWidth: "70vw",
                     marginLeft: "1rem",
                 }}
             />
@@ -67,6 +68,7 @@ export const OneShotBackground = () => {
                         position: "absolute",
                         bottom: "0px",
                         maxHeight: "200px",
+                        maxWidth: "80vw",
                         marginLeft: "1rem",
                     }}
                 />

@@ -7,6 +7,7 @@ import css_mantine_core from "@mantine/core/styles.css?url";
 import css_mantine_notifications from "@mantine/notifications/styles.css?url";
 import css_mantine_carousel from "@mantine/carousel/styles.css?url";
 import css_mantine_highlight from "@mantine/code-highlight/styles.css?url";
+import css_fonts from "./styles/fonts.css?url";
 import css_custom_styles from "./styles/style.css?url";
 import css_custom_mixins from "./styles/mixins.css?url";
 import { ModalsProvider } from "@mantine/modals";
@@ -20,6 +21,7 @@ export const meta: Route.MetaFunction = () => [
 
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "stylesheet", href: css_fonts },
     { rel: "stylesheet", href: css_mantine_core },
     { rel: "stylesheet", href: css_mantine_notifications },
     { rel: "stylesheet", href: css_mantine_carousel },
