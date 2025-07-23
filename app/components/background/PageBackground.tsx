@@ -7,7 +7,7 @@ export const PageBackground = () => {
     const [{ type }] = useBackgroundContext();
 
     return (
-        <div>
+        <div style={{ position: "fixed", zIndex: -1 }}>
             {/* {type === "starfield" && <StarfieldBackground />} */}
             {type === "oneshot" && <OneShotBackground />}
             {type === "depth" && <DepthBackground />}

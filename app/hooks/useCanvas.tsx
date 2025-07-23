@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef } from "react";
 import { useSetInterval } from "./useSetInterval";
 import { useWindowEvent } from "@mantine/hooks";
+import { Vec2 } from "@alan404/vec2";
 
 export type UseCanvasReturn = {
     update?: (dt: number) => void;
@@ -14,49 +15,54 @@ export const useCanvas = (
     init: UseCanvasInit,
     opts: {
         onFail?: () => any;
-        handleResize?: boolean;
+        size?: Vec2 | null;
+        noClear?: boolean;
     } = {},
 ) => {
     const ref = useRef<HTMLCanvasElement>(null);
+    const ctxRef = useRef<CanvasRenderingContext2D>(null);
     const store = useRef<UseCanvasReturn>(null);
 
     useEffect(() => {
         const canvas = ref.current;
-        if(!canvas) return;
+        if (!canvas) return;
 
-        canvas.width = canvas.clientWidth;
-        canvas.height = canvas.clientHeight;
+        canvas.width = opts.size?.x || canvas.clientWidth;
+        canvas.height = opts.size?.y || canvas.clientHeight;
 
         const ctx = canvas.getContext("2d", {
             alpha: true,
             desynchronized: true,
         });
 
-        if(!ctx) return opts?.onFail?.();
+        if (!ctx) return opts?.onFail?.();
+        ctxRef.current = ctx;
 
         store.current = init(ctx);
 
         return () => {
             store.current?.destroy?.();
+            ctxRef.current = null;
         };
-    }, [ref]);
+    }, [init, ref]);
 
-    const update = useCallback(() => {
-        store.current?.draw();
-    }, []);
-
-    const draw = useCallback(() => {
+    const tick = useCallback(() => {
         store.current?.update?.(1);
-    }, []);
-    
-    useSetInterval(update, 24);
-    useSetInterval(draw, 24);
+
+        if (ctxRef.current) {
+            ctxRef.current.clearRect(0, 0, ctxRef.current.canvas.width, ctxRef.current.canvas.height);
+        }
+
+        store.current?.draw();
+    }, [opts.noClear]);
+
+    useSetInterval(tick, 30);
 
     const updateViewport = useCallback(() => {
-        if(!ref.current || opts.handleResize===false) return;
-        ref.current.width = ref.current.clientWidth;
-        ref.current.height = ref.current.clientHeight;
-    }, [ref, opts.handleResize]);
+        if (!ref.current) return;
+        ref.current.width = opts.size?.x || ref.current.clientWidth;
+        ref.current.height = opts.size?.y || ref.current.clientHeight;
+    }, [ref, opts.size]);
 
     useWindowEvent("resize", updateViewport);
 

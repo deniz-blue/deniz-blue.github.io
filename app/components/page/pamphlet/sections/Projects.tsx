@@ -1,7 +1,7 @@
 import { Localized } from "@alan404/react-localization";
 import { Divider, Stack } from "@mantine/core"
 import { DataProjects } from "../../../../../data";
-import { ProjectCard } from "../../../project/ProjectCard";
+import { ProjectCard } from "../../project/ProjectCard";
 
 export const Projects = () => {
     return (

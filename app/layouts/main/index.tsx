@@ -10,6 +10,7 @@ import { Localized, useLanguage } from "@alan404/react-localization";
 import { Pamphlet } from "~/components/page/pamphlet/Pamphlet";
 import { MyBurden } from "./MyBurden";
 import { useBackgroundContext } from "../../contexts/background/BackgroundContext";
+import { Device } from "../../components/page/device/Device";
 
 export default function Layout() {
     const [{ type }] = useBackgroundContext();
@@ -17,6 +18,7 @@ export default function Layout() {
     return (
         <Box>
             {type == "oneshot" && <MyBurden />}
+            {type == "depth" && <Device />}
             
             {/* <Box className="pamphlet_container">
                 <Pamphlet />
@@ -32,7 +34,6 @@ export default function Layout() {
 
 export const PageControlsOverlay = () => {
     const { toggle, musicPopout } = useUIState();
-    const [scroll, scrollTo] = useWindowScroll();
 
     const mounted = !musicPopout;
 
@@ -46,38 +47,8 @@ export const PageControlsOverlay = () => {
                 {(styles) => (
                     <Stack gap={0} style={styles}>
                         <Stack gap={5} align="end">
-                            <Transition
-                                mounted={scroll.y > 50}
-                                transition="fade"
-                                keepMounted
-                            >
-                                {(styles) => (
-                                    <Box style={styles}>
-                                        <Tooltip
-                                            label={(
-                                                <Localized
-                                                    en="Back to top"
-                                                    tr="Üste git"
-                                                />
-                                            )}
-                                            position="left"
-                                            withArrow
-                                            withinPortal={false}
-                                        >
-                                            <ActionIcon
-                                                onClick={() => scrollTo({ y: 0 })}
-                                                variant="light"
-                                                size="lg"
-                                            >
-                                                <IconArrowUp />
-                                            </ActionIcon>
-                                        </Tooltip>
-                                    </Box>
-                                )}
-                            </Transition>
-                            {/* <Group>
-                                <LanguagePickerButton />
-                            </Group> */}
+                            {/* <BackToTopButton /> */}
+                            {/* <LanguagePickerButton /> */}
                             {/* <MusicPopoutButton /> */}
                         </Stack>
                         {/* <Box id="mobile-spacer" data-active={scroll.y < 5} /> */}
@@ -87,93 +58,3 @@ export const PageControlsOverlay = () => {
         </Affix>
     );
 };
-
-export const LanguagePickerButton = () => {
-    const [opened, { toggle, close }] = useDisclosure();
-    const { language, setLanguage, supportedLanguages } = useLanguage();
-
-    return (
-        <Stack align="end">
-            <Tooltip
-                label={(
-                    <Localized
-                        en="Language"
-                        tr="Dil"
-                    />
-                )}
-                position="left"
-                withArrow
-                withinPortal={false}
-                keepMounted
-                positionDependencies={[opened]}
-            >
-                <Group gap={4}>
-                    <Transition
-                        mounted={opened}
-                        transition="fade-left"
-                        keepMounted
-                    >
-                        {(styles) => (
-                            <Group gap={4} style={styles}>
-                                {supportedLanguages.map((lang) => (
-                                    <ActionIcon
-                                        variant="light"
-                                        color={language == lang ? "green" : "gray"}
-                                        size="lg"
-                                        onClick={() => {
-                                            setLanguage(lang);
-                                            close();
-                                        }}
-                                        key={lang}
-                                    >
-                                        {lang}
-                                    </ActionIcon>
-                                ))}
-                            </Group>
-                        )}
-                    </Transition>
-                    <ActionIcon
-                        variant="light"
-                        size="lg"
-                        onClick={toggle}
-                    >
-                        <IconLanguage />
-                    </ActionIcon>
-                </Group>
-            </Tooltip>
-        </Stack>
-    );
-};
-
-export const MusicPopoutButton = () => {
-    const { toggle } = useUIState();
-
-    const paused = useAudioState(
-        true,
-        (a) => a.paused,
-        ["pause", "playing"]
-    );
-
-    return (
-        <Tooltip
-            label={(
-                <Localized
-                    en={`Music ${!paused ? "(playing)" : ""}`}
-                    tr={`Müzik ${!paused ? "(çalıyor)" : ""}`}
-                />
-            )}
-            position="left"
-            withArrow
-            withinPortal={false}
-        >
-            <ActionIcon
-                variant="light"
-                size="lg"
-                onClick={() => toggle("musicPopout")}
-            >
-                <IconMusic />
-            </ActionIcon>
-        </Tooltip>
-    );
-};
-

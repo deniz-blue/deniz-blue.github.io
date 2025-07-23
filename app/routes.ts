@@ -8,13 +8,7 @@ import {
 export default [
     layout("./layouts/base/index.tsx", [
         layout("./layouts/main/index.tsx", [
-            index("./routes/Home.tsx"),
-            route("projects", "./routes/ProjectIndex.tsx"),
-            route("projects/:id", "./routes/ProjectPage.tsx"),
-            // route("art", "./routes/Art.tsx"),
-            // route("blog", "./routes/BlogIndex.tsx"),
-            // route("blog/:id", "./routes/BlogPage.tsx"),
-            route("*", "./routes/NotFound.tsx"),
+            index("./routes/Index.tsx"),
         ]),
 
         route("badge", "./routes/Badge.tsx"),

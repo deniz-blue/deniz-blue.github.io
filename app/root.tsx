@@ -14,9 +14,9 @@ import { ModalsProvider } from "@mantine/modals";
 import { LocalizationProvider } from "./components/localization/LocalizationProvider";
 
 export const meta: Route.MetaFunction = () => [
-    { title: "deniz.blue 💡" },
-    { property: "og:title", content: "deniz.blue 💡" },
-    { property: "og:description", content: "[...]" },
+    { title: "deniz.blue" },
+    { property: "og:title", content: "deniz.blue" },
+    { property: "og:description", content: "..." },
 ];
 
 export const links: Route.LinksFunction = () => [
@@ -31,7 +31,8 @@ export const links: Route.LinksFunction = () => [
 ];
 
 const theme = createTheme({
-    fontFamily: "Lexend-VariableFont, " + DEFAULT_THEME.fontFamily,
+    fontFamily: "Lexend, " + DEFAULT_THEME.fontFamily,
+    fontFamilyMonospace: "Deltarune, " + DEFAULT_THEME.fontFamilyMonospace,
     primaryColor: "violet",
     colors: {
         dark: [

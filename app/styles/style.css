@@ -72,11 +72,16 @@ body[data-starry=true] .frost {
 }
 
 .fullscreen {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
     width: 100vw;
     height: 100vh;
 }
 
 .fullscreenDynamic {
+    position: fixed;
     width: 100dvw;
     height: 100dvh;
 }
@@ -139,16 +144,6 @@ body[data-starry=true] .frost {
 
     to {
         color: #ff6978
-    }
-}
-
-@keyframes execution {
-    0% {
-        top: "100%",
-    }
-
-    100% {
-        top: "-300%",
     }
 }
 
@@ -227,7 +222,7 @@ body[data-starry=true] .frost {
     bottom: var(--mantine-radius-md);
     inset-inline-start: 6px;
     border-radius: var(--mantine-radius-md);
-    background-color: var(--color red);
+    background-color: var(--color);
 }
 
 .pamphlet_container {

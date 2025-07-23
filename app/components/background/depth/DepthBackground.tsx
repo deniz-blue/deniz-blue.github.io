@@ -4,6 +4,8 @@ import "./style.css";
 import { useDocumentTitle } from "@mantine/hooks";
 import { useCanvas } from "../../../hooks/useCanvas";
 import { useAudioUnlocker } from "../../../hooks/useAudioUnlocker";
+import { vec2 } from "@alan404/vec2";
+import { useCallback } from "react";
 
 class DEVICE_OBACK_4 {
     siner: number;
@@ -66,13 +68,8 @@ class DEVICE_OBACK_4 {
 export const DepthBackground = () => {
     useDocumentTitle("ARE WE CONNECTED?");
 
-    // const overlayCount = 6;
-    // const overlayDuration = 10; // seconds
-    // const overlayDelay = 2;     // seconds
-
-    const { ref } = useCanvas((ctx) => {
-        ctx.canvas.width = 640;
-        ctx.canvas.height = 480;
+    const init = useCallback((ctx: CanvasRenderingContext2D) => {
+        // ctx.globalCompositeOperation = "overlay";
 
         let instances = new Set<DEVICE_OBACK_4>();
 
@@ -90,8 +87,8 @@ export const DepthBackground = () => {
         ) => {
             const width = sprite.width;
             const height = sprite.height;
-            const x = ctx.canvas.width / 2;
-            const y = ctx.canvas.height / 2;
+            const x = 160;
+            const y = 120;
 
             ctx.save();
             ctx.globalAlpha = alpha;
@@ -139,8 +136,10 @@ export const DepthBackground = () => {
                 }
             },
         };
-    }, {
-        handleResize: false,
+    }, []);
+
+    const { ref } = useCanvas(init, {
+        size: vec2(320, 240),
     });
 
     const audioRef = useAudioUnlocker();
@@ -153,6 +152,7 @@ export const DepthBackground = () => {
                 className="pageBackground"
                 style={{
                     objectFit: "cover",
+                    imageRendering: "pixelated",
                 }}
                 ref={ref}
             />

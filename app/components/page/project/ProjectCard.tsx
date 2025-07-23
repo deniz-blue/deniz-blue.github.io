@@ -1,6 +1,6 @@
 import { Box, Button, Drawer, Group, Paper, Stack, Text, Title, UnstyledButton } from "@mantine/core";
 import { Project } from "~/types";
-import { SubtleLink } from "../ui/SubtleLink";
+import { SubtleLink } from "../../ui/SubtleLink";
 import { Link } from "react-router";
 import { IconArrowNarrowRight } from "@tabler/icons-react";
 import { TechPart } from "./TechPart";

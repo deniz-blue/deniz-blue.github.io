@@ -2,7 +2,7 @@ import { Project } from "~/types";
 import { Alert, Code, Group, Stack, Text, TypographyStylesProvider } from "@mantine/core";
 import { ProjectButtonComponent } from "./ProjectButtonComponent";
 import { CodeHighlight, InlineCodeHighlight } from "@mantine/code-highlight";
-import { ImageWithLoader } from "../ui/ImageWithLoader";
+import { ImageWithLoader } from "../../ui/ImageWithLoader";
 import { Link } from "react-router";
 
 const components = {
