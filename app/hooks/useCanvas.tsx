@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef } from "react";
 import { useSetInterval } from "./useSetInterval";
 import { useWindowEvent } from "@mantine/hooks";
 import { Vec2 } from "@alan404/vec2";
+import { useRafInterval } from "./useRafInterval";
 
 export type UseCanvasReturn = {
     update?: (dt: number) => void;
@@ -56,7 +57,7 @@ export const useCanvas = (
         store.current?.draw();
     }, [opts.noClear]);
 
-    useSetInterval(tick, 30);
+    useRafInterval(tick, 30);
 
     const updateViewport = useCallback(() => {
         if (!ref.current) return;
