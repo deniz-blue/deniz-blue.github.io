@@ -1,0 +1,1 @@
+import{w as o}from"./chunk-EF7DTUVF-CZdnL9OO.js";import{j as t}from"./jsx-runtime-BjG_zV1W.js";import{S as r,T as e}from"./Stack-CqRL4CSs.js";import"./polymorphic-factory-DqcCqpcB.js";const f=o(function(){return t.jsx(r,{align:"center",justify:"center",w:"100vw",h:"100vh",children:t.jsx(e,{fz:"xs",fw:"bold",c:"white"})})});export{f as default};

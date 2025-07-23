@@ -1,1 +1,0 @@
-import{r as t}from"./chunk-EF7DTUVF-pxdf6ITT.js";function r(e="mantine-"){return`${e}${Math.random().toString(36).slice(2,11)}`}const n=typeof document<"u"?t.useLayoutEffect:t.useEffect;export{r,n as u};
