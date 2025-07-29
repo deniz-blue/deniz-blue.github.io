@@ -8,6 +8,7 @@ import { SoulElement } from "../../contexts/soul/SoulElement";
 import { ContextStack } from "../../components/ui/ContextStack";
 import { SoulContextProvider } from "../../contexts/soul/SoulContext";
 import { WebAudioContextProvider } from "../../contexts/audio/WebAudioContext";
+import { AppContextProvider } from "../../contexts/app/AppContext";
 
 export default function Layout() {
     return (
@@ -16,6 +17,7 @@ export default function Layout() {
                 BackgroundContextProvider,
                 WebAudioContextProvider,
                 FeaturesProvider,
+                AppContextProvider,
                 UIContextProvider,
                 MusicPlayerProvider,
                 SoulContextProvider,

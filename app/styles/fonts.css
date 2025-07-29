@@ -1,11 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Lexend:wght@100..900&display=swap');
+
 @font-face {
     font-family: "Deltarune";
     src: url("/assets/fonts/utdr.ttf") format("truetype");
 }
 
-@font-face {
+/* @font-face {
     font-family: "Lexend";
     src:
         local("Lexend-VariableFont"),
         url("/assets/fonts/Lexend-VariableFont_wght.ttf") format("truetype");
-}
+} */

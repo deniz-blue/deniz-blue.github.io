@@ -1,6 +1,5 @@
 import { vec2, Vec2, vec2add, vec2div, vec2mul, vec2normalize, vec2sub } from "@alan404/vec2";
-import { clamp } from "@mantine/hooks";
-import { choose, lerp, randFloat, randInt } from "~/utils/math";
+import { choose, lerp, randFloat, randInt, clamp } from "~/utils/math";
 
 export type StarTexture = 0 | 1 | 2 | 3;
 

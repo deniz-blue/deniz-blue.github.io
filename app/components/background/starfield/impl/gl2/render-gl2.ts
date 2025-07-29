@@ -1,6 +1,6 @@
 import vertexShaderSrc from "./vertex-shader.glsl?raw";
 import fragmentShaderSrc from "./fragment-shader.glsl?raw";
-import { compileShader, createGLTexture, createProgram, glWriteBind } from "../../../../features/bg/farewell/webglHelpers";
+import { compileShader, createGLTexture, createProgram, glWriteBind } from "../utils";
 import { Vec2 } from "@alan404/vec2";
 import { StaticStarfield } from "../starfield";
 

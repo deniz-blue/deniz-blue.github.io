@@ -1,5 +1,5 @@
 import { WebGLEffect } from "../../../background/starfield/impl/types";
-import { compileShader, createGLTexture, createProgram } from "./webglHelpers";
+import { compileShader, createGLTexture, createProgram } from "../../../background/starfield/impl/utils";
 import { vec2, Vec2 } from "@alan404/vec2";
 
 // Vertex Shader Code

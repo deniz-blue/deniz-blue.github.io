@@ -1,31 +1,25 @@
 import { ActionIcon, Affix, Box, Group, Stack, Tooltip, Transition } from "@mantine/core";
-import { useDisclosure, useWindowScroll } from "@mantine/hooks";
-import { IconArrowUp, IconLanguage, IconMusic } from "@tabler/icons-react";
-import { useContext } from "react";
 import { useUIState } from "~/components/base/UIContext";
-import { MusicSeekbarOverlay } from "~/components/features/music/components/MusicDebugSeekbar";
-import { MusicPickerOverlay } from "~/components/features/music/components/MusicPicker";
-import { useAudioState } from "~/components/features/music/hooks/useAudioState";
-import { Localized, useLanguage } from "@alan404/react-localization";
 import { Pamphlet } from "~/components/page/pamphlet/Pamphlet";
 import { MyBurden } from "./MyBurden";
 import { useBackgroundContext } from "../../contexts/background/BackgroundContext";
 import { Device } from "../../components/page/device/Device";
+import { Terminal } from "../../components/terminal/Terminal";
+import { useAppContext } from "../../contexts/app/AppContext";
 
 export default function Layout() {
     const [{ type }] = useBackgroundContext();
+    const [flags] = useAppContext();
 
     return (
         <Box>
             {type == "oneshot" && <MyBurden />}
-            {type == "depth" && <Device />}
+            {flags.showDevice && <Device />}
+            {flags.showTerminal && <Terminal />}
             
             {/* <Box className="pamphlet_container">
                 <Pamphlet />
             </Box> */}
-
-            {/* <MusicPickerOverlay /> */}
-            {/* <MusicSeekbarOverlay /> */}
 
             <PageControlsOverlay />
         </Box>
