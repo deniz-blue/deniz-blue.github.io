@@ -1,0 +1,1 @@
+import{a as t}from"./chunk-C37GKA54-C1SU4sNO.js";const r=typeof document<"u"?t.useLayoutEffect:t.useEffect,o=e=>(e+1)%1e6;function s(){const[,e]=t.useReducer(o,0);return e}function f(e,u,n){t.useEffect(()=>(window.addEventListener(e,u,n),()=>window.removeEventListener(e,u,n)),[e,u])}export{f as a,s as b,r as u};
