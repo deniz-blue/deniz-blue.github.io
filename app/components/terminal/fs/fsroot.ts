@@ -24,7 +24,13 @@ const programModulesStripPrefix = "./programs/";
 export const FSROOT: FSNode = dir("/", [
     dir("home", [
         dir("user", [
-            file("DEVICE.bin", ""),
+            bin("DEVICE", (ctx) => {
+                ctx.app.setBackground({ type: "depth" });
+                ctx.app.setFlags({
+                    showTerminal: false,
+                    showDevice: true,
+                });
+            }),
             file("NOTE.txt", "this section is still a WIP"),
             dir("stuff", [
                 file("girl", "mrrp :3"),

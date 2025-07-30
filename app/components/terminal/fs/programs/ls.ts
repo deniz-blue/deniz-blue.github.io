@@ -1,14 +1,27 @@
-import { CommandContext } from "../../api";
+import { CommandContext, Span } from "../../api";
 
 export default function ls(ctx: CommandContext) {
-    let path = ctx.cwd + "/" + (ctx.args[0] || "");
+    let path = ctx.relPathToAbsPath(ctx.args.join(" ") || ".");
+    if(!path) throw new Error(`ls: cannot access '${path}': No such file or directory`);
     let node = ctx.fs.getNode(path);
-    if(!node) throw new Error(`ls: cannot access '${path}': No such file or directory`);
-    for(let child of (node.children || [])) {
+    for(let child of (node?.children || [])) {
+        let fg: Span["fg"];
+        let b: Span["b"];
+        
+        if(child.type == "dir") {
+            fg = "Blue";
+            b = true;
+        };
+        
+        if(child.execute) {
+            fg = "Green";
+            b = true;
+        };
+
         ctx.stdout({
             text: child.name,
-            fg: child.type == "dir" ? "Blue" : undefined,
-            b: child.type == "dir",
+            fg,
+            b,
             filepath: ctx.fs.resolve(path+"/"+child.name),
         });
 

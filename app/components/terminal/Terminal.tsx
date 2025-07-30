@@ -3,7 +3,6 @@ import { TerminalInput } from "./TerminalInput";
 import { TerminalContent } from "./TerminalContent";
 import { useRef, useState } from "react";
 import { intoSpan, ShellContext, Span } from "./api";
-import { ProgramsRegistry } from "./programs";
 import { FSHandler, FSNode } from "./fs/fs";
 import { FSROOT } from "./fs/fsroot";
 import { useAppContext } from "../../contexts/app/AppContext";
@@ -13,16 +12,11 @@ import { useScrollBottom } from "../../hooks/useScrollBottom";
 import "./terminal-style.css";
 
 export const Terminal = () => {
-    const [_, setAppFlags] = useAppContext();
-    const [__, setBg] = useBackgroundContext();
-    const specialFiles: Partial<Record<string, () => void>> = {
-        "/home/user/DEVICE.bin": () => {
-            setBg({ type: "depth" });
-            setAppFlags({
-                showTerminal: false,
-                showDevice: true,
-            });
-        },
+    const [_, setFlags] = useAppContext();
+    const [__, setBackground] = useBackgroundContext();
+    const app = {
+        setFlags,
+        setBackground,
     };
 
     const username = useRef("user");
@@ -30,47 +24,37 @@ export const Terminal = () => {
 
     const fs = new FSHandler(FSROOT);
 
+    const tryTilde = (absPath: string) => {
+        let prefix = `/home/${username.current}`;
+        if(absPath.startsWith(prefix)) {
+            return absPath.replace(prefix, "~");
+        } else {
+            return absPath;
+        }
+    };
+
     const shellPrecursor: () => Span[] = () => [
         { text: `${username.current}@lab02`, fg: "Green", b: true },
         { text: ":", b: true },
-        { text: cwd.current, fg: "Blue", b: true },
+        { text: tryTilde(cwd.current), fg: "Blue", b: true, filepath: cwd.current },
         { text: "$ ", b: true },
     ];
 
-    const [buffer, setBuffer] = useState<Span[]>([...shellPrecursor()]);
+    const [buffer, setBuffer] = useState<Span[]>([
+        { text: "SHARK OS v0.02\n", fg: "Cyan", b: true },
+        { text: "Type 'help' for a list of commands\n", fg: "BrightBlack" },
+        { text: `Last login: ${new Date().toLocaleString("en", {
+            dateStyle: "long",
+            timeStyle: "medium",
+        })} from 127.0.0.1\n`, fg: "BrightBlack" },
+        // { text: "\n" },
+        ...shellPrecursor()
+    ]);
     const ref = useScrollBottom([buffer]);
 
     const stdout: ShellContext["stdout"] = (spannable) => {
         let arr = Array.isArray(spannable) ? spannable : [spannable];
         setBuffer((old) => [...old, ...arr.map(intoSpan)]);
-    };
-
-    const runProgram = async (
-        name: string,
-        args: string[],
-    ) => {
-        const program = ProgramsRegistry[name];
-        if (program) {
-            try {
-                await program({
-                    cwd: cwd.current,
-                    fs,
-                    args,
-                    username: username.current,
-                    cd: (p: string) => cwd.current = p,
-                    setUsername: (u: string) => username.current = u,
-                    stdout,
-                    stdin: "",
-                });
-            } catch (e) {
-                stdout({
-                    text: "" + (e as Error).message,
-                    fg: "BrightRed",
-                });
-            }
-        } else {
-            stdout(`shell: ${name} not found`)
-        }
     };
 
     const tryExecuteFile = async (node: FSNode, args: string[]) => {
@@ -88,6 +72,8 @@ export const Terminal = () => {
                 stdout,
                 stdin: "",
                 fs,
+                app,
+                relPathToAbsPath: relPathToAbsPath,
             });
         } catch (e) {
             stdout({
@@ -98,17 +84,34 @@ export const Terminal = () => {
     };
 
     const $PATH = ["/bin"];
-    const resolveFileOrBin = (input: string): string | null => {
-        if(input.startsWith("/")) return fs.exists(input) ? input : null;
+    const relPathToAbsPath = (input?: string): string | null => {
+        if(!input) return null;
+        if (input.startsWith("/")) return fs.exists(input) ? input : null;
         return [
             cwd.current + "/" + input,
             ...$PATH.map(x => x + "/" + input),
         ].find(x => fs.exists(x)) ?? null;
     };
 
+    const absToRel = (targetPath: string): string => {
+        const from = cwd.current.split("/").filter(Boolean);
+        const to = targetPath.split("/").filter(Boolean);
+
+        let i = 0;
+        while (i < from.length && i < to.length && from[i] === to[i]) i++;
+
+        const upMoves = from.length - i;
+        const downMoves = to.slice(i);
+
+        return [
+            ...Array(upMoves).fill(".."),
+            ...downMoves,
+        ].join("/") || ".";
+    }
+
     const tryRunInput = (input: string) => {
         const [file, ...args] = input.split(" ");
-        let path = resolveFileOrBin(file);
+        let path = relPathToAbsPath(file);
         if (!path) return stdout(`shell: ${input}: No such file or directory`);
         tryExecuteFile(fs.getNode(path)!, args);
     };
@@ -121,27 +124,6 @@ export const Terminal = () => {
             tryRunInput(input);
             stdout("\n");
         }
-
-        // if (input && (input.startsWith("./") || input.startsWith("/"))) {
-        //     const path = resolveRelative(input);
-        //     stdout(path + "\n")
-        //     if (specialFiles[path]) {
-        //         specialFiles[path]();
-        //     } else {
-        //         let node = fs.getNode(path);
-        //         if (node) {
-        //             stdout(`shell: ${input}: ${node.type == "file" ? "Permission denied" : "Is a directory"}`);
-        //         } else {
-        //             stdout(`shell: ${input}: No such file or directory`);
-        //         }
-        //     }
-
-        //     stdout("\n");
-        // } else if (input) {
-        //     const [name, ...args] = input.split(" ");
-        //     await runProgram(name, args);
-        //     stdout("\n");
-        // }
 
         stdout(shellPrecursor());
     };
@@ -166,8 +148,8 @@ export const Terminal = () => {
                         let node = fs.getNode(span.filepath);
                         if (!node) return;
                         inputState.setValue(`${node.type == "dir" ? "cd" : (
-                            node.name.endsWith(".bin") ? "" : "cat"
-                        )} ${span.filepath}`.trim());
+                            !!node.execute ? "" : "cat"
+                        )} ${span.filepath.startsWith("/bin") ? span.filepath.replace("/bin/", "") : absToRel(span.filepath)}`.trim());
                     }
                 }}
             />

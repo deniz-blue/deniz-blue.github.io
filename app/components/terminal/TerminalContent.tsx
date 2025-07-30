@@ -48,11 +48,11 @@ export const TerminalContent = ({
                 if(span.filepath) onClick = () => onClickSpan?.(span);
 
                 return onClick ? (
-                    <a onClick={onClick} style={style}>
+                    <a onClick={onClick} style={style} key={i}>
                         {span.text}
                     </a>
                 ) : (
-                    <span style={style}>
+                    <span style={style} key={i}>
                         {span.text}
                     </span>
                 )

@@ -5,7 +5,7 @@ export type FSNode = {
     type: "file" | "dir";
     content?: string;
     children?: FSNode[];
-    execute?: (ctx: CommandContext) => Promise<void>;
+    execute?: (ctx: CommandContext) => Promise<any> | any;
 };
 
 export class FSHandler {

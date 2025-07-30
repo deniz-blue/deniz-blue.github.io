@@ -1,3 +1,5 @@
+import { AppFlags } from "../../contexts/app/AppContext";
+import { Background } from "../../contexts/background/BackgroundContext";
 import { FSHandler } from "./fs/fs";
 
 export type AnsiColor = "Black" | "Blue" | "BrightBlack" | "BrightBlue"
@@ -24,10 +26,14 @@ export type ShellContext = {
     cd: (p: string) => void;
     fs: FSHandler;
     stdout: (b: Spannable | Spannable[]) => void;
+    relPathToAbsPath: (relPath: string) => string | null;
 };
 
 export type CommandContext = ShellContext & {
     stdin: string;
     args: string[];
+    app: {
+        setBackground: (b: Background) => void;
+        setFlags: (f: Partial<AppFlags>) => void;
+    },
 };
-export type Program = (ctx: CommandContext) => Promise<void>;
