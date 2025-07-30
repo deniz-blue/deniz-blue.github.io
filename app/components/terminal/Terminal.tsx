@@ -1,16 +1,16 @@
 import { Box } from "@mantine/core";
 import { TerminalInput } from "./TerminalInput";
 import { TerminalContent } from "./TerminalContent";
-import "./terminal-style.css";
 import { useRef, useState } from "react";
 import { intoSpan, ShellContext, Span } from "./api";
 import { ProgramsRegistry } from "./programs";
-import { FSHandler } from "./fs";
+import { FSHandler, FSNode } from "./fs/fs";
 import { FSROOT } from "./fs/fsroot";
 import { useAppContext } from "../../contexts/app/AppContext";
 import { useBackgroundContext } from "../../contexts/background/BackgroundContext";
 import { useTerminalInputState } from "./useTerminalInputState";
 import { useScrollBottom } from "../../hooks/useScrollBottom";
+import "./terminal-style.css";
 
 export const Terminal = () => {
     const [_, setAppFlags] = useAppContext();
@@ -29,11 +29,6 @@ export const Terminal = () => {
     const cwd = useRef("/home/user");
 
     const fs = new FSHandler(FSROOT);
-
-    const resolveRelative = (p: string) => {
-        if(p.startsWith("/")) return fs.resolve(p);
-        return fs.resolve(cwd.current + "/" + p);
-    };
 
     const shellPrecursor: () => Span[] = () => [
         { text: `${username.current}@lab02`, fg: "Green", b: true },
@@ -78,30 +73,75 @@ export const Terminal = () => {
         }
     };
 
+    const tryExecuteFile = async (node: FSNode, args: string[]) => {
+        if (!node.execute) return stdout({
+            text: `shell: ${node.name}: ${node.type == "file" ? "Permission denied" : "Is a directory"}`,
+        });
+
+        try {
+            await node.execute({
+                cwd: cwd.current,
+                cd: (p: string) => cwd.current = p,
+                username: username.current,
+                setUsername: (u: string) => username.current = u,
+                args,
+                stdout,
+                stdin: "",
+                fs,
+            });
+        } catch (e) {
+            stdout({
+                text: "" + (e as Error).message,
+                fg: "BrightRed",
+            });
+        }
+    };
+
+    const $PATH = ["/bin"];
+    const resolveFileOrBin = (input: string): string | null => {
+        if(input.startsWith("/")) return fs.exists(input) ? input : null;
+        return [
+            cwd.current + "/" + input,
+            ...$PATH.map(x => x + "/" + input),
+        ].find(x => fs.exists(x)) ?? null;
+    };
+
+    const tryRunInput = (input: string) => {
+        const [file, ...args] = input.split(" ");
+        let path = resolveFileOrBin(file);
+        if (!path) return stdout(`shell: ${input}: No such file or directory`);
+        tryExecuteFile(fs.getNode(path)!, args);
+    };
+
     const onSubmit = async (input: string) => {
         stdout(input);
         stdout("\n");
 
-        if (input && (input.startsWith("./") || input.startsWith("/"))) {
-            const path = resolveRelative(input);
-            stdout(path + "\n")
-            if (specialFiles[path]) {
-                specialFiles[path]();
-            } else {
-                let node = fs.getNode(path);
-                if (node) {
-                    stdout(`shell: ${input}: ${node.type == "file" ? "Permission denied" : "Is a directory"}`);
-                } else {
-                    stdout(`shell: ${input}: No such file or directory`);
-                }
-            }
-
-            stdout("\n");
-        } else if (input) {
-            const [name, ...args] = input.split(" ");
-            await runProgram(name, args);
+        if (input) {
+            tryRunInput(input);
             stdout("\n");
         }
+
+        // if (input && (input.startsWith("./") || input.startsWith("/"))) {
+        //     const path = resolveRelative(input);
+        //     stdout(path + "\n")
+        //     if (specialFiles[path]) {
+        //         specialFiles[path]();
+        //     } else {
+        //         let node = fs.getNode(path);
+        //         if (node) {
+        //             stdout(`shell: ${input}: ${node.type == "file" ? "Permission denied" : "Is a directory"}`);
+        //         } else {
+        //             stdout(`shell: ${input}: No such file or directory`);
+        //         }
+        //     }
+
+        //     stdout("\n");
+        // } else if (input) {
+        //     const [name, ...args] = input.split(" ");
+        //     await runProgram(name, args);
+        //     stdout("\n");
+        // }
 
         stdout(shellPrecursor());
     };
@@ -122,9 +162,9 @@ export const Terminal = () => {
             <TerminalContent
                 buffer={buffer}
                 onClick={(span) => {
-                    if(span.filepath) {
+                    if (span.filepath) {
                         let node = fs.getNode(span.filepath);
-                        if(!node) return;
+                        if (!node) return;
                         inputState.setValue(`${node.type == "dir" ? "cd" : (
                             node.name.endsWith(".bin") ? "" : "cat"
                         )} ${span.filepath}`.trim());

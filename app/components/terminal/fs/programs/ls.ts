@@ -1,4 +1,4 @@
-import { CommandContext } from "../api";
+import { CommandContext } from "../../api";
 
 export default function ls(ctx: CommandContext) {
     let path = ctx.cwd + "/" + (ctx.args[0] || "");

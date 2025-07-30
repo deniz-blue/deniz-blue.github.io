@@ -1,4 +1,4 @@
-import { FSHandler } from "./fs";
+import { FSHandler } from "./fs/fs";
 
 export type AnsiColor = "Black" | "Blue" | "BrightBlack" | "BrightBlue"
     | "BrightCyan" | "BrightGreen" | "BrightMagenta"

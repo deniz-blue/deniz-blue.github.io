@@ -1,8 +1,11 @@
+import { CommandContext } from "../api";
+
 export type FSNode = {
     name: string;
     type: "file" | "dir";
     content?: string;
     children?: FSNode[];
+    execute?: (ctx: CommandContext) => Promise<void>;
 };
 
 export class FSHandler {

@@ -1,4 +1,4 @@
-import { CommandContext } from "../api";
+import { CommandContext } from "../../api";
 
 export default function cat(ctx: CommandContext) {
     const node = ctx.fs.getNode(ctx.args[0]);

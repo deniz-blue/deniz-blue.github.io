@@ -7,7 +7,7 @@
     overflow-y: scroll;
     overflow-x: clip;
     padding: 8px;
-    max-width: calc(100vw - 16px);
+    max-width: calc(100vw);
     word-break: break-all;
     text-wrap: wrap;
 }

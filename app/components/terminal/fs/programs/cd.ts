@@ -1,4 +1,4 @@
-import { CommandContext } from "../api";
+import { CommandContext } from "../../api";
 
 export default function cd(ctx: CommandContext) {
     let path = ctx.fs.resolve((ctx.args[0][0] == "/" ? "" : (ctx.cwd+"/"))+ctx.args[0]);
