@@ -33,6 +33,8 @@ export const useTerminalInputState = ({
 
             setValue(newIdx === null ? "" : history[newIdx]);
             historyIndex.current = newIdx;
+        } else if(e.key == "Tab") {
+            e.preventDefault();
         } else {
 
         }

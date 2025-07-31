@@ -52,7 +52,7 @@ const init = () => {
     if (!gl) throw new Error("GL2 failed to init");
 
     for(let sf of starfields) sf.resize(dim);
-    for(let sf of starfields) sf.update(50);
+    for(let sf of starfields) sf.update(1);
     gl.viewport(0, 0, dim.x, dim.y);
     self.postMessage({ type: "initialized" } as EffectsWorkerOutput);
 

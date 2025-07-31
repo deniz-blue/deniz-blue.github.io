@@ -6,20 +6,59 @@ import { useBackgroundContext } from "../../contexts/background/BackgroundContex
 import { Device } from "../../components/page/device/Device";
 import { Terminal } from "../../components/terminal/Terminal";
 import { useAppContext } from "../../contexts/app/AppContext";
+import { useHotkeys } from "@mantine/hooks";
 
 export default function Layout() {
-    const [{ type }] = useBackgroundContext();
-    const [flags] = useAppContext();
+    const [{ type }, setBackground] = useBackgroundContext();
+    const [flags, setFlags] = useAppContext();
+
+    useHotkeys([
+        ["Ctrl+C", (e) => {
+            if(!flags.showPamphlet) return;
+            setBackground({ type: "null" });
+            setFlags({
+                showPamphlet: false,
+                showTerminal: true,
+            })
+        }],
+    ]);
 
     return (
         <Box>
             {type == "oneshot" && <MyBurden />}
             {flags.showDevice && <Device />}
-            {flags.showTerminal && <Terminal />}
-            
-            {/* <Box className="pamphlet_container">
-                <Pamphlet />
-            </Box> */}
+
+            <Box display={flags.showTerminal ? "block" : "none"}>
+                <Terminal />
+            </Box>
+
+            {flags.showPamphlet && (
+                <Pamphlet layout />
+            )}
+
+            {flags.showPamphlet && (
+                <Affix position={{ top: 0, left: 0 }}>
+                    <div className="terminal">
+                        <pre className="terminal-content">
+                            <a
+                                style={{
+                                    fontWeight: "bold",
+                                    color: "#2472c8",
+                                }}
+                                onClick={() => {
+                                    setBackground({ type: "null" });
+                                    setFlags({
+                                        showPamphlet: false,
+                                        showTerminal: true,
+                                    })
+                                }}
+                            >
+                                ^C Exit
+                            </a>
+                        </pre>
+                    </div>
+                </Affix>
+            )}
 
             <PageControlsOverlay />
         </Box>

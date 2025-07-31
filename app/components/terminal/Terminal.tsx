@@ -1,7 +1,7 @@
 import { Box } from "@mantine/core";
 import { TerminalInput } from "./TerminalInput";
 import { TerminalContent } from "./TerminalContent";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { intoSpan, ShellContext, Span } from "./api";
 import { FSHandler, FSNode } from "./fs/fs";
 import { FSROOT } from "./fs/fsroot";
@@ -26,7 +26,7 @@ export const Terminal = () => {
 
     const tryTilde = (absPath: string) => {
         let prefix = `/home/${username.current}`;
-        if(absPath.startsWith(prefix)) {
+        if (absPath.startsWith(prefix)) {
             return absPath.replace(prefix, "~");
         } else {
             return absPath;
@@ -42,15 +42,17 @@ export const Terminal = () => {
 
     const [buffer, setBuffer] = useState<Span[]>([
         { text: "SHARK OS v0.02\n", fg: "Cyan", b: true },
-        { text: "Type 'help' for a list of commands\n", fg: "BrightBlack" },
-        { text: `Last login: ${new Date().toLocaleString("en", {
-            dateStyle: "long",
-            timeStyle: "medium",
-        })} from 127.0.0.1\n`, fg: "BrightBlack" },
+        { text: "Type '", fg: "BrightBlack" },
+        { text: "help", fg: "BrightBlack", filepath: "/bin/help", b: true },
+        { text: "' for a list of commands\n", fg: "BrightBlack" },
+        {
+            text: `Last login: ${new Date().toLocaleString("en", {
+                dateStyle: "long",
+            })} from 127.0.0.1\n`, fg: "BrightBlack"
+        },
         // { text: "\n" },
         ...shellPrecursor()
     ]);
-    const ref = useScrollBottom([buffer]);
 
     const stdout: ShellContext["stdout"] = (spannable) => {
         let arr = Array.isArray(spannable) ? spannable : [spannable];
@@ -85,12 +87,15 @@ export const Terminal = () => {
 
     const $PATH = ["/bin"];
     const relPathToAbsPath = (input?: string): string | null => {
-        if(!input) return null;
-        if (input.startsWith("/")) return fs.exists(input) ? input : null;
+        if (!input) return null;
+        // shitty homedir handling !!
+        if (input == "~") input = `/home/${username.current}`;
+        if (input.startsWith("~/")) input = `/home/${username.current}/${input.slice(2)}`;
+        if (input.startsWith("/")) return fs.exists(input) ? "/" + fs.normalize(input).join("/") : null;
         return [
             cwd.current + "/" + input,
             ...$PATH.map(x => x + "/" + input),
-        ].find(x => fs.exists(x)) ?? null;
+        ].map(x => "/" + fs.normalize(x).join("/")).find(x => fs.exists(x)) ?? null;
     };
 
     const absToRel = (targetPath: string): string => {
@@ -103,10 +108,13 @@ export const Terminal = () => {
         const upMoves = from.length - i;
         const downMoves = to.slice(i);
 
-        return [
+        let ret = [
             ...Array(upMoves).fill(".."),
             ...downMoves,
-        ].join("/") || ".";
+        ].join("/");
+        if (!ret) return ".";
+        if (!ret.startsWith("..")) return "./" + ret;
+        return ret;
     }
 
     const tryRunInput = (input: string) => {
@@ -132,14 +140,25 @@ export const Terminal = () => {
         onSubmit,
     })
 
+    useEffect(() => {
+        onSubmit("ls");
+    }, []);
+
+    useEffect(() => {
+        window.scrollTo({ top: document.body.scrollHeight });
+    }, [buffer, inputState.value]);
+
     return (
         <Box
-            className="fullscreen terminal"
+            className="terminal"
             style={{
                 lineHeight: 1,
                 display: "inline-block",
+                padding: "8px",
+                height: "100%",
+                width: "100%",
             }}
-            ref={ref as any}
+            // ref={ref as any}
         >
             <TerminalContent
                 buffer={buffer}
@@ -147,9 +166,23 @@ export const Terminal = () => {
                     if (span.filepath) {
                         let node = fs.getNode(span.filepath);
                         if (!node) return;
-                        inputState.setValue(`${node.type == "dir" ? "cd" : (
-                            !!node.execute ? "" : "cat"
-                        )} ${span.filepath.startsWith("/bin") ? span.filepath.replace("/bin/", "") : absToRel(span.filepath)}`.trim());
+
+                        let program = "";
+                        if(node.type == "dir") program = "cd";
+                        if(!program && !node.execute) program = "cat";
+
+                        let path = span.filepath!;
+                        if(path.startsWith("/bin/")) path = path.replace("/bin/", "");
+                        if(path[0] == "/") path = absToRel(path);
+
+                        const newCommand = `${program}${program ? " " : ""}${path}`.trim();
+
+                        if(inputState.value == newCommand) {
+                            onSubmit(newCommand);
+                            inputState.setValue("");
+                        } else {
+                            inputState.setValue(newCommand);
+                        }
                     }
                 }}
             />

@@ -16,6 +16,8 @@ export interface ISoulContext {
     setSelected: (ref: DivRef | null) => void;
 };
 
+export type SoulPosition = "center" | "left-center" | "right-center";
+
 export const SoulContext = createContext<ISoulContext>({
     ref: { current: null },
     moveTo: noop,
@@ -35,6 +37,15 @@ export const findClosestDivRef = (
         selectedRect.top + selectedRect.height / 2,
     ) : vec2();
 
+    const DIRECTION_VECTORS: Record<string, [number, number]> = {
+        up: [0, -1],
+        down: [0, 1],
+        left: [-1, 0],
+        right: [1, 0],
+    };
+
+    const DOT_THRESHOLD = 0.5; // cos(45°) ~ 0.707
+
     const candidates = [...selectables].map((ref) => {
         if (!ref.current) return null;
         const rect = ref.current.getBoundingClientRect();
@@ -46,21 +57,23 @@ export const findClosestDivRef = (
         const dx = center.x - pos.x;
         const dy = center.y - pos.y;
 
-        const angle = Math.atan2(dy, dx);
+        const len = Math.hypot(dx, dy);
+        if (len === 0) return null;
 
-        const isInDirection = {
-            up: dy < 0 && Math.abs(dx) <= Math.abs(dy),
-            down: dy > 0 && Math.abs(dx) <= Math.abs(dy),
-            left: dx < 0 && Math.abs(dy) <= Math.abs(dx),
-            right: dx > 0 && Math.abs(dy) <= Math.abs(dx),
-        }[direction];
+        const [vx, vy] = DIRECTION_VECTORS[direction];
+        const dot = (dx / len) * vx + (dy / len) * vy;
 
-        if (!isInDirection) return null;
+        if (dot < DOT_THRESHOLD) return null;
+
         const distance = dx * dx + dy * dy;
-        return { distance, ref };
+        return { ref, dot, distance };
     }).filter(x => x !== null);
 
-    const closest = candidates.sort((a, b) => a.distance - b.distance)[0];
+    const closest = candidates.sort((a, b) => {
+        if (b.dot !== a.dot) return b.dot - a.dot;
+        return a.distance - b.distance;
+    })[0];
+    
     return closest?.ref ?? null;
 };
 
@@ -83,17 +96,18 @@ export const SoulContextProvider = ({
     useEffect(() => {
         if (selected?.current) {
             play();
+            let pos = selected.current.getAttribute("data-pos");
             let rect = selected.current.getBoundingClientRect();
             moveTo({
-                x: rect.x - (11 + 4),
-                y: rect.y + (rect.height / 2),
+                x: pos == "center" ? (rect.x + rect.width / 2) : rect.x - (11 + 4),
+                y: rect.y + (rect.height / 2) + window.scrollY,
             });
         }
     }, [selected]);
 
     const kbdMove = (direction: "up" | "down" | "left" | "right") => {
         const closest = findClosestDivRef(selected, selectables, direction);
-        if(!closest) return;
+        if (!closest) return;
         setSelected(closest);
     };
 

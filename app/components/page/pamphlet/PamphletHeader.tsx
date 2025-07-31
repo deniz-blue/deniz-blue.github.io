@@ -5,7 +5,7 @@ import { Socials } from "~/components/page/pamphlet/sections/Socials";
 export const PamphletHeader = () => {
     return (
         <Stack px="xs" pb="xs" gap="sm">
-            <Box style={{
+            {/* <Box style={{
                 position: "absolute",
                 top: "-2.1rem",
                 left: "0.5rem",
@@ -32,11 +32,11 @@ export const PamphletHeader = () => {
                         imageRendering: "auto",
                     }}
                 />
-            </Box>
+            </Box> */}
 
-            <Group wrap="nowrap" gap="xs" justify="start">
-                <Space w="5.5rem" />
-                <Stack gap={0} pt={8}>
+            <Group wrap="nowrap" gap="xs" justify="center">
+                {/* <Space w="5.5rem" /> */}
+                <Stack align="center" gap={0} pt={8}>
                     <MeTitle />
                     <Text c="dimmed" inline span>
                         <Localized
@@ -75,7 +75,7 @@ export const MeName = () => {
                 )}
             />
 
-            {"Gökçe Deniz".split("").map((letter, i) => (
+            {"deniz".split("").map((letter, i) => (
                 <Text
                     inherit
                     span

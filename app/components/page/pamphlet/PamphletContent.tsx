@@ -19,14 +19,14 @@ import { Projects } from "./sections/Projects";
 
 export const PamphletContent = () => {
     return (
-        <Stack align="center" pt="xs">
+        <Stack align="center" pt="xs" pb="xs">
             <Socials />
             <Shields />
             {/* <Motd /> */}
             {/* <AboutMe /> */}
             <ArtPiece />
-            {/* <StuffIUse /> */}
-            {/* <FeaturedProjects /> */}
+            <StuffIUse />
+            <FeaturedProjects />
             {/* <MoreMe /> */}
             {/* <Specs /> */}
             {/* <Group justify="end" w="100%" pos="relative" px="xl">
@@ -39,20 +39,20 @@ export const PamphletContent = () => {
                 />
             </Group> */}
             {/* <Friends /> */}
-            {/* <Uptime /> */}
-            {/* <ButtonsSection /> */}
-            {/* <CosplayWebring /> */}
+            <Uptime />
+            <ButtonsSection />
+            <CosplayWebring />
 
-            <Divider
+            {/* <Divider
                 w="80%"
                 px="sm"
-            />
+            /> */}
 
-            <Text c="dimmed" fz="xs">
+            {/* <Text c="dimmed" fz="xs">
                 Hak, Hukuk, Adalet!
-            </Text>
+            </Text> */}
 
-            <Group gap={4} pb="sm">
+            {/* <Group gap={4} pb="sm">
                 <Image
                     src="/assets/img/me/dennis_nokia.png"
                     style={{ imageRendering: "pixelated" }}
@@ -67,7 +67,7 @@ export const PamphletContent = () => {
                     h="24px"
                     radius="md"
                 />
-            </Group>
+            </Group> */}
         </Stack>
     );
 };

@@ -1,10 +1,10 @@
-import { useEffect, useRef, useId, useState } from "react";
+import { useEffect, useRef, useId, useState, memo } from "react";
 import { EffectsWorkerInput, EffectsWorkerOutput } from "./worker-messages";
 import { DEFAULT_DIM } from "./starfield";
 import { useWindowEvent } from "@mantine/hooks";
 import { vec2 } from "@alan404/vec2";
 
-export const StarfieldBackground = () => {
+export const StarfieldBackground = memo(() => {
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -24,7 +24,7 @@ export const StarfieldBackground = () => {
             {mounted && <StarfieldCanvas />}
         </div>
     );
-};
+});
 
 
 export const StarfieldCanvas = () => {

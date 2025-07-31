@@ -1,12 +1,15 @@
 import { PropsWithChildren, useContext, useEffect, useRef } from "react";
-import { SoulContext } from "./SoulContext";
+import { SoulContext, SoulPosition } from "./SoulContext";
 import { useHover, useMergedRef } from "@mantine/hooks";
+import { Box } from "@mantine/core";
 
 export const SoulSelectable = ({
     children,
     disabled,
+    pos,
 }: PropsWithChildren<{
     disabled?: boolean;
+    pos?: SoulPosition;
 }>) => {
     const ref = useRef<HTMLDivElement>(null);
     const { selectables, setSelected } = useContext(SoulContext);
@@ -44,10 +47,14 @@ export const SoulSelectable = ({
     }, [ref]);
 
     return (
-        <div
+        <Box
             ref={ref}
+            className="soul-selectable"
+            mod={{
+                "data-pos": pos,
+            }}
         >
             {children}
-        </div>
+        </Box>
     );
 };

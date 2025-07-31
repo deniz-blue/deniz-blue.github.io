@@ -1,22 +1,42 @@
-import { Box, Paper } from "@mantine/core";
+import { Box, Paper, Stack } from "@mantine/core";
 import { PamphletHeader } from "./PamphletHeader";
 import { PamphletContent } from "./PamphletContent";
+import "./pamphlet.css";
 
-export const Pamphlet = () => {
+export const Pamphlet = ({
+    layout,
+}: {
+    layout?: boolean;
+}) => {
     return (
-        <Box className="pamphlet">
-            <Box className="header">
-                <Paper withBorder style={{ borderBottom: "unset" }} className="contain frost">
-                    <PamphletHeader />
+        <Stack align="center" w="100%">
+            <Stack gap={0} className="pamphlet">
+                <Stack justify="end" h="100vh" align="stretch">
+                    <Paper
+                        withBorder
+                        style={{
+                            borderBottom: "unset",
+                            borderRadius: "16px 16px 0 0",
+                        }}
+                        className="frost"
+                    >
+                        <PamphletHeader />
+                    </Paper>
+                </Stack>
+                <Paper
+                    withBorder
+                    style={{
+                        borderTop: "unset",
+                        borderRadius: "0 0 16px 16px",
+                    }}
+                    className="frost"
+                    w="100%"
+                >
+                    <PamphletContent />
                 </Paper>
-            </Box>
-            <Paper withBorder style={{
-                borderTop: "unset",
-                borderRadius: "0 0 16px 16px",
-            }} className="frost">
-                <PamphletContent />
-            </Paper>
-            <Box h="40vh" />
-        </Box>
+            </Stack>
+
+            {layout && <Box h="50vh" />}
+        </Stack>
     );
 };

@@ -1,4 +1,5 @@
 import IMAGE_DEPTH from "./IMAGE_DEPTH.png";
+import IMAGE_DEPTH_4 from "./IMAGE_DEPTH_4.png";
 import AUDIO_ANOTHERHIM from "./AUDIO_ANOTHERHIM.ogg";
 import "./style.css";
 import { useDocumentTitle } from "@mantine/hooks";
@@ -50,18 +51,14 @@ class DEVICE_OBACK_4 {
         }
     }
 
-    draw() {
-        if (this.siner > 2) {
-
-        }
-    }
-
     shouldDraw() {
-        return this.siner > 2;
+        // return this.siner > 2;
+        // MODIFIED
+        return this.siner < 150 && this.siner > 2;
     }
 
     getAlpha() {
-        return ((0.2 + this.alpha) - this.o_insurance) + this.b_insurance;
+        return Math.max(0, ((0.2 + this.alpha) - this.o_insurance) + this.b_insurance);
     }
 }
 
@@ -71,35 +68,15 @@ export const DepthBackground = () => {
     const init = useCallback((ctx: CanvasRenderingContext2D) => {
         // ctx.globalCompositeOperation = "overlay";
 
-        let instances = new Set<DEVICE_OBACK_4>();
+        let instances: DEVICE_OBACK_4[] = [];
 
         let sprite = new Image();
-        sprite.src = IMAGE_DEPTH;
+        // sprite.src = IMAGE_DEPTH;
+        sprite.src = IMAGE_DEPTH_4;
 
         let OB_DEPTH = 0;
         let obacktimer = 0;
         let OBM = 0.5;
-
-        const xdrawSpr = (
-            xscale: number,
-            yscale: number,
-            alpha: number,
-        ) => {
-            const width = sprite.width;
-            const height = sprite.height;
-            const x = 160;
-            const y = 120;
-
-            ctx.save();
-            ctx.globalAlpha = alpha;
-
-            ctx.translate(x, y);
-            ctx.scale(xscale, yscale);
-
-            ctx.drawImage(sprite, -width / 2, -height / 2);
-
-            ctx.restore();
-        };
 
         return {
             update() {
@@ -111,8 +88,8 @@ export const DepthBackground = () => {
                     DV.depth = 5 + OB_DEPTH;
                     DV.OBSPEED = 0.01 * OBM;
 
-                    DV.destroy = () => instances.delete(DV);
-                    instances.add(DV);
+                    DV.destroy = () => instances = instances.filter(x => x !== DV);
+                    instances.unshift(DV);
 
                     if (OB_DEPTH >= 60000)
                         OB_DEPTH = 0;
@@ -129,10 +106,23 @@ export const DepthBackground = () => {
                     if (!dv.shouldDraw()) continue;
                     let alpha = dv.getAlpha();
 
-                    xdrawSpr(1 + dv.xstretch, 1 + dv.ystretch, alpha);
-                    xdrawSpr(-1 - dv.xstretch, 1 + dv.ystretch, alpha);
-                    xdrawSpr(-1 - dv.xstretch, -1 - dv.ystretch, alpha);
-                    xdrawSpr(1 + dv.xstretch, -1 - dv.ystretch, alpha);
+                    // xdrawSpr(1 + dv.xstretch, 1 + dv.ystretch, alpha);
+                    // xdrawSpr(-1 - dv.xstretch, 1 + dv.ystretch, alpha);
+                    // xdrawSpr(-1 - dv.xstretch, -1 - dv.ystretch, alpha);
+                    // xdrawSpr(1 + dv.xstretch, -1 - dv.ystretch, alpha);
+
+                    // ctx.globalCompositeOperation = "multiply";
+                    ctx.globalAlpha = alpha;
+                    const dw = sprite.width*dv.xstretch;
+                    const dh = sprite.height*dv.ystretch;
+                    ctx.drawImage(
+                        sprite,
+                        160 - dw/2,
+                        120 - dh/2,
+                        dw,
+                        dh
+                    );
+                    // ctx.globalCompositeOperation = "source-over";
                 }
             },
         };
@@ -152,7 +142,8 @@ export const DepthBackground = () => {
                 className="pageBackground"
                 style={{
                     objectFit: "cover",
-                    imageRendering: "pixelated",
+                    // objectFit: "contain",
+                    imageRendering: "crisp-edges",
                 }}
                 ref={ref}
             />

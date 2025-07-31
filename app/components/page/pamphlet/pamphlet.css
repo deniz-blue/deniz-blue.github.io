@@ -1,0 +1,55 @@
+
+.pamphlet-container {
+    /* position: absolute; */
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+    /* width: 100%; */
+    /* height: 100%; */
+    /* max-width: calc(calc(16 / 9) * 100vh); */
+}
+
+.pamphlet {
+    max-width: 390px;
+    transition-duration: 250ms;
+}
+
+.header {
+    height: 100dvh;
+}
+
+/* .contain {
+    top: 100%;
+    transform: translateY(-100%);
+    position: absolute;
+    border-radius: 16px 16px 0 0;
+    width: 100%;
+    transition-duration: 250ms;
+} */
+
+/* .pamphlet { */
+    /* position: absolute; */
+    /* left: calc(100% - 70px); */
+    /* transform: translateX(-100%); */
+    /* width: 390px; */
+    /* color: var(--c-text); */
+    /* height: 100%; */
+/* } */
+
+
+
+@media screen and (max-width: 530px) {
+    /* .pamphlet {
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+    } */
+
+    #mobile-spacer[data-active=true] {
+        height: 110px;
+    }
+}
+
+#mobile-spacer {
+    height: 0px;
+    transition: all ease-out 200ms;
+}

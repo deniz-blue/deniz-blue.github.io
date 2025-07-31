@@ -62,11 +62,13 @@ export class StaticStarfield {
 
     constructor() {
         this.stars = Array(128).fill(0).map(() => new Star());
+        this.stars.forEach(s => s.position = this.targetOfStar(s));
     }
 
     resize(dims = DEFAULT_DIM) {
         this.yNodes = createYNodes(dims);
         this.stepSize = dims.x / 10;
+        this.stars.forEach(s => s.position = this.targetOfStar(s));
         return this;
     }
 

@@ -18,7 +18,7 @@ export const FeaturedProjects = () => {
             />
 
             <Stack px="xl" w="100%" gap={4}>
-                <Button
+                {/* <Button
                     fullWidth
                     variant="light"
                     h="auto"
@@ -39,7 +39,7 @@ export const FeaturedProjects = () => {
                         <Text>Deniz's Events Site</Text>
                         <Text fz="xs">List of geeky events in Turkey</Text>
                     </Stack>
-                </Button>
+                </Button> */}
 
                 {/* <Group justify="end" ta="end" c="yellow" gap={4} wrap="nowrap">
                     <Stack flex="1">
@@ -53,12 +53,17 @@ export const FeaturedProjects = () => {
                 </Group> */}
             </Stack>
 
-            {/* <Group wrap="nowrap" align="start" px="lg" gap={4}>
-                <IconCalendar />
+            <Group wrap="nowrap" align="start" px="lg" gap={4}>
+                {/* <IconCalendar /> */}
+                <Image
+                    src="https://events.deniz.blue/eventsdenizblue.svg"
+                    w={24}
+                    h={24}
+                />
                 <Stack w="100%" gap={4} flex="1">
                     <Text fz="sm">
                         <Localized
-                            en="If you live in Turkey too, check out #LINK# - a website for geeky events in Turkey."
+                            en="If you live in Turkey, check out #LINK# - a website for geeky events in Turkey."
                             tr="Eğer sen de Türkiye'de yaşıyorsan ve ilginç etkinliklerden haberdar olmak istiyorsan #LINK#'ne bi göz at!"
                             asText
                             LINK={(
@@ -75,7 +80,7 @@ export const FeaturedProjects = () => {
                             )}
                         />
                     </Text>
-                    <Group justify="start" ta="start" c="red" gap={4} wrap="nowrap">
+                    {/* <Group justify="start" ta="start" c="red" gap={4} wrap="nowrap">
                         <IconAlertCircle size={18} />
                         <Stack flex="1">
                             <Text fz="xs" inline c="dimmed">
@@ -103,9 +108,9 @@ export const FeaturedProjects = () => {
                                 />
                             </Text>
                         </Stack>
-                    </Group>
+                    </Group> */}
                 </Stack>
-            </Group> */}
+            </Group>
 
             <Group wrap="nowrap" align="start" px="lg" gap={4}>
                 <IconTerminal2 />

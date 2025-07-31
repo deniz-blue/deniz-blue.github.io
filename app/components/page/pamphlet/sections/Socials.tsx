@@ -2,6 +2,7 @@ import { Localized } from "@alan404/react-localization";
 import { ActionIcon, Box, Divider, Group, Stack } from "@mantine/core";
 import { IconBrandDiscord, IconBrandGithub, IconBrandInstagram, IconBrandMinecraft, IconBrandReddit, IconBrandSteam, IconBrandTelegram, IconBrandX, IconMail, TablerIcon } from "@tabler/icons-react";
 import { ComponentType } from "react";
+import { SoulSelectable } from "../../../../contexts/soul/SoulSelectable";
 
 type Social = {
     icon: ComponentType;
@@ -52,16 +53,17 @@ export const Socials = () => {
         <Stack align="center" w="100%" px="sm">
             <Group gap={4}>
                 {socials.map((social, i) => (
-                    <ActionIcon
-                        key={i}
-                        component="a"
-                        href={social.url}
-                        target="_blank"
-                        color="gray"
-                        variant="subtle"
-                    >
-                        <social.icon />
-                    </ActionIcon>
+                    <SoulSelectable pos="center" key={i}>
+                        <ActionIcon
+                            component="a"
+                            href={social.url}
+                            target="_blank"
+                            color="gray"
+                            variant="subtle"
+                        >
+                            <social.icon />
+                        </ActionIcon>
+                    </SoulSelectable>
                 ))}
             </Group>
         </Stack>

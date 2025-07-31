@@ -8,7 +8,7 @@ export const SoulElement = () => {
     return (
         <div
             className="fullscreen"
-            style={{ zIndex: -1 }}
+            style={{ zIndex: -1, position: "absolute", width: "100%", height: "100%", overflow: "visible" }}
         >
             <div
                 id="SOUL"

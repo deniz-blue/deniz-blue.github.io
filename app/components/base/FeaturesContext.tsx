@@ -18,16 +18,16 @@ export interface Features {
 };
 
 export const defaultFeatures = {
-    farewellBackground: false,
-    displayName: false,
-    displayDiscordGuild: false,
-    displayAboutMe: false,
-    displayPreviousWork: false,
-    displayBadges: false,
-    displayFeaturedProjects: false,
-    displayFriends: false,
-    displayNeoFetch: false,
-    displayUptime: false,
+    farewellBackground: true,
+    displayName: true,
+    displayDiscordGuild: true,
+    displayAboutMe: true,
+    displayPreviousWork: true,
+    displayBadges: true,
+    displayFeaturedProjects: true,
+    displayFriends: true,
+    displayNeoFetch: true,
+    displayUptime: true,
     myBurdenIsDead: false,
 } satisfies Features;
 

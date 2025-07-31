@@ -4,9 +4,10 @@
     font-weight: normal;
     font-variant-ligatures: none;
     color: #cccccc;
-    overflow-y: scroll;
+    background-color: black;
+    /* overflow-y: scroll; */
+    overflow-y: auto;
     overflow-x: clip;
-    padding: 8px;
     max-width: calc(100vw);
     word-break: break-all;
     text-wrap: wrap;
