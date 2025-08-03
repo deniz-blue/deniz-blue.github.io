@@ -2,6 +2,7 @@ import { useBackgroundContext } from "../../contexts/background/BackgroundContex
 import { DepthBackground } from "./depth/DepthBackground";
 import { ManBackground } from "./man/ManBackground";
 import { OneShotBackground } from "./oneshot/OneshotBackground";
+import { RefugeBackground } from "./refuge/RefugeBackground";
 import { StarfieldBackground } from "./starfield/impl/StarfieldBackground";
 
 export const PageBackground = () => {
@@ -13,6 +14,7 @@ export const PageBackground = () => {
             {type === "oneshot" && <OneShotBackground />}
             {type === "depth" && <DepthBackground />}
             {type === "man" && <ManBackground />}
+            {type === "refuge" && <RefugeBackground />}
         </div>
     )
 };

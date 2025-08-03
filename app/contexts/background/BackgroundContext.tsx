@@ -2,7 +2,7 @@ import { useHotkeys } from "@mantine/hooks";
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 export type Background = {
-    type: "null" | "depth" | "man" | "starfield" | "oneshot";
+    type: "null" | "depth" | "man" | "starfield" | "oneshot" | "refuge";
 };
 
 export const DefaultBackground: Background = {
