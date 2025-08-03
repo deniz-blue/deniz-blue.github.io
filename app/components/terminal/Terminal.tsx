@@ -8,12 +8,13 @@ import { FSROOT } from "./fs/fsroot";
 import { useAppContext } from "../../contexts/app/AppContext";
 import { useBackgroundContext } from "../../contexts/background/BackgroundContext";
 import { useTerminalInputState } from "./useTerminalInputState";
-import { useScrollBottom } from "../../hooks/useScrollBottom";
+import mus_smile from "./mus_smile.ogg";
 import "./terminal-style.css";
+import { useSoundEffect } from "../../contexts/audio/useSoundEffect";
 
 export const Terminal = () => {
-    const [_, setFlags] = useAppContext();
-    const [__, setBackground] = useBackgroundContext();
+    const [app_flags, setFlags] = useAppContext();
+    const [app_bg, setBackground] = useBackgroundContext();
     const app = {
         setFlags,
         setBackground,
@@ -75,6 +76,7 @@ export const Terminal = () => {
                 stdin: "",
                 fs,
                 app,
+                clear: () => setBuffer([]),
                 relPathToAbsPath: relPathToAbsPath,
             });
         } catch (e) {
@@ -124,29 +126,42 @@ export const Terminal = () => {
         tryExecuteFile(fs.getNode(path)!, args);
     };
 
-    const onSubmit = async (input: string) => {
-        stdout(input);
-        stdout("\n");
-
-        if (input) {
-            tryRunInput(input);
-            stdout("\n");
-        }
-
-        stdout(shellPrecursor());
-    };
+    const { play: play$mus_smile } = useSoundEffect(mus_smile);
 
     const inputState = useTerminalInputState({
-        onSubmit,
+        onSubmit: async (input: string) => {
+            stdout(input);
+            stdout("\n");
+
+            if (input) {
+                tryRunInput(input);
+                stdout("\n");
+            }
+
+            stdout(shellPrecursor());
+        },
+
+        onInputValueChange: (s) => {
+            if (s.split(" ").join("").toLowerCase() == "gaster") {
+                inputState.setValue("");
+                inputState.setDisabled(true);
+                setBuffer([{
+                    text: ` ☜☠❄☼✡ 📂🖮\n👎✌☼😐 👎✌☼😐☜☼ ✡☜❄ 👎✌☼😐☜☼\n❄☟☜ 👎✌☼😐☠☜💧💧 😐☜☜🏱💧 ☝☼⚐🕈✋☠☝\n🏱☟⚐❄⚐☠💧 ☼☜✌👎✋☠☝ ☠☜☝✌❄✋✞☜\n❄☟✋💧 ☠☜✠❄ ☜✠🏱☜☼✋💣☜☠❄\n💧☜☜💣💧\n✞☜☼✡\n✞☜☼✡\n✋☠❄☜☼☜💧❄✋☠☝\n📬📬📬\n🕈☟✌❄ 👎⚐ ✡⚐🕆 ❄🕈⚐ ❄☟✋☠😐 `
+                }]);
+                play$mus_smile();
+                setTimeout(() => location.reload(), 0);
+            }
+        },
     })
 
     useEffect(() => {
-        onSubmit("ls");
+        inputState.submit("ls");
     }, []);
 
     useEffect(() => {
-        window.scrollTo({ top: document.body.scrollHeight });
-    }, [buffer, inputState.value]);
+        console.log("Scrolling to bottom");
+        window.scrollTo({ top: app_flags.showTerminal ? document.body.scrollHeight : 0 });
+    }, [buffer, inputState.value, app_flags.showTerminal]);
 
     return (
         <Box
@@ -155,10 +170,9 @@ export const Terminal = () => {
                 lineHeight: 1,
                 display: "inline-block",
                 padding: "8px",
-                height: "100%",
                 width: "100%",
+                backgroundColor: "transparent",
             }}
-            // ref={ref as any}
         >
             <TerminalContent
                 buffer={buffer}
@@ -168,18 +182,17 @@ export const Terminal = () => {
                         if (!node) return;
 
                         let program = "";
-                        if(node.type == "dir") program = "cd";
-                        if(!program && !node.execute) program = "cat";
+                        if (node.type == "dir") program = "cd";
+                        if (!program && !node.execute) program = "cat";
 
                         let path = span.filepath!;
-                        if(path.startsWith("/bin/")) path = path.replace("/bin/", "");
-                        if(path[0] == "/") path = absToRel(path);
+                        if (path.startsWith("/bin/")) path = path.replace("/bin/", "");
+                        if (path[0] == "/") path = absToRel(path);
 
                         const newCommand = `${program}${program ? " " : ""}${path}`.trim();
 
-                        if(inputState.value == newCommand) {
-                            onSubmit(newCommand);
-                            inputState.setValue("");
+                        if (inputState.value == newCommand) {
+                            inputState.submit(newCommand);
                         } else {
                             inputState.setValue(newCommand);
                         }

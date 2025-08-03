@@ -1,16 +1,16 @@
-import { useListState, useWindowEvent } from "@mantine/hooks";
+import { useIsFirstRender, useListState, useWindowEvent } from "@mantine/hooks";
 import { RefObject, useCallback, useLayoutEffect, useRef, useState } from "react";
 import { useTerminalInputState } from "./useTerminalInputState";
 
 export const TerminalInput = ({
-    disabled,
     inputRef,
     onKeyDown,
     setValue,
     value,
-}: {
-    disabled?: boolean;
-} & ReturnType<typeof useTerminalInputState>) => {
+    disabled,
+}: ReturnType<typeof useTerminalInputState>) => {
+    const isFirstRender = useIsFirstRender();
+
     const tryFocus = useCallback(() => {
         if (inputRef.current
             && !disabled
@@ -37,6 +37,7 @@ export const TerminalInput = ({
             onChange={e => {
                 setValue(e.currentTarget.value);
             }}
+            // readOnly={isFirstRender ? true : undefined}
             disabled={disabled}
             autoCapitalize="none"
             autoComplete="off"

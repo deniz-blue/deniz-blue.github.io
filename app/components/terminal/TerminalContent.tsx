@@ -1,6 +1,6 @@
 import { Box } from "@mantine/core";
 import { Span } from "./api";
-import { useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 
 const colors: Partial<Record<string, string>> = {
     "Black": "#000000",
@@ -44,11 +44,19 @@ export const TerminalContent = ({
                     fontWeight: span.b ? "bold" : "normal",
                 };
 
-                let onClick;
-                if(span.filepath) onClick = () => onClickSpan?.(span);
+                let onClick = (e: React.MouseEvent) => {
+                    e.preventDefault();
+                    onClickSpan?.(span);
+                };
 
-                return onClick ? (
-                    <a onClick={onClick} style={style} key={i}>
+                const clickable = !!span.filepath;
+
+                return clickable ? (
+                    <a
+                        onClick={onClick}
+                        style={style}
+                        key={i}
+                    >
                         {span.text}
                     </a>
                 ) : (

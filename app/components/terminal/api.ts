@@ -26,6 +26,7 @@ export type ShellContext = {
     cd: (p: string) => void;
     fs: FSHandler;
     stdout: (b: Spannable | Spannable[]) => void;
+    clear: () => void;
     relPathToAbsPath: (relPath: string) => string | null;
 };
 
