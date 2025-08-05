@@ -93,6 +93,7 @@ export const starfield_rendergl2 = (gl: WebGL2RenderingContext, {
         const g = parseInt(starfield.color.slice(2, 4), 16) / 255;
         const b = parseInt(starfield.color.slice(4, 6), 16) / 255;
         gl.uniform3f(bindings.color, r, g, b);
+        gl.uniform2f(bindings.scroll, starfield.scroll.x, starfield.scroll.y);
 
         const starPositions: number[] = [];
         const starOpacities: number[] = [];

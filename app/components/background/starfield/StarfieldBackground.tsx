@@ -33,9 +33,10 @@ export const StarfieldCanvas = () => {
     const offscreenRef = useRef<OffscreenCanvas | null>(null);
 
     useEffect(() => {
-        let didCancel = false;
+        let abortController = new AbortController();
+        let signal = abortController.signal;
         const id = requestAnimationFrame(() => {
-            if (didCancel) return;
+            if (signal.aborted) return;
 
             const canvas = canvasRef.current;
             if (!canvas) return;
@@ -50,13 +51,20 @@ export const StarfieldCanvas = () => {
 
             worker.postMessage({ type: "init", data: offscreen }, [offscreen]);
             workerRef.current = worker;
+
+            window.addEventListener("scroll", () => {
+                worker.postMessage({ type: "scroll", data: vec2(
+                    0,
+                    window.scrollY
+                ) });
+            }, { signal });
         });
 
         return () => {
             cancelAnimationFrame(id);
             workerRef.current?.terminate();
+            abortController.abort();
             workerRef.current = null;
-            didCancel = true;
         };
     }, []);
 

@@ -1,6 +1,6 @@
 import { vec2 } from "@alan404/vec2";
-import { FarewellBackgroundEffect, StarfieldConfig } from "../../../background/starfield/impl/gl2/_FarewellBackgroundEffect";
-import { Star, StaticStarfield } from "../../../background/starfield/impl/starfield";
+import { FarewellBackgroundEffect, StarfieldConfig } from "../../../background/starfield/gl2/_FarewellBackgroundEffect";
+import { Star, StaticStarfield } from "../../../background/starfield/starfield";
 import { createTextureStore, textureWithColor } from "./textureWithColor";
 import { starTextureSources } from "../farewell/textures";
 import { toRgba } from "@mantine/core";

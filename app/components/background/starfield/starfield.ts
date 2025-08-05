@@ -1,5 +1,5 @@
 import { vec2, Vec2, vec2add, vec2div, vec2mul, vec2normalize, vec2sub } from "@alan404/vec2";
-import { choose, lerp, randFloat, randInt, clamp } from "../../../../utils/math";
+import { choose, lerp, randFloat, randInt, clamp } from "../../../utils/math";
 
 export type StarTexture = 0 | 1 | 2 | 3;
 
@@ -23,7 +23,25 @@ export class Star {
     }
 }
 
-type IncompleteStar = Pick<Star, "NodeIndex" | "NodePercent" | "Distance" | "Sine">;
+export class StarfieldMist {
+    color: string = "#000000";
+    speed: Vec2 = vec2();
+    scroll: Vec2 = vec2();
+
+    constructor(color: string, speed: Vec2, scroll: Vec2) {
+        this.color = color;
+        this.speed = speed;
+        this.scroll = scroll;
+    }
+
+    static createDefaultLayers() {
+        return [
+            new StarfieldMist("#7e2168", vec2(2, 0), vec2(0.15, 0.15)),
+            new StarfieldMist("#2f7f98ff", vec2(4, 0), vec2(0.2, 0.2)),
+            new StarfieldMist("#000000ff", vec2(16, 8), vec2(0.6, 0.6)),
+        ];
+    }
+}
 
 const yNodeLen = 15;
 export const createYNodes = (dims: Vec2) => {
@@ -56,11 +74,15 @@ export class StaticStarfield {
     color: string = "#ffffff";
 
     flowSpeed = 1;
+    scroll: Vec2 = vec2();
 
     // therefore, stepAmount = 10 (px)
     stepSize: number = 32;
 
-    constructor() {
+    constructor(color?: string, scroll?: Vec2, flowSpeed?: number) {
+        if (color) this.color = color;
+        if (scroll) this.scroll = scroll;
+        if (flowSpeed) this.flowSpeed = flowSpeed;
         this.stars = Array(128).fill(0).map(() => new Star());
         this.stars.forEach(s => s.position = this.targetOfStar(s));
     }
@@ -120,6 +142,15 @@ export class StaticStarfield {
             vec2(-64, -16),
             mod(star.position, dim)
         ), 16);
+    }
+
+    static createDefaultLayers() {
+        return [
+            new StaticStarfield("ab6ffa", vec2(0.3, 0.3)),
+            new StaticStarfield("71d5ff", vec2(0.3, 0.3), 2.5),
+            new StaticStarfield("53f3dd", vec2(0.5, 0.5)),
+            new StaticStarfield("cefdff", vec2(0.5, 0.5), 3),
+        ];
     }
 };
 

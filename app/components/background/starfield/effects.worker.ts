@@ -10,7 +10,7 @@ const setRafInterval = (cb: (dt: number) => any, delay: number) => {
         const current = performance.now();
         if (current - start >= delay) {
             let deltaTime = (current - start) / 1000;
-            if(deltaTime > 1) deltaTime %= 1000;
+            if(deltaTime > 1) deltaTime %= 1;
             cb(deltaTime);
             start = performance.now();
         }
@@ -21,22 +21,13 @@ const setRafInterval = (cb: (dt: number) => any, delay: number) => {
     return () => cancelAnimationFrame(handle);
 };
 
-let configs = [
-    { color: "ab6ffa", scroll: vec2(0.3, 0.3) },
-    { color: "71d5ff", scroll: vec2(0.3, 0.3), flowSpeed: 2.5 },
-    { color: "53f3dd", scroll: vec2(0.5, 0.5) },
-    { color: "cefdff", scroll: vec2(0.5, 0.5), flowSpeed: 3 },
-];
-
-let starfields: StaticStarfield[] = configs.map(({ color }) => {
-    let f = new StaticStarfield();
-    f.color = color;
-    return f;
-});
+let starfields: StaticStarfield[] = StaticStarfield.createDefaultLayers();
 
 let dim: Vec2;
 let canvas: OffscreenCanvas;
 let gl: WebGL2RenderingContext;
+
+let scrollPosition: Vec2 = vec2();
 
 const init = () => {
     if (!dim) throw new Error("dim not initialized");
@@ -69,7 +60,7 @@ const init = () => {
 
         starfield_rendergl2(gl, init, {
             dimensions: dim,
-            scrollPosition: vec2(),
+            scrollPosition,
             starfields,
         });
     }, 24);
@@ -95,6 +86,10 @@ self.onmessage = (e: MessageEvent<EffectsWorkerInput>) => {
             if(gl) gl.viewport(0,0,dim.x,dim.y);
 
             for(let sf of starfields) sf.resize(dim);
+        },
+
+        scroll: (v) => {
+            scrollPosition = v;
         },
 
         _: () => { },
