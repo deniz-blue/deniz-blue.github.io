@@ -1,9 +1,9 @@
 import { createContext, PropsWithChildren, useContext, useState } from "react";
 
 export const defaultAppFlags = {
-    showTerminal: true,
+    showTerminal: false,
     showDevice: false,
-    showPamphlet: false,
+    showPamphlet: true,
 };
 
 export type AppFlags = typeof defaultAppFlags;
