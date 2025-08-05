@@ -146,10 +146,10 @@ export class StaticStarfield {
 
     static createDefaultLayers() {
         return [
-            new StaticStarfield("ab6ffa", vec2(0.3, 0.3)),
-            new StaticStarfield("71d5ff", vec2(0.3, 0.3), 2.5),
-            new StaticStarfield("53f3dd", vec2(0.5, 0.5)),
-            new StaticStarfield("cefdff", vec2(0.5, 0.5), 3),
+            new StaticStarfield("ab6ffa", vec2(0.3, 0.3), 0.8),
+            new StaticStarfield("71d5ff", vec2(0.3, 0.3), 1.1),
+            new StaticStarfield("53f3dd", vec2(0.5, 0.5), 0.8),
+            new StaticStarfield("cefdff", vec2(0.5, 0.5), 1.2),
         ];
     }
 };

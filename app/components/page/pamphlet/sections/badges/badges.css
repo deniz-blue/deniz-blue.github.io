@@ -1,0 +1,8 @@
+.badge {
+    width: 88px;
+    height: 31px;
+}
+
+.badge:hover {
+    outline: solid 1px red;
+}

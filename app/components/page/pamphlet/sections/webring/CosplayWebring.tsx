@@ -1,4 +1,6 @@
 import { Anchor, AnchorProps, Box, Group, Stack } from "@mantine/core";
+import { SoulSelectable } from "../../../../../contexts/soul/SoulSelectable";
+import { Fragment } from "react";
 
 export const CosplayWebring = () => {
     const anchorProps: AnchorProps = {
@@ -27,38 +29,40 @@ export const CosplayWebring = () => {
                     textShadow: "2px 2px 10px rgba(41, 41, 41, 0.4)",
                     WebkitTextStroke: "0.8px black",
                 }}
-                p={5}
+                w={88 * 3 + 4 * 2}
+                py={4}
             >
-                <Stack align="center" justify="space-between" gap={0} my="xs">
-                    <Anchor
-                        href="https://eyeorb.net/webring/cosplay.html"
-                        target="_blank"
-                        {...anchorProps}
-                        mx={"3rem"}
-                    >
-                        Cosplay Webring
-                    </Anchor>
+                <Stack align="center" justify="space-between" gap={0}>
+                    <SoulSelectable anchor="right-center" mr={12} zIndex={1}>
+                        <Anchor
+                            href="https://eyeorb.net/webring/cosplay.html"
+                            target="_blank"
+                            {...anchorProps}
+                        >
+                            Cosplay Webring
+                        </Anchor>
+                    </SoulSelectable>
                     <Group wrap="nowrap" gap={4} align="center">
-                        <Anchor
-                            href="https://eyeorb.net/webring/simplering.html?opt=prev&slug=deniz"
-                            {...anchorProps}
-                        >
-                            prev
-                        </Anchor>
-                        {" ▫ "}
-                        <Anchor
-                            href="https://eyeorb.net/webring/simplering.html?opt=rand&slug=deniz"
-                            {...anchorProps}
-                        >
-                            rand
-                        </Anchor>
-                        {" ▫ "}
-                        <Anchor
-                            href="https://eyeorb.net/webring/simplering.html?opt=next&slug=deniz"
-                            {...anchorProps}
-                        >
-                            next
-                        </Anchor>
+                        {["prev", "rand", "next"].map((action, i, a) => (
+                            <Fragment key={action}>
+                                <Stack>
+                                    <SoulSelectable
+                                        anchor="center-bottom"
+                                        mb={12}
+                                        zIndex={1}
+                                    >
+                                        <Anchor
+                                            href={`https://eyeorb.net/webring/simplering.html?opt=${action}&slug=deniz`}
+                                            {...anchorProps}
+                                        >
+                                            {action}
+                                        </Anchor>
+                                    </SoulSelectable>
+                                </Stack>
+
+                                {i !== a.length - 1 && " ▫ "}
+                            </Fragment>
+                        ))}
                     </Group>
                 </Stack>
             </Box>

@@ -1,7 +1,7 @@
 import { Anchor, Box, Divider, Group, Image, Stack, Text, UnstyledButton } from "@mantine/core";
 import { StuffIUse } from "./sections/StuffIUse";
 import { IconHeart, IconHeartFilled } from "@tabler/icons-react";
-import { ButtonsSection } from "~/components/page/pamphlet/sections/Badges";
+import { ButtonsSection } from "~/components/page/pamphlet/sections/badges/Badges";
 import { FeaturedProjects } from "./sections/FeaturedProjects";
 import { Specs } from "./sections/Specs";
 import { AboutMe } from "./sections/AboutMe";
@@ -19,14 +19,14 @@ import { Projects } from "./sections/Projects";
 
 export const PamphletContent = () => {
     return (
-        <Stack align="center" pt="xs" pb="xs">
+        <Stack align="center" gap="sm" pt="xs" pb="xl">
             <Socials />
             <Shields />
             {/* <Motd /> */}
             {/* <AboutMe /> */}
             <ArtPiece />
             <StuffIUse />
-            <FeaturedProjects />
+            {/* <FeaturedProjects /> */}
             {/* <MoreMe /> */}
             {/* <Specs /> */}
             {/* <Group justify="end" w="100%" pos="relative" px="xl">

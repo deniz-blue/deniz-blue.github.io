@@ -4,7 +4,7 @@ import { SoulSelectable } from "../../../contexts/soul/SoulSelectable";
 export const Device = () => {
     return (
         <Stack m="xl" align="center">
-            <SimpleGrid cols={3} spacing="xl">
+            <Stack gap="xl">
                 {[
                     "DARK",
                     "DARKER",
@@ -23,7 +23,7 @@ export const Device = () => {
                         </Paper>
                     </SoulSelectable>
                 ))}
-            </SimpleGrid>
+            </Stack>
         </Stack>
     )
 };

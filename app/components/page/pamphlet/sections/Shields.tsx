@@ -34,19 +34,24 @@ export const Shields = () => {
 
     return (
         <Stack w="100%" align="center">
-            <Group gap={4}>
-                {shields.map(({ src, link }) => {
+            <Group gap={4} align="center" justify="center">
+                {shields.map(({ src, link }, i) => {
                     return (
                         <SoulSelectable
-                            pos="left-center"
+                            anchor={!!i ? "right-center" : "left-center"}
+                            mr={12}
+                            ml={12}
+                            zIndex={1}
                             key={src}
                         >
-                            <a href={link} target="_blank">
-                                <img
-                                    src={src}
-                                    key={src}
-                                />
-                            </a>
+                            <Stack justify="center">
+                                <a href={link} target="_blank" style={{ height: "20px" }}>
+                                    <img
+                                        src={src}
+                                        key={src}
+                                    />
+                                </a>
+                            </Stack>
                         </SoulSelectable>
                     );
                 })}

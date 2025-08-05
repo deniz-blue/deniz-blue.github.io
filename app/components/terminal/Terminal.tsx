@@ -155,10 +155,6 @@ export const Terminal = () => {
     })
 
     useEffect(() => {
-        inputState.submit("ls");
-    }, []);
-
-    useEffect(() => {
         console.log("Scrolling to bottom");
         window.scrollTo({ top: app_flags.showTerminal ? document.body.scrollHeight : 0 });
     }, [buffer, inputState.value, app_flags.showTerminal]);

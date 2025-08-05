@@ -1,0 +1,16 @@
+#SOUL {
+    top: 0%;
+    left: 0%;
+    width: 22px;
+    height: 22px;
+
+    position: absolute;
+    transition: transform 100ms;
+    pointer-events: none;
+    transform: translate(-100px, -100px);
+}
+
+#SOUL .soul-overlay {
+    width: 22px;
+    height: 22px;
+}

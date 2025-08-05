@@ -53,7 +53,7 @@ export const Socials = () => {
         <Stack align="center" w="100%" px="sm">
             <Group gap={4}>
                 {socials.map((social, i) => (
-                    <SoulSelectable pos="center" key={i}>
+                    <SoulSelectable anchor="center" zIndex={-1} key={i}>
                         <ActionIcon
                             component="a"
                             href={social.url}

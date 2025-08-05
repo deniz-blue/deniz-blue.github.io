@@ -17,7 +17,7 @@ export const FeaturedProjects = () => {
                 w="80%"
             />
 
-            <Stack px="xl" w="100%" gap={4}>
+            {/* <Stack px="xl" w="100%" gap={4}> */}
                 {/* <Button
                     fullWidth
                     variant="light"
@@ -51,7 +51,7 @@ export const FeaturedProjects = () => {
                     <Text fz="xs">...not to mention it's still in beta</Text>
                     <IconInfoCircle size={18} />
                 </Group> */}
-            </Stack>
+            {/* </Stack> */}
 
             <Group wrap="nowrap" align="start" px="lg" gap={4}>
                 {/* <IconCalendar /> */}

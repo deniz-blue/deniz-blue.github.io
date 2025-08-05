@@ -39,10 +39,7 @@ export const PamphletHeader = () => {
                 <Stack align="center" gap={0} pt={8}>
                     <MeTitle />
                     <Text c="dimmed" inline span>
-                        <Localized
-                            en="developer & cosplayer"
-                            tr="yazılımcı & cosplayer"
-                        />
+                        indie developer
                     </Text>
                 </Stack>
             </Group>

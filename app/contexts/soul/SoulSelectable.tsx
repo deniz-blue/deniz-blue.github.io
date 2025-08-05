@@ -1,29 +1,30 @@
 import { PropsWithChildren, useContext, useEffect, useRef } from "react";
-import { SoulContext, SoulPosition } from "./SoulContext";
+import { SoulContext } from "./SoulContext";
 import { useHover, useMergedRef } from "@mantine/hooks";
 import { Box } from "@mantine/core";
+import { SoulAnchor } from "./positioning";
 
+type Measurement = number | string;
 export const SoulSelectable = ({
     children,
     disabled,
-    pos,
+    anchor,
+    zIndex,
+    mb,
+    ml,
+    mr,
+    mt,
 }: PropsWithChildren<{
     disabled?: boolean;
-    pos?: SoulPosition;
+    anchor?: SoulAnchor;
+    zIndex?: number;
+    mb?: Measurement;
+    mt?: Measurement;
+    ml?: Measurement;
+    mr?: Measurement;
 }>) => {
     const ref = useRef<HTMLDivElement>(null);
     const { selectables, setSelected } = useContext(SoulContext);
-
-    // useEffect(() => {
-    //     console.log({ hoverRef, hovered })
-    //     if(hoverRef.current && hovered) {
-    //         let rect = hoverRef.current.getBoundingClientRect();
-    //         moveTo({
-    //             x: rect.x - (11 + 4),
-    //             y: rect.y + (rect.height/2),
-    //         });
-    //     }
-    // }, [hovered]);
 
     useEffect(() => {
         if (disabled) {
@@ -51,7 +52,12 @@ export const SoulSelectable = ({
             ref={ref}
             className="soul-selectable"
             mod={{
-                "data-pos": pos,
+                "data-pos": anchor,
+                "data-zindex": zIndex,
+                "data-mt": mt,
+                "data-mb": mb,
+                "data-ml": ml,
+                "data-mr": mr,
             }}
         >
             {children}

@@ -228,11 +228,7 @@ body[data-starry=true] .frost {
 
 
 
-.badges-container>a,
-.badges-container>img {
-    width: 88px;
-    height: 31px;
-}
+
 
 .name-letter {
     animation: bounce 10s linear calc(var(--i) * 0.5s) infinite,
