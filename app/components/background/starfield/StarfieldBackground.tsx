@@ -81,7 +81,7 @@ export const StarfieldCanvas = () => {
     return (
         <canvas
             ref={canvasRef}
-            className="pageBackground"
+            className="fullscreenDynamic"
             style={{
                 objectFit: "contain",
                 aspectRatio: DEFAULT_DIM.x / DEFAULT_DIM.y,

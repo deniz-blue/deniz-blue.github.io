@@ -11,7 +11,7 @@ export const Pamphlet = ({
     return (
         <Stack align="center" w="100%">
             <Stack gap={0} className="pamphlet">
-                <Stack justify="end" h="100vh" align="stretch">
+                <Stack justify="end" h="100dvh" align="stretch">
                     <Paper
                         withBorder
                         style={{

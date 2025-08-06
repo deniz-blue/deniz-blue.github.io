@@ -1,4 +1,4 @@
-import { vec2, Vec2, vec2distance } from "@alan404/vec2";
+import { vec2, Vec2, vec2distance, vec2sub } from "@alan404/vec2";
 import { DivRef } from "./SoulContext";
 import { RefObject } from "react";
 
@@ -104,23 +104,47 @@ export const selectWithSoulElement = (soul: HTMLDivElement, selected: HTMLDivEle
 };
 
 export function findClosestDivRef(
-    current: RefObject<HTMLDivElement | null>,
+    selectedNode: RefObject<HTMLDivElement | null>,
     others: Set<RefObject<HTMLDivElement | null>>,
     dir: "up" | "down" | "left" | "right"
 ): RefObject<HTMLDivElement> | null {
-    if (!current.current) return null;
-
-    const originRect = current.current.getBoundingClientRect();
-    const originCenter = vec2(
+    const originRect = selectedNode.current?.getBoundingClientRect();
+    const originCenter = originRect ? vec2(
         originRect.left + originRect.width / 2,
         originRect.top + originRect.height / 2
-    );
+    ) : vec2();
+
+
+    let candidates = [...others].map(ref => {
+        if(!ref.current) return null;
+        const rect = ref.current.getBoundingClientRect();
+        const targetCenter = vec2(
+            rect.left + rect.width / 2,
+            rect.top + rect.height / 2
+        );
+
+        const delta = vec2sub(targetCenter, originCenter);
+        const dist = Math.hypot(delta.x, delta.y);
+        const angle = Math.atan2(delta.y, delta.x);
+
+        const direction = (["right", "down", "left", "up"] as const)[
+            Math.round(((angle + Math.PI * 2) % (Math.PI * 2)) / (Math.PI / 2)) % 4
+        ];
+
+        return {
+            ref,
+            delta,
+            dist,
+            angle,
+        };
+    }).filter(x => x !== null);
+
 
     let minDist = Infinity;
     let best: RefObject<HTMLDivElement> | null = null;
 
     for (const ref of others) {
-        if (!ref.current || ref.current === current.current) continue;
+        if (!ref.current || ref.current === selectedNode.current) continue;
 
         const rect = ref.current.getBoundingClientRect();
         const targetCenter = vec2(
