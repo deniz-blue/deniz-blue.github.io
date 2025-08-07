@@ -1,4 +1,4 @@
-import { useListState } from "@mantine/hooks";
+import { useListState, useLocalStorage } from "@mantine/hooks";
 import { useRef, useState } from "react";
 
 export const useTerminalInputState = ({
@@ -12,11 +12,15 @@ export const useTerminalInputState = ({
     const [value, setValue] = useState<string>("");
     const [disabled, setDisabled] = useState<boolean>(false);
 
-    const [history, historyHandlers] = useListState<string>();
+    const [history, setHistory] = useLocalStorage<string[]>({
+        key: "deniz.blue:terminal-history",
+        defaultValue: [],
+    });
+
     const historyIndex = useRef<number | null>(null);
 
     const onSubmit = (value: string) => {
-        if (history[history.length - 1] !== value) historyHandlers.append(value);
+        if (history[history.length - 1] !== value) setHistory(prev => [...prev, value]);
         historyIndex.current = null;
         setValue("");
         _onSubmit?.(value);
