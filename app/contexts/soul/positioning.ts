@@ -7,13 +7,21 @@ type AnchorX = "center" | "left" | "right";
 type AnchorY = "center" | "top" | "bottom";
 export type SoulAnchor = "center" | `${AnchorX}-${AnchorY}`;
 
-export const positionSoulElement = (
+export const configureSoulElement = (
     soul: HTMLDivElement,
-    pos: Vec2,
-    zIndex?: number,
+    {
+        pos,
+        zIndex,
+        opacity,
+    }: Partial<{
+        pos: Vec2,
+        zIndex?: number,
+        opacity?: number,
+    }>
 ) => {
-    soul.style.transform = `translate(${pos.x - 11}px, ${pos.y - 11 + window.scrollY}px)`;
-    soul.style.zIndex = zIndex ? zIndex.toString() : "";
+    if (pos) soul.style.transform = `translate(${pos.x - 11}px, ${pos.y - 11 + window.scrollY}px)`;
+    if (zIndex !== undefined) soul.style.zIndex = zIndex ? zIndex.toString() : "";
+    if (opacity !== undefined) soul.style.opacity = opacity.toString();
 };
 
 export const scrollIntoViewIfOutOfBounds = (el: HTMLElement) => {
@@ -41,28 +49,16 @@ export const scrollIntoViewIfOutOfBounds = (el: HTMLElement) => {
     }
 }
 
-export const selectWithSoulElement = (soul: HTMLDivElement, selected: HTMLDivElement) => {
-    let pos = selected.getAttribute("data-pos") || "center";
-    let rect = selected.getBoundingClientRect();
+export const getSelectionSoulConfig = (el: HTMLDivElement) => {
+    let pos = el.getAttribute("data-pos") || "center";
+    let rect = el.getBoundingClientRect();
 
     const getAttrN = (s: string, defaultV: number) => {
-        let v = selected.getAttribute(s);
+        let v = el.getAttribute(s);
         return (v !== null && !isNaN(Number(v))) ? Number(v) : defaultV;
     };
 
     let zIndex = getAttrN("data-zindex", 0);
-
-
-
-    // <DEBUG>
-    // positionSoulElement(soul, vec2(
-    //     rect.x + rect.width/2,
-    //     rect.y + rect.height/2,
-    // ), zIndex);
-    // return;
-    // </DEBUG>
-
-
     
     const defaultMargin = 4;
     let mt = getAttrN("data-mt", defaultMargin);
@@ -97,27 +93,26 @@ export const selectWithSoulElement = (soul: HTMLDivElement, selected: HTMLDivEle
         y = rect.y + rect.height + mb;
     } else throw new Error("Invalid state");
 
-    positionSoulElement(soul, {
-        x,
-        y,
-    }, zIndex);
+    return {
+        pos: vec2(x, y),
+        zIndex,
+    };
 };
 
 export function findClosestDivRef(
-    selectedNode: RefObject<HTMLDivElement | null>,
-    others: Set<RefObject<HTMLDivElement | null>>,
+    selectedNode: HTMLDivElement | null,
+    selectableNodes: HTMLDivElement[],
     dir: "up" | "down" | "left" | "right"
-): RefObject<HTMLDivElement> | null {
-    const originRect = selectedNode.current?.getBoundingClientRect();
+): HTMLDivElement | null {
+    const originRect = selectedNode?.getBoundingClientRect();
     const originCenter = originRect ? vec2(
         originRect.left + originRect.width / 2,
         originRect.top + originRect.height / 2
     ) : vec2();
 
-
-    let candidates = [...others].map(ref => {
-        if(!ref.current) return null;
-        const rect = ref.current.getBoundingClientRect();
+    let candidates = selectableNodes.map(node => {
+        if(node == selectedNode) return null;
+        const rect = node.getBoundingClientRect();
         const targetCenter = vec2(
             rect.left + rect.width / 2,
             rect.top + rect.height / 2
@@ -125,52 +120,53 @@ export function findClosestDivRef(
 
         const delta = vec2sub(targetCenter, originCenter);
         const dist = Math.hypot(delta.x, delta.y);
-        const angle = Math.atan2(delta.y, delta.x);
+        let angle = Math.atan2(delta.y, delta.x);
 
         const direction = (["right", "down", "left", "up"] as const)[
             Math.round(((angle + Math.PI * 2) % (Math.PI * 2)) / (Math.PI / 2)) % 4
         ];
 
         return {
-            ref,
+            node,
             delta,
             dist,
             angle,
+            direction,
         };
-    }).filter(x => x !== null);
+    }).filter(x => x !== null)
+        .sort((a, b) => a.dist - b.dist);
 
+    // console.log("origin", originCenter);
+    // console.log("candidates", candidates);
 
-    let minDist = Infinity;
-    let best: RefObject<HTMLDivElement> | null = null;
+    const sameDirection = candidates.filter(x => {
+        if(dir == "down") return x.delta.y > 0;
+        if(dir == "up") return x.delta.y < 0;
+        if(dir == "left") return x.delta.x < 0;
+        if(dir == "right") return x.delta.x > 0;
+    })
+        // .sort((a, b) => {
+        //     const coord = (dir == "up" || dir == "down") ? "y" : "x";
+        //     return b.delta[coord] - a.delta[coord];
+        // })
 
-    for (const ref of others) {
-        if (!ref.current || ref.current === selectedNode.current) continue;
+    // console.log("sameDirection", sameDirection);
+    
+    const closestDirDeltaZero = sameDirection.find(x => (
+        (x.direction == "up" || x.direction == "down") ? (
+            x.delta.x == 0
+        ) : (
+            x.delta.y == 0
+        )
+    ))
 
-        const rect = ref.current.getBoundingClientRect();
-        const targetCenter = vec2(
-            rect.left + rect.width / 2,
-            rect.top + rect.height / 2
-        );
+    if(closestDirDeltaZero) return closestDirDeltaZero.node;
 
-        const delta = vec2(targetCenter.x - originCenter.x, targetCenter.y - originCenter.y);
+    const closestDir = sameDirection[0];
 
-        let isValid = false;
+    // console.log("closestDir deltacoord", closestDir.delta)
 
-        if (dir === "up" && delta.y < -5 && Math.abs(delta.x) < rect.width * 1.5) isValid = true;
-        if (dir === "down" && delta.y > 5 && Math.abs(delta.x) < rect.width * 1.5) isValid = true;
-        if (dir === "left" && delta.x < -5 && Math.abs(delta.y) < rect.height * 1.5) isValid = true;
-        if (dir === "right" && delta.x > 5 && Math.abs(delta.y) < rect.height * 1.5) isValid = true;
-
-        if (!isValid) continue;
-
-        const dist = vec2distance(originCenter, targetCenter);
-        if (dist < minDist) {
-            minDist = dist;
-            best = ref as any;
-        }
-    }
-
-    return best;
+    return closestDir?.node ?? null;
 }
 
 

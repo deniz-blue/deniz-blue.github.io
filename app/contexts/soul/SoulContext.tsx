@@ -1,27 +1,27 @@
-import { createContext, PropsWithChildren, RefObject, useCallback, useEffect, useRef, useState } from "react";
+import { createContext, PropsWithChildren, RefCallback, RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { vec2, Vec2, vec2distance } from "@alan404/vec2";
 import { noop } from "@mantine/core";
-import { useHotkeys, useSet } from "@mantine/hooks";
+import { useHotkeys, useListState, useSet } from "@mantine/hooks";
 import { useSoundEffect } from "../audio/useSoundEffect";
-import { findClosestDivRef, scrollIntoViewIfOutOfBounds, selectWithSoulElement } from "./positioning";
-import UndertaleMenuCursor from "./UndertaleMenuCursor.wav";
-import UndertaleMenuDecision from "./UndertaleMenuDecision.wav";
+import { configureSoulElement, findClosestDivRef, getSelectionSoulConfig, scrollIntoViewIfOutOfBounds } from "./positioning";
+import UndertaleMenuCursor from "./audio/UndertaleMenuCursor.wav";
+import UndertaleMenuDecision from "./audio/UndertaleMenuDecision.wav";
 
 export type DivRef = RefObject<HTMLDivElement | null>;
 
 export interface ISoulContext {
     ref: DivRef;
 
-    selectables: Set<DivRef>;
-    // selected: DivRef | null;
-    setSelected: (ref: DivRef | null) => void;
+    selectables: HTMLDivElement[];
+    registerSelectable: RefCallback<HTMLDivElement>;
+    setSelected: (ref: HTMLDivElement | null) => void;
 };
 
 export const SoulContext = createContext<ISoulContext>({
     ref: { current: null },
-    selectables: new Set(),
-    // selected: null,
+    selectables: [],
     setSelected: noop,
+    registerSelectable: noop,
 });
 
 export const SoulContextProvider = ({
@@ -29,26 +29,42 @@ export const SoulContextProvider = ({
 }: PropsWithChildren) => {
     const ref = useRef<HTMLDivElement>(null);
 
-    const selectables = useSet<DivRef>();
+    const [selectables, setSelectables] = useState<HTMLDivElement[]>([]);
 
-    const { play: playSfxCursor } = useSoundEffect(UndertaleMenuCursor);
-    const { play: playSfxClick } = useSoundEffect(UndertaleMenuDecision);
+    const { play: play$utcursor } = useSoundEffect(UndertaleMenuCursor);
+    const { play: play$utclick } = useSoundEffect(UndertaleMenuDecision);
 
     const selected = useRef<HTMLDivElement>(null);
-    const setSelected = (selectedRef: DivRef | null) => {
-        selected.current = selectedRef?.current ?? null;
+    const setSelected = (el: HTMLDivElement | null) => {
+        let didChange = selected.current !== el;
+        selected.current = el ?? null;
 
-        if (ref?.current && selected.current) {
-            playSfxCursor();
-            selectWithSoulElement(ref.current, selected.current);
+        console.log("SELECTED", selected);
+        console.log("SOUL", ref);
+
+        if (!ref.current) return;
+
+        if (selected.current) {
+            if (didChange) play$utcursor();
+            const { pos, zIndex } = getSelectionSoulConfig(selected.current);
+            configureSoulElement(ref.current, {
+                pos,
+                opacity: 1,
+                zIndex,
+            });
+        } else {
+            configureSoulElement(ref.current, {
+                pos: vec2(),
+                opacity: 0,
+            });
         }
     };
 
     const kbdMove = (direction: "up" | "down" | "left" | "right") => {
-        const closest = findClosestDivRef(selected, selectables, direction);
+        const closest = findClosestDivRef(selected.current, selectables, direction);
         if (!closest) return;
         setSelected(closest);
-        if (closest.current) scrollIntoViewIfOutOfBounds(closest.current);
+        if (closest) scrollIntoViewIfOutOfBounds(closest);
     };
 
     useHotkeys([
@@ -63,17 +79,40 @@ export const SoulContextProvider = ({
 
         ["Enter", () => {
             let el = selected.current?.firstChild as HTMLElement | null;
-            if(!el) return;
-            playSfxClick();
+            if (!el) return;
+            play$utclick();
             el.click();
         }],
     ]);
+
+    useEffect(() => {
+        console.log("selectables updated", selectables);
+        if(selected.current && !selectables.includes(selected.current)) {
+            console.log("deselecting removed selectable");
+            setSelected(null);
+        }
+    }, [selectables]);
+
+    const registerSelectable: RefCallback<HTMLDivElement> = useCallback((el: HTMLDivElement) => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        setSelectables(prev => prev.includes(el) ? prev : [...prev, el]);
+
+        el.addEventListener("mouseenter", () => setSelected(el), { signal });
+
+        return () => {
+            setSelectables(prev => prev.filter(e => e !== el));
+            controller.abort();
+        };
+    }, []);
 
     return (
         <SoulContext.Provider
             value={{
                 ref,
                 selectables,
+                registerSelectable,
                 setSelected,
             }}
         >

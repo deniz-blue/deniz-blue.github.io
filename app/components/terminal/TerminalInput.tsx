@@ -1,6 +1,7 @@
 import { useIsFirstRender, useListState, useWindowEvent } from "@mantine/hooks";
-import { RefObject, useCallback, useLayoutEffect, useRef, useState } from "react";
+import { RefObject, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { useTerminalInputState } from "./useTerminalInputState";
+import { useAppContext } from "../../contexts/app/AppContext";
 
 export const TerminalInput = ({
     inputRef,
@@ -9,9 +10,11 @@ export const TerminalInput = ({
     value,
     disabled,
 }: ReturnType<typeof useTerminalInputState>) => {
-    const isFirstRender = useIsFirstRender();
+    const [{ showTerminal }] = useAppContext();
 
     const tryFocus = useCallback(() => {
+        if(!showTerminal) return;
+
         if (inputRef.current
             && !disabled
             && document.getSelection()?.isCollapsed
@@ -19,9 +22,11 @@ export const TerminalInput = ({
             inputRef.current.focus();
             inputRef.current.setSelectionRange(inputRef.current.value.length, inputRef.current.value.length);
         }
-    }, [disabled]);
+    }, [disabled, showTerminal]);
+
     useWindowEvent("mouseup", tryFocus);
     useWindowEvent("touchend", tryFocus);
+    useEffect(() => tryFocus(), [showTerminal]);
 
     useLayoutEffect(() => {
         if (!inputRef.current) return;

@@ -1,6 +1,5 @@
 import { PropsWithChildren, useContext, useEffect, useRef } from "react";
 import { SoulContext } from "./SoulContext";
-import { useHover, useMergedRef } from "@mantine/hooks";
 import { Box } from "@mantine/core";
 import { SoulAnchor } from "./positioning";
 
@@ -24,16 +23,7 @@ export const SoulSelectable = ({
     mr?: Measurement;
 }>) => {
     const ref = useRef<HTMLDivElement>(null);
-    const { selectables, setSelected } = useContext(SoulContext);
-
-    useEffect(() => {
-        if (disabled) {
-            selectables.delete(ref);
-        } else {
-            selectables.add(ref);
-            return () => void selectables.delete(ref);
-        }
-    }, [ref, disabled]);
+    const { registerSelectable, setSelected } = useContext(SoulContext);
 
     useEffect(() => {
         if(!ref.current) return;
@@ -42,14 +32,14 @@ export const SoulSelectable = ({
         const abort = new AbortController();
         const signal = abort.signal;
 
-        div.addEventListener("mouseenter", () => setSelected(ref), { signal });
+        div.addEventListener("mouseenter", () => setSelected(ref.current), { signal });
 
         return () => abort.abort();
     }, [ref]);
 
     return (
         <Box
-            ref={ref}
+            ref={!disabled ? registerSelectable : null}
             className="soul-selectable"
             mod={{
                 "data-pos": anchor,
