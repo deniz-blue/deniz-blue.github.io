@@ -1,4 +1,5 @@
 import { FSNode } from "./fs";
+import roomba_log from "./source/roomba.log?raw";
 
 const file = (name: string, content: string): FSNode => ({
     name,
@@ -33,8 +34,11 @@ export const FSROOT: FSNode = dir("/", [
                 });
             }),
             file("NOTE.txt", "this section is still a WIP"),
-            dir("stuff", [
+            dir("archive", [
                 file("girl", "mrrp :3"),
+                dir("roomba", [
+                    file("2038-08-17-1.log", roomba_log),
+                ]),
             ]),
             bin("website", (ctx) => {
                 ctx.stdout({ text: "Farewell", fg: "BrightMagenta" });
