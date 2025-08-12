@@ -13,6 +13,7 @@ export const SoulSelectable = ({
     ml,
     mr,
     mt,
+    blur,
 }: PropsWithChildren<{
     disabled?: boolean;
     anchor?: SoulAnchor;
@@ -21,6 +22,7 @@ export const SoulSelectable = ({
     mt?: Measurement;
     ml?: Measurement;
     mr?: Measurement;
+    blur?: boolean;
 }>) => {
     const ref = useRef<HTMLDivElement>(null);
     const { registerSelectable, setSelected } = useContext(SoulContext);
@@ -48,6 +50,7 @@ export const SoulSelectable = ({
                 "data-mb": mb,
                 "data-ml": ml,
                 "data-mr": mr,
+                "data-blur": blur,
             }}
         >
             {children}

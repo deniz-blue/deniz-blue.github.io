@@ -98,14 +98,14 @@ body[data-starry=true] .frost {
     }
 }
 
-.heart {
+/* .heart {
     position: absolute;
     font-size: 2em;
     animation: heartBurst 1s ease-out;
     animation-fill-mode: forwards;
     color: #ab9df2;
     z-index: 20;
-}
+} */
 
 
 

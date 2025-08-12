@@ -5,12 +5,29 @@
     height: 22px;
 
     position: absolute;
-    transition: transform 100ms;
+    transition-property: transform, opacity;
+    transition-duration: 100ms;
     pointer-events: none;
     transform: translate(-100px, -100px);
+    overflow: visible;
 }
 
-#SOUL .soul-overlay {
+.soul.heart {
+    top: 0%;
+    left: 0%;
     width: 22px;
     height: 22px;
+
+    position: absolute;
+}
+
+.soul.blur {
+    position: absolute;
+    z-index: -100;
+    transition-property: transform, opacity;
+    transition-duration: 50ms;
+    width: 20px;
+    height: 20px;
+    transform: translate(1px, 1px) scale(calc(var(--blur) + 1));
+    opacity: calc(var(--blur) * 0.5);
 }

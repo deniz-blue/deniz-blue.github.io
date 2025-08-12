@@ -1,8 +1,12 @@
 .badge {
     width: 88px;
     height: 31px;
+    transition: all 100ms;
+    outline: solid 0px transparent;
+    outline-offset: 0px;
 }
 
-.badge:hover {
-    outline: solid 1px red;
+.soul-selectable[data-soul-selected] .badge {
+    outline: solid 2px red;
+    outline-offset: 1px;
 }

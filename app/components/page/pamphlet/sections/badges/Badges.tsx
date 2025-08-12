@@ -1,7 +1,9 @@
-import { Divider, Group, SimpleGrid, Stack, Text } from "@mantine/core";
-import FUFU_BADGE from "./fufu_badge.png";
-import REJECT_HUMANITY from "./reject_humanity.png";
 import { PropsWithChildren, ReactNode } from "react";
+import { Divider, Group, SimpleGrid, Stack, Text } from "@mantine/core";
+import { SoulSelectable } from "../../../../../contexts/soul/SoulSelectable";
+
+import REJECT_HUMANITY from "./reject_humanity.png";
+import FUFU_BADGE from "./fufu_badge.png";
 import "./badges.css";
 
 export const ButtonsSection = () => {
@@ -67,14 +69,16 @@ export const Badges = () => {
             <BadgesDivider label="Fun" />
             <BadgesRows>
                 <Badge src="/assets/img/88x31/kris-where-tf-are-we.png" href={null} />
-                <iframe
-                    src="https://incr.easrng.net/badge?key=deniz.blue"
-                    style={{ background: "url(https://incr.easrng.net/bg.gif)", border: "unset" }}
-                    title="increment badge"
-                    width="88"
-                    height="31"
-                    className="badge"
-                />
+                <SoulSelectable anchor="center">
+                    <iframe
+                        src="https://incr.easrng.net/badge?key=deniz.blue"
+                        style={{ background: "url(https://incr.easrng.net/bg.gif)", border: "unset" }}
+                        title="increment badge"
+                        width="88"
+                        height="31"
+                        className="badge"
+                    />
+                </SoulSelectable>
                 <Badge src="/assets/img/88x31/tidalwave.gif" href={null} />
                 <Badge src="/assets/img/88x31/bad-apple-optimized.gif" href={null} />
                 <Badge src="/assets/img/88x31/tested-on-firefox.gif" href={null} />
@@ -121,15 +125,17 @@ export const Badge = ({
     );
 
     return (
-        <div className="badge">
-            {href === null ? img : (
-                <a
-                    href={href || origin}
-                    target="_blank"
-                >
-                    {img}
-                </a>
-            )}
-        </div>
+        <SoulSelectable anchor="center">
+            <div className="badge">
+                {href === null ? img : (
+                    <a
+                        href={href || origin}
+                        target="_blank"
+                    >
+                        {img}
+                    </a>
+                )}
+            </div>
+        </SoulSelectable>
     )
 };

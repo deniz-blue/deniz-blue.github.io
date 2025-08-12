@@ -36,21 +36,21 @@ export const SoulContextProvider = ({
 
     const selected = useRef<HTMLDivElement>(null);
     const setSelected = (el: HTMLDivElement | null) => {
-        let didChange = selected.current !== el;
+        let oldSelected = selected.current;
+        let didChange = oldSelected !== el;
         selected.current = el ?? null;
 
-        console.log("SELECTED", selected);
-        console.log("SOUL", ref);
+        if(didChange) oldSelected?.removeAttribute("data-soul-selected");
+        selected.current?.setAttribute("data-soul-selected", "true");
 
         if (!ref.current) return;
 
         if (selected.current) {
             if (didChange) play$utcursor();
-            const { pos, zIndex } = getSelectionSoulConfig(selected.current);
+            const { ...cfg } = getSelectionSoulConfig(selected.current);
             configureSoulElement(ref.current, {
-                pos,
                 opacity: 1,
-                zIndex,
+                ...cfg,
             });
         } else {
             configureSoulElement(ref.current, {

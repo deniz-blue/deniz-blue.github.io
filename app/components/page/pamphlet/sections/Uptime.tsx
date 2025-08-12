@@ -50,7 +50,7 @@ export const Uptime = () => {
                         key={service.slug}
                     >
                         <Paper
-                            w="100%"
+                            w={(88+4)*3}
                             withBorder
                             p={4}
                             className="frost"

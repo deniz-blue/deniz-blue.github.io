@@ -1,5 +1,6 @@
 import { useContext } from "react";
-import SOUL from "./SOUL.png";
+import SOUL from "./spr/SOUL.png";
+import IMAGE_SOUL_BLUR from "./spr/IMAGE_SOUL_BLUR.png";
 import { SoulContext } from "./SoulContext";
 import "./soul.css";
 
@@ -9,10 +10,20 @@ export const SoulElement = () => {
     return (
         <div
             id="SOUL"
-            style={{
-                backgroundImage: `url("${SOUL}")`,
-            }}
             ref={ref}
-        />
+        >
+            <div
+                className="soul heart"
+                style={{
+                    backgroundImage: `url("${SOUL}")`,
+                }}
+            />
+            <div
+                className="soul blur"
+                style={{
+                    backgroundImage: `url("${IMAGE_SOUL_BLUR}")`,
+                }}
+            />
+        </div>
     );
 };

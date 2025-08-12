@@ -13,15 +13,18 @@ export const configureSoulElement = (
         pos,
         zIndex,
         opacity,
+        blur,
     }: Partial<{
         pos: Vec2,
         zIndex?: number,
         opacity?: number,
+        blur?: boolean;
     }>
 ) => {
     if (pos) soul.style.transform = `translate(${pos.x - 11}px, ${pos.y - 11 + window.scrollY}px)`;
     if (zIndex !== undefined) soul.style.zIndex = zIndex ? zIndex.toString() : "";
     if (opacity !== undefined) soul.style.opacity = opacity.toString();
+    soul.style.setProperty("--blur", blur ? "1" : "0");
 };
 
 export const scrollIntoViewIfOutOfBounds = (el: HTMLElement) => {
@@ -52,6 +55,7 @@ export const scrollIntoViewIfOutOfBounds = (el: HTMLElement) => {
 export const getSelectionSoulConfig = (el: HTMLDivElement) => {
     let pos = el.getAttribute("data-pos") || "center";
     let rect = el.getBoundingClientRect();
+    let blur = !!el.getAttribute("data-blur");
 
     const getAttrN = (s: string, defaultV: number) => {
         let v = el.getAttribute(s);
@@ -96,6 +100,7 @@ export const getSelectionSoulConfig = (el: HTMLDivElement) => {
     return {
         pos: vec2(x, y),
         zIndex,
+        blur,
     };
 };
 
