@@ -4,6 +4,7 @@ export const defaultAppFlags = {
     showTerminal: false,
     showDevice: false,
     showPamphlet: true,
+    rain: false,
 };
 
 export type AppFlags = typeof defaultAppFlags;

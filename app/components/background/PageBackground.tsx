@@ -1,3 +1,4 @@
+import { useAppContext } from "../../contexts/app/AppContext";
 import { useBackgroundContext } from "../../contexts/background/BackgroundContext";
 import { DepthBackground } from "./depth/DepthBackground";
 import { ManBackground } from "./man/ManBackground";
@@ -8,10 +9,11 @@ import { StarfieldBackground } from "./starfield/StarfieldBackground";
 
 export const PageBackground = () => {
     const [{ type }] = useBackgroundContext();
+    const [{ rain }] = useAppContext();
 
     return (
         <div style={{ position: "fixed", zIndex: -1 }}>
-            {/* <RainForeground /> */}
+            {rain && <RainForeground />}
 
             {type === "starfield" && <StarfieldBackground />}
             {type === "oneshot" && <OneShotBackground />}

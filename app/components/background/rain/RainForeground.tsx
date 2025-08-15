@@ -57,13 +57,11 @@ export const RainForeground = () => {
                         vy: 0,
                         color: randArr(DropletColors),
                         sinkSpeed: randInt(15) + 15,
-                        size: randInt(5) + 3,
+                        size: randInt(2) + 3,
                         splash: 0,
                         alpha: Math.random()+0.1,
                     });
                 }
-
-                // if (debug) console.log([...droplets][0])
             },
 
             draw() {
@@ -77,10 +75,6 @@ export const RainForeground = () => {
 
                         const a = -1;
                         const parabola = (T: Vec2) => (_x: number) => a * Math.pow(_x - T.x, 2) + T.y;
-
-                        // const progress = droplet.splash * splashLength;
-                        // const f = parabola(vec2(splashLength / 2, splashHeight));
-                        // const height = f(progress);
 
                         const f = parabola(vec2(1,1));
                         const height = f(droplet.splash * 2) * splashHeight;
@@ -100,7 +94,7 @@ export const RainForeground = () => {
                             size
                         );
                     } else {
-                        ctx.fillRect(droplet.x, droplet.y, droplet.size / 2, droplet.size * 3);
+                        ctx.fillRect(droplet.x, droplet.y, droplet.size / 2, (droplet.size * 2 + droplet.vy*0.1));
                     }
                 }
             },

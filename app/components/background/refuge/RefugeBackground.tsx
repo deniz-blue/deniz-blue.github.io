@@ -1,47 +1,49 @@
 import { useCallback } from "react";
 import { useCanvas, UseCanvasInit } from "../../../hooks/useCanvas";
 import { deterministicRandom } from "../../../utils/deterministicRandom";
+import { Vec2, vec2, vec2add, vec2div, vec2mul } from "@alan404/vec2";
 
 export const RefugeBackground = () => {
     const init: UseCanvasInit = useCallback((ctx) => {
         ctx.lineWidth = 1;
         ctx.imageSmoothingEnabled = false;
 
+        const c_front = "#5A0D36";
+        const c_front_outline = "#6E1244";
+        const c_side = "#290427";
+        const c_side_outline = "#4B092E";
+        const c_window = "#2A0428";
+        const c_window_under = "#B1184B";
+        const c_side_window = "#1E021F";
+        const c_window_lit = "#FF59BE";
+
         const drawRect = (
-            x: number,
-            y: number,
-            w: number,
-            h: number,
+            pos: Vec2,
+            size: Vec2,
             c: string,
             outline?: string,
         ) => {
             ctx.fillStyle = c;
-            ctx.fillRect(x, y, w, h);
+            ctx.fillRect(pos.x, pos.y, size.x, size.y);
             if (outline) {
                 ctx.strokeStyle = outline;
-                ctx.strokeRect(x + 0.5, y + 0.5, w, h);
+                ctx.strokeRect(pos.x + 0.5, pos.y + 0.5, size.x, size.y);
             }
         };
 
         const drawGrid = (
-            x: number,
-            y: number,
-            w: number,
-            h: number,
-            ax: number,
-            ay: number,
-            sx: number,
-            sy: number,
+            pos: Vec2,
+            size: Vec2,
+            amount: Vec2,
+            spacing: Vec2,
             c: string,
             o?: string,
         ) => {
-            for (let ix = 0; ix < ax; ix++) {
-                for (let iy = 0; iy < ay; iy++) {
+            for (let ix = 0; ix < amount.x; ix++) {
+                for (let iy = 0; iy < amount.y; iy++) {
                     drawRect(
-                        x + (w + sx) * ix,
-                        y + (h + sy) * iy,
-                        w,
-                        h,
+                        vec2add(pos, vec2mul(vec2add(size, spacing), vec2(ix, iy))),
+                        size,
                         c,
                         o
                     );
@@ -49,100 +51,150 @@ export const RefugeBackground = () => {
             }
         };
 
-        const drawLight = (x: number, y: number, c: string, size: number) => {
+        const drawLight = (pos: Vec2, c: string, size: number) => {
             ctx.save();
             ctx.globalAlpha = 0.5;
-            let g = ctx.createRadialGradient(x, y, 0, x, y, size);
+            let g = ctx.createRadialGradient(pos.x, pos.y, 0, pos.x, pos.y, size);
             g.addColorStop(0, c + "ff");
             g.addColorStop(1, c + "00");
             ctx.beginPath();
             ctx.fillStyle = g;
-            ctx.arc(x, y, size, 0, Math.PI * 2, false);
+            ctx.arc(pos.x, pos.y, size, 0, Math.PI * 2, false);
             ctx.fill();
             ctx.restore();
         };
 
-        const drawWindows = () => {
+        const buildingBase = ({
+            pos,
+            padding,
+            windowSize,
+            windowSpacing,
+            windowAmount,
 
+            color,
+            outlineColor,
+            windowColor,
+            windowUnderlineColor,
+            windowLitIndicies,
+            windowLitColor,
+            windowLitSize,
+        }: {
+            pos: Vec2;
+            padding: Vec2;
+            windowSize: Vec2;
+            windowSpacing: Vec2;
+            windowAmount: Vec2;
+
+            color: string;
+            outlineColor?: string;
+            windowColor: string;
+            windowUnderlineColor?: string;
+            windowLitColor?: string;
+            windowLitSize?: number;
+            windowLitIndicies?: number[];
+        }) => {
+            const buildingSize = vec2(
+                padding.x + windowSize.x * windowAmount.x + windowSpacing.x * (windowAmount.x - 1) + padding.x,
+                ctx.canvas.height - pos.y - 1,
+            );
+
+            drawRect(pos, buildingSize, color, outlineColor);
+            drawGrid(
+                vec2add(pos, padding),
+                windowSize,
+                windowAmount,
+                windowSpacing,
+                windowColor,
+            );
+
+            if (windowUnderlineColor) {
+                drawGrid(
+                    vec2add(pos, padding, vec2(0, windowSize.y)),
+                    vec2(windowSize.x, 1),
+                    windowAmount,
+                    vec2(windowSpacing.x, windowSpacing.y + windowSize.y - 1),
+                    windowUnderlineColor,
+                );
+            }
+
+            if (windowLitColor && windowLitIndicies?.length && windowLitSize) {
+                for (let idx of windowLitIndicies) {
+                    // let ox = (idx % wax) * (ww + 5);
+                    // let oy = (Math.floor(idx / way)) * (wh + 5);
+                    // let cx = x + 4 + ox + (ww / 2);
+                    // let cy = y + 12 + oy + (wh / 2);
+                    let offset = vec2mul(
+                        vec2(idx % windowAmount.x, Math.floor(idx / windowAmount.y)),
+                        vec2add(windowSize, windowSpacing),
+                    );
+
+                    let center = vec2add(
+                        pos,
+                        padding,
+                        offset,
+                        vec2div(windowSize, 2),
+                    );
+
+                    drawLight(center, c_window_lit, 15);
+                    drawRect(vec2add(pos, padding, offset), windowSize, windowLitColor);
+                }
+            }
+
+            return {
+                buildingSize,
+            };
         };
 
-        const building1a = ({
-            x, y, fw, h, sw, wh, ww, wax, way, hl,
+        const building1 = ({
+            x, y, hl, frontWindowAmount, sideWindowAmount,
         }: {
             x: number,
             y: number,
-            fw: number,
-            h: number,
-            sw: number,
-            ww: number,
-            wh: number,
-            wax: number,
-            way: number,
             hl: number[],
+            frontWindowAmount: number,
+            sideWindowAmount: number,
+
         }) => {
-            const c_front = "#5A0D36";
-            const c_front_outline = "#6E1244";
-            const c_side = "#290427";
-            const c_side_outline = "#4B092E";
-            const c_window = "#2A0428";
-            const c_window_under = "#B1184B";
-            const c_side_window = "#1E021F";
-            const c_window_lit = "#FF59BE";
+            const wh = 9;
+            const wsy = 5;
+            const way = Math.floor(ctx.canvas.height / (wh + wsy)) - 5;
 
-            drawRect(x + fw - 1, y, sw, h, c_side, c_side_outline);
-            drawRect(x, y, fw, h, c_front, c_front_outline);
+            const { buildingSize: frontSize } = buildingBase({
+                pos: vec2(x, y),
+                padding: vec2(4, 12),
 
-            
+                color: c_front,
+                outlineColor: c_front_outline,
 
-            drawGrid(
-                x + 4,
-                y + 12,
-                ww,
-                wh,
-                wax,
-                way,
-                5,
-                5,
-                c_window,
-            );
-            drawGrid(
-                x + 4,
-                y + 12 + wh,
-                ww,
-                1,
-                wax,
-                way,
-                5,
-                5 + wh - 1,
-                c_window_under,
-            );
-            drawGrid(
-                x + fw + 3,
-                y + 12,
-                4,
-                wh,
-                3,
-                way,
-                3,
-                5,
-                c_side_window,
-            );
+                windowColor: c_window,
+                windowSize: vec2(8, wh),
+                windowSpacing: vec2(5, wsy),
+                windowAmount: vec2(frontWindowAmount, way),
+                windowUnderlineColor: c_window_under,
+                windowLitColor: c_window_lit,
+                windowLitSize: 15,
+                windowLitIndicies: hl,
+            });
 
-            for (let idx of hl) {
-                let ox = (idx % wax) * (ww + 5);
-                let oy = (Math.floor(idx / way)) * (wh + 5);
-                let cx = x + 4 + ox + (ww / 2);
-                let cy = y + 12 + oy + (wh / 2);
+            buildingBase({
+                pos: vec2(frontSize.x + x + 1, y),
+                padding: vec2(4, 12),
 
-                drawLight(cx, cy, c_window_lit, 15);
-            }
+                color: c_side,
+                outlineColor: c_side_outline,
 
-            for (let idx of hl) {
-                let ox = (idx % wax) * (ww + 5);
-                let oy = (Math.floor(idx / way)) * (wh + 5);
+                windowColor: c_side_window,
+                windowSize: vec2(4, wh),
+                windowSpacing: vec2(3, wsy),
+                windowAmount: vec2(sideWindowAmount, way),
+                // windowLitColor: c_window_lit,
+                // windowLitSize: 15,
+                // windowLitIndicies: hl,
+            });
 
-                drawRect(x + 4 + ox, y + 12 + oy, ww, wh, c_window_lit);
-            }
+            return {
+                frontSize,
+            };
         };
 
         return {
@@ -151,29 +203,43 @@ export const RefugeBackground = () => {
                 ctx.lineCap = "square";
                 ctx.strokeStyle = "blue";
 
+                // drawRect(0,0,640,479,"blue", "red")
+
                 let rand = deterministicRandom();
 
-                let hl = [...new Set(Array(5).fill(0).map(() => (
-                    Math.floor(rand() * 25)
-                )))];
+                let x = 4;
+                for (let bi of Array(20).fill(0)) {
+                    let hl = [...new Set(Array(5).fill(0).map(() => (
+                        Math.floor(rand() * 1000)
+                    )))];
 
-                building1a({
-                    x: 50,
-                    y: 50,
-                    fw: 70,
-                    sw: 25,
-                    h: 200,
-                    ww: 8,
-                    wh: 9,
-                    wax: 5,
-                    way: 5,
-                    hl,
-                });
+                    let { frontSize } = building1({
+                        x: x,
+                        y: ctx.canvas.height - Math.floor(ctx.canvas.height * rand() * 0.7),
+                        frontWindowAmount: 5,
+                        sideWindowAmount: 3,
+                        hl,
+                    });
+
+                    x += frontSize.x;
+                    x += rand() > 0.9 ? 50 : 0;
+                    x += 4;
+                }
             },
         };
     }, []);
 
-    const { ref } = useCanvas(init);
+    const { ref } = useCanvas(init, {
+        delay: 500,
+        size: (canvas) => {
+            const h = 480;
+            const w = (h / canvas.clientHeight) * canvas.clientWidth;
+            return vec2(
+                w,
+                h,
+            );
+        },
+    });
 
     return (
         <div className="pageBackground">
@@ -181,6 +247,7 @@ export const RefugeBackground = () => {
                 className="pageBackground"
                 style={{
                     imageRendering: "crisp-edges",
+                    backgroundImage: "linear-gradient(#18031A, #23051F, #3B0929)",
                 }}
                 ref={ref}
             />
