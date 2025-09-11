@@ -12,5 +12,7 @@ export default [
         ]),
 
         route("badge", "./routes/Badge.tsx"),
+
+        // route("test", "./routes/test/Test.tsx"),
     ]),
 ] satisfies RouteConfig;

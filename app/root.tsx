@@ -3,13 +3,13 @@ import { Notifications } from "@mantine/notifications";
 import { PropsWithChildren } from "react";
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
 import { Route } from "./+types/root";
-import css_mantine_core from "@mantine/core/styles.css?url";
-import css_mantine_notifications from "@mantine/notifications/styles.css?url";
-import css_mantine_carousel from "@mantine/carousel/styles.css?url";
-import css_mantine_highlight from "@mantine/code-highlight/styles.css?url";
-import css_fonts from "./styles/fonts.css?url";
-import css_custom_styles from "./styles/style.css?url";
-import css_custom_mixins from "./styles/mixins.css?url";
+import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css";
+import "@mantine/carousel/styles.css";
+import "@mantine/code-highlight/styles.css";
+import "./styles/fonts.css";
+import "./styles/style.css";
+import "./styles/mixins.css";
 import { ModalsProvider } from "@mantine/modals";
 import { LocalizationProvider } from "./components/localization/LocalizationProvider";
 
@@ -21,13 +21,6 @@ export const meta: Route.MetaFunction = () => [
 
 export const links: Route.LinksFunction = () => [
     { rel: "preconnect", href: "https://fonts.googleapis.com" },
-    { rel: "stylesheet", href: css_fonts },
-    { rel: "stylesheet", href: css_mantine_core },
-    { rel: "stylesheet", href: css_mantine_notifications },
-    { rel: "stylesheet", href: css_mantine_carousel },
-    { rel: "stylesheet", href: css_mantine_highlight },
-    { rel: "stylesheet", href: css_custom_styles },
-    { rel: "stylesheet", href: css_custom_mixins },
 ];
 
 const theme = createTheme({

@@ -47,6 +47,7 @@ export const SoulContextProvider = ({
 
         if (selected.current) {
             if (didChange) play$utcursor();
+            selected.current.focus();
             const { ...cfg } = getSelectionSoulConfig(selected.current);
             configureSoulElement(ref.current, {
                 opacity: 1,
@@ -86,9 +87,7 @@ export const SoulContextProvider = ({
     ]);
 
     useEffect(() => {
-        console.log("selectables updated", selectables);
         if(selected.current && !selectables.includes(selected.current)) {
-            console.log("deselecting removed selectable");
             setSelected(null);
         }
     }, [selectables]);
@@ -99,7 +98,8 @@ export const SoulContextProvider = ({
 
         setSelectables(prev => prev.includes(el) ? prev : [...prev, el]);
 
-        el.addEventListener("mouseenter", () => setSelected(el), { signal });
+        // el.addEventListener("mouseenter", () => setSelected(el), { signal });
+        // el.addEventListener("focus", () => setSelected(el), { signal });
 
         return () => {
             setSelectables(prev => prev.filter(e => e !== el));

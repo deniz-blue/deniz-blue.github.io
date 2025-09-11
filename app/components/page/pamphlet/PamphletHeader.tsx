@@ -1,6 +1,7 @@
 import { Stack, Group, Avatar, Title, Text, Space, Box, Paper } from "@mantine/core";
 import { Localized } from "@alan404/react-localization";
 import { Socials } from "~/components/page/pamphlet/sections/Socials";
+import { useFeatures } from "../../base/FeaturesContext";
 
 export const PamphletHeader = () => {
     return (
@@ -48,8 +49,10 @@ export const PamphletHeader = () => {
 };
 
 export const MeTitle = () => {
+    const { myBurdenIsDead } = useFeatures();
+
     return (
-        <Title order={3}>
+        <Title order={3} c={myBurdenIsDead ? "dimmed" : undefined}>
             <Group gap={0} align="center">
                 <Localized
                     en="hi, i'm #NAME#"
@@ -62,8 +65,10 @@ export const MeTitle = () => {
 };
 
 export const MeName = () => {
+    const { myBurdenIsDead } = useFeatures();
+
     return (
-        <Group gap={0} align="end" className="rainbowText">
+        <Group gap={0} align="end" className={myBurdenIsDead ? "" : "rainbowText"}>
             <Localized
                 tr=""
                 en="#GAP#"
@@ -77,7 +82,7 @@ export const MeName = () => {
                     inherit
                     span
                     key={i}
-                    className="name-letter"
+                    className={myBurdenIsDead ? "" : "name-letter"}
                     style={{ "--i": i, whiteSpace: "pre" }}
                     w={letter == " " ? "7px" : undefined}
                 >

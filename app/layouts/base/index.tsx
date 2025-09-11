@@ -9,6 +9,7 @@ import { ContextStack } from "../../components/ui/ContextStack";
 import { SoulContextProvider } from "../../contexts/soul/SoulContext";
 import { WebAudioContextProvider } from "../../contexts/audio/WebAudioContext";
 import { AppContextProvider } from "../../contexts/app/AppContext";
+import { Center, Loader } from "@mantine/core";
 
 export default function Layout() {
     return (
@@ -29,3 +30,12 @@ export default function Layout() {
         </ContextStack>
     )
 };
+
+export function HydrateFallback() {
+    return (
+        <Center my="xl" h="90vh">
+            <Loader />
+        </Center>
+    );
+}
+

@@ -32,6 +32,7 @@
     "embla-carousel-react": "8.6.0",
     "isbot": "^5.1.28",
     "mantine-flagpack": "4.1.1",
+    "modern-gif": "^2.0.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-rewards": "^2.1.0",

@@ -3,7 +3,9 @@ import { createContext, PropsWithChildren, useContext, useState } from "react";
 export const defaultAppFlags = {
     showTerminal: false,
     showDevice: false,
-    showPamphlet: true,
+    showPamphlet: false,
+    showPamphletV2: true,
+    showWD: false,
     rain: false,
 };
 

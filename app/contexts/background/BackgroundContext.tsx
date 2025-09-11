@@ -6,7 +6,7 @@ export type Background = {
 };
 
 export const DefaultBackground: Background = {
-    type: "starfield",
+    type: "oneshot",
 };
 
 export const BackgroundContext = createContext<[Background, (b: Background) => void]>([DefaultBackground, ()=>{}]);

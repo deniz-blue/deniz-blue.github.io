@@ -2,6 +2,8 @@ import { useCallback } from "react";
 import { useCanvas, UseCanvasInit } from "../../../hooks/useCanvas";
 import { Vec2, vec2 } from "@alan404/vec2";
 import { randArr, randInt } from "../../../utils/math";
+import THE_PLACE_WHERE_IT_RAINED from "./rain.ogg";
+import { useAudioUnlocker } from "../../../hooks/useAudioUnlocker";
 
 interface Droplet {
     x: number;
@@ -25,7 +27,7 @@ export const RainForeground = () => {
     const init: UseCanvasInit = useCallback((ctx) => {
         let droplets: Set<Droplet> = new Set();
         let wind = vec2();
-        let percentage = 0.1;
+        let percentage = 0.4;
 
         const splashSpeed = 0.002;
 
@@ -54,7 +56,7 @@ export const RainForeground = () => {
                     droplets.add({
                         x: randInt(ctx.canvas.width),
                         y: -randInt(ctx.canvas.height * 2),
-                        vy: 0,
+                        vy: 0 + Math.random(),
                         color: randArr(DropletColors),
                         sinkSpeed: randInt(15) + 15,
                         size: randInt(2) + 3,
@@ -103,11 +105,20 @@ export const RainForeground = () => {
 
     const { ref } = useCanvas(init, {});
 
+    const audioRef = useAudioUnlocker();
+
     return (
         <div className="fullscreen">
             <canvas
                 className="fullscreen"
                 ref={ref}
+            />
+
+            <audio
+                src={THE_PLACE_WHERE_IT_RAINED}
+                ref={audioRef}
+                loop
+                autoPlay
             />
         </div>
     )

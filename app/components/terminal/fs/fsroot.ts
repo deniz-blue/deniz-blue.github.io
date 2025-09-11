@@ -40,12 +40,19 @@ export const FSROOT: FSNode = dir("/", [
                     file("2038-08-17-1.log", roomba_log),
                 ]),
             ]),
-            bin("website", (ctx) => {
-                ctx.stdout({ text: "Farewell", fg: "BrightMagenta" });
+            bin("farewell", (ctx) => {
+                ctx.stdout({ text: "Loading Farewell...", fg: "BrightMagenta" });
                 ctx.app.setBackground({ type: "starfield" });
                 ctx.app.setFlags({
                     showTerminal: false,
                     showPamphlet: true,
+                });
+            }),
+            bin("website", (ctx) => {
+                ctx.app.setBackground({ type: "oneshot" });
+                ctx.app.setFlags({
+                    showTerminal: false,
+                    showPamphletV2: true,
                 });
             }),
         ]),

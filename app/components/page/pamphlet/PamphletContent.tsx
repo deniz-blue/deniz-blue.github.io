@@ -24,8 +24,8 @@ export const PamphletContent = () => {
             <Shields />
             {/* <Motd /> */}
             {/* <AboutMe /> */}
-            <ArtPiece />
-            <StuffIUse />
+            {/* <ArtPiece /> */}
+            {/* <StuffIUse /> */}
             {/* <FeaturedProjects /> */}
             {/* <MoreMe /> */}
             {/* <Specs /> */}
