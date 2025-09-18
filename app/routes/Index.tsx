@@ -13,8 +13,14 @@ export default function Index() {
     const [{ type }, setBackground] = useBackgroundContext();
     const [flags, setFlags] = useAppContext();
 
+    const exitable = (
+        flags.showPamphlet
+        || flags.showPamphletV2
+        || flags.showDevice
+    );
+
     const exit = () => {
-        if (!flags.showPamphlet) return;
+        if (!exitable) return;
         setBackground({ type: "null" });
         setFlags({
             showTerminal: true,
@@ -47,7 +53,7 @@ export default function Index() {
                 <PamphletV2 />
             )}
 
-            {(flags.showPamphlet || flags.showPamphletV2 || flags.showDevice) && (
+            {exitable && (
                 <Affix position={{ top: 0, left: 0 }}>
                     <div className="terminal">
                         <pre className="terminal-content">
