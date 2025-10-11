@@ -2,14 +2,28 @@ import { Affix, Box } from "@mantine/core";
 import { useBackgroundContext } from "../contexts/background/BackgroundContext";
 import { useAppContext } from "../contexts/app/AppContext";
 import { useHotkeys } from "@mantine/hooks";
-import { MyBurden } from "../layouts/main/MyBurden";
 import { Device } from "../components/page/device/Device";
 import { Terminal } from "../components/terminal/Terminal";
 import { Pamphlet } from "../components/page/pamphlet/Pamphlet";
 import { WingDing } from "../components/page/wingding/WingDing";
 import { PamphletV2 } from "../components/page/pamphletv2/PamphletV2";
+import { fetchProjectsJSON } from "../utils/fetch-projects";
+import { Route } from "./+types/Index";
+import { useEffect } from "react";
+import { useProjectJSON } from "../stores/useProjectJSON";
 
-export default function Index() {
+
+export async function loader() {
+    return await fetchProjectsJSON();
+}
+
+export default function Index({
+    loaderData,
+}: Route.ComponentProps) {
+    useEffect(() => {
+        useProjectJSON.setState({ data: loaderData });
+    }, [loaderData]);
+
     const [{ type }, setBackground] = useBackgroundContext();
     const [flags, setFlags] = useAppContext();
 

@@ -1,7 +1,6 @@
 import { Accordion, Anchor, Box, Button, Collapse, Divider, Group, Image, ScrollArea, SimpleGrid, Stack, Text } from "@mantine/core"
-import { useDisclosure } from "@mantine/hooks"
 import { modals } from "@mantine/modals"
-import { IconBrush, IconChevronCompactDown, IconChevronDown, IconChevronRight, IconComet, IconCrown } from "@tabler/icons-react"
+import { IconBrush, IconComet, IconCrown } from "@tabler/icons-react"
 import { ReactNode } from "react"
 import { Localized } from "@alan404/react-localization"
 import { OCArtModal } from "~/components/modals/OCArtModal"

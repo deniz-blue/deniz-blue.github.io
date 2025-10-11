@@ -7,6 +7,7 @@ import { useRef } from "react";
 import { OneshotBGM } from "../../background/oneshot/OneshotBGM";
 import shatter from "../../background/oneshot/shatter.wav";
 import { useSoundEffect } from "../../../contexts/audio/useSoundEffect";
+import { ProjectListV2 } from "./ProjectListV2";
 
 export const V2Button = ({
     children,
@@ -76,9 +77,13 @@ export const PamphletV2 = () => {
             pt="3rem"
             pb="7rem"
         >
-            <OneshotBGM />
+            {/* <OneshotBGM /> */}
 
-            <Stack gap={4} align="center">
+            <Stack
+                gap={4}
+                align="center"
+                maw={88 * 3 + 4 * 2}
+            >
                 <ActionIcon
                     variant="subtle"
                     color="transparent"
@@ -147,7 +152,9 @@ export const PamphletV2 = () => {
                             </V2Button>
                         </Stack>
 
-                        <Stack gap={4} align="center">
+                        <ProjectListV2 />
+
+                        {/* <Stack gap={4} align="center">
                             <Text inline fw="bold" fz="xs">
                                 WEBSITES
                             </Text>
@@ -223,7 +230,7 @@ export const PamphletV2 = () => {
                             >
                                 ZilTek
                             </V2Button>
-                        </Stack>
+                        </Stack> */}
 
                         <Stack gap={4} align="center">
                             <Text inline fw="bold" fz="xs">

@@ -37,7 +37,8 @@
     "react-dom": "^19.1.0",
     "react-rewards": "^2.1.0",
     "twemoji": "^14.0.2",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
     "@react-router/dev": "^7.7.1",

@@ -46,3 +46,23 @@ body[data-starry=true] .mantine-SegmentedControl-indicator {
     transform: rotate(180deg);
 }
 
+.mantine-Accordion-control {
+    background-color: var(--button-bg) !important;
+}
+
+.mantine-Accordion-control:hover {
+    background-color: var(--button-hover) !important;
+}
+
+.mantine-Accordion-control {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: start;
+    gap: 10px;
+    padding-right: 5px;
+}
+
+.mantine-Accordion-label {
+    flex: 1;
+}
