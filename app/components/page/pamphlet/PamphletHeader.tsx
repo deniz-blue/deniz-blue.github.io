@@ -69,15 +69,7 @@ export const MeName = () => {
 
     return (
         <Group gap={0} align="end" className={myBurdenIsDead ? "" : "rainbowText"}>
-            <Localized
-                tr=""
-                en="#GAP#"
-                GAP={(
-                    <Box ml={7} />
-                )}
-            />
-
-            {"deniz".split("").map((letter, i) => (
+            {"deniz.blue".split("").map((letter, i) => (
                 <Text
                     inherit
                     span

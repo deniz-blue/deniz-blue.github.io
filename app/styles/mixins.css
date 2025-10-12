@@ -37,12 +37,12 @@ body[data-starry=true] .mantine-SegmentedControl-indicator {
     background-color: rgba(0,0,0,0);
 }
 
-.chevron {
+.mantine-Accordion-chevron {
     transition: transform 200ms ease;
     transform: rotate(0deg);
 }
 
-.mantine-Accordion-item[data-active="true"] .chevron {
+.mantine-Accordion-chevron[data-rotate="true"] {
     transform: rotate(180deg);
 }
 

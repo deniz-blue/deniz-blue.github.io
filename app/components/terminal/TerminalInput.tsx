@@ -30,7 +30,7 @@ export const TerminalInput = ({
 
     useLayoutEffect(() => {
         if (!inputRef.current) return;
-        inputRef.current.style.width = ((value.length + 1) * 10.7) + "px";
+        inputRef.current.style.width = (value.length || 1) + "ch";
     }, [value]);
 
     return (

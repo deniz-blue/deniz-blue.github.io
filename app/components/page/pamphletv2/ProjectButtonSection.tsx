@@ -1,6 +1,6 @@
 import { Accordion, Button, ButtonProps, Collapse, Group, Image, Paper, Stack, Text } from "@mantine/core";
 import { ProjectJSONItem } from "../../../utils/fetch-projects";
-import { IconChevronCompactDown, IconChevronDown, IconExternalLink, IconFolder, IconPackage, IconWorld } from "@tabler/icons-react";
+import { IconBell, IconChartDots3, IconChevronCompactDown, IconChevronDown, IconDeviceGamepad, IconDeviceGamepad2, IconExternalLink, IconFolder, IconGraph, IconPackage, IconSparkles, IconTool, IconWorld } from "@tabler/icons-react";
 import { useDisclosure } from "@mantine/hooks";
 
 export const ProjectButtonSection = ({
@@ -11,6 +11,30 @@ export const ProjectButtonSection = ({
     const buttonProps: ButtonProps = {
         size: "compact-md",
         variant: "light",
+    };
+
+    const iconOverrides = {
+        tools: IconTool,
+        ziltek: IconBell,
+        alphamath: IconSparkles,
+        carpanga: IconDeviceGamepad2,
+        poly: IconChartDots3,
+    } as Record<string, React.ComponentType>;
+
+    let icon = <IconFolder />;
+    if (project.tags?.includes("library")) icon = <IconPackage />;
+    if (project.tags?.includes("website")) icon = <IconWorld />;
+    if (project.iconURL) icon = (
+        <Image
+            style={{ fill: "white" }}
+            src={project.iconURL}
+            height={24}
+            width={24}
+        />
+    );
+    if(iconOverrides[project.id]) {
+        const IconComponent = iconOverrides[project.id];
+        icon = <IconComponent />;
     };
 
     return (
@@ -28,75 +52,46 @@ export const ProjectButtonSection = ({
                         <Button
                             {...buttonProps}
 
-                            // onClick={toggle}
-                            // rightSection={(
-                            //     <IconChevronDown
-                            //         size={12}
-                            //         style={{
-                            //             transition: "all 200ms linear",
-                            //             transform: `rotate(${opened ? 180 : 0}deg)`,
-                            //         }}
-                            //     />
-                            // )}
-
                             component={Accordion.Control}
 
                             fullWidth
                             style={{ overflow: "visible" }}
                             styles={{ inner: { justifyContent: "start" } }}
 
-                            icon={(
-                                project.iconURL ? (
-                                    <Image
-                                        src={project.iconURL}
-                                        height={24}
-                                        width={24}
-                                    />
-                                ) : (
-                                    project.tags?.includes("library") ? (
-                                        <IconPackage />
-                                    ) : (
-                                        project.tags?.includes("website") ? (
-                                            <IconWorld />
-                                        ) : (
-                                            <IconFolder />
-                                        )
-                                    )
-                                )
-                            )}
+                            icon={icon}
                         >
-                            <Text
-                                inline
-                                inherit
-                                span
-                            >
-                                {project.name || project.id}
-                            </Text>
-                        </Button>
-                        <Button
-                            {...buttonProps}
-
-                            component="a"
-                            target="_blank"
-                            href={project.link}
-                        >
-                            <IconExternalLink size={18} />
-                        </Button>
-                    </Button.Group>
-                </Group>
-                <Accordion.Panel>
-                    <Paper
-                        p="xs"
-                        bg={`rgba(121, 80, 242, 0.1)`}
-                    >
                         <Text
-                            fz="xs"
+                            inline
+                            inherit
+                            span
                         >
-                            {project.desc}
+                            {project.name || project.id}
                         </Text>
-                    </Paper>
-                </Accordion.Panel>
-            </Stack>
-        </Accordion.Item>
+                    </Button>
+                    <Button
+                        {...buttonProps}
+
+                        component="a"
+                        target="_blank"
+                        href={project.link}
+                    >
+                        <IconExternalLink size={18} />
+                    </Button>
+                </Button.Group>
+            </Group>
+            <Accordion.Panel>
+                <Paper
+                    p="xs"
+                    bg={`rgba(121, 80, 242, 0.1)`}
+                >
+                    <Text
+                        fz="xs"
+                    >
+                        {project.desc}
+                    </Text>
+                </Paper>
+            </Accordion.Panel>
+        </Stack>
+        </Accordion.Item >
     )
 };

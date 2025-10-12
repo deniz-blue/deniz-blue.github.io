@@ -1,10 +1,9 @@
-import { ActionIcon, Box, Button, ButtonProps, Image, PolymorphicComponentProps, Stack, Text } from "@mantine/core";
-import { MeTitle } from "../pamphlet/PamphletHeader";
+import { ActionIcon, Box, Button, ButtonProps, Image, PolymorphicComponentProps, Space, Stack, Text } from "@mantine/core";
+import { MeName } from "../pamphlet/PamphletHeader";
 import { IconBell, IconBrandDiscord, IconBrandGithub, IconCash, IconCurrency, IconCurrencyDollar, IconExternalLink, IconFile, IconPackage, IconTool, IconWorld } from "@tabler/icons-react";
 import { CosplayWebring } from "../pamphlet/sections/webring/CosplayWebring";
 import { useFeatures } from "../../base/FeaturesContext";
 import { useRef } from "react";
-import { OneshotBGM } from "../../background/oneshot/OneshotBGM";
 import shatter from "../../background/oneshot/shatter.wav";
 import { useSoundEffect } from "../../../contexts/audio/useSoundEffect";
 import { ProjectListV2 } from "./ProjectListV2";
@@ -108,7 +107,11 @@ export const PamphletV2 = () => {
                     />
                 </ActionIcon>
 
-                {!myBurdenIsDead && <MeTitle />}
+                {!myBurdenIsDead && (
+                    <Box fw="bold">
+                        <MeName />
+                    </Box>
+                )}
 
                 {myBurdenIsDead && (
                     <Stack gap={0}>
@@ -136,13 +139,7 @@ export const PamphletV2 = () => {
                                 leftSection={<IconBrandGithub />}
                                 href="https://github.com/deniz-blue"
                             >
-                                /deniz-blue
-                            </V2Button>
-                            <V2Button
-                                leftSection={<IconCurrencyDollar />}
-                                href="https://github.com/sponsors/deniz-blue"
-                            >
-                                GitHub Sponsors
+                                GitHub
                             </V2Button>
                             <V2Button
                                 leftSection={<IconBrandDiscord />}
@@ -154,99 +151,21 @@ export const PamphletV2 = () => {
 
                         <ProjectListV2 />
 
-                        {/* <Stack gap={4} align="center">
-                            <Text inline fw="bold" fz="xs">
-                                WEBSITES
-                            </Text>
-                            <V2Button
-                                leftSection={(
-                                    <Image
-                                        src="https://events.deniz.blue/eventsdenizblue.svg"
-                                        w={24}
-                                        h={24}
-                                    />
-                                )}
-                                href="https://events.deniz.blue"
-                            >
-                                Deniz's Events List
-                            </V2Button>
-                            <V2Button
-                                leftSection={<IconTool />}
-                                href="https://tools.deniz.blue"
-                            >
-                                Deniz's Tools
-                            </V2Button>
-                        </Stack>
-
-                        <Stack gap={4} align="center">
-                            <Text inline fw="bold" fz="xs">
-                                PROJECTS
-                            </Text>
-                            <V2Button
-                                leftSection={<IconPackage />}
-                                href="https://github.com/ParadigmMC/mcman"
-                            >
-                                mcman
-                            </V2Button>
-                        </Stack>
-
-                        <Stack gap={4} align="center">
-                            <Text inline fw="bold" fz="xs">
-                                LIBRARIES
-                            </Text>
-                            <V2Button
-                                leftSection={<IconBrandDiscord />}
-                                href="https://github.com/deniz-blue/discordjsx"
-                            >
-                                discord-jsx-renderer
-                            </V2Button>
-                            <V2Button
-                                leftSection={<IconWorld />}
-                                href="https://github.com/deniz-blue/react-localization"
-                            >
-                                react-localization
-                            </V2Button>
-                            <V2Button
-                                leftSection={<IconFile />}
-                                href="https://github.com/deniz-blue/protodef-ts"
-                            >
-                                protodef-ts
-                            </V2Button>
-                            <V2Button
-                                leftSection={<IconFile />}
-                                href="https://github.com/deniz-blue/nbt-ts"
-                            >
-                                @alan404/nbt
-                            </V2Button>
-                        </Stack>
-
-                        <Stack gap={4} align="center">
-                            <Text inline fw="bold" fz="xs">
-                                OLD PROJECTS
-                            </Text>
-                            <V2Button
-                                leftSection={<IconBell />}
-                                href="https://github.com/deniz-blue/ZilTek"
-                            >
-                                ZilTek
-                            </V2Button>
-                        </Stack> */}
-
                         <Stack gap={4} align="center">
                             <Text inline fw="bold" fz="xs">
                                 WEBRING
                             </Text>
                             <CosplayWebring />
                         </Stack>
+
+                        <Text c="dimmed" ta="center" inline span fz="xs" fs="italic">
+                            my burden is light
+                        </Text>
+
+                        <Space h="50vh" />
                     </Stack>
                 )}
             </Stack>
-
-            {!myBurdenIsDead && (
-                <Text c="dimmed" inline span fz="sm" fs="italic">
-                    my burden is light
-                </Text>
-            )}
         </Stack>
     )
 };

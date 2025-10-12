@@ -1,9 +1,27 @@
 .oneshot-square {
+    animation: oneshot-sqmove 5000ms linear infinite;
+    animation-delay: calc(var(--animrand) * 250);
+    transform: scale(0);
+
     /* animation-name: oneshot-glitch;
     animation-duration: 30000ms;
-    animation-delay: calc(var(--animrand) * 247);
     animation-iteration-count: infinite;
     animation-timing-function: step-end; */
+}
+
+@keyframes oneshot-sqmove {
+    0% {
+        transform: translate(0, 0) scale(0);
+    }
+
+    5% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    100% {
+        scale: 0;
+        transform: translate(0, calc(var(--dir) * 100px)) scale(0);
+    }
 }
 
 @keyframes oneshot-glitch {

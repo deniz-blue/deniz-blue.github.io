@@ -231,8 +231,8 @@ body[data-starry=true] .frost {
 
 
 .name-letter {
-    animation: bounce 10s linear calc(var(--i) * 0.5s) infinite,
-        color-rainbow 8s linear calc(var(--i) * -0.3s) infinite;
+    /* animation: bounce 10s linear calc(var(--i) * 0.5s) infinite, */
+    animation: color-rainbow 5s linear calc(var(--i) * -0.1s) infinite;
 }
 
 @keyframes bounce {

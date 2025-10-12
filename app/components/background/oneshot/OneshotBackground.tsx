@@ -36,6 +36,7 @@ export const OneShotBackground = () => {
                     left: (rand() * 110) - 5 + "%",
                     opacity,
                     animrand,
+                    dir,
                 };
             })
         )).flat().filter(x => !!x)
@@ -57,7 +58,7 @@ export const OneShotBackground = () => {
                 height: "100vh",
             }}
         >
-            {values.map(({ key, size, color, top, left, opacity, animrand }) => (
+            {values.map(({ key, size, color, top, left, opacity, animrand, dir }) => (
                 <div
                     className="oneshot-square"
                     key={key}
@@ -70,6 +71,7 @@ export const OneShotBackground = () => {
                         top,
                         left,
                         ["--animrand" as any]: (animrand*100) + "ms",
+                        ["--dir" as any]: dir,
                     }}
                 />
             ))}

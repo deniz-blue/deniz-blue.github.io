@@ -1,29 +1,24 @@
 import { Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import { SoulSelectable } from "../../../contexts/soul/SoulSelectable";
+import { useCounter, useInterval } from "@mantine/hooks";
 
 export const Device = () => {
+    const [counter, { increment }] = useCounter();
+    useInterval(increment, 500, {
+        autoInvoke: true,
+    })
+
     return (
-        <Stack m="xl" align="center">
-            <Stack gap="xl">
-                {[
-                    "DARK",
-                    "DARKER",
-                    "YET DARKER",
-                    "SOUL",
-                    "SUN",
-                    "STRAWBERRY",
-                ].map((word, i) => (
-                    <SoulSelectable
-                        key={i}
-                    >
-                        <Paper style={{ cursor: "pointer" }}>
-                            <Text ta="center" inline span ff="monospace" c="white">
-                                {word}
-                            </Text>
-                        </Paper>
-                    </SoulSelectable>
-                ))}
-            </Stack>
+        <Stack align="center" justify="center" h="100vh">
+            <Text ta="center" inline span ff="monospace" c="white" style={{ whiteSpace: "pre-line" }}>
+                {counter < 20 ? (
+                    `CONNECTING${".".repeat((counter % 3) + 1)}`
+                ) : (
+                    `CONNECTION ERROR
+                    
+                    DO NOT TRY AGAIN`
+                )}
+            </Text>
         </Stack>
     )
 };
