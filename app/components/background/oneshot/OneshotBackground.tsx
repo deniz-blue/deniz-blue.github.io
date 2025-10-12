@@ -42,13 +42,7 @@ export const OneShotBackground = () => {
         )).flat().filter(x => !!x)
     };
 
-    const [rand] = useState(() => deterministicRandom());
-
-    const [values, setValues] = useState(() => makeSquares(rand));
-
-    // useInterval(() => {
-    //     setValues(makeSquares(rand))
-    // }, 50, { autoInvoke: true })
+    const values = useMemo(() => makeSquares(deterministicRandom()), []);
 
     return (
         <div
@@ -70,7 +64,7 @@ export const OneShotBackground = () => {
                         position: "absolute",
                         top,
                         left,
-                        ["--animrand" as any]: (animrand*100) + "ms",
+                        ["--animrand" as any]: (animrand * 100) + "ms",
                         ["--dir" as any]: dir,
                     }}
                 />
@@ -107,6 +101,8 @@ export const OneShotBackground = () => {
                     }}
                 />
             </div>
+
+            <div id="jackenstein-jackolantern" />
         </div>
     )
 };

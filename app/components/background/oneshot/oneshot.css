@@ -24,16 +24,19 @@
     }
 }
 
-@keyframes oneshot-glitch {
-    0% { transform: translate(3px, -4px) }
-    10% { transform: translate(-3px, -1px) }
-    20% { transform: translate(-2px, -4px) }
-    30% { transform: translate(2px, -2px) }
-    40% { transform: translate(1px, 5px) }
-    50% { transform: translate(8px, 2px) }
-    60% { transform: translate(0.3px, 2px) }
-    70% { transform: translate(9px, 4px) }
-    80% { transform: translate(0.3px, -4px) }
-    90% { transform: translate(2px, -3px) }
-    100% { transform: translate(1px, -4px) }
+#jackenstein-jackolantern {
+    background-image: url(./dancing-jackolantern.gif);
+    height: 56px;
+    width: 150lvw;
+    background-repeat: repeat-x;
+    position: absolute;
+    bottom: 0%;
+    animation: jackolantern-scroll 1.5s linear infinite;
+    z-index: -10;
+    opacity: 0.1;
+}
+
+@keyframes jackolantern-scroll {
+    0% { background-position: 50px 0; }
+    100% { background-position: 0 0; }
 }
