@@ -15,9 +15,9 @@ export const DeltaruneRelease = () => {
         countdownTime: RELEASE_DATE,
     });
 
-    if (countdownReached && Date.now() > MAX_RETENTION.getTime()) {
-        return null;
-    }
+    // if (countdownReached && Date.now() > MAX_RETENTION.getTime()) {
+    //     return null;
+    // }
 
     return (
         <Stack
@@ -46,12 +46,12 @@ export const DeltaruneRelease = () => {
 
             <Stack gap={4} align="center">
                 <Group gap={4} fw="bold" fz="xl" ff="heading">
-                    <Text inherit span inline>
+                    {/* <Text inherit span inline>
                         {timerText}
                     </Text>
                     <Text inherit span inline>
                         -
-                    </Text>
+                    </Text> */}
                     <Text inherit span inline>
                         {relativeText}
                     </Text>
@@ -64,10 +64,10 @@ export const DeltaruneRelease = () => {
                 </Text>
             </Stack>
 
-            <Progress
+            {/* <Progress
                 value={100 - (Date.now() - ANNOUNCEMENT_DATE.getTime()) / (RELEASE_DATE.getTime() - ANNOUNCEMENT_DATE.getTime()) * 100}
                 w="80%"
-            />
+            /> */}
 
             <Box
                 w="100%"

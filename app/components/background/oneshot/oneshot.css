@@ -1,6 +1,6 @@
 .oneshot-square {
     animation: oneshot-sqmove 5000ms linear infinite;
-    animation-delay: calc(var(--animrand) * 250);
+    animation-delay: calc(var(--animrand) * -250);
     transform: scale(0);
 
     /* animation-name: oneshot-glitch;
@@ -11,7 +11,7 @@
 
 @keyframes oneshot-sqmove {
     0% {
-        transform: translate(0, 0) scale(0);
+        transform: translate(0, calc(-10px * var(--dir))) scale(0);
     }
 
     5% {
@@ -20,7 +20,7 @@
 
     100% {
         scale: 0;
-        transform: translate(0, calc(var(--dir) * 100px)) scale(0);
+        transform: translate(0, calc(var(--dir) * 100cqh/4)) scale(0);
     }
 }
 

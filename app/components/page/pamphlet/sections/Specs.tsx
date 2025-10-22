@@ -19,17 +19,21 @@ export const Specs = () => {
                     verticalSpacing={0}
                     data={{
                         body: ([
-                            [IconCpu, "CPU", "Intel Core i5 M480 @ 2.67GHz"],
-                            [IconDeviceSim, "RAM", "4 GB DDR3"],
-                            [IconCpu2, "GPU", "NVIDIA GeForce GT 420M"],
-                            [IconBrandWindows, "OS", "Windows 10"],
+                            // [IconCpu, "CPU", "Intel Core i5 M480 @ 2.67GHz"],
+                            // [IconDeviceSim, "RAM", "4 GB DDR3"],
+                            // [IconCpu2, "GPU", "NVIDIA GeForce GT 420M"],
+                            // [IconBrandWindows, "OS", "Windows 10"],
+                            [IconCpu, "CPU", "Intel i5-13420H"],
+                            [IconDeviceSim, "RAM", "16 GB DDR4"],
+                            [IconCpu2, "GPU", "Intel UHD"],
+                            [IconBrandWindows, "OS", "Windows 11 LTSC IoT"],
                         ] as [TablerIcon, string, string][]).map(([Icon, key, value]) => ([
                             [
                                 <Group wrap="nowrap" gap={4}>
                                     <Icon size={18} />
-                                    <Text fw="bold">{key}</Text>
+                                    <Text inline inherit span>{key}</Text>
                                 </Group>,
-                                <Text>{value}</Text>,
+                                <Text inline inherit span>{value}</Text>,
                             ]
                         ])).flat()
                     }}

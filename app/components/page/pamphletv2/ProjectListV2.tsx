@@ -8,8 +8,6 @@ export const ProjectListV2 = () => {
 
     let list: ProjectJSONItem[] = data.list.slice();
 
-    console.log(list)
-
     const pick = (filter: (item: ProjectJSONItem) => boolean | undefined) => {
         let picked = list.filter(filter);
         list = list.filter(x => !picked.includes(x));
@@ -50,7 +48,7 @@ export const ProjectListV2 = () => {
     });
 
     return (
-        <Accordion unstyled>
+        <Accordion unstyled loop={false}>
             <Stack>
                 {categories.map(category => (
                     <Stack

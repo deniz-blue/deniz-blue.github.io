@@ -1,5 +1,6 @@
 body {
     background-color: black;
+    position: relative;
 }
 
 .mist {
@@ -64,6 +65,20 @@ body[data-starry=true] .frost {
     left: 0;
     top: 0;
     pointer-events: none;
+}
+
+.scrollableBackground {
+    position: absolute;
+    z-index: -999;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+    overflow-x: hidden;
+}
+
+.fullSize {
+    width: 100%;
+    height: 100%;
 }
 
 .untouchable {

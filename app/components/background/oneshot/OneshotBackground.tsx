@@ -9,7 +9,7 @@ export const OneShotBackground = () => {
 
     const makeSquares = (rand: () => number) => {
         return [1, -1].map((dir) => (
-            Array(256).fill(0).map((_, i) => {
+            Array(500).fill(0).map((_, i) => {
                 const rawTop = ((rand() / 2) * 100 * dir + (dir == -1 ? 100 : 0));
                 const top = `${rawTop}%`;
 
@@ -46,10 +46,9 @@ export const OneShotBackground = () => {
 
     return (
         <div
-            className="pageBackground"
+            className="scrollableBackground fullSize"
             style={{
                 backgroundImage: "linear-gradient(#250630, #63173d)",
-                height: "100vh",
             }}
         >
             {values.map(({ key, size, color, top, left, opacity, animrand, dir }) => (

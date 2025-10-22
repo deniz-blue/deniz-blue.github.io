@@ -24,11 +24,12 @@ export const PamphletContent = () => {
             <Shields />
             {/* <Motd /> */}
             {/* <AboutMe /> */}
-            {/* <ArtPiece /> */}
-            {/* <StuffIUse /> */}
+            <ArtPiece />
+            <StuffIUse />
             {/* <FeaturedProjects /> */}
             {/* <MoreMe /> */}
-            {/* <Specs /> */}
+            <Specs />
+            <DeltaruneRelease />
             {/* <Group justify="end" w="100%" pos="relative" px="xl">
                 <Image
                     src="/assets/img/trinkets/jumping.gif"
@@ -38,10 +39,10 @@ export const PamphletContent = () => {
                     style={{ top: "-4rem" }}
                 />
             </Group> */}
-            {/* <Friends /> */}
-            <Uptime />
-            <ButtonsSection />
-            <CosplayWebring />
+            <Friends />
+            {/* <Uptime /> */}
+            {/* <ButtonsSection /> */}
+            {/* <CosplayWebring /> */}
 
             {/* <Divider
                 w="80%"

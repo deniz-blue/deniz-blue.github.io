@@ -55,8 +55,8 @@ export const MeTitle = () => {
         <Title order={3} c={myBurdenIsDead ? "dimmed" : undefined}>
             <Group gap={0} align="center">
                 <Localized
-                    en="hi, i'm #NAME#"
-                    tr="#NAME#'in sitesi"
+                    en="#NAME#"
+                    tr="#NAME#"
                     NAME={<MeName />}
                 />
             </Group>

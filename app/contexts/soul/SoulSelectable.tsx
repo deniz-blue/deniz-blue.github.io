@@ -1,5 +1,4 @@
 import { PropsWithChildren, useContext, useEffect, useRef } from "react";
-import { SoulContext } from "./SoulContext";
 import { Box } from "@mantine/core";
 import { SoulAnchor } from "./positioning";
 
@@ -29,7 +28,7 @@ export const SoulSelectable = ({
     disabled?: boolean;
 } & Mods>) => {
     const ref = useRef<HTMLDivElement>(null);
-    const { registerSelectable, setSelected } = useContext(SoulContext);
+    // const { registerSelectable, setSelected } = useContext(SoulContext);
 
     // useEffect(() => {
     //     if (!ref.current) return;
@@ -45,9 +44,8 @@ export const SoulSelectable = ({
 
     return (
         <Box
-            ref={!disabled ? registerSelectable : null}
-            className="soul-selectable"
-            tabIndex={0}
+            // ref={!disabled ? registerSelectable : null}
+            className="soulSelectable"
             mod={{
                 "data-pos": anchor,
                 "data-zindex": zIndex,

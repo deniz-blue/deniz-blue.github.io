@@ -1,11 +1,17 @@
-import { useContext } from "react";
+import { RefObject } from "react";
 import SOUL from "./spr/SOUL.png";
 import IMAGE_SOUL_BLUR from "./spr/IMAGE_SOUL_BLUR.png";
-import { SoulContext } from "./SoulContext";
+import { create } from "zustand";
 import "./soul.css";
 
+export const useSoulRef = create<{
+    ref: RefObject<HTMLDivElement | null>;
+}>()((get, set) => ({
+    ref: { current: null },
+}));
+
 export const SoulElement = () => {
-    const { ref } = useContext(SoulContext);
+    const { ref } = useSoulRef();
 
     return (
         <div

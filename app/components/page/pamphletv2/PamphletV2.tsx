@@ -7,6 +7,7 @@ import { useRef } from "react";
 import shatter from "../../background/oneshot/shatter.wav";
 import { useSoundEffect } from "../../../contexts/audio/useSoundEffect";
 import { ProjectListV2 } from "./ProjectListV2";
+import { Badges, ButtonsSection } from "../pamphlet/sections/badges/Badges";
 
 export const V2Button = ({
     children,
@@ -26,6 +27,9 @@ export const V2Button = ({
             rightSection={<IconExternalLink size={12} />}
             color={myBurdenIsDead ? "gray" : undefined}
             c={myBurdenIsDead ? "dimmed" : undefined}
+            className="soulSelectable"
+            data-soul-anchor="left-center"
+            data-soul-ml={15}
             {...props}
         >
             <Text
@@ -81,13 +85,19 @@ export const PamphletV2 = () => {
             <Stack
                 gap={4}
                 align="center"
-                maw={88 * 3 + 4 * 2}
+                w={(88 * 3) + (4 * 2) + 12*2}
+                style={{ transition: "width 0.1s" }}
             >
                 <ActionIcon
                     variant="subtle"
                     color="transparent"
                     size="auto"
                     onClick={onSunClick}
+                    className="soulSelectable"
+                    data-soul-anchor="right-bottom"
+                    data-soul-ml={6}
+                    data-soul-mt={6}
+                    data-soul-z={1}
                 >
                     <Image
                         display={myBurdenIsDead ? "none" : undefined}
@@ -117,7 +127,7 @@ export const PamphletV2 = () => {
                     <Stack gap={0}>
                         {Array(12).fill(0).map((_, i) => i).reverse().map(i => (
                             <Text
-                                c={"#" + i.toString(16).padStart(2, "0").repeat(3)}
+                                c={"#" + (i*4).toString(16).padStart(2, "0").repeat(3)}
                                 key={i}
                                 inline
                                 span
@@ -130,7 +140,7 @@ export const PamphletV2 = () => {
                 )}
 
                 {!myBurdenIsDead && (
-                    <Stack>
+                    <Stack w="100%">
                         <Stack gap={4} align="center">
                             <Text inline fw="bold" fz="xs">
                                 LINKS
@@ -158,11 +168,18 @@ export const PamphletV2 = () => {
                             <CosplayWebring />
                         </Stack>
 
+                        <Stack gap={4} align="center">
+                            <Text inline fw="bold" fz="xs">
+                                88x31
+                            </Text>
+                            <Badges />
+                        </Stack>
+
                         <Text c="dimmed" ta="center" inline span fz="xs" fs="italic">
                             my burden is light
                         </Text>
 
-                        <Space h="50vh" />
+                        <Space h="10vh" />
                     </Stack>
                 )}
             </Stack>

@@ -35,19 +35,23 @@ export const BadgesRows = ({ children }: PropsWithChildren) => {
     );
 };
 
-export const BadgesDivider = ({ label }: { label?: ReactNode }) => (
-    <Divider
-        w="100%"
-        style={{ lineHeight: 0 }}
-        variant="dotted"
-        labelPosition="left"
-        label={typeof label == "string" ? (
-            <Text inherit fz="xs">
-                {label}
-            </Text>
-        ) : label}
-    />
-);
+export const BadgesDivider = ({ label }: { label?: ReactNode }) => {
+    return null;
+
+    return (
+        <Divider
+            w="100%"
+            style={{ lineHeight: 0 }}
+            variant="dotted"
+            labelPosition="left"
+            label={typeof label == "string" ? (
+                <Text inherit fz="xs">
+                    {label}
+                </Text>
+            ) : label}
+        />
+    );
+}
 
 export const Badges = () => {
     return (
@@ -69,16 +73,6 @@ export const Badges = () => {
             <BadgesDivider label="Fun" />
             <BadgesRows>
                 <Badge src="/assets/img/88x31/kris-where-tf-are-we.png" href={null} />
-                <SoulSelectable anchor="center">
-                    <iframe
-                        src="https://incr.easrng.net/badge?key=deniz.blue"
-                        style={{ background: "url(https://incr.easrng.net/bg.gif)", border: "unset" }}
-                        title="increment badge"
-                        width="88"
-                        height="31"
-                        className="badge"
-                    />
-                </SoulSelectable>
                 <Badge src="/assets/img/88x31/tidalwave.gif" href={null} />
                 <Badge src="/assets/img/88x31/bad-apple-optimized.gif" href={null} />
                 <Badge src="/assets/img/88x31/tested-on-firefox.gif" href={null} />
@@ -96,9 +90,18 @@ export const Badges = () => {
                 <Badge src="https://maia.crimew.gay/badges/maia.crimew.gay.png" />
                 <Badge src="https://ruby.gay/88x31/gif.gif" />
                 <Badge src="https://badges.easrng.net/easrng.gif" href="https://easrng.net" />
-                <Badge src="https://lily.pet/assets/badges/lily_pet.gif" />
                 <Badge src="https://zptr.cc/88x31/webring/zeroptr.png" />
             </BadgesRows>
+            <Group justify="center" gap={0}>
+                <iframe
+                    src="https://incr.easrng.net/badge?key=deniz.blue"
+                    style={{ background: "url(https://incr.easrng.net/bg.gif)", border: "unset" }}
+                    title="increment badge"
+                    width="88"
+                    height="31"
+                    className="badge"
+                />
+            </Group>
         </Stack>
     )
 };
@@ -121,21 +124,22 @@ export const Badge = ({
             width={88}
             height={31}
             loading="lazy"
+            tabIndex={(href === null) ? 0 : undefined}
+            className={(href === null) ? "soulSelectable" : undefined}
         />
     );
 
     return (
-        <SoulSelectable anchor="center">
-            <div className="badge">
-                {href === null ? img : (
-                    <a
-                        href={href || origin}
-                        target="_blank"
-                    >
-                        {img}
-                    </a>
-                )}
-            </div>
-        </SoulSelectable>
+        <div className="badge">
+            {href === null ? img : (
+                <a
+                    className="soulSelectable"
+                    href={href || origin}
+                    target="_blank"
+                >
+                    {img}
+                </a>
+            )}
+        </div>
     )
 };

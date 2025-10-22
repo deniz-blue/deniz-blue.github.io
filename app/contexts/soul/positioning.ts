@@ -1,6 +1,4 @@
 import { vec2, Vec2, vec2distance, vec2sub } from "@alan404/vec2";
-import { DivRef } from "./SoulContext";
-import { RefObject } from "react";
 
 type Anchor = "center" | "start" | "end";
 type AnchorX = "center" | "left" | "right";
@@ -52,23 +50,23 @@ export const scrollIntoViewIfOutOfBounds = (el: HTMLElement) => {
     }
 }
 
-export const getSelectionSoulConfig = (el: HTMLDivElement) => {
-    let pos = el.getAttribute("data-pos") || "center";
+export const getSelectionSoulConfig = (el: HTMLElement) => {
+    let pos = el.getAttribute("data-soul-anchor") || "center";
     let rect = el.getBoundingClientRect();
-    let blur = !!el.getAttribute("data-blur");
+    let blur = !!el.getAttribute("data-soul-blur");
 
     const getAttrN = (s: string, defaultV: number) => {
         let v = el.getAttribute(s);
         return (v !== null && !isNaN(Number(v))) ? Number(v) : defaultV;
     };
 
-    let zIndex = getAttrN("data-zindex", 0);
+    let zIndex = getAttrN("data-soul-z", 0);
     
     const defaultMargin = 4;
-    let mt = getAttrN("data-mt", defaultMargin);
-    let mb = getAttrN("data-mb", defaultMargin);
-    let ml = getAttrN("data-ml", defaultMargin);
-    let mr = getAttrN("data-mr", defaultMargin);
+    let mt = getAttrN("data-soul-mt", defaultMargin);
+    let mb = getAttrN("data-soul-mb", defaultMargin);
+    let ml = getAttrN("data-soul-ml", defaultMargin);
+    let mr = getAttrN("data-soul-mr", defaultMargin);
 
     let xa: Anchor = "center";
     let ya: Anchor = "center";
@@ -105,10 +103,10 @@ export const getSelectionSoulConfig = (el: HTMLDivElement) => {
 };
 
 export function findClosestDivRef(
-    selectedNode: HTMLDivElement | null,
-    selectableNodes: HTMLDivElement[],
+    selectedNode: HTMLElement | null,
+    selectableNodes: HTMLElement[],
     dir: "up" | "down" | "left" | "right"
-): HTMLDivElement | null {
+): HTMLElement | null {
     const originRect = selectedNode?.getBoundingClientRect();
     const originCenter = originRect ? vec2(
         originRect.left + originRect.width / 2,
@@ -165,7 +163,10 @@ export function findClosestDivRef(
         )
     ))
 
-    if(closestDirDeltaZero) return closestDirDeltaZero.node;
+    if(
+        closestDirDeltaZero
+        && candidates.indexOf(closestDirDeltaZero) < 4
+    ) return closestDirDeltaZero.node;
 
     const closestDir = sameDirection[0];
 

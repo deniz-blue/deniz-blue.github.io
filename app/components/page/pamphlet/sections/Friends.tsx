@@ -16,7 +16,7 @@ export const Friends = () => {
             />
 
             <Stack w="100%" px="sm" gap="xs">
-                <Grid columns={3} gutter="xs">
+                {/* <Grid columns={3} gutter="xs">
                     <Grid.Col span={2}>
                         <Group h="100%" gap={4} align="center" justify="end" wrap="nowrap" ta="end">
                             <Stack gap={0} align="end">
@@ -47,9 +47,16 @@ export const Friends = () => {
                             </Anchor>
                         </Stack>
                     </Grid.Col>
-                </Grid>
+                </Grid> */}
 
                 <SimpleGrid cols={3} ta="center" spacing="xs" verticalSpacing="xs">
+                    <Anchor
+                        href="https://armagan.rest/"
+                        className="friend"
+                        ta="center"
+                    >
+                        Armağan
+                    </Anchor>
                     <Anchor href="https://me.devrals.xyz/" className="friend">
                         DevRalsei
                     </Anchor>

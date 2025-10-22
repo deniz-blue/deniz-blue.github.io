@@ -1,5 +1,4 @@
 import { Anchor, AnchorProps, Box, Group, Stack } from "@mantine/core";
-import { SoulSelectable } from "../../../../../contexts/soul/SoulSelectable";
 import { Fragment } from "react";
 
 export const CosplayWebring = () => {
@@ -33,31 +32,31 @@ export const CosplayWebring = () => {
                 py={4}
             >
                 <Stack align="center" justify="space-between" gap={0}>
-                    <SoulSelectable anchor="right-center" mr={12} zIndex={1}>
-                        <Anchor
-                            href="https://eyeorb.net/webring/cosplay.html"
-                            target="_blank"
-                            {...anchorProps}
-                        >
-                            Cosplay Webring
-                        </Anchor>
-                    </SoulSelectable>
+                    <Anchor
+                        href="https://eyeorb.net/webring/cosplay.html"
+                        target="_blank"
+                        {...anchorProps}
+                        className="soulSelectable"
+                        data-soul-anchor="right-center"
+                        data-soul-mr={12}
+                        data-soul-z={1}
+                    >
+                        Cosplay Webring
+                    </Anchor>
                     <Group wrap="nowrap" gap={4} align="center">
                         {["prev", "rand", "next"].map((action, i, a) => (
                             <Fragment key={action}>
                                 <Stack>
-                                    <SoulSelectable
-                                        anchor="center-bottom"
-                                        mb={12}
-                                        zIndex={1}
+                                    <Anchor
+                                        href={`https://eyeorb.net/webring/simplering.html?opt=${action}&slug=deniz`}
+                                        {...anchorProps}
+                                        className="soulSelectable"
+                                        data-soul-z={1}
+                                        data-soul-anchor="center-bottom"
+                                        data-soul-mb={12}
                                     >
-                                        <Anchor
-                                            href={`https://eyeorb.net/webring/simplering.html?opt=${action}&slug=deniz`}
-                                            {...anchorProps}
-                                        >
-                                            {action}
-                                        </Anchor>
-                                    </SoulSelectable>
+                                        {action}
+                                    </Anchor>
                                 </Stack>
 
                                 {i !== a.length - 1 && " ▫ "}

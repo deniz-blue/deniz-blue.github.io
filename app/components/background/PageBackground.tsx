@@ -12,7 +12,15 @@ export const PageBackground = () => {
     const [{ rain }] = useAppContext();
 
     return (
-        <div style={{ position: "fixed", zIndex: -1 }}>
+        <div style={{
+            position: "absolute",
+            zIndex: -1,
+            pointerEvents: "none",
+            width: "100%",
+            height: "100%",
+            inset: 0,
+            minHeight: "100svh",
+        }}>
             {rain && <RainForeground />}
 
             {type === "starfield" && <StarfieldBackground />}

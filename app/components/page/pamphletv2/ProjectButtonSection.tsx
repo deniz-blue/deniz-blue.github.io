@@ -32,10 +32,12 @@ export const ProjectButtonSection = ({
             width={24}
         />
     );
-    if(iconOverrides[project.id]) {
+    if (iconOverrides[project.id]) {
         const IconComponent = iconOverrides[project.id];
         icon = <IconComponent />;
     };
+
+    const isWip = project.tags?.includes("status:wip");
 
     return (
         <Accordion.Item value={project.id} w="100%">
@@ -55,43 +57,61 @@ export const ProjectButtonSection = ({
                             component={Accordion.Control}
 
                             fullWidth
-                            style={{ overflow: "visible" }}
-                            styles={{ inner: { justifyContent: "start" } }}
+                            style={{ overflow: "visible", lineClamp: "unset" }}
+                            styles={{
+                                inner: { justifyContent: "start" },
+                                label: {
+                                    overflow: "visible",
+                                    whiteSpace: "normal",
+                                    textAlign: "start",
+                                    textDecoration: isWip ? "line-through 2px" : undefined,
+                                },
+                            }}
+                            c={isWip ? "dimmed" : undefined}
 
                             icon={icon}
-                        >
-                        <Text
-                            inline
-                            inherit
-                            span
-                        >
-                            {project.name || project.id}
-                        </Text>
-                    </Button>
-                    <Button
-                        {...buttonProps}
 
-                        component="a"
-                        target="_blank"
-                        href={project.link}
+                            className="soulSelectable"
+                            data-soul-anchor="left-center"
+                            data-soul-ml={15}
+                            onKeyDown={() => {
+                                throw new Error("STOP_MANTINE");
+                            }}
+                        >
+                            <Text
+                                inline
+                                inherit
+                                span
+                            >
+                                {project.name || project.id}
+                            </Text>
+                        </Button>
+                        <Button
+                            {...buttonProps}
+
+                            component="a"
+                            target="_blank"
+                            href={project.link}
+                            className="soulSelectable"
+                            data-soul-blur
+                        >
+                            <IconExternalLink size={18} />
+                        </Button>
+                    </Button.Group>
+                </Group>
+                <Accordion.Panel>
+                    <Paper
+                        p="xs"
+                        bg={`rgba(121, 80, 242, 0.1)`}
                     >
-                        <IconExternalLink size={18} />
-                    </Button>
-                </Button.Group>
-            </Group>
-            <Accordion.Panel>
-                <Paper
-                    p="xs"
-                    bg={`rgba(121, 80, 242, 0.1)`}
-                >
-                    <Text
-                        fz="xs"
-                    >
-                        {project.desc}
-                    </Text>
-                </Paper>
-            </Accordion.Panel>
-        </Stack>
+                        <Text
+                            fz="xs"
+                        >
+                            {project.desc}
+                        </Text>
+                    </Paper>
+                </Accordion.Panel>
+            </Stack>
         </Accordion.Item >
     )
 };
