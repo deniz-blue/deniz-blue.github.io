@@ -4,27 +4,27 @@ import { IconAlbum, IconMusic, IconNote, IconUser, IconUserCircle } from "@table
 import { PropsWithChildren, RefObject, useLayoutEffect, useRef, useState } from "react";
 import { toRomaji } from "wanakana";
 
-export interface Track {
-    artist?: { "#text"?: string; };
-    album?: { "#text"?: string; };
-    image?: {
-        size?: "small" | "medium" | "large" | "extralarge";
-        "#text": string;
-    }[];
-    name?: string;
-    url?: string;
-
-    "@attr"?: {
-        nowplaying?: boolean;
+export interface TrackMetadata {
+    artist_name?: string;
+    release_name?: string;
+    track_name?: string;
+    additional_info?: {
+        origin_url?: string;
     };
 };
 
 export const useLastFMNowPlaying = () => {
     const ctx = useFetch<{
-        recenttracks: {
-            track: Track[];
-        },
-    }>("https://lastfm.denizblue.workers.dev");
+        payload: {
+            count: number;
+            listens: {
+                playing_now: boolean;
+                track_metadata: TrackMetadata;
+            }[];
+            playing_now: boolean;
+            user_id: string;
+        };
+    }>("https://api.listenbrainz.org/1/user/deniz.blue/playing-now");
 
     useInterval(() => {
         console.log("Refetching LastFM...");
@@ -33,19 +33,32 @@ export const useLastFMNowPlaying = () => {
 
     return {
         ...ctx,
-        track: ctx.data?.recenttracks?.track?.find(x => x["@attr"]?.nowplaying),
+        track: ctx.data?.payload.listens[0]?.track_metadata ?? null,
     };
+};
+
+export const trackGetImageSrc = (track: TrackMetadata) => {
+    if(track.additional_info?.origin_url) {
+        const url = new URL(track.additional_info.origin_url);
+        if(["youtube.com", "music.youtube.com"].includes(url.host)) {
+            const id = url.searchParams.get("v");
+            if(id)
+                return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+        }
+    }
+
+    return null;
 };
 
 export const LastFMTrackCard = ({
     track,
 }: {
-    track: Track;
+    track: TrackMetadata;
 }) => {
-    const name = track.name || "";
-    const album = (track.album?.["#text"] == name) ? null : (track.album?.["#text"] || null);
-    const artist = track.artist?.["#text"] || "";
-    const imageSrc = track.image?.at(-1)?.["#text"] || null;
+    const name = track.track_name || "";
+    const album = track.release_name ?? null;
+    const artist = track.artist_name || "";
+    const imageSrc = trackGetImageSrc(track);
 
     return (
         <Paper p={4} w="100%" radius="sm">
