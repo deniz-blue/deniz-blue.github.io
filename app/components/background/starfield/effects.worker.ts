@@ -3,23 +3,7 @@ import { match } from "@alan404/enum";
 import { EffectsWorkerInput, EffectsWorkerOutput } from "./worker-messages";
 import { DEFAULT_DIM, StaticStarfield } from "./starfield";
 import { starfield_rendergl2, starfield_rendergl2_init } from "./gl2/render-gl2";
-
-const setRafInterval = (cb: (dt: number) => any, delay: number) => {
-    let start = performance.now();
-    const loop = () => {
-        const current = performance.now();
-        if (current - start >= delay) {
-            let deltaTime = (current - start) / 1000;
-            if(deltaTime > 1) deltaTime %= 1;
-            cb(deltaTime);
-            start = performance.now();
-        }
-        handle = requestAnimationFrame(loop);
-    };
-    let handle = requestAnimationFrame(loop);
-
-    return () => cancelAnimationFrame(handle);
-};
+import { setRafInterval } from "../../../utils/set-raf-interval";
 
 let starfields: StaticStarfield[] = StaticStarfield.createDefaultLayers();
 

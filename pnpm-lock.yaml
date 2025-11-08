@@ -83,6 +83,9 @@ importers:
       vite-tsconfig-paths:
         specifier: ^5.1.4
         version: 5.1.4(vite@7.0.6(sugarss@5.0.0(postcss@8.5.6)))
+      wanakana:
+        specifier: ^5.3.1
+        version: 5.3.1
       zustand:
         specifier: ^5.0.8
         version: 5.0.8(@types/react@19.1.8)(react@19.1.0)
@@ -2154,6 +2157,10 @@ packages:
         optional: true
       yaml:
         optional: true
+
+  wanakana@5.3.1:
+    resolution: {integrity: sha512-OSDqupzTlzl2LGyqTdhcXcl6ezMiFhcUwLBP8YKaBIbMYW1wAwDvupw2T9G9oVaKT9RmaSpyTXjxddFPUcFFIw==}
+    engines: {node: '>=12'}
 
   which@2.0.2:
     resolution: {integrity: sha512-BLI3Tl1TW3Pvl70l3yq3Y64i+awpwXqsGBYWkkqMtnbXgrMD+yj7rhW0kuEDxzJaYXGjEW5ogapKNMEKNMjibA==}
@@ -4504,6 +4511,8 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
       sugarss: 5.0.0(postcss@8.5.6)
+
+  wanakana@5.3.1: {}
 
   which@2.0.2:
     dependencies:

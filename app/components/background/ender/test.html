@@ -1,0 +1,264 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>End Portal (WebGL2)</title>
+  <style>html,body,canvas{height:100%;margin:0}canvas{display:block;width:100%;height:100%;}</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script type="module">
+const vsSource = `#version 300 es
+precision highp float;
+
+in vec2 a_pos; // clip-space position (x,y) in [-1,1]
+in vec2 a_uv;
+
+out vec4 v_texProj; // we'll encode uv as projective coords
+out vec2 v_uv;
+
+void main() {
+  // basic full-screen quad in clip space
+  gl_Position = vec4(a_pos, 0.0, 1.0);
+  v_uv = a_uv;
+  // pack uv into a vec4 as texProj (x,y,unused,w) so we can use textureProj-like behavior
+  v_texProj = vec4(a_uv, 0.0, 1.0);
+}
+`;
+
+const fsSource = `#version 300 es
+precision highp float;
+
+in vec4 v_texProj;
+in vec2 v_uv;
+out vec4 outColor;
+
+uniform sampler2D u_baseSampler;  // Sampler0 in original: base color
+uniform sampler2D u_layerSampler; // Sampler1 in original: layer/noise/tile
+uniform float u_time;
+uniform int u_layers;
+uniform vec2 u_resolution;
+
+// COLORS taken from the original shader (normalized)
+const vec3 COLORS[16] = vec3[](
+ vec3(0.022087, 0.098399, 0.110818),
+ vec3(0.011892, 0.095924, 0.089485),
+ vec3(0.027636, 0.101689, 0.100326),
+ vec3(0.046564, 0.109883, 0.114838),
+ vec3(0.064901, 0.117696, 0.097189),
+ vec3(0.063761, 0.086895, 0.123646),
+ vec3(0.084817, 0.111994, 0.166380),
+ vec3(0.097489, 0.154120, 0.091064),
+ vec3(0.106152, 0.131144, 0.195191),
+ vec3(0.097721, 0.110188, 0.187229),
+ vec3(0.133516, 0.138278, 0.148582),
+ vec3(0.070006, 0.243332, 0.235792),
+ vec3(0.196766, 0.142899, 0.214696),
+ vec3(0.047281, 0.315338, 0.321970),
+ vec3(0.204675, 0.390010, 0.302066),
+ vec3(0.080955, 0.314821, 0.661491)
+);
+
+// 2D rotation
+mat2 rotate2(float ang) {
+  float c = cos(ang);
+  float s = sin(ang);
+  return mat2(c, -s, s, c);
+}
+
+// Return tiled texture sample (wrap)
+vec3 sampleTile(sampler2D s, vec2 uv) {
+  // fract to tile; add small offset to avoid seam on exact integers
+  uv = fract(uv);
+  return texture(s, uv).rgb;
+}
+
+// Create the layer transform used in the original shader.
+// We approximate the original 4x4 chain by performing 2D scale->rotate->translate.
+vec2 end_portal_layer_uv(vec2 baseUV, float layer) {
+  // parameters inspired from the original: scale, rotation and a time-based translation
+  float scale = (4.5 - layer / 4.0) * 2.0; // similar to original scale
+  float angle = radians((layer * layer * 4321.0 + layer * 9.0) * 2.0) + u_time * 0.1;
+  mat2 R = rotate2(angle);
+  vec2 uv = baseUV * scale;
+  // translate with different speeds (mimicking GameTime usage)
+  vec2 translate = vec2(17.0 / layer, (2.0 + layer / 1.5) * (u_time * 1.5));
+  uv = (R * uv) + translate;
+  return uv;
+}
+
+void main() {
+  // base sample (acts like Sampler0 * COLORS[0] in original)
+  vec2 baseUV = v_uv;
+  vec3 color = texture(u_baseSampler, baseUV).rgb * COLORS[0];
+
+  // add layered samples (Sampler1) using tiled sampling and per-layer transforms
+  for (int i = 0; i < 16; ++i) {
+    if (i >= u_layers) break;
+    float layerF = float(i + 1);
+    vec2 luv = end_portal_layer_uv(v_uv, layerF) * 0.5; // scale down to avoid too-fast tiling
+    vec3 s = sampleTile(u_layerSampler, luv);
+    color += s * COLORS[i];
+  }
+
+  // simple vignette/depth-like fade toward edges to mimic portal depth
+  vec2 centered = v_uv * 2.0 - 1.0;
+  float dist = length(centered);
+  float fade = smoothstep(1.25, 0.6, dist); // tune these for softer/harder edge fade
+  color *= fade;
+
+  outColor = vec4(color, 1.0);
+}
+`;
+
+function createShader(gl, type, source) {
+  const s = gl.createShader(type);
+  gl.shaderSource(s, source);
+  gl.compileShader(s);
+  if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+    console.error('Shader compile error', gl.getShaderInfoLog(s));
+    console.log(source);
+    gl.deleteShader(s);
+    throw 'Shader compile error';
+  }
+  return s;
+}
+
+function createProgram(gl, vsSrc, fsSrc) {
+  const vs = createShader(gl, gl.VERTEX_SHADER, vsSrc);
+  const fs = createShader(gl, gl.FRAGMENT_SHADER, fsSrc);
+  const p = gl.createProgram();
+  gl.attachShader(p, vs);
+  gl.attachShader(p, fs);
+  gl.linkProgram(p);
+  if (!gl.getProgramParameter(p, gl.LINK_STATUS)) {
+    console.error('Program link error', gl.getProgramInfoLog(p));
+    throw 'Program link error';
+  }
+  return p;
+}
+
+function makeTexture(gl, image) {
+  const t = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, t);
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
+  gl.generateMipmap(gl.TEXTURE_2D);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR_MIPMAP_LINEAR);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+  return t;
+}
+
+async function main() {
+  const canvas = document.getElementById('c');
+  const gl = canvas.getContext('webgl2');
+  if (!gl) throw new Error('WebGL2 not supported');
+
+  // resize helper
+  function resize() {
+    const dpr = window.devicePixelRatio || 1;
+    const w = Math.floor(canvas.clientWidth * dpr);
+    const h = Math.floor(canvas.clientHeight * dpr);
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width = w; canvas.height = h;
+      gl.viewport(0,0,w,h);
+    }
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const program = createProgram(gl, vsSource, fsSource);
+  gl.useProgram(program);
+
+  // Fullscreen quad (two triangles)
+  const quadBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, quadBuffer);
+  // pos.x, pos.y, uv.x, uv.y
+  const verts = new Float32Array([
+    -1, -1, 0, 0,
+     1, -1, 1, 0,
+    -1,  1, 0, 1,
+    -1,  1, 0, 1,
+     1, -1, 1, 0,
+     1,  1, 1, 1
+  ]);
+  gl.bufferData(gl.ARRAY_BUFFER, verts, gl.STATIC_DRAW);
+
+  const a_pos = gl.getAttribLocation(program, 'a_pos');
+  const a_uv  = gl.getAttribLocation(program, 'a_uv');
+  gl.enableVertexAttribArray(a_pos);
+  gl.enableVertexAttribArray(a_uv);
+  gl.vertexAttribPointer(a_pos, 2, gl.FLOAT, false, 16, 0);
+  gl.vertexAttribPointer(a_uv, 2, gl.FLOAT, false, 16, 8);
+
+  // Uniform locations
+  const u_time = gl.getUniformLocation(program, 'u_time');
+  const u_layers = gl.getUniformLocation(program, 'u_layers');
+  const u_resolution = gl.getUniformLocation(program, 'u_resolution');
+
+  // Texture samplers
+  const u_baseSampler = gl.getUniformLocation(program, 'u_baseSampler');
+  const u_layerSampler = gl.getUniformLocation(program, 'u_layerSampler');
+
+  // Load images (you can change these)
+  // Sampler0 - base: small subtle noise / portal base (use any tileable texture)
+  // Sampler1 - layer/noise: a noise/tile texture; could be Minecraft's end portal tile or any fractal noise
+  const baseImgURL = 'https://i.imgur.com/6L1V2hP.jpg'; // placeholder: subtle noise
+  const layerImgURL = 'https://i.imgur.com/O8bV6vF.jpg'; // placeholder: tiled noise
+
+  function loadImage(url) {
+    return new Promise((res, rej) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => res(img);
+      img.onerror = rej;
+      img.src = url;
+    });
+  }
+
+  const [baseImg, layerImg] = await Promise.all([loadImage(baseImgURL), loadImage(layerImgURL)]);
+  const baseTex = makeTexture(gl, baseImg);
+  const layerTex = makeTexture(gl, layerImg);
+
+  // bind textures to units
+  gl.activeTexture(gl.TEXTURE0);
+  gl.bindTexture(gl.TEXTURE_2D, baseTex);
+  gl.uniform1i(u_baseSampler, 0);
+
+  gl.activeTexture(gl.TEXTURE1);
+  gl.bindTexture(gl.TEXTURE_2D, layerTex);
+  gl.uniform1i(u_layerSampler, 1);
+
+  // settings
+  gl.disable(gl.DEPTH_TEST);
+  gl.enable(gl.BLEND);
+  gl.blendFunc(gl.SRC_ALPHA, gl.ONE); // additive-like blending
+
+  // Set static uniforms
+  gl.uniform1i(u_layers, 10); // PORTAL_LAYERS equivalent; tune 1..16
+  gl.uniform2f(u_resolution, canvas.width, canvas.height);
+
+  let start = performance.now();
+  function frame() {
+    resize();
+    const t = (performance.now() - start) * 0.001;
+    gl.uniform1f(u_time, t);
+
+    // draw
+    gl.clearColor(0,0,0,1);
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+main().catch(e => {
+  console.error(e);
+  document.body.textContent = 'Error: ' + e;
+});
+</script>
+</body>
+</html>

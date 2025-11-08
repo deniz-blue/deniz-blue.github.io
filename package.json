@@ -38,6 +38,7 @@
     "react-rewards": "^2.1.0",
     "twemoji": "^14.0.2",
     "vite-tsconfig-paths": "^5.1.4",
+    "wanakana": "^5.3.1",
     "zustand": "^5.0.8"
   },
   "devDependencies": {

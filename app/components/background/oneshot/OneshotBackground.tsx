@@ -101,7 +101,7 @@ export const OneShotBackground = () => {
                 />
             </div>
 
-            <div id="jackenstein-jackolantern" />
+            {/* <div id="jackenstein-jackolantern" /> */}
         </div>
     )
 };

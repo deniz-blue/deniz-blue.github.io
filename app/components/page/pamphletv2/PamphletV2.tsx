@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Button, ButtonProps, Image, PolymorphicComponentProps, Space, Stack, Text } from "@mantine/core";
+import { ActionIcon, Box, Button, ButtonProps, Collapse, Image, Loader, PolymorphicComponentProps, Space, Stack, Text } from "@mantine/core";
 import { MeName } from "../pamphlet/PamphletHeader";
 import { IconBell, IconBrandDiscord, IconBrandGithub, IconCash, IconCurrency, IconCurrencyDollar, IconExternalLink, IconFile, IconPackage, IconTool, IconWorld } from "@tabler/icons-react";
 import { CosplayWebring } from "../pamphlet/sections/webring/CosplayWebring";
@@ -8,6 +8,7 @@ import shatter from "../../background/oneshot/shatter.wav";
 import { useSoundEffect } from "../../../contexts/audio/useSoundEffect";
 import { ProjectListV2 } from "./ProjectListV2";
 import { Badges, ButtonsSection } from "../pamphlet/sections/badges/Badges";
+import { LastFMTrackCard, useLastFMNowPlaying } from "../parts/NowPlayingLastFM";
 
 export const V2Button = ({
     children,
@@ -45,8 +46,8 @@ export const V2Button = ({
     )
 };
 
-export const PamphletV2 = () => {
-    const { disable, myBurdenIsDead, enable, toggle } = useFeatures();
+export const useSunShatter = () => {
+    const { myBurdenIsDead, enable } = useFeatures();
     const { play: play$shatter } = useSoundEffect(shatter);
     const threshold = 5;
     const interval = 2000;
@@ -59,6 +60,7 @@ export const PamphletV2 = () => {
             timer.current = null;
         }
     };
+
     const onSunClick = () => {
         if (myBurdenIsDead) return;
         clickCount.current++;
@@ -71,6 +73,15 @@ export const PamphletV2 = () => {
         if (timer.current) clearTimeout(timer.current);
         timer.current = setTimeout(reset, interval);
     };
+
+    return {
+        onSunClick,
+    };
+};
+
+export const PamphletV2 = () => {
+    const { myBurdenIsDead } = useFeatures();
+    const { onSunClick } = useSunShatter();
 
     return (
         <Stack
@@ -85,7 +96,7 @@ export const PamphletV2 = () => {
             <Stack
                 gap={4}
                 align="center"
-                w={(88 * 3) + (4 * 2) + 12*2}
+                w={(88 * 3) + (4 * 2) + 12 * 2}
                 style={{ transition: "width 0.1s" }}
             >
                 <ActionIcon
@@ -127,7 +138,7 @@ export const PamphletV2 = () => {
                     <Stack gap={0}>
                         {Array(12).fill(0).map((_, i) => i).reverse().map(i => (
                             <Text
-                                c={"#" + (i*4).toString(16).padStart(2, "0").repeat(3)}
+                                c={"#" + (i * 4).toString(16).padStart(2, "0").repeat(3)}
                                 key={i}
                                 inline
                                 span
@@ -161,6 +172,8 @@ export const PamphletV2 = () => {
 
                         <ProjectListV2 />
 
+                        <LastFMSection />
+
                         <Stack gap={4} align="center">
                             <Text inline fw="bold" fz="xs">
                                 WEBRING
@@ -186,3 +199,29 @@ export const PamphletV2 = () => {
         </Stack>
     )
 };
+
+export const LastFMSection = () => {
+    const { track, loading, refetch } = useLastFMNowPlaying();
+
+    // @ts-ignore
+    globalThis.lastfmrefetch = refetch;
+
+    return (
+        <Collapse in={!!track}>
+            <Stack gap={4} align="center">
+                <Text inline fw="bold" fz="xs">
+                    LISTENING TO {loading && (
+                        <Loader size={12} />
+                    )}
+                </Text>
+                <Stack w="100%">
+                    {track && (
+                        <LastFMTrackCard
+                            track={track}
+                        />
+                    )}
+                </Stack>
+            </Stack>
+        </Collapse>
+    )
+}
