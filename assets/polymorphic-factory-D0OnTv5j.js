@@ -1,1 +1,0 @@
-import{a as e,p as a}from"./chunk-OIYGIGL5-BegmyU-M.js";import{F as i}from"./factory-D-_w0BPq.js";function x(o){const t=e.forwardRef(o);return t.withProps=n=>{const r=e.forwardRef((p,s)=>a.jsx(t,{...n,...p,ref:s}));return r.extend=t.extend,r.displayName=`WithProps(${t.displayName})`,r},t.extend=i,t}export{x as p};
