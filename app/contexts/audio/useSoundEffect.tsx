@@ -14,13 +14,16 @@ export const useSoundEffect = (
         if(audioContextRef.current.state == "suspended")
             audioContextRef.current.resume();
 
+        const gain = audioContextRef.current.createGain();
+        gain.gain.setValueAtTime(0.1, 0);
+        gain.connect(audioContextRef.current.destination);
+
         // const compressor = audioContextRef.current.createDynamicsCompressor();
         // compressor.connect(audioContextRef.current.destination);
 
         const source = audioContextRef.current.createBufferSource();
         source.buffer = audioBufferRef.current;
-        // source.connect(compressor);
-        source.connect(audioContextRef.current.destination);
+        source.connect(gain);
         source.start(0);
     }, [audioContextRef]);
 

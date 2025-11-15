@@ -3,15 +3,17 @@ import { vec2 } from "@alan404/vec2";
 import { useHotkeys, useWindowEvent } from "@mantine/hooks";
 import { useSoundEffect } from "../audio/useSoundEffect";
 import { configureSoulElement, findClosestDivRef, getSelectionSoulConfig, scrollIntoViewIfOutOfBounds } from "./positioning";
-import UndertaleMenuCursor from "./audio/UndertaleMenuCursor.wav";
-import UndertaleMenuDecision from "./audio/UndertaleMenuDecision.wav";
+import MenuCursor from "./audio/OneShotMenuCursor.wav";
+import MenuDecision from "./audio/OneShotMenuDecision.wav";
+import MenuCancel from "./audio/OneShotMenuCancel.wav";
 import { useSoulRef } from "./SoulElement";
 
 export const SoulController = () => {
     const { ref } = useSoulRef();
 
-    const { play: play$utcursor } = useSoundEffect(UndertaleMenuCursor);
-    const { play: play$utclick } = useSoundEffect(UndertaleMenuDecision);
+    const { play: play$cursor } = useSoundEffect(MenuCursor);
+    const { play: play$click } = useSoundEffect(MenuDecision);
+    const { play: play$cancel } = useSoundEffect(MenuCancel);
 
     const previousSelected = useRef<HTMLElement>(null);
     const refresh = () => {
@@ -27,7 +29,7 @@ export const SoulController = () => {
         if (!ref.current) return;
 
         if (previousSelected.current) {
-            if (didChange) play$utcursor();
+            if (didChange) play$cursor();
             previousSelected.current.focus();
             const { ...cfg } = getSelectionSoulConfig(previousSelected.current);
             configureSoulElement(ref.current, {
@@ -63,9 +65,14 @@ export const SoulController = () => {
         ["d", () => kbdMove("right")],
 
         ["Enter", () => {
-            let el = previousSelected.current?.firstChild as HTMLElement | null;
+            let el = previousSelected.current as HTMLElement | null;
             if (!el) return;
-            play$utclick();
+            console.log(el)
+            if(el.dataset["active"])
+                play$cancel();
+            else
+                play$click();
+
             el.click();
         }],
     ]);
