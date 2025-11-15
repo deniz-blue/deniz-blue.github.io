@@ -8,11 +8,11 @@ export const glWriteBind = (
     gl: WebGL2RenderingContext,
     loc: GLuint,
     buf: WebGLBuffer,
-    data: ArrayBuffer,
+    data: Float32Array,
     size = 1,
 ) => {
     gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(data), gl.STATIC_DRAW);
+    gl.bufferData(gl.ARRAY_BUFFER, data, gl.STATIC_DRAW);
     gl.enableVertexAttribArray(loc);
     gl.vertexAttribPointer(loc, size, gl.FLOAT, false, 0, 0);
 };

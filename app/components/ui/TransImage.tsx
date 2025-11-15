@@ -1,7 +1,7 @@
 import { Box, Image, ImageProps, LoadingOverlay } from "@mantine/core";
 import { useState } from "react";
 
-export const ImageWithLoader = (imageProps: ImageProps) => {
+export const TransImage = (imageProps: ImageProps) => {
     let [isLoaded, setLoaded] = useState(false);
 
     return (

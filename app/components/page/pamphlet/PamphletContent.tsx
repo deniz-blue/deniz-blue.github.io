@@ -14,8 +14,6 @@ import { ArtPiece } from "./sections/Artpiece";
 import { Socials } from "./sections/Socials";
 import { Shields } from "./sections/Shields";
 import { Uptime } from "./sections/Uptime";
-import { CosplayWebring } from "./sections/webring/CosplayWebring";
-import { Projects } from "./sections/Projects";
 
 export const PamphletContent = () => {
     return (

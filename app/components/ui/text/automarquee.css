@@ -1,0 +1,41 @@
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(calc(-100% - var(--gap)));
+    }
+}
+
+.marquee {
+    --gap: 3rem;
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    gap: var(--gap);
+}
+
+.marqueeContent {
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-around;
+    min-width: 100%;
+    gap: var(--gap);
+    animation-fill-mode: forwards;
+}
+
+.marquee .marqueeContent {
+    animation: marquee linear infinite;
+    animation-fill-mode: forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marqueeContent {
+        animation-play-state: paused !important;
+    }
+}
+
+.marquee:hover .marqueeContent {
+    animation-play-state: paused;
+}

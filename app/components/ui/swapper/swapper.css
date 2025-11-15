@@ -1,0 +1,9 @@
+.swapper-wrap {
+    position: relative;
+}
+
+.swapper-content:not(.swapper-active) {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
