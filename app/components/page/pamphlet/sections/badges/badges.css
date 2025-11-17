@@ -10,10 +10,4 @@
     width: 88px;
     height: 31px;
     display: block;
-    outline: 0;
-}
-
-.badge:focus-within {
-    outline: solid 2px red;
-    outline-offset: 2px;
 }

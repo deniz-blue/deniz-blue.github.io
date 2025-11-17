@@ -1,5 +1,4 @@
 import { Affix, Box } from "@mantine/core";
-import { useBackgroundContext } from "../contexts/background/BackgroundContext";
 import { useAppContext } from "../contexts/app/AppContext";
 import { useHotkeys } from "@mantine/hooks";
 import { Device } from "../components/page/device/Device";
@@ -7,14 +6,26 @@ import { Terminal } from "../components/terminal/Terminal";
 import { Pamphlet } from "../components/page/pamphlet/Pamphlet";
 import { WingDing } from "../components/page/wingding/WingDing";
 import { PamphletV2 } from "../components/page/pamphletv2/PamphletV2";
-import { fetchProjectsJSON } from "../utils/fetch-projects";
+import { fetchProjectsJSON, ProjectsJSON } from "../utils/fetch-projects";
 import { Route } from "./+types/Index";
 import { useEffect } from "react";
 import { useProjectJSON } from "../stores/useProjectJSON";
-
+import { useBackgroundStore } from "../components/background/PageBackground";
 
 export async function loader() {
-    return await fetchProjectsJSON();
+    try {
+        return await fetchProjectsJSON();
+    } catch(e) {
+        console.error(e);
+        if(import.meta.env.PROD) throw e;
+        return {
+            state: {
+                developing: [],
+                featured: [],
+            },
+            list: [],
+        } as ProjectsJSON;
+    }
 }
 
 export default function Index({
@@ -24,7 +35,7 @@ export default function Index({
         useProjectJSON.setState({ data: loaderData });
     }, [loaderData]);
 
-    const [{ type }, setBackground] = useBackgroundContext();
+    const setBackground = useBackgroundStore(store => store.setBackground);
     const [flags, setFlags] = useAppContext();
 
     const exitable = (
@@ -35,7 +46,7 @@ export default function Index({
 
     const exit = () => {
         if (!exitable) return;
-        setBackground({ type: "null" });
+        setBackground({ type: "null", data: {} });
         setFlags({
             showTerminal: true,
 

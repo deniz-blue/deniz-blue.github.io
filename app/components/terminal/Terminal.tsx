@@ -6,18 +6,19 @@ import { intoSpan, ShellContext, Span } from "./api";
 import { FSHandler, FSNode } from "./fs/fs";
 import { FSROOT } from "./fs/fsroot";
 import { useAppContext } from "../../contexts/app/AppContext";
-import { useBackgroundContext } from "../../contexts/background/BackgroundContext";
 import { useTerminalInputState } from "./useTerminalInputState";
 import mus_smile from "./mus_smile.ogg";
 import "./terminal-style.css";
 import { useSoundEffect } from "../../contexts/audio/useSoundEffect";
+import { useBackgroundStore } from "../background/PageBackground";
 
 export const Terminal = () => {
     const [app_flags, setFlags] = useAppContext();
-    const [app_bg, setBackground] = useBackgroundContext();
+    const setBackground = useBackgroundStore(store => store.setBackground);
     const app = {
         setFlags,
         setBackground,
+        getFlags: () => app_flags,
     };
 
     const username = useRef("user");

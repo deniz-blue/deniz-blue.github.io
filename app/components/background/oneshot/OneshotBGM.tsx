@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useFeatures } from "../../base/FeaturesContext";
-import { useBackgroundContext } from "../../../contexts/background/BackgroundContext";
 import { ActionIcon, Affix, Button, Group, Transition } from "@mantine/core";
 import { useDisclosure, useWindowEvent } from "@mantine/hooks";
 import MyBurdenIsLight from "./MyBurdenIsLight.ogg"
@@ -69,11 +68,10 @@ export function useBurden(
 }
 
 export const OneshotBGM = () => {
-    const [{ type }] = useBackgroundContext();
     const { myBurdenIsDead } = useFeatures();
     const [usr, { toggle }] = useDisclosure(true);
 
-    let { interactionRequired, play } = useBurden(type === "oneshot" && usr, myBurdenIsDead);
+    let { interactionRequired, play } = useBurden(/* type === "oneshot" &&  */usr, myBurdenIsDead);
 
     return (
         <>

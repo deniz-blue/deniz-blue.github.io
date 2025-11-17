@@ -48,27 +48,26 @@ export const ProjectListV2 = () => {
     });
 
     return (
-        <Accordion unstyled loop={false}>
-            <Stack>
-                {categories.map(category => (
-                    <Stack
-                        gap={4}
-                        align="center"
-                        key={category.name}
-                    >
-                        <Text inline fw="bold" fz="xs">
-                            {category.name}
-                        </Text>
+        <Stack w="100%">
+            {categories.map(category => (
+                <Stack
+                    w="100%"
+                    gap={4}
+                    align="center"
+                    key={category.name}
+                >
+                    <Text inline fw="bold" fz="xs">
+                        {category.name}
+                    </Text>
 
-                        {category.items.map(project => (
-                            <ProjectButtonSection
-                                project={project}
-                                key={project.id}
-                            />
-                        ))}
-                    </Stack>
-                ))}
-            </Stack>
-        </Accordion>
+                    {category.items.map(project => (
+                        <ProjectButtonSection
+                            project={project}
+                            key={project.id}
+                        />
+                    ))}
+                </Stack>
+            ))}
+        </Stack>
     )
 };

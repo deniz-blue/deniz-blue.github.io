@@ -125,7 +125,7 @@ export const Badge = ({
             height={31}
             loading="lazy"
             tabIndex={(href === null) ? 0 : undefined}
-            className={(href === null) ? "soulSelectable" : undefined}
+            className={(href === null) ? "soulSelectable mantine-focus-auto" : undefined}
         />
     );
 
@@ -133,7 +133,7 @@ export const Badge = ({
         <div className="badge">
             {href === null ? img : (
                 <a
-                    className="soulSelectable"
+                    className="soulSelectable mantine-focus-auto"
                     href={href || origin}
                     target="_blank"
                 >

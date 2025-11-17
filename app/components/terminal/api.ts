@@ -1,5 +1,5 @@
 import { AppFlags } from "../../contexts/app/AppContext";
-import { Background } from "../../contexts/background/BackgroundContext";
+import { Background } from "../background/PageBackground";
 import { FSHandler } from "./fs/fs";
 
 export type AnsiColor = "Black" | "Blue" | "BrightBlack" | "BrightBlue"
@@ -36,5 +36,6 @@ export type CommandContext = ShellContext & {
     app: {
         setBackground: (b: Background) => void;
         setFlags: (f: Partial<AppFlags>) => void;
+        getFlags: () => AppFlags;
     },
 };

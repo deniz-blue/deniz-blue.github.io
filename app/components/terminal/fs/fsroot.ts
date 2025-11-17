@@ -27,7 +27,7 @@ export const FSROOT: FSNode = dir("/", [
         dir("user", [
             bin("DEVICE", (ctx) => {
                 ctx.stdout({ text: " CONNECTING...", b: true, fg: "BrightBlack" });
-                ctx.app.setBackground({ type: "depth" });
+                ctx.app.setBackground({ type: "depth", data: {} });
                 ctx.app.setFlags({
                     showTerminal: false,
                     showDevice: true,
@@ -42,14 +42,14 @@ export const FSROOT: FSNode = dir("/", [
             ]),
             bin("farewell", (ctx) => {
                 ctx.stdout({ text: "Loading Farewell...", fg: "BrightMagenta" });
-                ctx.app.setBackground({ type: "starfield" });
+                ctx.app.setBackground({ type: "starfield", data: {} });
                 ctx.app.setFlags({
                     showTerminal: false,
                     showPamphlet: true,
                 });
             }),
             bin("website", (ctx) => {
-                ctx.app.setBackground({ type: "oneshot" });
+                ctx.app.setBackground({ type: "oneshot", data: { dead: false } });
                 ctx.app.setFlags({
                     showTerminal: false,
                     showPamphletV2: true,

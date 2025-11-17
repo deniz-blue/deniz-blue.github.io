@@ -15,7 +15,7 @@ export const useSoundEffect = (
             audioContextRef.current.resume();
 
         const gain = audioContextRef.current.createGain();
-        gain.gain.setValueAtTime(0.1, 0);
+        gain.gain.setValueAtTime(0.5, 0);
         gain.connect(audioContextRef.current.destination);
 
         // const compressor = audioContextRef.current.createDynamicsCompressor();

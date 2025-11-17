@@ -6,7 +6,9 @@ import { useDisclosure } from "@mantine/hooks";
 export const ProjectButtonSection = ({
     project,
 }: {
-    project: ProjectJSONItem;
+    project: ProjectJSONItem & {
+        iconOverride?: React.ReactNode;
+    };
 }) => {
     const buttonProps: ButtonProps = {
         size: "compact-md",
@@ -21,7 +23,7 @@ export const ProjectButtonSection = ({
         poly: IconChartDots3,
     } as Record<string, React.ComponentType>;
 
-    let icon = <IconFolder />;
+    let icon: React.ReactNode = <IconFolder />;
     if (project.tags?.includes("library")) icon = <IconPackage />;
     if (project.tags?.includes("website")) icon = <IconWorld />;
     if (project.iconURL) icon = (
@@ -36,6 +38,7 @@ export const ProjectButtonSection = ({
         const IconComponent = iconOverrides[project.id];
         icon = <IconComponent />;
     };
+    if (project.iconOverride) icon = project.iconOverride;
 
     const isWip = project.tags?.includes("status:wip");
 
@@ -74,6 +77,7 @@ export const ProjectButtonSection = ({
                             className="soulSelectable"
                             data-soul-anchor="left-center"
                             data-soul-ml={15}
+                            data-soul-z={2}
                             onKeyDown={() => {
                                 throw new Error("STOP_MANTINE");
                             }}

@@ -1,11 +1,10 @@
-import { useMemo, useState } from "react";
-import { useFeatures } from "../../base/FeaturesContext";
+import { useMemo } from "react";
 import { deterministicRandom } from "../../../utils/deterministicRandom";
-import { useInterval } from "@mantine/hooks";
+import { useBackgroundStore } from "../PageBackground";
 import "./oneshot.css";
 
 export const OneShotBackground = () => {
-    const { myBurdenIsDead } = useFeatures();
+    const myBurdenIsDead = useBackgroundStore(store => store.background.type == "oneshot" && store.background.data.dead);
 
     const makeSquares = (rand: () => number) => {
         return [1, -1].map((dir) => (

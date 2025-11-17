@@ -1,14 +1,38 @@
+import { create } from "zustand";
 import { useAppContext } from "../../contexts/app/AppContext";
-import { useBackgroundContext } from "../../contexts/background/BackgroundContext";
 import { DepthBackground } from "./depth/DepthBackground";
 import { ManBackground } from "./man/ManBackground";
 import { OneShotBackground } from "./oneshot/OneshotBackground";
 import { RainForeground } from "./rain/RainForeground";
 import { RefugeBackground } from "./refuge/RefugeBackground";
 import { StarfieldBackground } from "./starfield/StarfieldBackground";
+import { Enum } from "@alan404/enum";
+import { WinterBackground } from "./winter/WinterBackground";
+import { MariaCarey } from "./winter/MariaCarey";
+
+export type Background = Enum<{
+    null: {};
+    depth: {};
+    man: {};
+    starfield: {};
+    oneshot: {
+        dead: boolean;
+    };
+    refuge: {};
+    winter: {};
+    ender: {};
+}>;
+
+export const useBackgroundStore = create<{
+    background: Background;
+    setBackground: (bg: Background) => void;
+}>()((set, get) => ({
+    background: { type: "winter", data: {} },
+    setBackground: (background) => set(state => ({ background })),
+}))
 
 export const PageBackground = () => {
-    const [{ type }] = useBackgroundContext();
+    const background = useBackgroundStore(store => store.background);
     const [{ rain }] = useAppContext();
 
     return (
@@ -23,11 +47,13 @@ export const PageBackground = () => {
         }}>
             {rain && <RainForeground />}
 
-            {type === "starfield" && <StarfieldBackground />}
-            {type === "oneshot" && <OneShotBackground />}
-            {type === "depth" && <DepthBackground />}
-            {type === "man" && <ManBackground />}
-            {type === "refuge" && <RefugeBackground />}
+            {background.type === "starfield" && <StarfieldBackground />}
+            {background.type === "oneshot" && <OneShotBackground />}
+            {background.type === "depth" && <DepthBackground />}
+            {background.type === "man" && <ManBackground />}
+            {background.type === "refuge" && <RefugeBackground />}
+            {background.type === "winter" && <WinterBackground />}
+            {background.type === "winter" && <MariaCarey />}
         </div>
     )
 };

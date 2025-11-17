@@ -1,4 +1,4 @@
-import { ActionIcon, Box, Button, ButtonProps, Collapse, Image, Loader, PolymorphicComponentProps, Space, Stack, Text } from "@mantine/core";
+import { Accordion, ActionIcon, Box, Button, ButtonProps, Collapse, Image, Loader, PolymorphicComponentProps, Space, Stack, Text } from "@mantine/core";
 import { MeName } from "../pamphlet/PamphletHeader";
 import { IconBell, IconBrandDiscord, IconBrandGithub, IconCash, IconCurrency, IconCurrencyDollar, IconExternalLink, IconFile, IconPackage, IconTool, IconWorld } from "@tabler/icons-react";
 import { CosplayWebring } from "../pamphlet/sections/webring/CosplayWebring";
@@ -9,6 +9,8 @@ import { useSoundEffect } from "../../../contexts/audio/useSoundEffect";
 import { ProjectListV2 } from "./ProjectListV2";
 import { Badges, ButtonsSection } from "../pamphlet/sections/badges/Badges";
 import { LastFMTrackCard, useLastFMNowPlaying } from "../parts/NowPlayingLastFM";
+import { useBackgroundStore } from "../../background/PageBackground";
+import { ProjectButtonSection } from "./ProjectButtonSection";
 
 export const V2Button = ({
     children,
@@ -47,7 +49,8 @@ export const V2Button = ({
 };
 
 export const useSunShatter = () => {
-    const { myBurdenIsDead, enable } = useFeatures();
+    const myBurdenIsDead = useBackgroundStore(store => store.background.type == "oneshot" && store.background.data.dead);
+    const setBackground = useBackgroundStore(store => store.setBackground);
     const { play: play$shatter } = useSoundEffect(shatter);
     const threshold = 5;
     const interval = 2000;
@@ -66,7 +69,7 @@ export const useSunShatter = () => {
         clickCount.current++;
         if (clickCount.current >= threshold) {
             reset();
-            enable("myBurdenIsDead");
+            setBackground({ type: "oneshot", data: { dead: true } });
             play$shatter();
             return;
         };
@@ -82,119 +85,135 @@ export const useSunShatter = () => {
 export const PamphletV2 = () => {
     const { myBurdenIsDead } = useFeatures();
     const { onSunClick } = useSunShatter();
+    const background = useBackgroundStore(store => store.background);
 
     return (
         <Stack
             mih="100dvh"
-            // justify="center"
             align="center"
-            pt="3rem"
-            pb="7rem"
         >
-            {/* <OneshotBGM /> */}
-
             <Stack
                 gap={4}
                 align="center"
-                w={(88 * 3) + (4 * 2) + 12 * 2}
-                style={{ transition: "width 0.1s" }}
+                pt="3rem"
+                pb="7rem"
+                className={background.type == "winter" ? "frost" : ""}
+                style={{
+                    transition: "all 0.1s",
+                    backgroundRepeat: "repeat-y",
+                }}
             >
-                <ActionIcon
-                    variant="subtle"
-                    color="transparent"
-                    size="auto"
-                    onClick={onSunClick}
-                    className="soulSelectable"
-                    data-soul-anchor="right-bottom"
-                    data-soul-ml={6}
-                    data-soul-mt={6}
-                    data-soul-z={1}
+                <Stack
+                    gap={4}
+                    w={(88 * 3) + (4 * 2) + 12 * 2}
+                    align="center"
+                    mx={4}
                 >
-                    <Image
-                        display={myBurdenIsDead ? "none" : undefined}
-                        src={"/assets/img/detail/oneshot/item_start_lightbulb.png"}
-                        title={"[Be careful.]"}
-                        width={64}
-                        height={64}
-                        style={{ imageRendering: "pixelated" }}
-                    />
-                    <Image
-                        display={!myBurdenIsDead ? "none" : undefined}
-                        src={"/assets/img/detail/oneshot/SunBroken.png"}
-                        title={"[You broke it.]"}
-                        width={64}
-                        height={64}
-                        style={{ imageRendering: "pixelated" }}
-                    />
-                </ActionIcon>
+                    <ActionIcon
+                        variant="subtle"
+                        color="transparent"
+                        size="auto"
+                        onClick={onSunClick}
+                        className="soulSelectable"
+                        data-soul-anchor="right-bottom"
+                        data-soul-ml={6}
+                        data-soul-mt={6}
+                        data-soul-z={1}
+                    >
+                        <Image
+                            display={myBurdenIsDead ? "none" : undefined}
+                            src={"/assets/img/detail/oneshot/item_start_lightbulb.png"}
+                            title={"[Be careful.]"}
+                            width={64}
+                            height={64}
+                            style={{ imageRendering: "pixelated" }}
+                        />
+                        <Image
+                            display={!myBurdenIsDead ? "none" : undefined}
+                            src={"/assets/img/detail/oneshot/SunBroken.png"}
+                            title={"[You broke it.]"}
+                            width={64}
+                            height={64}
+                            style={{ imageRendering: "pixelated" }}
+                        />
+                    </ActionIcon>
 
-                {!myBurdenIsDead && (
-                    <Box fw="bold">
-                        <MeName />
-                    </Box>
-                )}
+                    {!myBurdenIsDead && (
+                        <Box fw="bold">
+                            <MeName />
+                        </Box>
+                    )}
 
-                {myBurdenIsDead && (
-                    <Stack gap={0}>
-                        {Array(12).fill(0).map((_, i) => i).reverse().map(i => (
-                            <Text
-                                c={"#" + (i * 4).toString(16).padStart(2, "0").repeat(3)}
-                                key={i}
-                                inline
-                                span
-                                fs="italic"
-                            >
-                                my burden is dead
-                            </Text>
-                        ))}
-                    </Stack>
-                )}
-
-                {!myBurdenIsDead && (
-                    <Stack w="100%">
-                        <Stack gap={4} align="center">
-                            <Text inline fw="bold" fz="xs">
-                                LINKS
-                            </Text>
-                            <V2Button
-                                leftSection={<IconBrandGithub />}
-                                href="https://github.com/deniz-blue"
-                            >
-                                GitHub
-                            </V2Button>
-                            <V2Button
-                                leftSection={<IconBrandDiscord />}
-                                href="https://deniz.blue/discord-invite?id=1197520507617153064"
-                            >
-                                Discord Server
-                            </V2Button>
+                    {myBurdenIsDead && (
+                        <Stack gap={0}>
+                            {Array(12).fill(0).map((_, i) => i).reverse().map(i => (
+                                <Text
+                                    c={"#" + (i * 4).toString(16).padStart(2, "0").repeat(3)}
+                                    key={i}
+                                    inline
+                                    span
+                                    fs="italic"
+                                >
+                                    my burden is dead
+                                </Text>
+                            ))}
                         </Stack>
+                    )}
 
-                        <ProjectListV2 />
+                    {!myBurdenIsDead && (
+                        <Accordion unstyled loop={false} w="100%">
+                            <Stack w="100%">
+                                <Stack gap={4} align="center">
+                                    <Text inline fw="bold" fz="xs">
+                                        LINKS
+                                    </Text>
+                                    <ProjectButtonSection
+                                        project={{
+                                            id: "x:github",
+                                            iconOverride: <IconBrandGithub />,
+                                            name: "GitHub",
+                                            desc: "Check out my repositories!",
+                                            link: "https://github.com/deniz-blue",
+                                        }}
+                                    />
+                                    <ProjectButtonSection
+                                        project={{
+                                            id: "x:discord",
+                                            iconOverride: <IconBrandDiscord />,
+                                            name: "Discord Server",
+                                            desc: "For support about my projects!",
+                                            link: "https://deniz.blue/discord-invite?id=1197520507617153064",
+                                        }}
+                                    />
+                                </Stack>
 
-                        <LastFMSection />
+                                <ProjectListV2 />
 
-                        <Stack gap={4} align="center">
-                            <Text inline fw="bold" fz="xs">
-                                WEBRING
-                            </Text>
-                            <CosplayWebring />
-                        </Stack>
+                                <LastFMSection />
 
-                        <Stack gap={4} align="center">
-                            <Text inline fw="bold" fz="xs">
-                                88x31
-                            </Text>
-                            <Badges />
-                        </Stack>
+                                <Stack gap={4} align="center">
+                                    <Text inline fw="bold" fz="xs">
+                                        WEBRING
+                                    </Text>
+                                    <CosplayWebring />
+                                </Stack>
 
-                        <Text c="dimmed" ta="center" inline span fz="xs" fs="italic">
-                            my burden is light
-                        </Text>
+                                <Stack gap={4} align="center">
+                                    <Text inline fw="bold" fz="xs">
+                                        88x31
+                                    </Text>
+                                    <Badges />
+                                </Stack>
 
-                        <Space h="10vh" />
-                    </Stack>
-                )}
+                                <Text c="dimmed" ta="center" inline span fz="xs" fs="italic">
+                                    my burden is light
+                                </Text>
+
+                                <Space h="10vh" />
+                            </Stack>
+                        </Accordion>
+                    )}
+                </Stack>
             </Stack>
         </Stack>
     )

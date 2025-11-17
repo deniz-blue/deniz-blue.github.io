@@ -165,8 +165,22 @@ export function findClosestDivRef(
 
     if(
         closestDirDeltaZero
+        // ?
         && candidates.indexOf(closestDirDeltaZero) < 4
     ) return closestDirDeltaZero.node;
+    
+    const threshold = 5;
+    const closestDirDeltaAlmostZero = sameDirection.find(x => (
+        ((x.direction == "up" || x.direction == "down") ? (
+            x.delta.x
+        ) : (
+            x.delta.y
+        )) - threshold/2 < threshold*2
+    ))
+
+    if(
+        closestDirDeltaAlmostZero
+    ) return closestDirDeltaAlmostZero.node;
 
     const closestDir = sameDirection[0];
 
