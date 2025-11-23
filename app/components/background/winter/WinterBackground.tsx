@@ -156,9 +156,10 @@ export const WinterBackground = () => {
                     backgroundPositionY: "bottom",
                     backgroundRepeat: "repeat-x",
                 }],
-            ] as [string, React.CSSProperties][]).map(([src, sx]) => (
+            ] as [string, React.CSSProperties][]).map(([src, sx], i) => (
                 <div
                     className="pageBackground"
+                    key={i}
                     style={{
                         backgroundImage: `url(${src})`,
                         backgroundSize: "cover",

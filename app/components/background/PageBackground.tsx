@@ -9,6 +9,10 @@ import { StarfieldBackground } from "./starfield/StarfieldBackground";
 import { Enum } from "@alan404/enum";
 import { WinterBackground } from "./winter/WinterBackground";
 import { MariaCarey } from "./winter/MariaCarey";
+import { AuroraBackground } from "./aurora/AuroraBackground";
+import { Swapper } from "../ui/swapper/Swapper";
+import { useHotkeys } from "@mantine/hooks";
+import { useMemo } from "react";
 
 export type Background = Enum<{
     null: {};
@@ -21,19 +25,40 @@ export type Background = Enum<{
     refuge: {};
     winter: {};
     ender: {};
+    aurora: {};
 }>;
+
+export const defaultBackground: Background = {
+    type: "winter",
+    data: {},
+};
 
 export const useBackgroundStore = create<{
     background: Background;
     setBackground: (bg: Background) => void;
 }>()((set, get) => ({
-    background: { type: "winter", data: {} },
+    background: defaultBackground,
     setBackground: (background) => set(state => ({ background })),
 }))
 
 export const PageBackground = () => {
     const background = useBackgroundStore(store => store.background);
     const [{ rain }] = useAppContext();
+
+    const content = useMemo(() => (
+        <>
+            {rain && <RainForeground />}
+
+            {background.type === "starfield" && <StarfieldBackground />}
+            {background.type === "oneshot" && <OneShotBackground />}
+            {background.type === "depth" && <DepthBackground />}
+            {background.type === "man" && <ManBackground />}
+            {background.type === "refuge" && <RefugeBackground />}
+            {background.type === "winter" && <WinterBackground />}
+            {background.type === "winter" && <MariaCarey />}
+            {background.type === "aurora" && <AuroraBackground />}
+        </>
+    ), [JSON.stringify(background), rain])
 
     return (
         <div style={{
@@ -45,15 +70,20 @@ export const PageBackground = () => {
             inset: 0,
             minHeight: "100svh",
         }}>
-            {rain && <RainForeground />}
-
-            {background.type === "starfield" && <StarfieldBackground />}
-            {background.type === "oneshot" && <OneShotBackground />}
-            {background.type === "depth" && <DepthBackground />}
-            {background.type === "man" && <ManBackground />}
-            {background.type === "refuge" && <RefugeBackground />}
-            {background.type === "winter" && <WinterBackground />}
-            {background.type === "winter" && <MariaCarey />}
+            <Swapper
+                content={content}
+                duration={background.type == "null" ? 0 : 500}
+                styles={{
+                    wrapper: {
+                        width: "100%",
+                        height: "100%",
+                    },
+                    content: {
+                        width: "100%",
+                        height: "100%",
+                    },
+                }}
+            />
         </div>
     )
 };

@@ -1,3 +1,4 @@
+import { defaultBackground } from "../../background/PageBackground";
 import { FSNode } from "./fs";
 import roomba_log from "./source/roomba.log?raw";
 
@@ -40,16 +41,8 @@ export const FSROOT: FSNode = dir("/", [
                     file("2038-08-17-1.log", roomba_log),
                 ]),
             ]),
-            bin("farewell", (ctx) => {
-                ctx.stdout({ text: "Loading Farewell...", fg: "BrightMagenta" });
-                ctx.app.setBackground({ type: "starfield", data: {} });
-                ctx.app.setFlags({
-                    showTerminal: false,
-                    showPamphlet: true,
-                });
-            }),
             bin("website", (ctx) => {
-                ctx.app.setBackground({ type: "oneshot", data: { dead: false } });
+                ctx.app.setBackground(defaultBackground);
                 ctx.app.setFlags({
                     showTerminal: false,
                     showPamphletV2: true,

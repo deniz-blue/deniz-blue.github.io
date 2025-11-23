@@ -4,7 +4,7 @@ import { IconAlbum, IconMusic, IconUserCircle } from "@tabler/icons-react";
 import { AutoMarquee } from "../../ui/text/AutoMarquee";
 import { MaybeRuby } from "../../ui/text/MaybeRuby";
 import { Swapper } from "../../ui/swapper/Swapper";
-import { PropsWithChildren, useMemo } from "react";
+import { useMemo } from "react";
 
 export interface TrackMetadata {
     artist_name?: string;
@@ -130,7 +130,7 @@ export const LastFMTrackCard = ({
     }, [artist]);
 
     return (
-        <Paper p={4} w="100%" radius="sm">
+        <Paper p={4} w="100%" radius="sm" bg="var(--mantine-color-violet-light)">
             <Stack w="100%">
                 <Box w="100%">
                     <Paper w="4rem" h="4rem" bg="dark" style={{ float: "left" }} mr={4}>

@@ -11,6 +11,7 @@ import { Badges, ButtonsSection } from "../pamphlet/sections/badges/Badges";
 import { LastFMTrackCard, useLastFMNowPlaying } from "../parts/NowPlayingLastFM";
 import { useBackgroundStore } from "../../background/PageBackground";
 import { ProjectButtonSection } from "./ProjectButtonSection";
+import { BackgroundSwitcher } from "../controls/BackgroundSwitcher";
 
 export const V2Button = ({
     children,
@@ -97,7 +98,7 @@ export const PamphletV2 = () => {
                 align="center"
                 pt="3rem"
                 pb="7rem"
-                className={background.type == "winter" ? "frost" : ""}
+                className={["winter", "starfield", "aurora"].includes(background.type) ? "frost" : ""}
                 style={{
                     transition: "all 0.1s",
                     backgroundRepeat: "repeat-y",
@@ -204,6 +205,8 @@ export const PamphletV2 = () => {
                                     </Text>
                                     <Badges />
                                 </Stack>
+
+                                <BackgroundSwitcher />
 
                                 <Text c="dimmed" ta="center" inline span fz="xs" fs="italic">
                                     my burden is light

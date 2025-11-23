@@ -4,8 +4,15 @@ import "./swapper.css";
 
 export const Swapper = ({
     content,
+    duration = 500,
+    styles,
 }: {
     content?: React.ReactNode;
+    duration?: number;
+    styles?: {
+        wrapper?: React.CSSProperties;
+        content?: React.CSSProperties;
+    };
 }) => {
     const [current, setCurrent] = useState<0 | 1>(0);
     const [pair, setPair] = useState<[React.ReactNode, React.ReactNode]>([
@@ -14,6 +21,8 @@ export const Swapper = ({
     ]);
     const firstRef = useRef<HTMLDivElement>(null);
     const secondRef = useRef<HTMLDivElement>(null);
+    const fadeInAnimRef = useRef<Animation>(null);
+    const fadeOutAnimRef = useRef<Animation>(null);
 
     useEffect(() => {
         setCurrent(oldCurrent => {
@@ -31,29 +40,38 @@ export const Swapper = ({
         const fadeIn = current == 0 ? firstRef : secondRef;
         const fadeOut = current == 0 ? secondRef : firstRef;
 
-        const duration = 500;
-        fadeIn.current?.animate({
+        fadeOutAnimRef.current?.cancel();
+
+        fadeInAnimRef.current = fadeIn.current?.animate({
             opacity: [0, 1],
         }, {
             fill: "forwards",
             duration,
-        });
-        fadeOut.current?.animate({
+        }) ?? null;
+
+        fadeOutAnimRef.current = fadeOut.current?.animate({
             opacity: [1, 0],
         }, {
             fill: "forwards",
             duration,
-        });
-    }, [current, firstRef, secondRef]);
+        }) ?? null;
+
+        fadeOutAnimRef.current?.addEventListener("finish", () => {
+            setPair(pair => pair.map((x, i) => (
+                (i === current) ? x : null
+            )) as [React.ReactNode, React.ReactNode]);
+        })
+    }, [current, firstRef, secondRef, duration]);
 
     return (
-        <Box className="swapper-wrap">
+        <Box className="swapper-wrap" style={styles?.wrapper}>
             {pair.map((element, i) => (
                 <div
                     key={i}
                     className={"swapper-content" + (i == current ? " swapper-active" : "")}
                     aria-hidden={i != current}
                     ref={i ? secondRef : firstRef}
+                    style={styles?.content}
                 >
                     {element}
                 </div>
