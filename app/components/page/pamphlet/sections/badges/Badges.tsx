@@ -64,6 +64,7 @@ export const Badges = () => {
             </BadgesRows>
             <BadgesDivider label="People I know" />
             <BadgesRows>
+                <Badge src="https://gaze.systems/88x31.gif" />
                 <Badge src="https://wamwoowam.co.uk/88x31.png" />
                 <Badge src="https://uwx.github.io/uwx.png" />
                 <Badge src="https://vea.st/button.png" />

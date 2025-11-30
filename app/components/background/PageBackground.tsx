@@ -30,7 +30,7 @@ export type Background = Enum<{
 }>;
 
 export const defaultBackground: Background = {
-    type: "winter",
+    type: "sanctuary",
     data: {},
 };
 

@@ -18,6 +18,7 @@ export const CosplayWebring = () => {
             <Box
                 id="cosring"
                 style={{
+                    opacity: 0.8,
                     border: "4px double black",
                     backgroundImage: "url('https://eyeorb.net/webring/konata_t.png'), url('https://eyeorb.net/webring/bg.png')",
                     backgroundPosition: "0% 20%, center",

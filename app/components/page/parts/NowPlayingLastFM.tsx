@@ -133,7 +133,7 @@ export const LastFMTrackCard = ({
         <Paper p={4} w="100%" radius="sm" bg="var(--mantine-color-violet-light)">
             <Stack w="100%">
                 <Box w="100%">
-                    <Paper w="4rem" h="4rem" bg="dark" style={{ float: "left" }} mr={4}>
+                    <Paper w="4rem" h="4rem" bg="var(--mantine-color-violet-light)" style={{ float: "left" }} mr={4}>
                         <Swapper
                             content={imageNode}
                         />

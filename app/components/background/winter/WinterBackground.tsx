@@ -136,16 +136,16 @@ export const WinterBackground = () => {
                     backgroundPositionY: "bottom",
                     backgroundRepeat: "repeat-x",
                 }],
-                [c0bg2, {
-                    backgroundSize: "50%",
-                    backgroundPositionY: "bottom",
-                    backgroundRepeat: "repeat-x",
-                }],
-                [c0bg3, {
-                    backgroundSize: "50%",
-                    backgroundPositionY: "bottom",
-                    backgroundRepeat: "repeat-x",
-                }],
+                // [c0bg2, {
+                //     backgroundSize: "50%",
+                //     backgroundPositionY: "bottom",
+                //     backgroundRepeat: "repeat-x",
+                // }],
+                // [c0bg3, {
+                //     backgroundSize: "50%",
+                //     backgroundPositionY: "bottom",
+                //     backgroundRepeat: "repeat-x",
+                // }],
                 [c3bg3b, {
                     backgroundSize: "12.5%",
                     backgroundPositionY: "bottom",
