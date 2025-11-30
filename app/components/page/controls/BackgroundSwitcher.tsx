@@ -7,6 +7,7 @@ export const BackgroundSwitcher = () => {
         { type: "starfield", data: {} },
         { type: "oneshot", data: { dead: false } },
         { type: "winter", data: {} },
+        { type: "sanctuary", data: {} },
     ];
 
     const update = (delta: number) => {

@@ -11,8 +11,8 @@ import { WinterBackground } from "./winter/WinterBackground";
 import { MariaCarey } from "./winter/MariaCarey";
 import { AuroraBackground } from "./aurora/AuroraBackground";
 import { Swapper } from "../ui/swapper/Swapper";
-import { useHotkeys } from "@mantine/hooks";
 import { useMemo } from "react";
+import { SanctuaryBackground } from "./sanctuary/SanctuaryBackground";
 
 export type Background = Enum<{
     null: {};
@@ -26,6 +26,7 @@ export type Background = Enum<{
     winter: {};
     ender: {};
     aurora: {};
+    sanctuary: {};
 }>;
 
 export const defaultBackground: Background = {
@@ -57,6 +58,7 @@ export const PageBackground = () => {
             {background.type === "winter" && <WinterBackground />}
             {background.type === "winter" && <MariaCarey />}
             {background.type === "aurora" && <AuroraBackground />}
+            {background.type === "sanctuary" && <SanctuaryBackground />}
         </>
     ), [JSON.stringify(background), rain])
 

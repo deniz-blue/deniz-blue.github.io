@@ -1,0 +1,38 @@
+.SanctuaryBackground {
+    overflow: clip;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+}
+
+.SanctuaryBackground .fade {
+    mask-image: linear-gradient(to bottom, white, white, transparent);
+}
+
+.SanctuaryBackground .parallax {
+    position: absolute;
+    --depth: 0.5;
+    top: calc(1px * var(--scroll-y) * var(--depth));
+}
+
+.SanctuaryBackground .spire {
+    background-image: url(./spire.png);
+    background-size: 105px 760px;
+    min-width: 105px;
+    min-height: 760px;
+}
+
+.SanctuaryBackground .arches {
+    background-image: url(./arches.png);
+    background-size: 200px 269px;
+    min-height: 269px;
+    background-repeat: repeat-x;
+}
+
+.SanctuaryBackground .buttress {
+    background-image: url(./buttress.png);
+    background-size: 100px 620px;
+    min-width: 100px;
+    min-height: 620px;
+}
