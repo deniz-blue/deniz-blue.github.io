@@ -36,3 +36,9 @@
     min-width: 100px;
     min-height: 620px;
 }
+
+.SanctuaryBackground .prophecy {
+    background-image: url(./deltaprophecy-animation.gif);
+    width: 512px;
+    height: 306px;
+}
