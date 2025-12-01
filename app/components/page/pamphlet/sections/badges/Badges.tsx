@@ -1,8 +1,9 @@
 import { PropsWithChildren, ReactNode } from "react";
-import { Divider, Group, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Divider, Flex, Group, SimpleGrid, Stack, Text } from "@mantine/core";
 
 import REJECT_HUMANITY from "./reject_humanity.png";
 import FUFU_BADGE from "./fufu_badge.png";
+import SKYLAR_YAMERO from "./skylar-yamero.gif";
 import "./badges.css";
 
 export const ButtonsSection = () => {
@@ -68,32 +69,53 @@ export const Badges = () => {
                 <Badge src="https://wamwoowam.co.uk/88x31.png" />
                 <Badge src="https://uwx.github.io/uwx.png" />
                 <Badge src="https://vea.st/button.png" />
+                <Flex
+                    justify="center"
+                    align="end"
+                    style={{
+                        width: 88,
+                        height: 101,
+                        gridRow: "span 3",
+                    }}
+                >
+                    <a
+                        className="soulSelectable mantine-focus-auto"
+                        href={"https://skyrina.dev"}
+                        target="_blank"
+                        style={{
+                            width: 88,
+                            height: 101,
+                            display: "flex",
+                            alignItems: "end",
+                            justifyContent: "center",
+                        }}
+                    >
+                        <img
+                            src={SKYLAR_YAMERO}
+                            width={48}
+                            height={80}
+                            loading="lazy"
+                        />
+                    </a>
+                </Flex>
                 <Badge src="https://such.blue/res/button.png" />
                 <Badge src={FUFU_BADGE} href="https://burakfufu.carrd.co/" />
-            </BadgesRows>
-            <BadgesDivider label="Fun" />
-            <BadgesRows>
+                {/* Fun */}
                 <Badge src="/assets/img/88x31/kris-where-tf-are-we.png" href={null} />
                 <Badge src="/assets/img/88x31/tidalwave.gif" href={null} />
                 <Badge src="/assets/img/88x31/bad-apple-optimized.gif" href={null} />
                 <Badge src="/assets/img/88x31/tested-on-firefox.gif" href={null} />
                 <Badge src="https://s.mew.gay/88x31/crouton.gif" href="https://crouton.net" />
-            </BadgesRows>
-            <BadgesDivider label="Inspired Sites" />
-            <BadgesRows>
+                {/* Inspired Sites */}
                 <Badge src="https://oat.zone/badges/oatzone.gif" />
                 <Badge src="https://split.pet/88x31/split.png" />
                 <Badge src="https://dimden.dev/services/images/88x31.gif" />
-            </BadgesRows>
-            <BadgesDivider label="Other Sites" />
-            <BadgesRows>
+                {/* Other Sites */}
                 <Badge src="https://aspyn.gay/88x31.gif" />
                 <Badge src="https://maia.crimew.gay/badges/maia.crimew.gay.png" />
                 <Badge src="https://ruby.gay/88x31/gif.gif" />
                 <Badge src="https://badges.easrng.net/easrng.gif" href="https://easrng.net" />
                 <Badge src="https://zptr.cc/88x31/webring/zeroptr.png" />
-            </BadgesRows>
-            <Group justify="center" gap={0}>
                 <iframe
                     src="https://incr.easrng.net/badge?key=deniz.blue"
                     style={{ background: "url(https://incr.easrng.net/bg.gif)", border: "unset" }}
@@ -102,7 +124,7 @@ export const Badges = () => {
                     height="31"
                     className="badge"
                 />
-            </Group>
+            </BadgesRows>
         </Stack>
     )
 };
