@@ -153,6 +153,34 @@ export const Terminal = () => {
                 setTimeout(() => location.reload(), 0);
             }
         },
+
+        onCompletionRequest({ token, input }) {
+            const parts = input.split(/\s+/);
+
+            const cwdFiles = (fs.getNode(cwd.current)?.children ?? [])
+            const cwdFilenames = cwdFiles.map(x => x.name);
+            const executables = $PATH.map(folder => fs.getNode(folder)?.children ?? []).flat()
+                .filter(x => !!x.execute && x.name !== "_")
+                .map(x => x.name)
+
+            if (parts.length <= 1) {
+                return [
+                    ...executables,
+                    ...cwdFiles.filter(x => !!x.execute).map(x => x.name),
+                ];
+            } else {
+                if (["cd", "ls", "cat"].includes(parts[0])) {
+                    const filter: (x: FSNode) => boolean = {
+                        cd: (x: FSNode) => x.type == "dir",
+                        ls: (x: FSNode) => x.type == "dir",
+                        cat: (x: FSNode) => !x.execute && x.type == "file",
+                    }[parts[0]]!
+                    return cwdFiles.filter(filter).map(x => x.name);
+                }
+            }
+
+            return [];
+        },
     })
 
     useEffect(() => {

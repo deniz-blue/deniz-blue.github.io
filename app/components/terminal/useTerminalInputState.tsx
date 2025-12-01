@@ -1,16 +1,25 @@
-import { useListState, useLocalStorage } from "@mantine/hooks";
+import { useLocalStorage } from "@mantine/hooks";
 import { useRef, useState } from "react";
 
 export const useTerminalInputState = ({
     onSubmit: _onSubmit,
     onInputValueChange: _onInputValueChange,
+    onCompletionRequest,
 }: {
     onSubmit?: (s: string) => void;
     onInputValueChange?: (s: string) => void;
+    onCompletionRequest?: (values: {
+        token: string;
+        input: string;
+        start: number;
+        end: number;
+    }) => string[];
 }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [value, setValue] = useState<string>("");
     const [disabled, setDisabled] = useState<boolean>(false);
+    const tabCompletions = useRef<string[]>([]);
+    const tabCycle = useRef(-1);
 
     const [history, setHistory] = useLocalStorage<string[]>({
         key: "deniz.blue:terminal-history",
@@ -26,7 +35,31 @@ export const useTerminalInputState = ({
         _onSubmit?.(value);
     };
 
+    const getTokenBeforeCursor = () => {
+        const el = inputRef.current;
+        if (!el) return { before: value, token: "", start: 0, end: value.length };
+
+        const cursor = el.selectionStart ?? value.length;
+
+        const left = value.slice(0, cursor);
+        const right = value.slice(cursor);
+
+        // token is last word on the left side
+        const match = left.match(/(\S+)$/);
+        const token = match?.[1] ?? "";
+
+        const start = match ? match.index! : cursor;
+        const end = cursor;
+
+        return { before: left, after: right, token, start, end };
+    };
+
     const onKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key !== "Tab") {
+            tabCompletions.current = [];
+            tabCycle.current = -1;
+        }
+
         if (e.key == "Enter") {
             e.preventDefault();
             onSubmit(value);
@@ -46,6 +79,49 @@ export const useTerminalInputState = ({
             historyIndex.current = newIdx;
         } else if (e.key == "Tab") {
             e.preventDefault();
+            const { token, start, end } = getTokenBeforeCursor();
+
+            if (tabCycle.current === -1) {
+                tabCompletions.current =
+                    onCompletionRequest?.({
+                        input: value,
+                        token,
+                        start,
+                        end,
+                    }) ?? [];
+
+                if (tabCompletions.current.length === 0) return;
+
+                tabCycle.current = 0;
+            }
+
+            if (tabCompletions.current.length === 0) return;
+
+            const suggestion = tabCompletions.current[tabCycle.current];
+
+            const newValue =
+                value.slice(0, start) +
+                suggestion +
+                value.slice(end);
+
+            setValue(newValue);
+
+            requestAnimationFrame(() => {
+                const el = inputRef.current;
+                if (!el) return;
+                const pos = start + suggestion.length;
+                el.setSelectionRange(pos, pos);
+            });
+
+            if (e.shiftKey) {
+                tabCycle.current =
+                    (tabCycle.current - 1 + tabCompletions.current.length)
+                    % tabCompletions.current.length;
+            } else {
+                tabCycle.current =
+                    (tabCycle.current + 1)
+                    % tabCompletions.current.length;
+            }
         } else {
 
         }
