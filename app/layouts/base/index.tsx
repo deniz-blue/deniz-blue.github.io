@@ -7,7 +7,6 @@ import { SoulElement } from "../../contexts/soul/SoulElement";
 import { ContextStack } from "../../components/ui/ContextStack";
 import { SoulController } from "../../contexts/soul/SoulController";
 import { WebAudioContextProvider } from "../../contexts/audio/WebAudioContext";
-import { AppContextProvider } from "../../contexts/app/AppContext";
 import { Center, Loader } from "@mantine/core";
 
 export default function Layout() {
@@ -16,7 +15,6 @@ export default function Layout() {
             providers={[
                 WebAudioContextProvider,
                 FeaturesProvider,
-                AppContextProvider,
                 UIContextProvider,
                 MusicPlayerProvider,
             ]}

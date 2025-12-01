@@ -1,7 +1,7 @@
-import { useIsFirstRender, useListState, useWindowEvent } from "@mantine/hooks";
-import { RefObject, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useWindowEvent } from "@mantine/hooks";
+import { useCallback, useEffect, useLayoutEffect } from "react";
 import { useTerminalInputState } from "./useTerminalInputState";
-import { useAppContext } from "../../contexts/app/AppContext";
+import { useAppFlagsStore } from "../../contexts/app/AppContext";
 
 export const TerminalInput = ({
     inputRef,
@@ -10,7 +10,7 @@ export const TerminalInput = ({
     value,
     disabled,
 }: ReturnType<typeof useTerminalInputState>) => {
-    const [{ showTerminal }] = useAppContext();
+    const showTerminal = useAppFlagsStore(store => store.showTerminal);
 
     const tryFocus = useCallback(() => {
         if(!showTerminal) return;

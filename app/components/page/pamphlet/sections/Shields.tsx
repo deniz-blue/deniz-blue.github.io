@@ -1,5 +1,4 @@
 import { Group, Stack } from "@mantine/core";
-import { SoulSelectable } from "../../../../contexts/soul/SoulSelectable";
 
 export const Shields = () => {
     const labelColor = "rgba(37, 38, 43, 0.15)";
@@ -37,14 +36,17 @@ export const Shields = () => {
             <Group gap={4} align="center" justify="center">
                 {shields.map(({ src, link }, i) => {
                     return (
-                        <SoulSelectable
-                            anchor={!!i ? "right-center" : "left-center"}
-                            mr={12}
-                            ml={12}
-                            zIndex={1}
-                            key={src}
-                        >
-                            <Stack justify="center">
+                        // <SoulSelectable
+                        //     anchor={!!i ? "right-center" : "left-center"}
+                        //     mr={12}
+                        //     ml={12}
+                        //     zIndex={1}
+                            
+                        // >
+                            <Stack
+                                justify="center"
+                                key={src}
+                            >
                                 <a href={link} target="_blank" style={{ height: "20px" }}>
                                     <img
                                         src={src}
@@ -52,7 +54,7 @@ export const Shields = () => {
                                     />
                                 </a>
                             </Stack>
-                        </SoulSelectable>
+                        // </SoulSelectable>
                     );
                 })}
             </Group>

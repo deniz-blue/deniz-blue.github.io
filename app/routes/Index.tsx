@@ -1,5 +1,5 @@
 import { Affix, Box } from "@mantine/core";
-import { useAppContext } from "../contexts/app/AppContext";
+import { useAppFlagsStore } from "../contexts/app/AppContext";
 import { useHotkeys } from "@mantine/hooks";
 import { Device } from "../components/page/device/Device";
 import { Terminal } from "../components/terminal/Terminal";
@@ -15,9 +15,9 @@ import { useBackgroundStore } from "../components/background/PageBackground";
 export async function loader() {
     try {
         return await fetchProjectsJSON();
-    } catch(e) {
+    } catch (e) {
         console.error(e);
-        if(import.meta.env.PROD) throw e;
+        if (import.meta.env.PROD) throw e;
         return {
             state: {
                 developing: [],
@@ -36,7 +36,8 @@ export default function Index({
     }, [loaderData]);
 
     const setBackground = useBackgroundStore(store => store.setBackground);
-    const [flags, setFlags] = useAppContext();
+
+    const flags = useAppFlagsStore();
 
     const exitable = (
         flags.showPamphlet
@@ -47,7 +48,7 @@ export default function Index({
     const exit = () => {
         if (!exitable) return;
         setBackground({ type: "null", data: {} });
-        setFlags({
+        useAppFlagsStore.setState({
             showTerminal: true,
 
             showPamphlet: false,

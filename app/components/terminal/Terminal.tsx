@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { intoSpan, ShellContext, Span } from "./api";
 import { FSHandler, FSNode } from "./fs/fs";
 import { FSROOT } from "./fs/fsroot";
-import { useAppContext } from "../../contexts/app/AppContext";
+import { useAppFlagsStore } from "../../contexts/app/AppContext";
 import { useTerminalInputState } from "./useTerminalInputState";
 import mus_smile from "./mus_smile.ogg";
 import "./terminal-style.css";
@@ -13,12 +13,12 @@ import { useSoundEffect } from "../../contexts/audio/useSoundEffect";
 import { useBackgroundStore } from "../background/PageBackground";
 
 export const Terminal = () => {
-    const [app_flags, setFlags] = useAppContext();
+    const showTerminal = useAppFlagsStore(store => store.showTerminal);
     const setBackground = useBackgroundStore(store => store.setBackground);
     const app = {
-        setFlags,
+        setFlags: useAppFlagsStore.setState,
+        getFlags: useAppFlagsStore.getState,
         setBackground,
-        getFlags: () => app_flags,
     };
 
     const username = useRef("user");
@@ -157,8 +157,8 @@ export const Terminal = () => {
 
     useEffect(() => {
         console.log("Scrolling to bottom");
-        window.scrollTo({ top: app_flags.showTerminal ? document.body.scrollHeight : 0 });
-    }, [buffer, inputState.value, app_flags.showTerminal]);
+        window.scrollTo({ top: showTerminal ? document.body.scrollHeight : 0 });
+    }, [buffer, inputState.value, showTerminal]);
 
     return (
         <Box

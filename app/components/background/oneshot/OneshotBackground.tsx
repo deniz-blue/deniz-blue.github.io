@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import { deterministicRandom } from "../../../utils/deterministicRandom";
-import { useBackgroundStore } from "../PageBackground";
+import { useAppFlagsStore } from "../../../contexts/app/AppContext";
 import "./oneshot.css";
 
 export const OneShotBackground = () => {
-    const myBurdenIsDead = useBackgroundStore(store => store.background.type == "oneshot" && store.background.data.dead);
+    const sunShattered = useAppFlagsStore(store => store.sunShattered);
 
     const makeSquares = (rand: () => number) => {
         return [1, -1].map((dir) => (
@@ -83,7 +83,7 @@ export const OneShotBackground = () => {
                 className="pageBackground"
                 style={{
                     // transition: "all 1000ms cubic",
-                    opacity: myBurdenIsDead ? 1 : 0,
+                    opacity: sunShattered ? 1 : 0,
                     backgroundColor: "black",
                     zIndex: 2,
                 }}

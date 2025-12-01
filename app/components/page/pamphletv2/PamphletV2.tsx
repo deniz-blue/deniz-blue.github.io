@@ -8,6 +8,7 @@ import { LastFMTrackCard, useLastFMNowPlaying } from "../parts/NowPlayingLastFM"
 import { useBackgroundStore } from "../../background/PageBackground";
 import { ProjectButtonSection } from "./ProjectButtonSection";
 import { BackgroundSwitcher } from "../controls/BackgroundSwitcher";
+import { OneShotSun } from "../parts/OneShotSun";
 
 export const PamphletV2 = () => {
     const background = useBackgroundStore(store => store.background);
@@ -33,6 +34,12 @@ export const PamphletV2 = () => {
                     align="center"
                     mx={4}
                 >
+                    <Collapse in={background.type == "oneshot"}>
+                        <Box mt="xl">
+                            <OneShotSun />
+                        </Box>
+                    </Collapse>
+
                     <Paper fw="bold" px="xl" py={4} className="frost" my="1rem">
                         <MeName />
                     </Paper>

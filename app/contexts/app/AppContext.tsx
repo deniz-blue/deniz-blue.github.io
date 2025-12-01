@@ -1,4 +1,4 @@
-import { createContext, PropsWithChildren, useContext, useState } from "react";
+import { create } from "zustand";
 
 export const defaultAppFlags = {
     showTerminal: false,
@@ -7,24 +7,9 @@ export const defaultAppFlags = {
     showPamphletV2: true,
     showWD: false,
     rain: false,
+    sunShattered: false,
 };
 
 export type AppFlags = typeof defaultAppFlags;
-export const AppContext = createContext<[AppFlags,(x:Partial<AppFlags>)=>void]>([defaultAppFlags, ()=>{}]);
 
-export const AppContextProvider = ({ children }: PropsWithChildren) => {
-    const [flags, setFlags] = useState(defaultAppFlags);
-
-    return (
-        <AppContext.Provider
-            value={[flags, (s: Partial<AppFlags>) => setFlags({
-                ...flags,
-                ...s,
-            })]}
-        >
-            {children}
-        </AppContext.Provider>
-    )
-};
-
-export const useAppContext = () => useContext(AppContext);
+export const useAppFlagsStore = create<AppFlags>()(() => defaultAppFlags);

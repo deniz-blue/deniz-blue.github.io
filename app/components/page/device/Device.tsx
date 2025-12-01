@@ -1,5 +1,4 @@
-import { Paper, SimpleGrid, Stack, Text } from "@mantine/core";
-import { SoulSelectable } from "../../../contexts/soul/SoulSelectable";
+import { Stack, Text } from "@mantine/core";
 import { useCounter, useInterval } from "@mantine/hooks";
 
 export const Device = () => {

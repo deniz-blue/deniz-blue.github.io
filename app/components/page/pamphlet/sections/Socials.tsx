@@ -1,8 +1,6 @@
-import { Localized } from "@alan404/react-localization";
-import { ActionIcon, Box, Divider, Group, Stack } from "@mantine/core";
-import { IconBrandDiscord, IconBrandGithub, IconBrandInstagram, IconBrandMinecraft, IconBrandReddit, IconBrandSteam, IconBrandTelegram, IconBrandX, IconMail, TablerIcon } from "@tabler/icons-react";
+import { Stack } from "@mantine/core";
+import { IconBrandGithub } from "@tabler/icons-react";
 import { ComponentType } from "react";
-import { SoulSelectable } from "../../../../contexts/soul/SoulSelectable";
 
 type Social = {
     icon: ComponentType;
@@ -43,15 +41,15 @@ export const Socials = () => {
         //     icon: IconBrandSteam,
         //     url: "https://steamcommunity.com/id/denizblue",
         // },
-        {
-            icon: IconMail,
-            url: "mailto:deniz@deniz.blue",
-        },
+        // {
+        //     icon: IconMail,
+        //     url: "mailto:deniz@deniz.blue",
+        // },
     ];
 
     return (
         <Stack align="center" w="100%" px="sm">
-            <Group gap={4}>
+            {/* <Group gap={4}>
                 {socials.map((social, i) => (
                     <SoulSelectable anchor="center" zIndex={-1} blur key={i}>
                         <ActionIcon
@@ -65,7 +63,7 @@ export const Socials = () => {
                         </ActionIcon>
                     </SoulSelectable>
                 ))}
-            </Group>
+            </Group> */}
         </Stack>
     );
 };

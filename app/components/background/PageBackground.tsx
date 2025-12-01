@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { useAppContext } from "../../contexts/app/AppContext";
+import { useAppFlagsStore } from "../../contexts/app/AppContext";
 import { DepthBackground } from "./depth/DepthBackground";
 import { ManBackground } from "./man/ManBackground";
 import { OneShotBackground } from "./oneshot/OneshotBackground";
@@ -15,13 +15,11 @@ import { useMemo } from "react";
 import { SanctuaryBackground } from "./sanctuary/SanctuaryBackground";
 
 export type Background = Enum<{
-    null: {};
+    null: { fade?: boolean };
     depth: {};
     man: {};
     starfield: {};
-    oneshot: {
-        dead: boolean;
-    };
+    oneshot: {};
     refuge: {};
     winter: {};
     ender: {};
@@ -44,7 +42,7 @@ export const useBackgroundStore = create<{
 
 export const PageBackground = () => {
     const background = useBackgroundStore(store => store.background);
-    const [{ rain }] = useAppContext();
+    const rain = useAppFlagsStore(store => store.rain);
 
     const content = useMemo(() => (
         <>
@@ -74,7 +72,7 @@ export const PageBackground = () => {
         }}>
             <Swapper
                 content={content}
-                duration={background.type == "null" ? 0 : 500}
+                duration={(background.type == "null" && background.data.fade !== true) ? 0 : 500}
                 styles={{
                     wrapper: {
                         width: "100%",

@@ -1,6 +1,5 @@
 import { PropsWithChildren, ReactNode } from "react";
 import { Divider, Group, SimpleGrid, Stack, Text } from "@mantine/core";
-import { SoulSelectable } from "../../../../../contexts/soul/SoulSelectable";
 
 import REJECT_HUMANITY from "./reject_humanity.png";
 import FUFU_BADGE from "./fufu_badge.png";
@@ -29,7 +28,7 @@ export const ButtonsSection = () => {
 
 export const BadgesRows = ({ children }: PropsWithChildren) => {
     return (
-        <SimpleGrid cols={3} spacing={4} className="badges-container">
+        <SimpleGrid cols={3} spacing={4} verticalSpacing={4} className="badges-container">
             {children}
         </SimpleGrid>
     );
@@ -55,7 +54,7 @@ export const BadgesDivider = ({ label }: { label?: ReactNode }) => {
 
 export const Badges = () => {
     return (
-        <Stack gap="xs">
+        <Stack gap={4}>
             <BadgesDivider label="Me" />
             <BadgesRows>
                 <Badge src="/assets/88x31v0.png" href={null} />
@@ -65,6 +64,7 @@ export const Badges = () => {
             <BadgesDivider label="People I know" />
             <BadgesRows>
                 <Badge src="https://gaze.systems/88x31.gif" />
+                <Badge src="https://slonk.ing/img/88x31.webp" />
                 <Badge src="https://wamwoowam.co.uk/88x31.png" />
                 <Badge src="https://uwx.github.io/uwx.png" />
                 <Badge src="https://vea.st/button.png" />
