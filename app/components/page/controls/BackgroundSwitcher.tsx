@@ -1,4 +1,4 @@
-import { ActionIcon, Stack } from "@mantine/core";
+import { ActionIcon, Button, Stack } from "@mantine/core";
 import { Background, useBackgroundStore } from "../../background/PageBackground";
 import { IconArrowLeft, IconArrowRight } from "@tabler/icons-react";
 
@@ -19,19 +19,20 @@ export const BackgroundSwitcher = () => {
     };
 
     return (
-        <Stack align="center">
-            <ActionIcon.Group>
+        <Stack align="center" w="100%">
+            <Button.Group w="100%">
                 {[-1, 1].map(delta => (
-                    <ActionIcon
+                    <Button
+                        fullWidth
                         key={delta}
                         onClick={() => update(delta)}
                         variant="light"
                         color="violet"
                     >
                         {delta > 0 ? <IconArrowRight /> : <IconArrowLeft />}
-                    </ActionIcon>
+                    </Button>
                 ))}
-            </ActionIcon.Group>
+            </Button.Group>
         </Stack>
     )
 };

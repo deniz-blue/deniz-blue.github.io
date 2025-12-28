@@ -52,11 +52,20 @@ export const StarfieldCanvas = () => {
             worker.postMessage({ type: "init", data: offscreen }, [offscreen]);
             workerRef.current = worker;
 
-            window.addEventListener("scroll", () => {
-                worker.postMessage({ type: "scroll", data: vec2(
+            worker.postMessage({
+                type: "scroll", data: vec2(
                     0,
                     window.scrollY
-                ) });
+                )
+            });
+
+            window.addEventListener("scroll", () => {
+                worker.postMessage({
+                    type: "scroll", data: vec2(
+                        0,
+                        window.scrollY
+                    )
+                });
             }, { signal });
         });
 

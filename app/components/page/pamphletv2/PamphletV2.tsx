@@ -83,16 +83,51 @@ export const PamphletV2 = () => {
 
                             <Stack gap={4} align="center">
                                 <Text inline fw="bold" fz="xs">
+                                    THEME
+                                </Text>
+                                <BackgroundSwitcher />
+                            </Stack>
+
+                            <Stack gap={4} align="center">
+                                <Text inline fw="bold" fz="xs">
                                     88x31
                                 </Text>
                                 <Badges />
                             </Stack>
 
-                            <BackgroundSwitcher />
+                            <Stack gap={4} align="center">
+                                <Text inline fw="bold" fz="xs">
+                                    RANDOM LINKS
+                                </Text>
+                                <ProjectButtonSection
+                                    project={{
+                                        id: "x:rest.wiki",
+                                        name: "rest.wiki",
+                                        desc: "Static OpenAPI viewer",
+                                        link: "https://rest.wiki",
+                                    }}
+                                />
+                                <ProjectButtonSection
+                                    project={{
+                                        id: "x:vert.sh",
+                                        name: "vert.sh",
+                                        desc: "File Converter (Images, Audio, Video, Documents)",
+                                        link: "https://vert.sh",
+                                    }}
+                                />
+                                <ProjectButtonSection
+                                    project={{
+                                        id: "x:cobalt.tools",
+                                        name: "cobalt.tools",
+                                        desc: "Media downloader",
+                                        link: "https://cobalt.tools",
+                                    }}
+                                />
+                            </Stack>
 
                             <Text c="dimmed" ta="center" inline span fz="xs" fs="italic">
                                 don't forget
-                                <br/>
+                                <br />
                                 you promised
                             </Text>
 
