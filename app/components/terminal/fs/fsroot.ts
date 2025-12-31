@@ -23,6 +23,7 @@ const dir = (name: string, children: FSNode[]): FSNode => ({
 const programModules = import.meta.glob("./programs/*.ts", { eager: true });
 const programModulesStripPrefix = "./programs/";
 
+export const START_PATH = "/home/user/archive";
 export const FSROOT: FSNode = dir("/", [
     dir("home", [
         dir("user", [
@@ -40,9 +41,15 @@ export const FSROOT: FSNode = dir("/", [
                 dir("roomba", [
                     file("2038-08-17-1.log", roomba_log),
                 ]),
+                bin("2026", (ctx) => {
+                    ctx.app.setBackground({ type: "oneshot", data: {} });
+                    ctx.app.setFlags({
+                        showTerminal: false,
+                        showCountdown: true,
+                    });
+                })
             ]),
             bin("website", (ctx) => {
-                ctx.app.setBackground(defaultBackground);
                 ctx.app.setFlags({
                     showTerminal: false,
                     showPamphletV2: true,

@@ -4,7 +4,7 @@ import { TerminalContent } from "./TerminalContent";
 import { useEffect, useRef, useState } from "react";
 import { intoSpan, ShellContext, Span } from "./api";
 import { FSHandler, FSNode } from "./fs/fs";
-import { FSROOT } from "./fs/fsroot";
+import { FSROOT, START_PATH } from "./fs/fsroot";
 import { useAppFlagsStore } from "../../contexts/app/AppContext";
 import { useTerminalInputState } from "./useTerminalInputState";
 import mus_smile from "./mus_smile.ogg";
@@ -22,7 +22,7 @@ export const Terminal = () => {
     };
 
     const username = useRef("user");
-    const cwd = useRef("/home/user");
+    const cwd = useRef(START_PATH);
 
     const fs = new FSHandler(FSROOT);
 

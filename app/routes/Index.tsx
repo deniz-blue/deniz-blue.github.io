@@ -11,6 +11,7 @@ import { Route } from "./+types/Index";
 import { useEffect } from "react";
 import { useProjectJSON } from "../stores/useProjectJSON";
 import { useBackgroundStore } from "../components/background/PageBackground";
+import { CountdownThing } from "../components/page/countdown/CountdownThing";
 
 export async function loader() {
     try {
@@ -43,6 +44,7 @@ export default function Index({
         flags.showPamphlet
         || flags.showPamphletV2
         || flags.showDevice
+        || flags.showCountdown
     );
 
     const exit = () => {
@@ -54,6 +56,7 @@ export default function Index({
             showPamphlet: false,
             showPamphletV2: false,
             showDevice: false,
+            showCountdown: false,
             showWD: false,
         })
     };
@@ -62,12 +65,20 @@ export default function Index({
         ["Ctrl+C", exit],
     ]);
 
+    useEffect(() => {
+        const d = new Date();
+        // set showCountdown to true between Dec 30 and Jan 2
+        if (d.getMonth() === 11 && d.getDate() >= 30 || d.getMonth() === 0 && d.getDate() <= 2) {
+            useAppFlagsStore.setState({ showCountdown: true, showPamphletV2: false });
+        }
+    }, []);
+
     return (
         <Box>
             {flags.showDevice && <Device />}
             {flags.showWD && <WingDing />}
 
-            <Box display={flags.showTerminal ? "block" : "none"}>
+            <Box display={flags.showTerminal ? "block" : "none"} pos="absolute">
                 <Terminal />
             </Box>
 
@@ -77,6 +88,10 @@ export default function Index({
 
             {flags.showPamphletV2 && (
                 <PamphletV2 />
+            )}
+
+            {flags.showCountdown && (
+                <CountdownThing />
             )}
 
             {exitable && (

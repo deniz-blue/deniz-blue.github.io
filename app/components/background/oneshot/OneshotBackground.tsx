@@ -2,9 +2,11 @@ import { useMemo } from "react";
 import { deterministicRandom } from "../../../utils/deterministicRandom";
 import { useAppFlagsStore } from "../../../contexts/app/AppContext";
 import "./oneshot.css";
+import { useBackgroundStore } from "../PageBackground";
 
 export const OneShotBackground = () => {
     const sunShattered = useAppFlagsStore(store => store.sunShattered);
+    const withoutNiko = useBackgroundStore(store => store.background.type == "oneshot" && store.background.data.withNiko === false);
 
     const makeSquares = (rand: () => number) => {
         return [1, -1].map((dir) => (
@@ -68,7 +70,7 @@ export const OneShotBackground = () => {
                 />
             ))}
 
-            <img
+            {!withoutNiko && <img
                 src="/assets/img/detail/oneshot/NikoPromoTransparent.png"
                 style={{
                     position: "absolute",
@@ -77,7 +79,7 @@ export const OneShotBackground = () => {
                     maxWidth: "70vw",
                     marginLeft: "1rem",
                 }}
-            />
+            />}
 
             <div
                 className="pageBackground"
@@ -88,7 +90,7 @@ export const OneShotBackground = () => {
                     zIndex: 2,
                 }}
             >
-                <img
+                {!withoutNiko && <img
                     src="/assets/img/detail/oneshot/NikoDead.png"
                     style={{
                         position: "absolute",
@@ -97,7 +99,7 @@ export const OneShotBackground = () => {
                         maxWidth: "80vw",
                         marginLeft: "1rem",
                     }}
-                />
+                />}
             </div>
 
             {/* <div id="jackenstein-jackolantern" /> */}

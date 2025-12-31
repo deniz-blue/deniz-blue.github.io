@@ -33,8 +33,6 @@ export const useBeatdrop = ({
     audioSrc: string;
     maxDelay?: number;
 }) => {
-    
-
     const DEFAULT_VOLUME = 0.5;
     const ref = useRef<HTMLAudioElement | null>(null);
     const [volume, _setVolume] = useState(DEFAULT_VOLUME);

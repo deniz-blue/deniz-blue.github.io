@@ -19,7 +19,7 @@ export type Background = Enum<{
     depth: {};
     man: {};
     starfield: {};
-    oneshot: {};
+    oneshot: { withNiko?: boolean };
     refuge: {};
     winter: {};
     ender: {};
@@ -28,7 +28,7 @@ export type Background = Enum<{
 }>;
 
 export const defaultBackground: Background = {
-    type: "sanctuary",
+    type: "null",
     data: {},
 };
 

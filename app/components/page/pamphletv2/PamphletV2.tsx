@@ -9,9 +9,14 @@ import { useBackgroundStore } from "../../background/PageBackground";
 import { ProjectButtonSection } from "./ProjectButtonSection";
 import { BackgroundSwitcher } from "../controls/BackgroundSwitcher";
 import { OneShotSun } from "../parts/OneShotSun";
+import { useEffect } from "react";
 
 export const PamphletV2 = () => {
     const background = useBackgroundStore(store => store.background);
+
+    useEffect(() => {
+        useBackgroundStore.getState().setBackground({ type: "sanctuary", data: {} });
+    }, []);
 
     return (
         <Stack
