@@ -1,10 +1,14 @@
-import { CommandContext } from "../../api";
+import { useAppFlagsStore } from "../../../../contexts/app/AppContext";
+import { useBackgroundStore } from "../../../background/PageBackground";
+import { useTerminalStore } from "../../store/useTerminalStore";
+import { ExecutionContext } from "../../util/ctx";
 
-export default function donotuse(ctx: CommandContext) {
+export default function donotuse(ctx: ExecutionContext) {
     const x = ctx.args[0];
     if (x == "f") {
         if(!ctx.args[1]) {
-            ctx.stdout(JSON.stringify(ctx.app.getFlags()))
+            useTerminalStore.getState().print(JSON.stringify(useAppFlagsStore.getState()));
+			return;
         }
 
         const f = {
@@ -16,11 +20,11 @@ export default function donotuse(ctx: CommandContext) {
             f[k] = (v == "false") ? false : true;
         }
 
-        ctx.app.setFlags(f as any);
+        useAppFlagsStore.setState(f as any);
     } else if (x == "bg") {
         let type = ctx.args[1];
         if (type) {
-            ctx.app.setBackground({
+            useBackgroundStore.getState().setBackground({
                 type: type,
                 data: {},
             } as any)

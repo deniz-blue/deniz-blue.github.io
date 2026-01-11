@@ -1,66 +1,52 @@
-import { defaultBackground } from "../../background/PageBackground";
-import { FSNode } from "./fs";
+import { useAppFlagsStore } from "../../../contexts/app/AppContext";
+import { useBackgroundStore } from "../../background/PageBackground";
+import { useFileSystemStore } from "../store/useFileSystemStore";
+import { useTerminalStore } from "../store/useTerminalStore";
+import { createDirectoryNode, createExecutableNode, createFileNode } from "../util/fnode";
 import roomba_log from "./source/roomba.log?raw";
-
-const file = (name: string, content: string): FSNode => ({
-    name,
-    type: "file",
-    content,
-});
-
-const bin = (name: string, execute: FSNode["execute"]): FSNode => ({
-    name,
-    type: "file",
-    execute,
-});
-
-const dir = (name: string, children: FSNode[]): FSNode => ({
-    name,
-    type: "dir",
-    children,
-});
 
 const programModules = import.meta.glob("./programs/*.ts", { eager: true });
 const programModulesStripPrefix = "./programs/";
 
-export const START_PATH = "/home/user/archive";
-export const FSROOT: FSNode = dir("/", [
-    dir("home", [
-        dir("user", [
-            bin("DEVICE", (ctx) => {
-                ctx.stdout({ text: " CONNECTING...", b: true, fg: "BrightBlack" });
-                ctx.app.setBackground({ type: "depth", data: {} });
-                ctx.app.setFlags({
-                    showTerminal: false,
-                    showDevice: true,
-                });
-            }),
-            file("NOTE.txt", "this section is still a WIP"),
-            dir("archive", [
-                file("girl", "mrrp :3"),
-                dir("roomba", [
-                    file("2038-08-17-1.log", roomba_log),
-                ]),
-                bin("2026", (ctx) => {
-                    ctx.app.setBackground({ type: "oneshot", data: {} });
-                    ctx.app.setFlags({
-                        showTerminal: false,
-                        showCountdown: true,
-                    });
-                })
-            ]),
-            bin("website", (ctx) => {
-                ctx.app.setFlags({
-                    showTerminal: false,
-                    showPamphletV2: true,
-                });
-            }),
-        ]),
-    ]),
-
-    dir("bin", Object.entries(programModules).map(([path, mod]) => {
-        let name = path.replace(programModulesStripPrefix, "").split(".")[0];
-        return bin(name, (mod as any).default as FSNode["execute"]);
-    })),
-]);
-
+export const setupReadOnlyFileSystem = () => {
+	useFileSystemStore.setState({
+		root: createDirectoryNode({
+			home: createDirectoryNode({
+				user: createDirectoryNode({
+					DEVICE: createExecutableNode((ctx) => {
+						useTerminalStore.getState().print({ text: " CONNECTING...", b: true, fg: "BrightBlack" });
+						useBackgroundStore.getState().setBackground({ type: "depth", data: {} });
+						useAppFlagsStore.setState({
+							showTerminal: false,
+							showDevice: true,
+						});
+					}),
+					"NOTE.txt": createFileNode("this section is still a WIP"),
+					archive: createDirectoryNode({
+						girl: createFileNode("mrrp :3"),
+						roomba: createDirectoryNode({
+							"2038-08-17-1.log": createFileNode(roomba_log),
+						}),
+						"2026": createExecutableNode((ctx) => {
+							useBackgroundStore.getState().setBackground({ type: "oneshot", data: {} });
+							useAppFlagsStore.setState({
+								showTerminal: false,
+								showCountdown: true,
+							});
+						}),
+					}),
+					website: createExecutableNode((ctx) => {
+						useAppFlagsStore.setState({
+							showTerminal: false,
+							showPamphletV2: true,
+						});
+					}),
+				}),
+			}),
+			bin: createDirectoryNode(Object.fromEntries(Object.entries(programModules).map(([path, mod]) => {
+				let name = path.replace(programModulesStripPrefix, "").split(".")[0];
+				return [name, createExecutableNode((mod as any).default, { hidden: name === "_" })];
+			}))),
+		}),
+	});
+};

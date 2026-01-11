@@ -1,5 +1,6 @@
-import { CommandContext } from "../../api";
+import { useTerminalStore } from "../../store/useTerminalStore";
+import { ExecutionContext } from "../../util/ctx";
 
-export default function echo(ctx: CommandContext) {
-    ctx.stdout(ctx.args.join(" "));
+export default function echo(ctx: ExecutionContext) {
+    useTerminalStore.getState().print(ctx.args.join(" "));
 }

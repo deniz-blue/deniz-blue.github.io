@@ -1,73 +1,85 @@
 .terminal {
-    font-family: "Fira Code", monospace;
-    font-size: 16px;
-    font-weight: normal;
-    font-variant-ligatures: none;
-    color: #cccccc;
-    background-color: black;
-    /* overflow-y: scroll; */
-    overflow-y: auto;
-    overflow-x: clip;
-    max-width: calc(100vw);
-    word-break: break-all;
-    text-wrap: wrap;
+	font-family: "Fira Code", monospace;
+	font-size: 16px;
+	font-weight: normal;
+	font-variant-ligatures: none;
+	color: #cccccc;
+	background-color: black;
+	/* overflow-y: scroll; */
+	overflow-y: auto;
+	overflow-x: clip;
+	max-width: calc(100vw);
+	word-break: break-all;
+	text-wrap: wrap;
 }
 
-.terminal::selection {
-    background-color: #264f78;
+.terminal ::selection {
+	background-color: #222222ee;
+	text-shadow: none;
 }
 
 .terminal-content {
-    display: inline;
-    margin-block: 0px;
-    line-height: 1;
-    font-size: inherit;
-    font-family: inherit;
+	display: inline;
+	margin-block: 0px;
+	line-height: 1.1;
+	font-size: inherit;
+	font-family: inherit;
 }
 
 .terminal-content span {
-    text-wrap: wrap;
-    word-break: break-all;
-    overflow: clip;
+	text-wrap: wrap;
+	word-break: break-all;
+	overflow: clip;
 }
 
 .terminal-content a {
-    cursor: pointer;
+	cursor: pointer;
 }
 
 .terminal-content a:hover {
-    text-decoration: underline;
+	text-decoration: underline;
 }
 
 .terminal-input {
-    color: inherit;
-    font-size: inherit;
-    font-family: inherit;
-    font-weight: inherit;
-    display: inline;
-    border: none;
-    outline: none;
-    background: none;
-    padding: 0;
-    line-height: 1;
-    padding-block: 0px;
-    padding-inline: 0px;
-    word-break: break-all;
-    text-wrap: wrap;
-    max-width: calc(100vw - 16px);
+	color: inherit;
+	font-size: inherit;
+	font-family: inherit;
+	font-weight: inherit;
+	display: inline;
+	border: none;
+	outline: none;
+	background: none;
+	padding: 0;
+	line-height: 1;
+	padding-block: 0px;
+	padding-inline: 0px;
+	word-break: break-all;
+	text-wrap: wrap;
+	max-width: calc(100vw - 16px);
 }
 
 textarea.terminal-input {
-    resize: none;
+	resize: none;
 }
 
 input.terminal-input {
-    /* this doesnt work lmfaooo */
-    /* overflow: visible !important;
+	/* this doesnt work lmfaooo */
+	/* overflow: visible !important;
     overflow-clip-margin: unset !important; */
 
-    /* fix for UA overflow clipping */
-    height: 1.5em;
-    margin-top: -0.25em;
-    margin-bottom: -0.25em;
+	/* fix for UA overflow clipping */
+	height: 1.5em;
+	margin-top: -0.25em;
+	margin-bottom: -0.25em;
 }
+
+/* .terminal-content::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	pointer-events: none;
+	background: repeating-linear-gradient(0deg, #ffffff0f, transparent 5px)
+} */
