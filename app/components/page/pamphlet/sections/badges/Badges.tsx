@@ -111,6 +111,9 @@ export const Badges = () => {
                 <Badge src="https://split.pet/88x31/split.png" />
                 <Badge src="https://dimden.dev/services/images/88x31.gif" />
                 {/* Other Sites */}
+				<Badge src="https://yugoslavia.best/assets/blinchik.gif" />
+				<Badge src="https://ida.puwulsewave.gay/img/button/ida.gif" />
+				<Badge src="https://ida.puwulsewave.gay/img/button/lua.png" href="https://foxgirl.dev" />
                 <Badge src="https://aspyn.gay/88x31.gif" />
                 <Badge src="https://maia.crimew.gay/badges/maia.crimew.gay.png" />
                 <Badge src="https://ruby.gay/88x31/gif.gif" />
