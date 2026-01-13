@@ -32,20 +32,25 @@ export const ProjectListV2 = () => {
 
     let categories: { name: string; items: ProjectJSONItem[] }[] = [];
 
-    categories.push({
-        name: "WEBSITES",
-        items: pick(makeFilter({ include: ["website"], exclude: ["archived"] }))
-    });
+    // categories.push({
+    //     name: "WEBSITES",
+    //     items: pick(makeFilter({ include: ["website"], exclude: ["archived"] }))
+    // });
 
-    categories.push({
-        name: "PROJECTS",
-        items: pick(makeFilter({ exclude: ["archived", "library"] }))
-    });
+    // categories.push({
+    //     name: "PROJECTS",
+    //     items: pick(makeFilter({ exclude: ["archived", "library"] }))
+    // });
 
-    categories.push({
-        name: "LIBRARIES",
-        items: pick(makeFilter({ include: ["library"], exclude: ["archived"] }))
-    });
+    // categories.push({
+    //     name: "LIBRARIES",
+    //     items: pick(makeFilter({ include: ["library"], exclude: ["archived"] }))
+    // });
+
+	categories.push({
+		name: "PROJECTS",
+		items: list.filter(x => !x.tags?.includes("archived")),
+	});
 
     return (
         <Stack w="100%">

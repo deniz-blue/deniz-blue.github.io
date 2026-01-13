@@ -4,15 +4,17 @@ import { DEFAULT_DIM } from "./starfield";
 import { useWindowEvent } from "@mantine/hooks";
 import { vec2 } from "@alan404/vec2";
 import { Affix, Group, Loader, Paper, Text, Transition } from "@mantine/core";
+import { create } from "zustand";
+import { notifications } from "@mantine/notifications";
 
 export const StarfieldBackground = memo(() => {
-	const [mounted, setMounted] = useState(false);
-	const [loading, setLoading] = useState(true);
+	// const [mounted, setMounted] = useState(false);
+	const loading = useStarfieldStore(store => store.loading);
 
-	useEffect(() => {
-		const id = requestAnimationFrame(() => setMounted(true));
-		return () => cancelAnimationFrame(id);
-	}, []);
+	// useEffect(() => {
+	// 	const id = requestAnimationFrame(() => setMounted(true));
+	// 	return () => cancelAnimationFrame(id);
+	// }, []);
 
 	return (
 		<div
@@ -23,11 +25,11 @@ export const StarfieldBackground = memo(() => {
 				backgroundAttachment: "fixed",
 			}}
 		>
-			{mounted && <StarfieldCanvas setLoading={setLoading} />}
+			<StarfieldCanvas />
 
 			<Transition mounted={loading} duration={200}>
 				{(styles) => (
-					<Affix position={{ bottom: 20, right: 20 }} zIndex={1000} style={{ pointerEvents: "none" }}>
+					<Affix position={{ bottom: 20, right: 20 }} zIndex={1000} style={{ ...styles, pointerEvents: "none" }}>
 						<Paper p="xs">
 							<Group align="center" justify="center">
 								<Text>
@@ -43,77 +45,96 @@ export const StarfieldBackground = memo(() => {
 	);
 });
 
+export const useStarfieldStore = create<{
+	worker: Worker | null;
+	canvas: HTMLCanvasElement | null;
+	offscreen: OffscreenCanvas | null;
+	loading: boolean;
+	handleCanvasRef: (ref: HTMLCanvasElement | null) => void | (() => void);
+}>()((set, get) => ({
+	worker: null,
+	loading: true,
+	canvas: null,
+	offscreen: null,
+	handleCanvasRef: (canvas: HTMLCanvasElement | null) => {
+		if(!canvas) return;
+		if(get().canvas === canvas) return;
 
-export const StarfieldCanvas = ({ setLoading }: { setLoading: (loading: boolean) => void }) => {
-	const canvasRef = useRef<HTMLCanvasElement | null>(null);
-	const workerRef = useRef<Worker | null>(null);
-	const offscreenRef = useRef<OffscreenCanvas | null>(null);
+		set({ canvas });
 
+		// if(get().worker) get().worker!.terminate();
+		// if(get().offscreen) set({ offscreen: null });
+
+		canvas.width = canvas.clientWidth;
+		canvas.height = canvas.clientHeight;
+		const offscreen = canvas.transferControlToOffscreen();
+		// set({ offscreen });
+
+		const worker = new Worker(new URL("./effects.worker.ts", import.meta.url), {
+			type: "module",
+		});
+
+		worker.postMessage({ type: "init", data: offscreen }, [offscreen]);
+		set({ worker });
+
+		worker.postMessage({
+			type: "scroll", data: vec2(
+				0,
+				window.scrollY
+			)
+		});
+
+		worker.onmessage = (ev: MessageEvent<EffectsWorkerOutput>) => {
+			const message = ev.data;
+			if (message.type === "initialized") {
+				set({ loading: false });
+			}
+		};
+
+		return () => {};
+	},
+}))
+
+export const StarfieldCanvas = () => {
 	useEffect(() => {
 		let abortController = new AbortController();
-		let signal = abortController.signal;
-		const id = requestAnimationFrame(() => {
-			if (signal.aborted) return;
 
-			const canvas = canvasRef.current;
-			if (!canvas) return;
-
-			canvas.width = canvas.clientWidth;
-			canvas.height = canvas.clientHeight;
-			const offscreen = canvas.transferControlToOffscreen();
-
-			const worker = new Worker(new URL("./effects.worker.ts", import.meta.url), {
-				type: "module",
-			});
-
-			worker.postMessage({ type: "init", data: offscreen }, [offscreen]);
-			workerRef.current = worker;
-
-			worker.postMessage({
+		window.addEventListener("scroll", () => {
+			useStarfieldStore.getState().worker?.postMessage({
 				type: "scroll", data: vec2(
 					0,
 					window.scrollY
 				)
 			});
+		}, { signal: abortController.signal });
 
-			worker.onmessage = (ev: MessageEvent<EffectsWorkerOutput>) => {
-				const message = ev.data;
-				if (message.type === "initialized") {
-					setLoading(false);
-				}
-			};
-
-			window.addEventListener("scroll", () => {
-				worker.postMessage({
-					type: "scroll", data: vec2(
-						0,
-						window.scrollY
-					)
-				});
-			}, { signal });
-		});
+		window.addEventListener("resize", () => {
+			useStarfieldStore.getState().worker?.postMessage({
+				type: "dimensionsChange", data: vec2(window.innerWidth, window.innerHeight),
+			});
+		}, { signal: abortController.signal });
 
 		return () => {
-			cancelAnimationFrame(id);
-			workerRef.current?.terminate();
 			abortController.abort();
-			workerRef.current = null;
 		};
 	}, []);
 
-	useWindowEvent("resize", () => {
-		const canvas = canvasRef.current;
-		if (!canvas) return;
-
-		workerRef.current?.postMessage({
-			type: "dimensionsChange",
-			data: vec2(canvas.clientWidth, canvas.clientHeight),
-		});
-	});
+	const handleCanvasRef = useStarfieldStore(store => store.handleCanvasRef);
 
 	return (
 		<canvas
-			ref={canvasRef}
+			ref={ref => {
+				try {
+					return handleCanvasRef(ref);
+				} catch (e) {
+					console.error("StarfieldCanvas: Failed to set canvas ref", e);
+					notifications.show({
+						title: "Starfield Error",
+						message: "Failed to initialize starfield background.",
+						color: "red",
+					});
+				}
+			}}
 			className="fullscreenDynamic"
 			style={{
 				objectFit: "contain",

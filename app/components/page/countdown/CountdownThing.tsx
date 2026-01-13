@@ -1,5 +1,5 @@
 import { Affix, Collapse, Group, Slider, Stack, Text, Title, Transition } from "@mantine/core";
-import { useBeatdrop } from "../../features/events/useBeatdrop";
+import { useBeatdrop } from "../../../hooks/useBeatdrop";
 import { Section } from "../../ui/Section";
 import { IconVolume } from "@tabler/icons-react";
 import { useEffect } from "react";

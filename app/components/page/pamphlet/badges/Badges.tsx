@@ -66,6 +66,7 @@ export const Badges = () => {
             <BadgesRows>
                 <Badge src="https://gaze.systems/88x31.gif" />
                 <Badge src="https://slonk.ing/img/88x31.webp" />
+                <Badge src="https://kayceecat.neocities.org/buttons/kayceecat.gif" />
                 <Badge src="https://wamwoowam.co.uk/88x31.png" />
                 <Badge src="https://uwx.github.io/uwx.png" />
                 <Badge src="https://vea.st/button.png" />
@@ -76,6 +77,7 @@ export const Badges = () => {
                         width: 88,
                         height: 101,
                         gridRow: "span 3",
+						backgroundColor: "var(--mantine-color-violet-light)",
                     }}
                 >
                     <a

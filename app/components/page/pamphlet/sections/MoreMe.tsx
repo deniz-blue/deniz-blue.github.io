@@ -3,8 +3,8 @@ import { modals } from "@mantine/modals"
 import { IconBrush, IconComet, IconCrown } from "@tabler/icons-react"
 import { ReactNode } from "react"
 import { Localized } from "@alan404/react-localization"
-import { OCArtModal } from "~/components/modals/OCArtModal"
-import { TechnobladeShrine } from "~/components/modals/TechnobladeShrine"
+import { OCArtModal } from "~/components/archive/modals/OCArtModal"
+import { TechnobladeShrine } from "~/components/archive/modals/TechnobladeShrine"
 
 export const MoreMe = () => {
     return (

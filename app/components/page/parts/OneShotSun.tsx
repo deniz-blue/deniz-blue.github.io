@@ -1,9 +1,9 @@
 import { ActionIcon, Image } from "@mantine/core";
 import { useBackgroundStore } from "../../background/PageBackground";
-import { useSoundEffect } from "../../../contexts/audio/useSoundEffect";
 import shatterSfx from "../../background/oneshot/shatter.wav";
 import { useRef } from "react";
-import { useAppFlagsStore } from "../../../contexts/app/AppContext";
+import { useAppFlagsStore } from "../../../stores/useAppFlagsStore";
+import { useSoundEffect } from "../../../stores/audio-context";
 
 export const OneShotSun = () => {
     const isShattered = useAppFlagsStore(store => store.sunShattered);

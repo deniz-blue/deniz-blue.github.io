@@ -1,7 +1,7 @@
 import { useWindowEvent } from "@mantine/hooks";
 import { useCallback, useEffect, useLayoutEffect } from "react";
 import { useTerminalInputState } from "./useTerminalInputState";
-import { useAppFlagsStore } from "../../contexts/app/AppContext";
+import { useAppFlagsStore } from "../../stores/useAppFlagsStore";
 
 export const TerminalInput = ({
     inputRef,

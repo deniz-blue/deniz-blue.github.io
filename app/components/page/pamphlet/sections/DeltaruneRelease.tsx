@@ -1,5 +1,5 @@
 import { Anchor, Box, Code, Divider, Group, Image, Progress, Stack, Text } from "@mantine/core";
-import { useCountdown } from "~/components/features/events/useCountdown";
+import { useCountdown } from "~/hooks/useCountdown";
 import { Localized } from "@alan404/react-localization";
 
 export const DeltaruneRelease = () => {

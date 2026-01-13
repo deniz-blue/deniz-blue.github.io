@@ -1,6 +1,5 @@
 import { Box, Paper, Stack } from "@mantine/core";
 import { PamphletHeader } from "./PamphletHeader";
-import { PamphletContent } from "./PamphletContent";
 import "./pamphlet.css";
 
 export const Pamphlet = ({
@@ -32,7 +31,7 @@ export const Pamphlet = ({
                     className="frost"
                     w="100%"
                 >
-                    <PamphletContent />
+                    {/* <PamphletContent /> */}
                 </Paper>
             </Stack>
 

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { deterministicRandom } from "../../../utils/deterministicRandom";
-import { useAppFlagsStore } from "../../../contexts/app/AppContext";
+import { useAppFlagsStore } from "../../../stores/useAppFlagsStore";
 import "./oneshot.css";
 import { useBackgroundStore } from "../PageBackground";
 

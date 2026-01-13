@@ -13,7 +13,9 @@
 .SanctuaryBackground .parallax {
     position: absolute;
     --depth: 0.5;
-    top: calc(1px * var(--scroll-y) * var(--depth));
+	will-change: transform;
+	transform: translateY(calc(var(--scroll-y) * var(--depth) * 1px));
+	image-rendering: pixelated;
 }
 
 .SanctuaryBackground .spire {

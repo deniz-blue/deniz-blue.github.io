@@ -1,4 +1,4 @@
-import { Box, Center, Group, Image, Paper, Stack, Text } from "@mantine/core";
+import { Box, Center, Group, Image, Paper, Stack, Text, Tooltip } from "@mantine/core";
 import { useFetch, useInterval } from "@mantine/hooks";
 import { IconAlbum, IconMusic, IconUserCircle } from "@tabler/icons-react";
 import { AutoMarquee } from "../../ui/text/AutoMarquee";
@@ -110,7 +110,9 @@ export const LastFMTrackCard = ({
     const albumNode = useMemo(() => {
         return !album ? null : (
             <Group gap={4} wrap="nowrap" w="100%">
-                <IconAlbum size={16} />
+                <Tooltip label="Album" position="left" withArrow>
+					<IconAlbum size={16} />
+				</Tooltip>
                 <OverengineeredText
                     text={album}
                 />
@@ -121,7 +123,9 @@ export const LastFMTrackCard = ({
     const artistNode = useMemo(() => {
         return !artist ? null : (
             <Group gap={4} wrap="nowrap" w="100%">
-                <IconUserCircle size={16} />
+                <Tooltip label="Artist" position="left" withArrow>
+					<IconUserCircle size={16} />
+				</Tooltip>
                 <OverengineeredText
                     text={artist}
                 />

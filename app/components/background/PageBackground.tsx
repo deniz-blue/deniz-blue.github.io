@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { useAppFlagsStore } from "../../contexts/app/AppContext";
+import { useAppFlagsStore } from "../../stores/useAppFlagsStore";
 import { DepthBackground } from "./depth/DepthBackground";
 import { ManBackground } from "./man/ManBackground";
 import { OneShotBackground } from "./oneshot/OneshotBackground";
@@ -54,7 +54,6 @@ export const PageBackground = () => {
             {background.type === "man" && <ManBackground />}
             {background.type === "refuge" && <RefugeBackground />}
             {background.type === "winter" && <WinterBackground />}
-            {background.type === "winter" && <MariaCarey />}
             {background.type === "aurora" && <AuroraBackground />}
             {background.type === "sanctuary" && <SanctuaryBackground />}
         </>

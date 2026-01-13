@@ -1,27 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useCountdown } from "./useCountdown";
 
-export const relativeString = (d: Date) => {
-    let formatter = new Intl.DateTimeFormat();
-    const diff = -((new Date().getTime() - d.getTime())/1000)|0;
-	const absDiff = Math.abs(diff);
-    let f: { duration: number; unit: any };
-	if (absDiff > 86400*30*10) {
-		f = { duration: Math.round(diff/(86400*365)), unit: 'years' };
-	} else if (absDiff > 86400*25) {
-		f = { duration: Math.round(diff/(86400*30)), unit: 'months' };
-	} else if (absDiff > 3600*21) {
-		f = { duration: Math.round(diff/86400), unit: 'days' };
-	} else if (absDiff > 60*44) {
-		f = { duration: Math.round(diff/3600), unit: 'hours' };
-	} else if (absDiff > 30) {
-		f = { duration: Math.round(diff/60), unit: 'minutes' };
-	} else {
-        f = { duration: diff, unit: 'seconds' };
-    }
-    return f.duration + " " + f.unit;
-};
-
 export const useBeatdrop = ({
     audioSrc,
     beatDropOn,

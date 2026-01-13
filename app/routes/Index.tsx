@@ -1,5 +1,5 @@
 import { Affix, Box } from "@mantine/core";
-import { useAppFlagsStore } from "../contexts/app/AppContext";
+import { useAppFlagsStore } from "../stores/useAppFlagsStore";
 import { useHotkeys } from "@mantine/hooks";
 import { Device } from "../components/page/device/Device";
 import { Terminal } from "../components/terminal/Terminal";

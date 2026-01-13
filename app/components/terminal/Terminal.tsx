@@ -2,15 +2,15 @@ import { Box } from "@mantine/core";
 import { TerminalInput } from "./TerminalInput";
 import { TerminalContent } from "./TerminalContent";
 import { useEffect } from "react";
-import { useAppFlagsStore } from "../../contexts/app/AppContext";
+import { useAppFlagsStore } from "../../stores/useAppFlagsStore";
 import { useTerminalInputState } from "./useTerminalInputState";
 import mus_smile from "./mus_smile.ogg";
 import "./terminal-style.css";
-import { useSoundEffect } from "../../contexts/audio/useSoundEffect";
 import { useTerminalStore } from "./store/useTerminalStore";
 import { Path } from "./util/Path";
 import { DirectoryNode, FNode, FNodeType } from "./util/fnode";
 import { useFileSystemStore } from "./store/useFileSystemStore";
+import { useSoundEffect } from "../../stores/audio-context";
 
 export const ENTRY_17 = `☜☠❄☼✡ 📂🖮\n👎✌☼😐 👎✌☼😐☜☼ ✡☜❄ 👎✌☼😐☜☼\n❄☟☜ 👎✌☼😐☠☜💧💧 😐☜☜🏱💧 ☝☼⚐🕈✋☠☝\n🏱☟⚐❄⚐☠💧 ☼☜✌👎✋☠☝ ☠☜☝✌❄✋✞☜\n❄☟✋💧 ☠☜✠❄ ☜✠🏱☜☼✋💣☜☠❄\n💧☜☜💣💧\n✞☜☼✡\n✞☜☼✡\n✋☠❄☜☼☜💧❄✋☠☝\n📬📬📬\n🕈☟✌❄ 👎⚐ ✡⚐🕆 ❄🕈⚐ ❄☟✋☠😐`;
 

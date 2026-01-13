@@ -4,66 +4,73 @@ import { Vec2 } from "@alan404/vec2";
 import "./styles.css";
 
 export const useScrollChange = (cb: (pos: Vec2) => void) => {
-    useEffect(() => {
-        const upd = () => {
-            cb({
-                x: document.documentElement.scrollLeft,
-                y: document.documentElement.scrollTop,
-            })
-        };
-        const ctrl = new AbortController();
-        let i = 0
-        window.addEventListener("scroll", () => {
-            cancelAnimationFrame(i)
-            i = requestAnimationFrame(upd)
-        }, { signal: ctrl.signal });
-        return () => ctrl.abort();
-    }, [])
+	useEffect(() => {
+		const upd = () => {
+			cb({
+				// x: document.documentElement.scrollLeft,
+				x:0,
+				y: document.documentElement.scrollTop,
+			})
+		};
+		const ctrl = new AbortController();
+		let ticking = false;
+		window.addEventListener('scroll', () => {
+			if (!ticking) {
+				window.requestAnimationFrame(() => {
+					upd();
+					ticking = false;
+				});
+				ticking = true;
+			}
+		}, { signal: ctrl.signal });
+		upd();
+		return () => ctrl.abort();
+	}, [])
 }
 
 export const SanctuaryBackground = () => {
-    const ref = useRef<HTMLDivElement>(null);
+	const ref = useRef<HTMLDivElement>(null);
 
-    useScrollChange(({ y }) => {
-        if (!ref.current) return;
-        ref.current.style.setProperty("--scroll-y", y.toString());
-    })
+	useScrollChange(({ y }) => {
+		if (!ref.current) return;
+		ref.current.style.setProperty("--scroll-y", "" + y);
+	});
 
-    return (
-        <div ref={ref} className="SanctuaryBackground">
-            <Box className="parallax fade" w="100%" mt={15} style={{ "--depth": 0.7, opacity: 0.7 }}>
-                <Group gap={0} align="center" w="100%"  wrap="nowrap">
-                    <Box className="arches fade" flex={1} ml={-50} />
-                    <Box className="spire fade" />
-                    <Box className="arches fade" w={100} />
-                </Group>
-            </Box>
-            <Box className="parallax fade" w="100%" mt={120} style={{ "--depth": 0.6, opacity: 0.9 }}>
-                <Group gap={0} align="end" w="100%"  wrap="nowrap">
-                    <Box className="arches" w="5vw" />
-                    <Box className="spire" />
-                    <Box className="arches" flex={1} />
-                </Group>
-            </Box>
-            <Box className="parallax fade" mt={800} w="100%">
-                <Group justify="center" gap={0} align="top" wrap="nowrap">
-                    <Box className="spire fade" ml={280} />
-                    <Box className="buttress fade" mt={200} />
-                </Group>
-            </Box>
-            <div
-                style={{
-                    position: "absolute",
-                    marginTop: 640,
-                    right: "20vw",
-                    zIndex: -2,
-                    //@ts-ignore
-                    "--depth": 0.65,
-                }}
-                className="parallax prophecy"
-            />
-        </div>
-    )
+	return (
+		<div ref={ref} className="SanctuaryBackground">
+			<Box className="parallax fade" w="100%" mt={15} style={{ "--depth": 0.7, opacity: 0.7 }}>
+				<Group gap={0} align="center" w="100%" wrap="nowrap">
+					<Box className="arches fade" flex={1} ml={-50} />
+					<Box className="spire fade" />
+					<Box className="arches fade" w={100} />
+				</Group>
+			</Box>
+			<Box className="parallax fade" w="100%" mt={120} style={{ "--depth": 0.6, opacity: 0.9 }}>
+				<Group gap={0} align="end" w="100%" wrap="nowrap">
+					<Box className="arches" w="5vw" />
+					<Box className="spire" />
+					<Box className="arches" flex={1} />
+				</Group>
+			</Box>
+			<Box className="parallax fade" mt={800} w="100%">
+				<Group justify="center" gap={0} align="top" wrap="nowrap">
+					<Box className="spire fade" ml={280} />
+					<Box className="buttress fade" mt={200} />
+				</Group>
+			</Box>
+			<div
+				style={{
+					position: "absolute",
+					marginTop: 640,
+					right: "20vw",
+					zIndex: -2,
+					//@ts-ignore
+					"--depth": 0.65,
+				}}
+				className="parallax prophecy"
+			/>
+		</div>
+	)
 };
 
 // export const ScrollCamera = () => {

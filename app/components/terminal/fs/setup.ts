@@ -1,4 +1,4 @@
-import { useAppFlagsStore } from "../../../contexts/app/AppContext";
+import { useAppFlagsStore } from "../../../stores/useAppFlagsStore";
 import { useBackgroundStore } from "../../background/PageBackground";
 import { useFileSystemStore } from "../store/useFileSystemStore";
 import { useTerminalStore } from "../store/useTerminalStore";

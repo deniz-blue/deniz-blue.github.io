@@ -1,14 +1,16 @@
 import { useRef } from "react";
 import { vec2 } from "@alan404/vec2";
 import { useHotkeys, useWindowEvent } from "@mantine/hooks";
-import { useSoundEffect } from "../audio/useSoundEffect";
 import { configureSoulElement, findClosestDivRef, getSelectionSoulConfig, scrollIntoViewIfOutOfBounds } from "./positioning";
 import MenuCursor from "./audio/OneShotMenuCursor.wav";
 import MenuDecision from "./audio/OneShotMenuDecision.wav";
 import MenuCancel from "./audio/OneShotMenuCancel.wav";
 import { useSoulRef } from "./SoulElement";
+import { useSoundEffect } from "../../stores/audio-context";
 
 export const SoulController = () => {
+	return null;
+
     const { ref } = useSoulRef();
 
     const { play: play$cursor } = useSoundEffect(MenuCursor);
@@ -17,7 +19,7 @@ export const SoulController = () => {
 
     const previousSelected = useRef<HTMLElement>(null);
     const refresh = () => {
-        if(!document.activeElement?.classList.contains("soulSelectable")) return;
+        if(document.activeElement && !document.activeElement?.classList.contains("soulSelectable")) return;
 
         let oldSelected = previousSelected.current;
         let didChange = oldSelected !== document.activeElement;
@@ -37,6 +39,8 @@ export const SoulController = () => {
                 ...cfg,
             });
         } else {
+			console.log("No selection");
+			if (didChange) play$cancel();
             configureSoulElement(ref.current, {
                 pos: vec2(),
                 opacity: 0,
@@ -84,6 +88,10 @@ export const SoulController = () => {
     useWindowEvent("keyup", () => {
         setTimeout(refresh, 0);
     });
+
+	useWindowEvent("blur", () => {
+		setTimeout(refresh, 0);
+	});
 
     return null;
 };

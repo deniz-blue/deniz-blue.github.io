@@ -1,9 +1,11 @@
 import { Vec2, vec2 } from "@alan404/vec2";
 import { match } from "@alan404/enum";
 import { EffectsWorkerInput, EffectsWorkerOutput } from "./worker-messages";
-import { DEFAULT_DIM, StaticStarfield } from "./starfield";
+import { StaticStarfield } from "./starfield";
 import { starfield_rendergl2, starfield_rendergl2_init } from "./gl2/render-gl2";
 import { setRafInterval } from "../../../utils/set-raf-interval";
+
+console.log("worker: effects worker starting");
 
 let starfields: StaticStarfield[] = StaticStarfield.createDefaultLayers();
 
@@ -79,3 +81,5 @@ self.onmessage = (e: MessageEvent<EffectsWorkerInput>) => {
         _: () => { },
     })
 };
+
+console.log("worker: effects worker loaded");

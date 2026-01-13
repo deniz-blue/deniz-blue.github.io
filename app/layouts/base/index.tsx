@@ -1,21 +1,15 @@
 import { Outlet } from "react-router";
-import { FeaturesProvider } from "~/components/base/FeaturesContext";
-import { UIContextProvider } from "~/components/base/UIContext";
 import { PageBackground } from "~/components/background/PageBackground";
-import { MusicPlayerProvider } from "~/components/features/music/MusicPlayerProvider";
-import { SoulElement } from "../../contexts/soul/SoulElement";
+import { MusicPlayerProvider } from "~/components/archive/music/MusicPlayerProvider";
+import { SoulElement } from "../../components/soul/SoulElement";
 import { ContextStack } from "../../components/ui/ContextStack";
-import { SoulController } from "../../contexts/soul/SoulController";
-import { WebAudioContextProvider } from "../../contexts/audio/WebAudioContext";
+import { SoulController } from "../../components/soul/SoulController";
 import { Center, Loader } from "@mantine/core";
 
 export default function Layout() {
     return (
         <ContextStack
             providers={[
-                WebAudioContextProvider,
-                FeaturesProvider,
-                UIContextProvider,
                 MusicPlayerProvider,
             ]}
         >
