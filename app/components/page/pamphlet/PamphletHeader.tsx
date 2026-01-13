@@ -1,6 +1,5 @@
 import { Stack, Group, Avatar, Title, Text, Space, Box, Paper } from "@mantine/core";
 import { Localized } from "@alan404/react-localization";
-import { Socials } from "~/components/page/pamphlet/sections/Socials";
 
 export const PamphletHeader = () => {
     return (

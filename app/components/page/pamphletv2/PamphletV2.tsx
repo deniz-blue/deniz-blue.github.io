@@ -11,6 +11,7 @@ import { BackgroundSwitcher } from "../controls/BackgroundSwitcher";
 import { OneShotSun } from "../parts/OneShotSun";
 import { useEffect } from "react";
 import { CustomAccordion } from "./CustomAccordion";
+import { AboutMe } from "./AboutMe";
 
 export const PamphletV2 = () => {
 	const background = useBackgroundStore(store => store.background);
@@ -60,7 +61,7 @@ export const PamphletV2 = () => {
 									id="x:github"
 									link="https://github.com/deniz-blue"
 									title="GitHub"
-									icon={<IconBrandGithub size={16} />}
+									icon={<IconBrandGithub />}
 								>
 									Check out my repositories!
 								</CustomAccordion>
@@ -68,7 +69,7 @@ export const PamphletV2 = () => {
 									id="x:discord"
 									link="https://deniz.blue/discord-invite?id=1197520507617153064"
 									title="Discord Server"
-									icon={<IconBrandDiscord size={16} />}
+									icon={<IconBrandDiscord />}
 								>
 									For support about my projects!
 								</CustomAccordion>
@@ -84,6 +85,13 @@ export const PamphletV2 = () => {
 							<ProjectListV2 />
 
 							<LastFMSection />
+
+							<Stack gap={4} align="center">
+								<Text inline fw="bold" fz="xs">
+									ABOUT ME
+								</Text>
+								<AboutMe />
+							</Stack>
 
 							<Stack gap={4} align="center">
 								<Text inline fw="bold" fz="xs">
@@ -103,30 +111,27 @@ export const PamphletV2 = () => {
 								<Text inline fw="bold" fz="xs">
 									RANDOM LINKS
 								</Text>
-								<ProjectButtonSection
-									project={{
-										id: "x:rest.wiki",
-										name: "rest.wiki",
-										desc: "Static OpenAPI viewer",
-										link: "https://rest.wiki",
-									}}
-								/>
-								<ProjectButtonSection
-									project={{
-										id: "x:vert.sh",
-										name: "vert.sh",
-										desc: "File Converter (Images, Audio, Video, Documents)",
-										link: "https://vert.sh",
-									}}
-								/>
-								<ProjectButtonSection
-									project={{
-										id: "x:cobalt.tools",
-										name: "cobalt.tools",
-										desc: "Media downloader",
-										link: "https://cobalt.tools",
-									}}
-								/>
+								<CustomAccordion
+									id="x:rest.wiki"
+									link="https://rest.wiki"
+									title="rest.wiki"
+								>
+									Static OpenAPI viewer
+								</CustomAccordion>
+								<CustomAccordion
+									id="x:vert.sh"
+									link="https://vert.sh"
+									title="vert.sh"
+								>
+									File Converter (Images, Audio, Video, Documents)
+								</CustomAccordion>
+								<CustomAccordion
+									id="x:cobalt.tools"
+									link="https://cobalt.tools"
+									title="cobalt.tools"
+								>
+									Media downloader
+								</CustomAccordion>
 							</Stack>
 
 							<Text c="dimmed" ta="center" inline span fz="xs" fs="italic">
