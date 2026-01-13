@@ -21,7 +21,7 @@
 .terminal-content {
 	display: inline;
 	margin-block: 0px;
-	line-height: 1.1;
+	line-height: initial;
 	font-size: inherit;
 	font-family: inherit;
 }

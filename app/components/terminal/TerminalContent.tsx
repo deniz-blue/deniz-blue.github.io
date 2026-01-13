@@ -2,28 +2,29 @@ import { Box } from "@mantine/core";
 import React from "react";
 import { Span } from "./util/span";
 
-const colors: Partial<Record<string, string>> = {
-	"Black": "#000000",
-	"Blue": "#2472c8",
-	"BrightBlack": "#666666",
-	"BrightBlue": "#3b8eea",
-	"BrightCyan": "#29b8db",
-	"BrightGreen": "#23d18b",
-	"BrightMagenta": "#d670d6",
-	"BrightRed": "#f14c4c",
-	"BrightWhite": "#e5e5e5",
-	"BrightYellow": "#f5f543",
-	"Cyan": "#11a8cd",
-	"Green": "#0dbc79",
-	"Magenta": "#bc3fbc",
-	"Red": "#cd3131",
-	"White": "#e5e5e5",
-	"Yellow": "#e5e510",
+export const TERMINAL_COLORS: Partial<Record<string, string>> = {
+	Black: "#000000",
+	Red: "#cd3131",
+	Green: "#0dbc79",
+	Yellow: "#e5e510",
+	Blue: "#2472c8",
+	Magenta: "#bc3fbc",
+	Cyan: "#11a8cd",
+	White: "#e5e5e5",
 
-	"selection": "#264f78",
+	BrightBlack: "#666666",
+	BrightRed: "#f14c4c",
+	BrightGreen: "#23d18b",
+	BrightYellow: "#f5f543",
+	BrightBlue: "#3b8eea",
+	BrightMagenta: "#d670d6",
+	BrightCyan: "#29b8db",
+	BrightWhite: "#e5e5e5",
 };
 
-const c = (x?: string) => x ? (colors[x] ?? x) : x;
+// "selection": "#264f78",
+
+const c = (x?: string) => x ? (TERMINAL_COLORS[x] ?? x) : x;
 
 export const TerminalContent = ({
 	buffer,

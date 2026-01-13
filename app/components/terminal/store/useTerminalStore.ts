@@ -4,7 +4,7 @@ import { Path, SEPERATOR } from "../util/Path";
 import { Span } from "../util/span";
 import { ExecutableNode, FNodeType } from "../util/fnode";
 import { useFileSystemStore } from "./useFileSystemStore";
-import { setupReadOnlyFileSystem } from "../fs/fsroot";
+import { setupReadOnlyFileSystem } from "../fs/setup";
 
 export interface TerminalState {
 	username: string;
