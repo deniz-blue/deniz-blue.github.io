@@ -27,16 +27,19 @@ export const TimezoneSection = () => {
 	const timeZone = "Europe/Vilnius"; // UTC+2
 
 	useEffect(() => {
-		const interval = setInterval(() => {
+		const upd = () => {
 			const now = new Date();
 			const timeString = new Intl.DateTimeFormat("en", {
 				timeZone,
 				hour: "2-digit",
 				minute: "2-digit",
-				hour12: false
+				hour12: false,
 			}).format(now);
 			setTime(timeString);
-		}, 60 * 1000);
+		};
+
+		const interval = setInterval(upd, 5 * 1000);
+		upd();
 		return () => clearInterval(interval);
 	}, []);
 
@@ -64,7 +67,7 @@ export const TimezoneSection = () => {
 			My timezone is <Text span inline inherit fw="bold" c="blue">UTC+2</Text> and it's currently <Text span inline inherit fw="bold" c="blue">
 				{time}
 			</Text> here. You are <Text inline inherit span fw="bold">
-				{relativity}
+				{relativity || "<loading>"}
 			</Text>!
 		</Text>
 	);
