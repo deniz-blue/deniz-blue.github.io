@@ -1,4 +1,4 @@
-import { IconBrandAuth0, IconBrandCloudflare, IconBrandCSharp, IconBrandCss3, IconBrandDocker, IconBrandFirefox, IconBrandGit, IconBrandGithub, IconBrandHtml5, IconBrandJavascript, IconBrandMongodb, IconBrandNodejs, IconBrandPrisma, IconBrandReact, IconBrandRust, IconBrandTypescript, IconBrandVite, IconBrandVscode, IconExternalLink, TablerIcon } from "@tabler/icons-react"
+import { IconBrandAuth0, IconBrandCloudflare, IconBrandCSharp, IconBrandCss3, IconBrandDocker, IconBrandFirefox, IconBrandGit, IconBrandGithub, IconBrandHtml5, IconBrandJavascript, IconBrandMongodb, IconBrandNodejs, IconBrandPrisma, IconBrandReact, IconBrandRust, IconBrandTypescript, IconBrandVite, IconBrandVscode, IconCircle, IconExternalLink, TablerIcon } from "@tabler/icons-react"
 import { Anchor, Group, Image, Stack, Table, Text, Tooltip } from "@mantine/core";
 import { CustomAccordion } from "./CustomAccordion";
 import { MantineLogo } from "@mantinex/mantine-logo";
@@ -154,6 +154,7 @@ export const AboutMe = () => {
 								[IconBrandReact, "React"],
 								[IconBrandRust, "Rust"],
 								[IconBrandCSharp, ".NET 5-8"],
+								[IconCircle, "Lua"],
 								[IconBrandHtml5, "HTML"],
 								[IconBrandCss3, "CSS"],
 								[IconBrandJavascript, "JavaScript"],

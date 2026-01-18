@@ -6,8 +6,15 @@ export enum FNodeType {
 	EXECUTABLE = "executable",
 };
 
+export interface Permissions {
+	r: boolean;
+	w: boolean;
+	x: boolean;
+};
+
 export interface BaseFNode {
 	hidden?: boolean;
+	permissions?: Record<string, Permissions>;
 }
 
 export interface FileNode extends BaseFNode {

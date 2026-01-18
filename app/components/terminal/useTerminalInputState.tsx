@@ -1,10 +1,11 @@
-import { useLocalStorage } from "@mantine/hooks";
 import { useRef, useState } from "react";
 
 export const useTerminalInputState = ({
     onSubmit: _onSubmit,
     onInputValueChange: _onInputValueChange,
     onCompletionRequest,
+	getHistory,
+	addToHistory,
 }: {
     onSubmit?: (s: string) => void;
     onInputValueChange?: (s: string) => void;
@@ -14,6 +15,8 @@ export const useTerminalInputState = ({
         start: number;
         end: number;
     }) => string[];
+	getHistory?: () => string[];
+	addToHistory?: (str: string) => void;
 }) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const [value, setValue] = useState<string>("");
@@ -21,15 +24,10 @@ export const useTerminalInputState = ({
     const tabCompletions = useRef<string[]>([]);
     const tabCycle = useRef(-1);
 
-    const [history, setHistory] = useLocalStorage<string[]>({
-        key: "deniz.blue:terminal-history",
-        defaultValue: [],
-    });
-
     const historyIndex = useRef<number | null>(null);
 
     const onSubmit = (value: string) => {
-        if (history[history.length - 1] !== value) setHistory(prev => [...prev, value]);
+        if (getHistory && getHistory()[getHistory().length - 1] !== value) addToHistory?.(value);
         historyIndex.current = null;
         setValue("");
         _onSubmit?.(value);
@@ -67,15 +65,15 @@ export const useTerminalInputState = ({
             e.preventDefault();
             let oldIdx = historyIndex.current;
             let newIdx = e.key == "ArrowUp" ? (
-                (oldIdx == null ? (history.length - 1) : oldIdx - 1)
+                (oldIdx == null ? (getHistory?.().length ?? 0) - 1 : oldIdx - 1)
             ) : (
                 (oldIdx == null ? null : oldIdx + 1)
             );
 
             if (newIdx !== null && newIdx < 0) newIdx = 0;
-            if (newIdx !== null && newIdx >= history.length) newIdx = null;
+            if (newIdx !== null && newIdx >= (getHistory?.().length ?? 0)) newIdx = null;
 
-            setValue(newIdx === null ? "" : history[newIdx]);
+            setValue(newIdx === null ? "" : (getHistory?.()[newIdx] ?? ""));
             historyIndex.current = newIdx;
         } else if (e.key == "Tab") {
             e.preventDefault();

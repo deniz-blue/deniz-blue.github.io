@@ -87,4 +87,15 @@ export class Path {
 	segments(): string[] {
 		return this.normalize().path.split(SEPERATOR).filter(part => part);
 	}
+
+	lastSegment(): string {
+		const segments = this.segments();
+		return segments[segments.length - 1] || "";
+	}
+
+	parent(): Path {
+		const segments = this.segments();
+		if (segments.length === 0) return this;
+		return Path.fromSegments(segments.slice(0, -1));
+	}
 };

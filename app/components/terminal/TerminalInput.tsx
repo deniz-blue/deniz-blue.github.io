@@ -36,17 +36,21 @@ export const TerminalInput = ({
     return (
         <input
             ref={inputRef}
+			type="text"
             className="terminal-input"
             onKeyDown={onKeyDown}
             value={disabled ? "" : value}
             onChange={e => {
-                setValue(e.currentTarget.value);
+				setValue(e.currentTarget.value);
             }}
             // readOnly={isFirstRender ? true : undefined}
+			aria-label="command"
+			name="captcha"
             disabled={disabled}
             autoCapitalize="none"
             autoComplete="off"
             spellCheck="false"
+			placeholder=""
             autoFocus
         />
     );

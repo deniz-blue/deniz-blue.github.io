@@ -21,6 +21,19 @@ export const Terminal = () => {
 
 	const { play: play$mus_smile } = useSoundEffect(mus_smile);
 
+	const TerminalHistoryKey = "deniz.blue:terminal-history";
+	const getHistory = () => JSON.parse(localStorage.getItem(TerminalHistoryKey) || "[]") as string[];
+	const updateBashHistory = () =>
+		useFileSystemStore
+			.getState()
+			.write(
+				new Path("~/.bash_history"),
+				getHistory().join("\n") + "\n",
+				{ hidden: true },
+			);
+
+	useEffect(() => updateBashHistory(), []);
+
 	const inputState = useTerminalInputState({
 		onSubmit: async (input: string) => {
 			useTerminalStore.getState().print(input);
@@ -34,8 +47,14 @@ export const Terminal = () => {
 			}
 		},
 
+		getHistory,
+		addToHistory: (str: string) => {
+			localStorage.setItem(TerminalHistoryKey, JSON.stringify([...getHistory(), str].filter(Boolean).slice(-100)));
+			updateBashHistory();
+		},
+
 		onInputValueChange: (s) => {
-			if (s.split(" ").join("").toLowerCase() == "gas"+"ter") {
+			if (s.split(" ").join("").toLowerCase() == "gas" + "ter") {
 				inputState.setValue("");
 				inputState.setDisabled(true);
 				useTerminalStore.setState({ buffer: [{ text: ENTRY_17 }] });
@@ -86,7 +105,6 @@ export const Terminal = () => {
 	})
 
 	useEffect(() => {
-		console.log("Scrolling to bottom");
 		window.scrollTo({ top: showTerminal ? document.body.scrollHeight : 0 });
 	}, [buffer, inputState.value, showTerminal]);
 

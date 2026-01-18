@@ -6,7 +6,6 @@ import { ProjectListV2 } from "./ProjectListV2";
 import { Badges } from "../pamphlet/badges/Badges";
 import { LastFMTrackCard, useLastFMNowPlaying } from "../parts/NowPlayingLastFM";
 import { useBackgroundStore } from "../../background/PageBackground";
-import { ProjectButtonSection } from "./ProjectButtonSection";
 import { BackgroundSwitcher } from "../controls/BackgroundSwitcher";
 import { OneShotSun } from "../parts/OneShotSun";
 import { useEffect } from "react";
