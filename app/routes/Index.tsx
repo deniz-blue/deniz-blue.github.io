@@ -104,6 +104,7 @@ export default function Index({
                                     color: "#2472c8",
                                 }}
                                 onClick={exit}
+								tabIndex={-1}
                             >
                                 ^C Exit
                             </a>

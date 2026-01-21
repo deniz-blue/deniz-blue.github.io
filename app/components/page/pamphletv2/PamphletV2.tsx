@@ -60,7 +60,7 @@ export const PamphletV2 = () => {
 									id="x:github"
 									link="https://github.com/deniz-blue"
 									title="GitHub"
-									icon={<IconBrandGithub />}
+									icon={<IconBrandGithub title="" />}
 								>
 									Check out my repositories!
 								</CustomAccordion>
@@ -68,7 +68,7 @@ export const PamphletV2 = () => {
 									id="x:discord"
 									link="https://deniz.blue/discord-invite?id=1197520507617153064"
 									title="Discord Server"
-									icon={<IconBrandDiscord />}
+									icon={<IconBrandDiscord title="" />}
 								>
 									For support about my projects!
 								</CustomAccordion>

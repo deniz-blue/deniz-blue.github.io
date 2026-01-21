@@ -83,6 +83,7 @@ export const Badges = () => {
                     <a
                         className="soulSelectable mantine-focus-auto"
                         href={"https://skyrina.dev"}
+						aria-label="skyrina.dev link"
                         target="_blank"
                         style={{
                             width: 88,
@@ -94,6 +95,7 @@ export const Badges = () => {
                     >
                         <img
                             src={SKYLAR_YAMERO}
+							role="presentation"
                             width={48}
                             height={80}
                             loading="lazy"
@@ -149,10 +151,13 @@ export const Badge = ({
         <img
             src={src}
             title={href ? hostname : undefined}
+			aria-label={title || hostname || "88x31 Badge"}
+            role={(href === null) ? "presentation" : undefined}
             width={88}
             height={31}
             loading="lazy"
             tabIndex={(href === null) ? 0 : undefined}
+            onClick={(href === null) ? () => {} : undefined} // a11y hack
             className={(href === null) ? "soulSelectable mantine-focus-auto" : undefined}
         />
     );
@@ -164,6 +169,8 @@ export const Badge = ({
                     className="soulSelectable mantine-focus-auto"
                     href={href || origin}
                     target="_blank"
+					aria-label={title || hostname || "88x31 Badge Link"}
+					tabIndex={0}
                 >
                     {img}
                 </a>

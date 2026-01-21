@@ -1,4 +1,4 @@
-import { Accordion, AccordionControlProps, Button, ButtonProps, Group, Paper, Stack, Text, Tooltip } from "@mantine/core";
+import { Accordion, AccordionChevron, AccordionControlProps, Button, ButtonProps, Group, Paper, Stack, Text, Tooltip } from "@mantine/core";
 import { IconExternalLink } from "@tabler/icons-react";
 import { PropsWithChildren, ReactNode } from "react";
 
@@ -28,6 +28,11 @@ export const CustomAccordion = ({
 							variant="light"
 
 							component={Accordion.Control}
+							chevron={(
+								<span aria-hidden="true">
+									<AccordionChevron />
+								</span>
+							)}
 
 							fullWidth
 							style={{ overflow: "visible", lineClamp: "unset" }}
@@ -43,7 +48,12 @@ export const CustomAccordion = ({
 								},
 							}}
 
-							icon={icon}
+							icon={(
+								<span aria-hidden="true" style={{ display: "inline-flex", alignItems: "center" }}>
+									{icon}
+								</span>
+							)}
+							aria-role="tab"
 
 							className="soulSelectable"
 							data-soul-anchor="left-center"
@@ -71,10 +81,11 @@ export const CustomAccordion = ({
 									component="a"
 									target="_blank"
 									href={link}
+									aria-label="Open Link"
 									className="soulSelectable"
 									data-soul-blur
 								>
-									<IconExternalLink size={18} />
+									<IconExternalLink size={18} aria-hidden="true" />
 								</Button>
 							</Tooltip>
 						)}

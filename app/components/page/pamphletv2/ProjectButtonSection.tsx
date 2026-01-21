@@ -1,6 +1,6 @@
 import { Image, Text } from "@mantine/core";
 import { ProjectJSONItem } from "../../../utils/fetch-projects";
-import { IconBell, IconCalendar, IconChartDots3, IconDeviceGamepad2, IconFolder, IconPackage, IconSparkles, IconTool, IconWorld } from "@tabler/icons-react";
+import { IconBell, IconCalendar, IconChartDots3, IconDeviceGamepad2, IconFolder, IconPackage, IconSparkles, IconTool, IconWorld, TablerIcon } from "@tabler/icons-react";
 import { CustomAccordion } from "./CustomAccordion";
 
 export const ProjectButtonSection = ({
@@ -17,7 +17,7 @@ export const ProjectButtonSection = ({
 		carpanga: IconDeviceGamepad2,
 		poly: IconChartDots3,
 		evnt: IconCalendar,
-	} as Record<string, React.ComponentType>;
+	} as Record<string, TablerIcon>;
 
 	let icon: React.ReactNode = <IconFolder />;
 	if (project.tags?.includes("library")) icon = <IconPackage />;

@@ -33,8 +33,9 @@ export const BackgroundSwitcher = () => {
 							onClick={() => update(delta)}
 							variant="light"
 							color="violet"
+							aria-label={delta > 0 ? "Next Background" : "Previous Background"}
 						>
-							{delta > 0 ? <IconArrowRight /> : <IconArrowLeft />}
+							{delta > 0 ? <IconArrowRight aria-hidden="true" /> : <IconArrowLeft aria-hidden="true" />}
 						</Button>
 					</Tooltip>
 				))}
