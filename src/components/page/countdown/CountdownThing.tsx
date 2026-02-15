@@ -57,11 +57,11 @@ export const CountdownThing = () => {
                     </Group>
                 )}
             </Transition>
-            <Collapse in={!!err}>
+            <Collapse expanded={!!err}>
                 <Text c="yellow" fw="bold">can't play audio - click anywhere please!</Text>
             </Collapse>
             <Affix position={{ bottom: 20, right: 20 }}>
-                <Collapse in={!!isPlaying}>
+                <Collapse expanded={!!isPlaying}>
                     <Stack>
                         <Text c="dimmed" fs="italic" fz="xs">
                             Now playing: Opus - Eric Prydz

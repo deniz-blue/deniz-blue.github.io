@@ -17,7 +17,7 @@ export const OneShotSun = () => {
     const threshold = 5;
     const interval = 2000;
     const clickCount = useRef(0);
-    const timer = useRef<number>(null);
+    const timer = useRef<any>(null);
     const reset = () => {
         clickCount.current = 0;
         if (timer.current) {

@@ -1,7 +1,7 @@
 import { Localized } from "@alan404/react-localization";
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { IconMusic } from "@tabler/icons-react";
-import { useAudioState } from "../../archive/music/hooks/useAudioState";
+import { useAudioState } from "./music/hooks/useAudioState";
 import { useUIState } from "../../base/UIContext";
 
 export const MusicPopoutButton = () => {

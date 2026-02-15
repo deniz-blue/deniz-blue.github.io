@@ -1,3 +1,9 @@
+:root {
+	--mantine-color-violet-light: #7950f226 !important;
+	--mantine-color-violet-light-hover: #7950f233 !important;
+	--mantine-color-violet-light-color: var(--mantine-color-violet-3) !important;
+}
+
 body[data-starry=true] .mantine-SegmentedControl-root {
     background-color: rgba(0,0,0,0.2);  /* rgba(255, 255, 255, 0.1); */ /*#1A1B1E88*/
     box-shadow: inset 0 0 10px rgba(0,0,0, 0.2);

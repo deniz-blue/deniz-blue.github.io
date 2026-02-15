@@ -43,7 +43,7 @@ export const PamphletV2 = () => {
 					align="center"
 					mx={4}
 				>
-					<Collapse in={background.type == "oneshot"}>
+					<Collapse expanded={background.type == "oneshot"}>
 						<Box mt="xl">
 							<OneShotSun />
 						</Box>
@@ -152,19 +152,19 @@ export const ListeningToSection = () => {
 
 	return (
 		<Stack gap={4} align="center" w="100%">
-			<Collapse in={!track}>
+			<Collapse expanded={!track}>
 				<Text c="dimmed" ta="center" inline span fz="xs">
 					Not listening to anything
 				</Text>
 			</Collapse>
-			<Collapse in={!!track} w="100%">
+			<Collapse expanded={!!track} w="100%">
 				<Stack w="100%">
 					{track && (
 						<TrackMetadataCard track={track} />
 					)}
 				</Stack>
 			</Collapse>
-			<Collapse in={loading}>
+			<Collapse expanded={loading}>
 				<Loader />
 			</Collapse>
 		</Stack>

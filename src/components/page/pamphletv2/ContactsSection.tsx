@@ -67,7 +67,7 @@ export const ContactsSection = () => {
 					}} />
 				))}
 			</Group>
-			<Collapse in={opened}>
+			<Collapse expanded={opened}>
 				<Paper p="xs" radius="sm" bg="var(--mantine-color-violet-light)">
 					<Stack gap="xs">
 						<Group gap={4} wrap="nowrap">

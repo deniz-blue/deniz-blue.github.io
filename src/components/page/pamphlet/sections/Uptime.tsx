@@ -33,7 +33,7 @@ export const Uptime = () => {
             />
 
             <Stack w="100%" gap={4} align="center">
-                <Collapse in={loading}>
+                <Collapse expanded={loading}>
                     <Loader />
                 </Collapse>
 
