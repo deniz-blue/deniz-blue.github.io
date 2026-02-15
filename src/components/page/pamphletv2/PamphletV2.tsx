@@ -1,6 +1,6 @@
-import { Accordion, Box, Collapse, Group, Loader, Paper, Space, Stack, Text, Transition } from "@mantine/core";
+import { Accordion, Box, Button, ButtonProps, Collapse, CopyButton, Group, Loader, Paper, PolymorphicComponentProps, Space, Stack, Text, Tooltip, Transition } from "@mantine/core";
 import { MeName } from "../pamphlet/PamphletHeader";
-import { IconBrandGithub } from "@tabler/icons-react";
+import { IconBrandDiscord, IconBrandGithub, IconBrandTelegram } from "@tabler/icons-react";
 import { CosplayWebring } from "../pamphlet/webring/CosplayWebring";
 import { ProjectListV2 } from "./ProjectListV2";
 import { Badges } from "../pamphlet/badges/Badges";
@@ -12,6 +12,8 @@ import { PropsWithChildren, ReactNode, useEffect } from "react";
 import { CustomAccordion } from "./CustomAccordion";
 import { AboutMe } from "./AboutMe";
 import { useListeningToStore } from "../../../stores/useListeningToStore";
+import { CustomIconBrandSignal } from "../../icons/CustomIconBrandSignal";
+import { ContactsSection } from "./ContactsSection";
 
 export const PamphletV2 = () => {
 	const background = useBackgroundStore(store => store.background);
@@ -53,14 +55,19 @@ export const PamphletV2 = () => {
 
 					<Accordion unstyled loop={false} w="100%">
 						<Stack w="100%">
-							<Section title="LINKS">
+							<Section title="ABOUT ME">
+								<ContactsSection />
+
+								<AboutMe />
+
 								<CustomAccordion
-									id="x:github"
-									link="https://github.com/deniz-blue"
-									title="GitHub"
-									icon={<IconBrandGithub title="" />}
+									id="x:discord"
+									link="https://deniz.blue/discord-invite?id=1197520507617153064"
+									title="Discord Server"
 								>
-									Check out my repositories!
+									<Text span inherit>
+										You can join my Discord server to talk about my or similar projects. It's not really made for general chatting, but be my guest.
+									</Text>
 								</CustomAccordion>
 							</Section>
 
@@ -74,20 +81,6 @@ export const PamphletV2 = () => {
 
 							<Section title="LISTENING TO">
 								<ListeningToSection />
-							</Section>
-
-							<Section title="ABOUT ME">
-								<AboutMe />
-
-								<CustomAccordion
-									id="x:discord"
-									link="https://deniz.blue/discord-invite?id=1197520507617153064"
-									title="Discord Server"
-								>
-									<Text span inherit>
-										You can join my Discord server to talk about my or similar projects. It's not really made for general chatting, but be my guest.
-									</Text>
-								</CustomAccordion>
 							</Section>
 
 							<Section title="WEBRINGS">

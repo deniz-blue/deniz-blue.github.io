@@ -1,36 +1,20 @@
-import { useEffect, useMemo, useRef } from "react";
 import { Box, Group } from "@mantine/core";
-import { Vec2 } from "@alan404/vec2";
 import "./styles.css";
-
-export const useScrollChange = (cb: (pos: Vec2) => void) => {
-	useEffect(() => {
-		const upd = () => {
-			cb({
-				// x: document.documentElement.scrollLeft,
-				x:0,
-				y: document.documentElement.scrollTop,
-			})
-		};
-		const ctrl = new AbortController();
-		let ticking = false;
-		window.addEventListener('scroll', () => {
-			if (!ticking) {
-				window.requestAnimationFrame(() => {
-					upd();
-					ticking = false;
-				});
-				ticking = true;
-			}
-		}, { signal: ctrl.signal });
-		upd();
-		return () => ctrl.abort();
-	}, [])
-}
 
 export const SanctuaryBackground = () => {
 	return (
 		<div className="SanctuaryBackground scroll-listener">
+			<span
+				style={{
+					marginTop: 50,
+					right: "2vw",
+					//@ts-ignore
+					"--depth": 0.8,
+				}}
+				className="parallax prophecy"
+			>
+				A WORLD BASKED IN PUREST LIGHT
+			</span>
 			<Box className="parallax fade" w="100%" mt={15} style={{ "--depth": 0.7, opacity: 0.7 }}>
 				<Group gap={0} align="center" w="100%" wrap="nowrap">
 					<Box className="arches fade" flex={1} ml={-50} />
@@ -52,16 +36,19 @@ export const SanctuaryBackground = () => {
 				</Group>
 			</Box>
 			<div
+				className="parallax prophecygif"
+			/>
+			<span
 				style={{
-					position: "absolute",
-					marginTop: 640,
-					right: "20vw",
-					zIndex: -2,
+					marginTop: 1000,
+					left: "20vw",
 					//@ts-ignore
-					"--depth": 0.65,
+					"--depth": 0.8,
 				}}
 				className="parallax prophecy"
-			/>
+			>
+				WITH HOPE CROSSED ON HER HEART
+			</span>
 		</div>
 	)
 };

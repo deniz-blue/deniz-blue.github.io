@@ -40,8 +40,35 @@
 	min-height: 620px;
 }
 
-.SanctuaryBackground .prophecy {
-	background-image: url(./deltaprophecy-animation.gif);
+.SanctuaryBackground .prophecygif {
+	background-image: url(./deltaprophecy-2.gif);
 	width: 512px;
 	height: 306px;
+	--depth: 0.65;
+	bottom: 900px;
+	right: calc(50vw - 256px);
+	opacity: 0.7;
+}
+
+.SanctuaryBackground .prophecy {
+	font-family: Prophecy;
+	position: absolute;
+	text-shadow: 0px 0px 10px #003c74aa;
+	opacity: 0.2;
+	z-index: -50;
+	animation: prophecy-bounce 5s ease-in-out infinite;
+}
+
+@keyframes prophecy-bounce {
+	0% {
+		padding-top: 0px;
+	}
+
+	50% {
+		padding-top: 20px;
+	}
+
+	100% {
+		padding-top: 0px;
+	}
 }

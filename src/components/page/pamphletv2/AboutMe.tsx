@@ -78,7 +78,7 @@ export const AboutMe = () => {
 		<>
 			<CustomAccordion
 				id="x:about-who"
-				title="About Me"
+				title="Who are you?"
 			>
 				<Stack gap="xs">
 					<Text span inherit>
@@ -140,7 +140,7 @@ export const AboutMe = () => {
 			</CustomAccordion>
 			<CustomAccordion
 				id="x:about-skills"
-				title="Software I Use"
+				title="What do you use?"
 			>
 				<Stack align="center">
 					<Stack gap={0}>
