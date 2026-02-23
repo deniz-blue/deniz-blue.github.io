@@ -27,24 +27,6 @@ const contacts: Contact[] = [
 		label: "Email",
 		link: "mailto:deniz@deniz.blue",
 	},
-	{
-		icon: <IconBrandTelegram title="" />,
-		label: "Telegram",
-		link: "https://t.me/denizdotblue",
-		gatekeep: "Telegram is good, but please consider using other platforms to contact me",
-	},
-	{
-		icon: <CustomIconBrandSignal />,
-		label: "Signal",
-		copy: "denizblue.01",
-		gatekeep: "Please prefer contacting through other platforms",
-	},
-	{
-		icon: <IconBrandMatrix title="" />,
-		label: "Matrix",
-		copy: "@deniz:catgirl.cloud",
-		gatekeep: "Please prefer contacting through other platforms",
-	},
 ];
 
 export const ContactsSection = () => {
