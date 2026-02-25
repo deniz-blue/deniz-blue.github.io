@@ -110,7 +110,7 @@ export const Terminal = () => {
 
 	return (
 		<Box
-			className="terminal"
+			className="terminal terminal-scanlines"
 			style={{
 				lineHeight: 1,
 				display: "inline-block",
