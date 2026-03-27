@@ -78,9 +78,9 @@ export const AboutMe = () => {
 		<>
 			<CustomAccordion
 				id="x:about-who"
-				title="Who are you?"
+				title="About"
 			>
-				<Stack gap="xs">
+				<Stack gap="xs" fz="sm">
 					<Text span inherit>
 						Hi, I'm 🌊 <Tooltip label="Turkish word for 'Sea', be creative, do puns!">
 							<Text span inline inherit c="blue" fw="bold">Deniz</Text>
@@ -138,7 +138,7 @@ export const AboutMe = () => {
 					</Text>
 				</Stack>
 			</CustomAccordion>
-			<CustomAccordion
+			{/* <CustomAccordion
 				id="x:about-skills"
 				title="What do you use?"
 			>
@@ -212,7 +212,7 @@ export const AboutMe = () => {
 						}}
 					/>
 				</Stack>
-			</CustomAccordion>
+			</CustomAccordion> */}
 		</>
 	);
 };

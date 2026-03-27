@@ -11,6 +11,7 @@ export const ProjectButtonSection = ({
 	};
 }) => {
 	const iconOverrides = {
+		evnt: IconCalendar,
 		tools: IconTool,
 		ziltek: IconBell,
 		alphamath: IconSparkles,
@@ -48,7 +49,9 @@ export const ProjectButtonSection = ({
 			icon={icon}
 			link={project.link}
 		>
-			{project.desc}
+			<Text inherit>
+				{project.desc}
+			</Text>
 		</CustomAccordion>
 	);
 };

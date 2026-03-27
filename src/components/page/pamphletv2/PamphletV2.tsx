@@ -1,6 +1,5 @@
-import { Accordion, Box, Button, ButtonProps, Collapse, CopyButton, Group, Loader, Paper, PolymorphicComponentProps, Space, Stack, Text, Tooltip, Transition } from "@mantine/core";
+import { Accordion, Box, Collapse, Loader, Paper, Space, Stack, Text } from "@mantine/core";
 import { MeName } from "../pamphlet/PamphletHeader";
-import { IconBrandDiscord, IconBrandGithub, IconBrandTelegram } from "@tabler/icons-react";
 import { CosplayWebring } from "../pamphlet/webring/CosplayWebring";
 import { ProjectListV2 } from "./ProjectListV2";
 import { Badges } from "../pamphlet/badges/Badges";
@@ -12,15 +11,10 @@ import { PropsWithChildren, ReactNode, useEffect } from "react";
 import { CustomAccordion } from "./CustomAccordion";
 import { AboutMe } from "./AboutMe";
 import { useListeningToStore } from "../../../stores/useListeningToStore";
-import { CustomIconBrandSignal } from "../../icons/CustomIconBrandSignal";
 import { ContactsSection } from "./ContactsSection";
 
 export const PamphletV2 = () => {
 	const background = useBackgroundStore(store => store.background);
-
-	useEffect(() => {
-		useBackgroundStore.getState().setBackground({ type: "sanctuary", data: {} });
-	}, []);
 
 	return (
 		<Stack
@@ -31,7 +25,7 @@ export const PamphletV2 = () => {
 				gap={4}
 				align="center"
 				pb="7rem"
-				className={["winter", "starfield", "aurora", "refuge"].includes(background.type) ? "frost" : ""}
+				className={["winter", "starfield", "aurora", "refuge", "speckle"].includes(background.type) ? "frost" : ""}
 				style={{
 					transition: "all 0.1s",
 					backgroundRepeat: "repeat-y",
@@ -60,7 +54,7 @@ export const PamphletV2 = () => {
 
 								<AboutMe />
 
-								<CustomAccordion
+								{/* <CustomAccordion
 									id="x:discord"
 									link="https://deniz.blue/discord-invite?id=1197520507617153064"
 									title="Discord Server"
@@ -68,7 +62,7 @@ export const PamphletV2 = () => {
 									<Text span inherit>
 										You can join my Discord server to talk about my or similar projects. It's not really made for general chatting, but be my guest.
 									</Text>
-								</CustomAccordion>
+								</CustomAccordion> */}
 							</Section>
 
 							<Section title="THEME">

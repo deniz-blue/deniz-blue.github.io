@@ -1,4 +1,4 @@
-import { IconBrandDiscord, IconBrandGithub, IconBrandMatrix, IconBrandTelegram, IconCopyCheck, IconMail } from "@tabler/icons-react";
+import { IconBrandBluesky, IconBrandDiscord, IconBrandGithub, IconBrandMatrix, IconBrandTelegram, IconCopyCheck, IconMail } from "@tabler/icons-react";
 import { ReactNode, useMemo, useState } from "react";
 import { CustomIconBrandSignal } from "../../icons/CustomIconBrandSignal";
 import { Button, CloseButton, Collapse, CopyButton, Group, Paper, Popover, Stack, Text, Tooltip } from "@mantine/core";
@@ -26,6 +26,11 @@ const contacts: Contact[] = [
 		icon: <IconMail title="" />,
 		label: "Email",
 		link: "mailto:deniz@deniz.blue",
+	},
+	{
+		icon: <IconBrandBluesky />,
+		label: "BlueSky",
+		link: "https://bsky.app/profile/deniz.blue",
 	},
 ];
 

@@ -55,7 +55,7 @@ export const CustomAccordion = ({
 								},
 							}}
 
-							aria-role="tab"
+							role="tab"
 
 							className="soulSelectable"
 							data-soul-anchor="left-center"
@@ -95,7 +95,7 @@ export const CustomAccordion = ({
 									className="soulSelectable"
 									data-soul-blur
 								>
-									<IconExternalLink size={18} aria-hidden="true" />
+									<IconExternalLink size={18} style={{ minWidth: 18 }} aria-hidden="true" />
 								</Button>
 							</Tooltip>
 						)}

@@ -14,7 +14,7 @@
 	position: absolute;
 	--depth: 0.5;
 	will-change: transform;
-	transform: translateY(calc(var(--scroll-y) * var(--depth)));
+	transform: translateY(calc(1px * var(--scroll-y) * var(--depth)));
 	image-rendering: pixelated;
 	transition: transform 10ms cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
