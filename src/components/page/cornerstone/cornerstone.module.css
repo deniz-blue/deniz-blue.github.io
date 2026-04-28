@@ -1,0 +1,41 @@
+@media screen and (max-width: 600px) {
+	.container {
+		--stack-align: center !important;
+	}
+}
+
+.column {
+	background-image: linear-gradient(to right,
+			rgba(0, 0, 0, 0.4) 0%,
+			rgba(0, 0, 0, 0.2) 5%,
+			rgba(0, 0, 0, 0.2) 95%,
+			rgba(0, 0, 0, 0.4));
+	background-size: 100% 100%;
+	backdrop-filter: blur(2px);
+}
+
+.name {
+	background-image: repeating-linear-gradient(to right,
+			#ff6978,
+			#ee803c,
+			#f5e26b,
+			#89ce94,
+			#008dd5,
+			#6f73d2,
+			#ff6978);
+	background-size: 400% 100%;
+	color: transparent;
+	text-align: center;
+	background-clip: text;
+	animation: scroll-bgpos 7s linear infinite;
+}
+
+@keyframes scroll-bgpos {
+	0% {
+		background-position: 0% 0%;
+	}
+
+	100% {
+		background-position: -400% 0%;
+	}
+}

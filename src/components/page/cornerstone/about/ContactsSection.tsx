@@ -1,6 +1,6 @@
 import { IconBrandBluesky, IconBrandDiscord, IconBrandGithub, IconBrandMatrix, IconBrandTelegram, IconCopyCheck, IconMail } from "@tabler/icons-react";
 import { ReactNode, useMemo, useState } from "react";
-import { CustomIconBrandSignal } from "../../icons/CustomIconBrandSignal";
+import { CustomIconBrandSignal } from "../../../icons/CustomIconBrandSignal";
 import { Button, CloseButton, Collapse, CopyButton, Group, Paper, Popover, Stack, Text, Tooltip } from "@mantine/core";
 
 interface Contact {

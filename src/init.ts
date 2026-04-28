@@ -9,5 +9,5 @@ import "./init-events";
 
 import { useBackgroundStore } from "./components/background/PageBackground";
 useBackgroundStore.setState({
-	background: { type: "sanctuary", data: {} },
+	background: { type: "starfield", data: {} },
 });

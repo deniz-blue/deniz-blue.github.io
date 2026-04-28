@@ -9,3 +9,8 @@
 	font-family: "Prophecy";
 	src: url("/assets/fonts/PROPHECYTYPE.ttf") format("truetype");
 }
+
+@font-face {
+    font-family: "orb";
+    src: url("https://eyeorb.net/fonts/orbitron.ttf");
+}

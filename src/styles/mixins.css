@@ -5,71 +5,87 @@
 }
 
 body[data-starry=true] .mantine-SegmentedControl-root {
-    background-color: rgba(0,0,0,0.2);  /* rgba(255, 255, 255, 0.1); */ /*#1A1B1E88*/
-    box-shadow: inset 0 0 10px rgba(0,0,0, 0.2);
-    backdrop-filter: blur(10px);
+	background-color: rgba(0, 0, 0, 0.2);
+	/* rgba(255, 255, 255, 0.1); */
+	/*#1A1B1E88*/
+	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+	backdrop-filter: blur(10px);
 }
 
 body[data-starry=true] .mantine-SegmentedControl-indicator {
-    background-color: rgba(0,0,0,0.4);  /* rgba(255, 255, 255, 0.1); */ /*#1A1B1E88*/
-    box-shadow: inset 0 0 10px rgba(0,0,0, 0.4);
+	background-color: rgba(0, 0, 0, 0.4);
+	/* rgba(255, 255, 255, 0.1); */
+	/*#1A1B1E88*/
+	box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
 .scrollbarOnLeft .mantine-ScrollArea-scrollbar {
-    inset-inline-start: unset !important;
-    right: unset !important;
+	inset-inline-start: unset !important;
+	right: unset !important;
 }
 
 .scrollbarOnLeft .mantine-ScrollArea-viewport {
-    padding-right: unset;
-    padding-left: var(--scrollarea-scrollbar-size);
+	padding-right: unset;
+	padding-left: var(--scrollarea-scrollbar-size);
 }
 
 .listAlignEnd.mantine-List-root {
-    padding-left: 0;
-    padding-right: var(--_list-pl,0);
+	padding-left: 0;
+	padding-right: var(--_list-pl, 0);
 }
 
 .listAlignEnd .mantine-List-itemWrapper {
-    flex-direction: row-reverse;
+	flex-direction: row-reverse;
 }
 
 .listAlignEnd .mantine-List-itemIcon {
-    margin-left: var(--_item-icon-mr,var(--mantine-spacing-sm));
-    margin-right: var(--_item-icon-ml,0);
+	margin-left: var(--_item-icon-mr, var(--mantine-spacing-sm));
+	margin-right: var(--_item-icon-ml, 0);
 }
 
 .mantine-NavLink-root:hover {
-    background-color: rgba(0,0,0,0);
+	background-color: rgba(0, 0, 0, 0);
 }
 
 .mantine-Accordion-item .mantine-Accordion-chevron {
-    transition: transform 200ms ease;
-    transform: rotate(0deg);
+	transition: transform 200ms ease;
+	transform: rotate(0deg);
 }
 
 .mantine-Accordion-item[data-active=true] .mantine-Accordion-chevron {
-    transform: rotate(180deg);
+	transform: rotate(180deg);
 }
 
 .mantine-Accordion-control {
-    background-color: var(--button-bg) !important;
+	background-color: var(--button-bg) !important;
 }
 
 .mantine-Accordion-control:hover {
-    background-color: var(--button-hover) !important;
+	background-color: var(--button-hover) !important;
 }
 
 .mantine-Accordion-control {
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: start;
-    gap: 10px;
-    padding-right: 5px;
+	display: flex;
+	flex-direction: row-reverse;
+	align-items: center;
+	justify-content: start;
+	gap: 10px;
+	padding-right: 5px;
 }
 
 .mantine-Accordion-label {
-    flex: 1;
+	flex: 1;
 }
 
+.mantine-Tabs-tab {
+	padding: var(--mantine-spacing-xs) var(--mantine-spacing-md) !important;
+}
+
+.mantine-Tabs-tab[data-active=true] {
+	background-color: var(--mantine-color-violet-light) !important;
+	color: var(--mantine-color-violet-light-color) !important;
+}
+
+.mantine-Tabs-tab:hover {
+	background-color: var(--mantine-color-violet-light-hover) !important;
+}

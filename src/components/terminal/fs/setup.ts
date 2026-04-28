@@ -38,9 +38,10 @@ export const setupReadOnlyFileSystem = () => {
 						}),
 					}),
 					website: createExecutableNode((ctx) => {
+						useBackgroundStore.getState().setBackground({ type: "starfield", data: {} });
 						useAppFlagsStore.setState({
 							showTerminal: false,
-							showPamphletV2: true,
+							showCornerstone: true,
 						});
 					}),
 				}),

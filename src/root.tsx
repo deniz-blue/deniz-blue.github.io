@@ -23,7 +23,7 @@ const theme = createTheme({
 
 export const Root = () => {
 	return (
-		<span suppressHydrationWarning>
+		<span suppressHydrationWarning style={{ height: "100%" }}>
 			<MantineProvider theme={theme} forceColorScheme="dark">
 				<Notifications position="top-right" classNames={{
 					notification: "frost bordered",

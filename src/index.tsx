@@ -4,11 +4,10 @@ import { useAppFlagsStore } from "./stores/useAppFlagsStore";
 import { useEffect } from "react";
 import { WingDing } from "./components/page/wingding/WingDing";
 import { Device } from "./components/page/device/Device";
-import { Affix, Box } from "@mantine/core";
+import { Affix } from "@mantine/core";
 import { Terminal } from "./components/terminal/Terminal";
-import { Pamphlet } from "./components/page/pamphlet/Pamphlet";
-import { PamphletV2 } from "./components/page/pamphletv2/PamphletV2";
 import { CountdownThing } from "./components/page/countdown/CountdownThing";
+import { Cornerstone } from "./components/page/cornerstone/Cornerstone";
 
 export const IndexPage = () => {
 	const setBackground = useBackgroundStore(store => store.setBackground);
@@ -20,6 +19,7 @@ export const IndexPage = () => {
 		|| flags.showPamphletV2
 		|| flags.showDevice
 		|| flags.showCountdown
+		|| flags.showCornerstone
 	);
 
 	const exit = () => {
@@ -33,6 +33,7 @@ export const IndexPage = () => {
 			showDevice: false,
 			showCountdown: false,
 			showWD: false,
+			showCornerstone: false,
 		})
 	};
 
@@ -44,7 +45,7 @@ export const IndexPage = () => {
 		const d = new Date();
 		// set showCountdown to true between Dec 30 and Jan 2
 		if (d.getMonth() === 11 && d.getDate() >= 30 || d.getMonth() === 0 && d.getDate() <= 2) {
-			useAppFlagsStore.setState({ showCountdown: true, showPamphletV2: false });
+			useAppFlagsStore.setState({ showCountdown: true, showCornerstone: false });
 		}
 	}, []);
 
@@ -57,12 +58,8 @@ export const IndexPage = () => {
 				<Terminal />
 			)}
 
-			{flags.showPamphlet && (
-				<Pamphlet layout />
-			)}
-
-			{flags.showPamphletV2 && (
-				<PamphletV2 />
+			{flags.showCornerstone && (
+				<Cornerstone />
 			)}
 
 			{flags.showCountdown && (
