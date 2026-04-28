@@ -19,7 +19,7 @@ export class Star {
         this.Distance = 4.0 + num3 * 20.0;
         this.Sine = randFloat(Math.PI * 2.0);
         this.texture = Math.floor(clamp(0.0, Math.pow(1.0 - num3, 3) * 4, 4 - 1)) as StarTexture;
-        this.opacity = lerp(0.6, 0, num3 * 0.5);
+        this.opacity = lerp(0.4, 0, num3 * 0.5);
     }
 }
 
@@ -36,9 +36,9 @@ export class StarfieldMist {
 
     static createDefaultLayers() {
         return [
-            new StarfieldMist("#7e2168", vec2(2, 0), vec2(0.15, 0.15)),
-            new StarfieldMist("#2f7f98ff", vec2(4, 0), vec2(0.2, 0.2)),
-            new StarfieldMist("#000000ff", vec2(16, 8), vec2(0.6, 0.6)),
+            new StarfieldMist("#7e2168", vec2(2, 1), vec2(0.15, 0.15)),
+            new StarfieldMist("#2f7f98ff", vec2(4, 2), vec2(0.2, 0.2)),
+            new StarfieldMist("#000000ff", vec2(8, 4), vec2(0.6, 0.6)),
         ];
     }
 }
@@ -72,6 +72,7 @@ export class StaticStarfield {
     stars: Star[] = [];
     yNodes: number[] = createYNodes(DEFAULT_DIM);
     color: string = "#ffffff";
+    dims: Vec2 = vec2(DEFAULT_DIM.x, DEFAULT_DIM.y);
 
     flowSpeed = 1;
     scroll: Vec2 = vec2();
@@ -83,14 +84,25 @@ export class StaticStarfield {
         if (color) this.color = color;
         if (scroll) this.scroll = scroll;
         if (flowSpeed) this.flowSpeed = flowSpeed;
-        this.stars = Array(128).fill(0).map(() => new Star());
+        this.stars = Array(32).fill(0).map(() => new Star());
         this.stars.forEach(s => s.position = this.targetOfStar(s));
     }
 
     resize(dims = DEFAULT_DIM) {
-        this.yNodes = createYNodes(dims);
+        if (dims.x <= 0 || dims.y <= 0) return this;
+
+        const prevDims = this.dims;
+        const scaleX = dims.x / prevDims.x;
+        const scaleY = dims.y / prevDims.y;
+
         this.stepSize = dims.x / 10;
-        this.stars.forEach(s => s.position = this.targetOfStar(s));
+        this.yNodes = this.yNodes.map(y => y * scaleY);
+        this.stars.forEach(star => {
+            star.position.x *= scaleX;
+            star.position.y *= scaleY;
+        });
+
+        this.dims = vec2(dims.x, dims.y);
         return this;
     }
 
@@ -104,7 +116,7 @@ export class StaticStarfield {
                 star.NodeIndex++;
                 if (star.NodeIndex >= yNodeLen - 1) {
                     star.NodeIndex = 0;
-                    star.position.x = 0;
+                    star.position.x -= this.stepSize * (yNodeLen - 1);
                 }
             }
             star.position = vec2add(star.position, vec2div(vec2sub(target, star.position), vec2(50, 50)));
@@ -124,8 +136,8 @@ export class StaticStarfield {
         let vector4 = vec2normalize(vec2sub(nextNode, currentNode));
 
         return {
-            x: (vector3.x) + (((-vector4.x) * (star.Distance)) * (Math.sin(star.Sine))),
-            y: (vector3.y) + (((vector4.y) * (star.Distance)) * (Math.sin(star.Sine))),
+            x: (vector3.x) + (((-vector4.y) * (star.Distance)) * (Math.sin(star.Sine))),
+            y: (vector3.y) + (((vector4.x) * (star.Distance)) * (Math.sin(star.Sine))),
         };
     }
 

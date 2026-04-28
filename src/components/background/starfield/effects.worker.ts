@@ -1,19 +1,22 @@
 import { Vec2, vec2 } from "@alan404/vec2";
 import { match } from "@alan404/enum";
 import { EffectsWorkerInput, EffectsWorkerOutput } from "./worker-messages";
-import { StaticStarfield } from "./starfield";
+import { DEFAULT_DIM, StaticStarfield, StarfieldMist } from "./starfield";
 import { starfield_rendergl2, starfield_rendergl2_init } from "./gl2/render-gl2";
 import { setRafInterval } from "../../../utils/set-raf-interval";
 
 console.log("worker: effects worker starting");
 
 let starfields: StaticStarfield[] = StaticStarfield.createDefaultLayers();
+let mists: StarfieldMist[] = StarfieldMist.createDefaultLayers();
+const simulationDim: Vec2 = vec2(DEFAULT_DIM.x, DEFAULT_DIM.y);
 
 let dim: Vec2;
 let canvas: OffscreenCanvas;
 let gl: WebGL2RenderingContext;
 
 let scrollPosition: Vec2 = vec2();
+let elapsedTime = 0;
 
 const init = () => {
     if (!dim) throw new Error("dim not initialized");
@@ -28,7 +31,7 @@ const init = () => {
 
     if (!gl) throw new Error("GL2 failed to init");
 
-    for(let sf of starfields) sf.resize(dim);
+    for(let sf of starfields) sf.resize(simulationDim);
     for(let sf of starfields) sf.update(1);
     gl.viewport(0, 0, dim.x, dim.y);
     self.postMessage({ type: "initialized" } as EffectsWorkerOutput);
@@ -38,6 +41,8 @@ const init = () => {
     console.log("worker: gl2 init complete")
 
     setRafInterval((dt) => {
+        elapsedTime += dt;
+
         gl.clearColor(0, 0, 0, 0);
         gl.clear(gl.COLOR_BUFFER_BIT);
 
@@ -46,7 +51,10 @@ const init = () => {
 
         starfield_rendergl2(gl, init, {
             dimensions: dim,
+            simulationDim,
             scrollPosition,
+            mists,
+            elapsedTime,
             starfields,
         });
     }, 24);
@@ -70,8 +78,6 @@ self.onmessage = (e: MessageEvent<EffectsWorkerInput>) => {
             }
 
             if(gl) gl.viewport(0,0,dim.x,dim.y);
-
-            for(let sf of starfields) sf.resize(dim);
         },
 
         scroll: (v) => {

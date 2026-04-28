@@ -1,11 +1,11 @@
-import { useEffect, useRef, useId, useState, memo } from "react";
-import { EffectsWorkerInput, EffectsWorkerOutput } from "./worker-messages";
-import { DEFAULT_DIM } from "./starfield";
-import { useWindowEvent } from "@mantine/hooks";
+import { useEffect, memo } from "react";
+import { EffectsWorkerOutput } from "./worker-messages";
 import { vec2 } from "@alan404/vec2";
 import { Affix, Group, Loader, Paper, Text, Transition } from "@mantine/core";
 import { create } from "zustand";
 import { notifications } from "@mantine/notifications";
+
+const RESIZE_DEBOUNCE_MS = 120;
 
 export const StarfieldBackground = memo(() => {
 	// const [mounted, setMounted] = useState(false);
@@ -96,6 +96,8 @@ export const useStarfieldStore = create<{
 }))
 
 export const StarfieldCanvas = () => {
+	const canvas = useStarfieldStore(store => store.canvas);
+
 	useEffect(() => {
 		let abortController = new AbortController();
 
@@ -108,16 +110,58 @@ export const StarfieldCanvas = () => {
 			});
 		}, { signal: abortController.signal });
 
-		window.addEventListener("resize", () => {
-			useStarfieldStore.getState().worker?.postMessage({
-				type: "dimensionsChange", data: vec2(window.innerWidth, window.innerHeight),
-			});
-		}, { signal: abortController.signal });
-
 		return () => {
 			abortController.abort();
 		};
 	}, []);
+
+	useEffect(() => {
+		let timeout: ReturnType<typeof setTimeout> | null = null;
+		let ro: ResizeObserver | null = null;
+		let vv: VisualViewport | null = null;
+		let lastWidth = -1;
+		let lastHeight = -1;
+
+		const sendDimensions = () => {
+			const storeCanvas = canvas ?? useStarfieldStore.getState().canvas;
+			const width = Math.max(1, Math.round(storeCanvas?.clientWidth ?? window.innerWidth));
+			const height = Math.max(1, Math.round(storeCanvas?.clientHeight ?? (window.visualViewport?.height ?? window.innerHeight)));
+
+			if (width === lastWidth && height === lastHeight) return;
+			lastWidth = width;
+			lastHeight = height;
+
+			useStarfieldStore.getState().worker?.postMessage({
+				type: "dimensionsChange",
+				data: vec2(width, height),
+			});
+		};
+
+		const scheduleDimensions = () => {
+			if (timeout) clearTimeout(timeout);
+			timeout = setTimeout(sendDimensions, RESIZE_DEBOUNCE_MS);
+		};
+
+		window.addEventListener("resize", scheduleDimensions);
+		window.addEventListener("orientationchange", scheduleDimensions);
+		vv = window.visualViewport;
+		vv?.addEventListener("resize", scheduleDimensions);
+
+		if (canvas && typeof ResizeObserver !== "undefined") {
+			ro = new ResizeObserver(scheduleDimensions);
+			ro.observe(canvas);
+		}
+
+		sendDimensions();
+
+		return () => {
+			window.removeEventListener("resize", scheduleDimensions);
+			window.removeEventListener("orientationchange", scheduleDimensions);
+			vv?.removeEventListener("resize", scheduleDimensions);
+			ro?.disconnect();
+			if (timeout) clearTimeout(timeout);
+		};
+	}, [canvas]);
 
 	const handleCanvasRef = useStarfieldStore(store => store.handleCanvasRef);
 
@@ -137,8 +181,6 @@ export const StarfieldCanvas = () => {
 			}}
 			className="fullscreenDynamic"
 			style={{
-				objectFit: "contain",
-				aspectRatio: DEFAULT_DIM.x / DEFAULT_DIM.y,
 				imageRendering: "pixelated",
 			}}
 		/>
