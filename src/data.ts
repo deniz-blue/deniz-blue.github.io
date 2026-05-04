@@ -22,5 +22,6 @@ declare module "virtual:projects" {
 		iconURL?: string
 		repo?: string
 		npm?: string
+		banner?: string
 	}
 }

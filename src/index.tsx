@@ -67,7 +67,7 @@ export const IndexPage = () => {
 			)}
 
 			{exitable && (
-				<Affix position={{ top: 0, left: 0 }}>
+				<Affix position={{ top: 0, right: 0 }}>
 					<div className="terminal">
 						<pre className="terminal-content">
 							<a

@@ -1,7 +1,13 @@
 import { TablerIcon } from "@tabler/icons-react"
-import { Anchor, Box, Divider, Group, Image, List, Stack, Text, Tooltip } from "@mantine/core";
+import { Anchor, Box, Collapse, Divider, Group, Image, List, Marquee, Stack, Text, Tooltip } from "@mantine/core";
 import { useDynamic } from "../../../../hooks/useDynamic";
 import { useEffect, useState } from "react";
+import minecraft from "./icons/minecraft.webp";
+import modfest from "./icons/modfest_icon.svg";
+import osu from "./icons/osu.png";
+import sun from "./icons/sun.png";
+import { useListeningToStore } from "../../../../stores/useListeningToStore";
+import { TrackMetadataCard } from "./TrackMetadataCard";
 
 export const IconsGroup = ({
 	data,
@@ -78,6 +84,31 @@ export const TimezoneSection = () => {
 	);
 };
 
+export const ListeningToSection = () => {
+	const { track } = useListeningToStore();
+
+	return (
+		<Collapse expanded={!!track} w="100%">
+			<Stack gap={4} align="center" w="100%">
+				<Marquee
+					duration={5000}
+					fadeEdges={false}
+					gap="2px"
+				>
+					<Text c="dimmed" inline span fz="xs" tt="uppercase" my={4} w={180}>
+						Currently listening to //
+					</Text>
+				</Marquee>
+				<Stack w="100%">
+					{track && (
+						<TrackMetadataCard track={track} />
+					)}
+				</Stack>
+			</Stack>
+		</Collapse>
+	)
+}
+
 export const FanOf = ({
 	href,
 	name,
@@ -153,6 +184,8 @@ export const AboutMe = () => {
 				/>.
 			</Text>
 
+			<ListeningToSection />
+
 			<Divider my="sm" label="SETUP" />
 
 			<Text span inherit>
@@ -184,65 +217,47 @@ export const AboutMe = () => {
 			<Divider my="sm" label="INTERESTS" />
 
 			<Text span inherit>
-				I like a lot of things, such as:
+				I like a lot of things, such as <FanOf
+					href="https://www.minecraft.net"
+					name="Minecraft"
+					icon={minecraft}
+				/>, <FanOf
+					href="https://modrinth.com/mod/create"
+					name="Create"
+					icon="https://cdn.modrinth.com/data/LNytGWDc/61d716699bcf1ec42ed4926a9e1c7311be6087e2_96.webp"
+				/>, <FanOf
+					href="https://figuramc.org/"
+					name="Figura"
+					icon="https://figuramc.org/_app/immutable/assets/transparent.968a8a0e.gif"
+				/>, <FanOf
+					href="https://deltarune.com"
+					name="Deltarune"
+					icon="https://deltarune.com/favicon.ico"
+				/>, <FanOf
+					name="OneShot"
+					href="https://futurecatgames.itch.io/oneshot"
+					icon={sun}
+				/>, <FanOf
+					name="Celeste"
+					href="https://www.celestegame.com"
+					icon="https://www.celestegame.com/images/ico.png"
+				/>, <FanOf
+					href="https://osu.ppy.sh/users/19238315"
+					name="osu!"
+					icon={osu}
+				/> and a lot of other games.
 			</Text>
-
-			<List icon={<Box display="none" />} center>
-				<List.Item>
-					<FanOf
-						href="https://www.minecraft.net"
-						name="Minecraft"
-						icon="/assets/img/ico/minecraft.webp"
-					/>
-					<List icon={<Box display="none" />} center pl="0.7em">
-						<List.Item>
-							<FanOf
-								href="https://modrinth.com/mod/create"
-								name="Create"
-								icon="https://cdn.modrinth.com/data/LNytGWDc/61d716699bcf1ec42ed4926a9e1c7311be6087e2_96.webp"
-							/>
-						</List.Item>
-						<List.Item>
-							<FanOf
-								href="https://figuramc.org/"
-								name="Figura"
-								icon="https://figuramc.org/_app/immutable/assets/transparent.968a8a0e.gif"
-							/>
-						</List.Item>
-					</List>
-				</List.Item>
-				<List.Item>
-					<FanOf
-						href="https://deltarune.com"
-						name="Deltarune"
-						icon="https://deltarune.com/favicon.ico"
-					/>
-				</List.Item>
-				<List.Item>
-					<FanOf
-						name="OneShot"
-						href="https://futurecatgames.itch.io/oneshot"
-						icon="/assets/img/detail/oneshot/item_start_lightbulb.png"
-					/>
-				</List.Item>
-				<List.Item>
-					<FanOf
-						name="Celeste"
-						href="https://www.celestegame.com"
-						icon="https://www.celestegame.com/images/ico.png"
-					/>
-				</List.Item>
-				<List.Item>
-					<FanOf
-						href="https://osu.ppy.sh"
-						name="osu!"
-						icon="/assets/img/ico/osu.png"
-					/>
-				</List.Item>
-			</List>
 
 			<Text span inherit>
 				The background of this website is a recreation of Celeste Chapter 9's background.
+			</Text>
+
+			<Text span inherit>
+				I also used to volunteer for <FanOf
+					name="ModFest"
+					href="https://modfest.net"
+					icon={modfest}
+				/>, a Minecraft modding event.
 			</Text>
 
 			<Divider my="sm" label="USES" />

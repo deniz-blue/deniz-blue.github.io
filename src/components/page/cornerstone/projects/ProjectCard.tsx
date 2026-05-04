@@ -1,4 +1,4 @@
-import { Box, Button, Card, Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
+import { Box, Button, Card, Center, Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
 import { IconExternalLink, IconFolder, IconPackage, IconWorld } from "@tabler/icons-react";
 import { Project } from "virtual:projects";
 
@@ -42,10 +42,24 @@ export const ProjectCard = ({
 	return (
 		<Paper
 			bg="var(--mantine-color-gray-light)"
-			p={4}
+			withBorder
+			bd="1px solid var(--mantine-color-dark-8)"
+			style={{ overflow: "clip" }}
 		>
 			<Stack gap={4}>
-				<Stack p={4} gap="sm">
+				{project.banner && (
+					<Center bg="dark">
+						<Image
+							src={project.banner}
+							h="5rem"
+							style={{
+								objectFit: "contain"
+							}}
+						/>
+					</Center>
+				)}
+
+				<Stack p="sm" gap="sm">
 					<Group gap={4} c="var(--mantine-color-violet-light-color)" wrap="nowrap">
 						{icon}
 						<Text>{project.name || project.id}</Text>
@@ -63,11 +77,11 @@ export const ProjectCard = ({
 							project.repo,
 							project.website,
 						].some(x => x == project.link) && (
-							<ProjectButton
-								text="View"
-								href={project.link}
-							/>
-						)}
+								<ProjectButton
+									text="View"
+									href={project.link}
+								/>
+							)}
 
 						{project.website && (
 							<ProjectButton
