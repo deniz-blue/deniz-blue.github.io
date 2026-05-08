@@ -8,6 +8,7 @@ import osu from "./icons/osu.png";
 import sun from "./icons/sun.png";
 import { useListeningToStore } from "../../../../stores/useListeningToStore";
 import { TrackMetadataCard } from "./TrackMetadataCard";
+import { BackgroundSwitcher } from "./BackgroundSwitcher";
 
 export const IconsGroup = ({
 	data,
@@ -168,7 +169,7 @@ export const AboutMe = () => {
 					fw="bold"
 				/>, <FanOf
 					name="Discord"
-					href="https://discord.com/users/708532414098856961"
+					href="https://deniz.blue/discord-invite/?id=1197520507617153064"
 					icon="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/62fddf0fde45a8baedcc7ee5_847541504914fd33810e70a0ea73177e%20(2)-1.png"
 					fw="bold"
 				/>, <FanOf
@@ -308,6 +309,10 @@ export const AboutMe = () => {
 					fw="bold"
 				/> before and I hope I use it again in the future!
 			</Text>
+
+			<Divider my="sm" />
+
+			<BackgroundSwitcher />
 		</Stack>
 	);
 };

@@ -13,6 +13,7 @@ import { Swapper } from "../ui/swapper/Swapper";
 import { useMemo } from "react";
 import { SanctuaryBackground } from "./sanctuary/SanctuaryBackground";
 import { SpeckleBackground } from "./speckle/SpeckleBackground";
+import { TWMBackground } from "./twm/TWMBackground";
 
 export type Background = Enum<{
 	null: { fade?: boolean };
@@ -26,6 +27,7 @@ export type Background = Enum<{
 	aurora: {};
 	sanctuary: {};
 	speckle: {};
+	twm: {};
 }>;
 
 export const defaultBackground: Background = {
@@ -41,25 +43,35 @@ export const useBackgroundStore = create<{
 	setBackground: (background) => set(state => ({ background })),
 }))
 
+// @ts-ignore
+window.useBackgroundStore = useBackgroundStore;
+
+export const BackgroundComponentRegistry: Record<string, React.ComponentType<any>> = {
+	starfield: StarfieldBackground,
+	depth: DepthBackground,
+	oneshot: OneShotBackground,
+	refuge: RefugeBackground,
+	winter: WinterBackground,
+	aurora: AuroraBackground,
+	sanctuary: SanctuaryBackground,
+	speckle: SpeckleBackground,
+	twm: TWMBackground,
+	man: ManBackground,
+};
+
 export const PageBackground = () => {
 	const background = useBackgroundStore(store => store.background);
 	const rain = useAppFlagsStore(store => store.rain);
 
-	const content = useMemo(() => (
-		<>
-			{rain && <RainForeground />}
-
-			{background.type === "starfield" && <StarfieldBackground />}
-			{background.type === "oneshot" && <OneShotBackground />}
-			{background.type === "depth" && <DepthBackground />}
-			{background.type === "man" && <ManBackground />}
-			{background.type === "refuge" && <RefugeBackground />}
-			{background.type === "winter" && <WinterBackground />}
-			{background.type === "aurora" && <AuroraBackground />}
-			{background.type === "sanctuary" && <SanctuaryBackground />}
-			{background.type === "speckle" && <SpeckleBackground />}
-		</>
-	), [JSON.stringify(background), rain])
+	const content = useMemo(() => {
+		const Component = BackgroundComponentRegistry[background.type] ?? (() => null);
+		return (
+			<>
+				<Component {...background.data} />
+				{rain && <RainForeground />}
+			</>
+		);
+	}, [JSON.stringify(background), rain])
 
 	return (
 		<div style={{

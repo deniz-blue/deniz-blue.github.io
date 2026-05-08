@@ -1,6 +1,5 @@
 import { Box, Center, Group, Image, LoadingOverlay, Marquee, OverflowList, Paper, Stack, Text, Tooltip } from "@mantine/core";
 import { IconAlbum, IconMusic, IconUserCircle } from "@tabler/icons-react";
-import { AutoMarquee } from "../../../ui/text/AutoMarquee";
 import { MaybeRuby } from "../../../ui/text/MaybeRuby";
 import { Swapper } from "../../../ui/swapper/Swapper";
 import { useMemo } from "react";
@@ -47,6 +46,7 @@ export const OverengineeredText = ({
 			renderItem={() => child}
 			renderOverflow={() => (
 				<Marquee
+					fadeEdges={false}
 					duration={10000}
 					gap="xl"
 				>
