@@ -44,7 +44,7 @@ export const useBackgroundStore = create<{
 }))
 
 // @ts-ignore
-window.useBackgroundStore = useBackgroundStore;
+globalThis.useBackgroundStore = useBackgroundStore;
 
 export const BackgroundComponentRegistry: Record<string, React.ComponentType<any>> = {
 	starfield: StarfieldBackground,
