@@ -1,9 +1,9 @@
 import { ActionIcon, Group, Image, Stack } from "@mantine/core";
 import { useBackgroundStore } from "../../../background/PageBackground";
 import { PropsWithChildren, useRef } from "react";
-import blueheart from "./icons/blueheart.gif";
-import twmpc from "./icons/twmpc.png";
-import soul from "./icons/soul.png";
+import blueheart from "./icons/blueheart.gif?url";
+import twmpc from "./icons/twmpc.png?url";
+import soul from "./icons/soul.png?url";
 
 export const BackgroundSwitcher = () => {
 	const { background, setBackground } = useBackgroundStore();
