@@ -4,7 +4,16 @@ import "./styles.css";
 export const SanctuaryBackground = () => {
 	return (
 		<div className="SanctuaryBackground scroll-listener">
-			<span
+
+			<Box className="spire fade parallax" style={{ "--depth": 0.5, "--y": "260px", "--x": "45%" }} />
+			<Box className="spire fade parallax" style={{ "--depth": 0.3, "--y": "40px", "--x": "12%" }} />
+			<Box className="spire fade parallax" style={{ "--depth": 0.1, "--y": "15px", "--x": "88%" }} />
+			<Box className="spire fade parallax" style={{ "--depth": 0.5, "--y": "810px", "--x": "23%" }} />
+			<Box className="spire fade parallax" style={{ "--depth": 0.4, "--y": "1310px", "--x": "92%" }} />
+			<Box className="spire fade parallax" style={{ "--depth": 0.3, "--y": "250px", "--x": "5%" }} />
+			<Box className="spire fade parallax" style={{ "--depth": 0.5, "--y": "175px", "--x": "70%" }} />
+
+			{/* <span
 				style={{
 					marginTop: 50,
 					right: "2vw",
@@ -14,8 +23,8 @@ export const SanctuaryBackground = () => {
 				className="parallax prophecy"
 			>
 				A WORLD BASKED IN PUREST LIGHT
-			</span>
-			<Box className="parallax fade" w="100%" mt={15} style={{ "--depth": 0.7, opacity: 0.7 }}>
+			</span> */}
+			{/* <Box className="parallax fade" w="100%" mt={15} style={{ "--depth": 0.7, opacity: 0.7 }}>
 				<Group gap={0} align="center" w="100%" wrap="nowrap">
 					<Box className="arches fade" flex={1} ml={-50} />
 					<Box className="spire fade" />
@@ -34,11 +43,11 @@ export const SanctuaryBackground = () => {
 					<Box className="spire fade" ml={280} />
 					<Box className="buttress fade" mt={200} />
 				</Group>
-			</Box>
-			<div
+			</Box> */}
+			{/* <div
 				className="parallax prophecygif"
-			/>
-			<span
+			/> */}
+			{/* <span
 				style={{
 					marginTop: 1000,
 					left: "20vw",
@@ -48,7 +57,7 @@ export const SanctuaryBackground = () => {
 				className="parallax prophecy"
 			>
 				WITH HOPE CROSSED ON HER HEART
-			</span>
+			</span> */}
 		</div>
 	)
 };

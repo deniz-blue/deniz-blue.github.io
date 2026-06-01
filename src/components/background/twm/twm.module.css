@@ -51,7 +51,7 @@
 
 .backgroundItem {
 	position: absolute;
-	top: var(--y);
+	top: calc(var(--y) + (var(--scroll-y) * 0.2px * var(--z)));
 	left: var(--x);
 	animation: float 3s ease-in-out infinite alternate;
 	animation-delay: var(--t);

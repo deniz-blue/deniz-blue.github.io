@@ -48,6 +48,7 @@ export const TWMBackground = () => {
 						x: x + (rand() * 96 * 1.5 - 96 * 1.5 / 2),
 						y: y + (rand() * 96 * 1.5 - 96 * 1.5 / 2),
 						t: rand(),
+						z: rand(),
 					});
 				}
 			}
@@ -68,6 +69,7 @@ export const TWMBackground = () => {
 					style={{
 						"--x": pos.x + "px",
 						"--y": pos.y + "px",
+						"--z": pos.z,
 						"--t": pos.t*6 + "s",
 					}}
 				>

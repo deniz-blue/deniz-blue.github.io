@@ -18,7 +18,7 @@ export const CosplayWebring = () => {
 			<Box
 				id="cosring"
 				className={classes.cosring}
-				w={88 * 3 + 4 * 2}
+				w="100%"
 				py={4}
 			>
 				<Stack align="center" justify="space-between" gap={0}>

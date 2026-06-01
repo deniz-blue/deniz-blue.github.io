@@ -185,6 +185,10 @@ export const AboutMe = () => {
 				/>.
 			</Text>
 
+			<Divider my="sm" label="THEME" />
+
+			<BackgroundSwitcher />
+
 			<ListeningToSection />
 
 			<Divider my="sm" label="SETUP" />
@@ -298,21 +302,17 @@ export const AboutMe = () => {
 					href="https://pnpm.io"
 					icon="https://pnpm.io/img/favicon.png"
 					fw="bold"
-				/> is my package manager of choice.
+				/> is goated.
 			</Text>
 
 			<Text span inherit>
-				I've also worked with <FanOf
+				I also do <FanOf
 					name="Rust"
 					href="https://www.rust-lang.org"
 					icon="https://www.rust-lang.org/static/logos/rust-logo-16x16.png"
 					fw="bold"
-				/> before and I hope I use it again in the future!
+				/> sometimes. It's a great language!
 			</Text>
-
-			<Divider my="sm" />
-
-			<BackgroundSwitcher />
 		</Stack>
 	);
 };

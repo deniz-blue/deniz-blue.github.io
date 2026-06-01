@@ -1,5 +1,5 @@
-import { Box, Button, Card, Center, Group, Image, Paper, SimpleGrid, Stack, Text } from "@mantine/core";
-import { IconExternalLink, IconFolder, IconPackage, IconWorld } from "@tabler/icons-react";
+import { Box, Button, Card, Center, Group, Image, Paper, Popover, SimpleGrid, Stack, Text } from "@mantine/core";
+import { IconChevronRight, IconExternalLink, IconFolder, IconPackage, IconWorld } from "@tabler/icons-react";
 import { Project } from "virtual:projects";
 
 export const ProjectCard = ({
@@ -40,72 +40,101 @@ export const ProjectCard = ({
 	};
 
 	return (
-		<Paper
-			bg="var(--mantine-color-gray-light)"
-			withBorder
-			bd="1px solid var(--mantine-color-dark-8)"
-			style={{ overflow: "clip" }}
+		<Popover
+			position="right"
+			shadow="md"
+			withinPortal={false}
+			middlewares={{ shift: { mainAxis: true, crossAxis: true } }}
+			withArrow
+			withOverlay
+			width="target"
 		>
-			<Stack gap={4}>
-				{project.banner && (
-					<Center bg="dark">
-						<Image
-							src={project.banner}
-							h="5rem"
-							style={{
-								objectFit: "contain"
-							}}
-						/>
-					</Center>
-				)}
-
-				<Stack p="sm" gap="sm">
-					<Group gap={4} c="var(--mantine-color-violet-light-color)" wrap="nowrap">
+			<Popover.Target>
+				<Button
+					leftSection={icon}
+					rightSection={<IconChevronRight size={16} />}
+					variant="light"
+					fullWidth
+					justify="start"
+				>
+					{project.name || project.id}
+				</Button>
+				{/* <Paper
+					bg="var(--mantine-color-gray-light)"
+					withBorder
+					className="frost"
+					bd="1px solid var(--mantine-color-dark-8)"
+					style={{ overflow: "clip" }}
+				>
+					<Group p="sm" gap={4} c="var(--mantine-color-violet-light-color)" wrap="nowrap">
 						{icon}
 						<Text>{project.name || project.id}</Text>
 					</Group>
+				</Paper> */}
+			</Popover.Target>
+			<Popover.Dropdown p={0} style={{ overflow: "clip" }}>
+				<Stack gap={4}>
+					{project.banner && (
+						<Center bg="dark">
+							<Image
+								src={project.banner}
+								h="5rem"
+								style={{
+									objectFit: "cover"
+								}}
+							/>
+						</Center>
+					)}
 
-					<Box>
-						<Text fz="sm" c="var(--mantine-color-text)">
-							{project.desc}
-						</Text>
-					</Box>
+					<Stack p="sm" gap="sm">
+						<Group gap={4} c="var(--mantine-color-violet-light-color)" wrap="nowrap">
+							{icon}
+							<Text>{project.name || project.id}</Text>
+						</Group>
 
-					<SimpleGrid cols={2} spacing={4} verticalSpacing={4}>
-						{project.link && ![
-							project.npm,
-							project.repo,
-							project.website,
-						].some(x => x == project.link) && (
+						<Box>
+							<Text fz="sm" c="var(--mantine-color-text)">
+								{project.desc}
+							</Text>
+						</Box>
+
+						<SimpleGrid cols={2} spacing={4} verticalSpacing={4}>
+							{project.link && ![
+								project.npm,
+								project.repo,
+								project.website,
+							].some(x => x == project.link) && (
+									<ProjectButton
+										text="View"
+										href={project.link}
+									/>
+								)}
+
+							{project.website && (
 								<ProjectButton
-									text="View"
-									href={project.link}
+									text="Website"
+									href={project.website}
 								/>
 							)}
 
-						{project.website && (
-							<ProjectButton
-								text="Website"
-								href={project.website}
-							/>
-						)}
+							{project.repo && (
+								<ProjectButton
+									text="Repository"
+									href={project.repo}
+								/>
+							)}
 
-						{project.repo && (
-							<ProjectButton
-								text="Repository"
-								href={project.repo}
-							/>
-						)}
-
-						{project.npm && (
-							<ProjectButton
-								text="NPM"
-								href={project.npm}
-							/>
-						)}
-					</SimpleGrid>
+							{project.npm && (
+								<ProjectButton
+									text="NPM"
+									href={project.npm}
+								/>
+							)}
+						</SimpleGrid>
+					</Stack>
 				</Stack>
-			</Stack>
-		</Paper>
+			</Popover.Dropdown>
+		</Popover>
 	);
 };
+

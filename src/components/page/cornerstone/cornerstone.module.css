@@ -1,24 +1,38 @@
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 500px) {
 	.container {
 		--stack-align: center !important;
 	}
 
+	.column {
+		--width: 90vw !important;
+		--fromleft: 0 !important;
+	}
+
 	.column::before {
-		left: calc(50% - 160px) !important;
+		left: calc(50% - var(--fromleft)) !important;
+		width: calc(100% - var(--fromleft) * 2) !important;
 	}
 }
 
+.container,
 .column {
-	/* (88 * 3) + (4 * 2)) + 24 * 2 */
-	width: 320px;
+	overflow: clip;
+}
+
+.column {
+	--width: 350px;
+	--fromleft: 20%;
+
+	width: var(--width);
+	margin-left: var(--fromleft);
 }
 
 .column::before {
 	content: "";
 	position: fixed;
 	top: 0;
-	left: var(--mantine-spacing-xl);
-	width: 320px;
+	left: var(--fromleft);
+	width: var(--width);
 	height: 100%;
 	z-index: -1;
 	background-image: linear-gradient(to right,
