@@ -2,12 +2,12 @@ import { useHotkeys } from "@mantine/hooks";
 import { useBackgroundStore } from "./components/background/PageBackground";
 import { useAppFlagsStore } from "./stores/useAppFlagsStore";
 import { useEffect } from "react";
-import { WingDing } from "./components/page/wingding/WingDing";
 import { Device } from "./components/page/device/Device";
 import { Affix } from "@mantine/core";
 import { Terminal } from "./components/terminal/Terminal";
 import { CountdownThing } from "./components/page/countdown/CountdownThing";
-import { Cornerstone } from "./components/page/cornerstone/Cornerstone";
+import { Centerstone } from "./components/page/cornerstone/Centerstone";
+import { EggRoom } from "./components/page/device/EggRoom";
 
 export const IndexPage = () => {
 	const setBackground = useBackgroundStore(store => store.setBackground);
@@ -17,8 +17,6 @@ export const IndexPage = () => {
 	const exitable = (
 		flags.showPamphlet
 		|| flags.showPamphletV2
-		|| flags.showDevice
-		|| flags.showCountdown
 		|| flags.showCornerstone
 	);
 
@@ -32,7 +30,7 @@ export const IndexPage = () => {
 			showPamphletV2: false,
 			showDevice: false,
 			showCountdown: false,
-			showWD: false,
+			showEgg: false,
 			showCornerstone: false,
 		})
 	};
@@ -52,22 +50,25 @@ export const IndexPage = () => {
 	return (
 		<>
 			{flags.showDevice && <Device />}
-			{flags.showWD && <WingDing />}
 
 			{flags.showTerminal && (
 				<Terminal />
 			)}
 
 			{flags.showCornerstone && (
-				<Cornerstone />
+				<Centerstone />
 			)}
 
 			{flags.showCountdown && (
 				<CountdownThing />
 			)}
 
+			{flags.showEgg && (
+				<EggRoom />
+			)}
+
 			{exitable && (
-				<Affix position={{ top: 0, right: 0 }}>
+				<Affix position={{ top: 0, left: 0 }}>
 					<div className="terminal">
 						<pre className="terminal-content">
 							<a

@@ -23,8 +23,8 @@ export interface TerminalActions {
 
 export const useTerminalStore = create<TerminalState & TerminalActions>()(
 	immer((set, get) => ({
-		username: "user",
-		hostname: "lab02",
+		username: "usr",
+		hostname: "local",
 		cwd: new Path("/home/user"),
 		buffer: [],
 		env: {

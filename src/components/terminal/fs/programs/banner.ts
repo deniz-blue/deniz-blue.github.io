@@ -3,8 +3,8 @@ import { ExecutionContext } from "../../util/ctx";
 import { Path } from "../../util/Path";
 
 export const os = {
-	name: "SHARK OS",
-	version: "0.03",
+	name: "TWM",
+	version: "0.04",
 } as const;
 
 export default function banner(ctx: ExecutionContext) {

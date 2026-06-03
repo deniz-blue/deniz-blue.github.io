@@ -48,15 +48,16 @@ export const useFileSystemStore = create<FileSystemState & FileSystemActions>()(
 			return node.content;
 		},
 
-		write: (path: Path, content: string) => {
+		write: (path: Path, content: string, opts?: BaseFNode) => {
 			set((state) => {
 				let folder = getNode(state.root, path.parent(), true);
 				if (!folder || folder.type !== FNodeType.DIRECTORY) throw new Error(`Not a directory: ${path.parent()}`);
 				const filename = path.lastSegment();
 				if(folder.children[filename] && folder.children[filename].type === FNodeType.FILE) {
 					folder.children[filename].content = content;
+					Object.assign(folder.children[filename], opts);
 				} else {
-					folder.children[filename] = createFileNode(content);
+					folder.children[filename] = createFileNode(content, opts);
 				};
 			});
 		},

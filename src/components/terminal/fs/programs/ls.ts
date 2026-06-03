@@ -12,6 +12,7 @@ export default function ls(ctx: ExecutionContext) {
 
 	for(let name in node.children) {
 		let child = node.children[name];
+		console.log(name, child);
 		if(child.hidden) continue;
 		
 		let fg: Span["fg"];

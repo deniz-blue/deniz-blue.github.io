@@ -18,7 +18,7 @@ export default function neofetch(ctx: ExecutionContext) {
 		Host: "deniz.blue",
 		Kernel: `${os.name.toLowerCase().replace(" ", "-")}-${os.version}`,
 		Uptime: `${Math.floor(performance.now() / 1000 / 60)} mins`,
-		Packages: "2763 (bfdi)",
+		Packages: "727 (wysi)",
 		Shell: `react ${version}`,
 		Resolution: `${window.innerWidth}x${window.innerHeight}`,
 	};

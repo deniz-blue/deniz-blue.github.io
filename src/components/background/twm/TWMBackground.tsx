@@ -1,8 +1,10 @@
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import classes from "./twm.module.css";
 import { deterministicRandom } from "../../../utils/deterministicRandom";
 import { useElementSize } from "@mantine/hooks";
 import { Box } from "@mantine/core";
+import { useAudioUnlocker } from "../../../hooks/useAudioUnlocker";
+import TWM from "./twm.mp3";
 
 export const Screen = () => {
 	return (
@@ -35,15 +37,22 @@ export const Screen = () => {
 
 export const TWMBackground = () => {
 	const { ref, width, height } = useElementSize();
+	const audioRef = useAudioUnlocker();
+
+	useEffect(() => {
+		if (audioRef.current) {
+			audioRef.current.volume = 0.2;
+		}
+	}, [audioRef]);
 
 	const positions = useMemo(() => {
 		const rand = deterministicRandom();
 
 		const positions = [];
 
-		for (let y = 0; y < height; y += 96 * 1) {
-			for (let x = 0; x < width; x += 96 * 1) {
-				if (rand() < 0.2) {
+		for (let y = 0; y < height; y += 96 * 0.5) {
+			for (let x = 0; x < width; x += 96 * 0.5) {
+				if (rand() < 0.1) {
 					positions.push({
 						x: x + (rand() * 96 * 1.5 - 96 * 1.5 / 2),
 						y: y + (rand() * 96 * 1.5 - 96 * 1.5 / 2),
@@ -59,6 +68,13 @@ export const TWMBackground = () => {
 
 	return (
 		<div className={"scrollableBackground fullSize " + classes.background} ref={ref}>
+			<audio
+				src={TWM}
+				loop
+				autoPlay
+				ref={audioRef}
+			/>
+
 			<div className={classes.overlayA} />
 			<div className={classes.overlayB} />
 			<div className={classes.overlayC} />
@@ -70,7 +86,7 @@ export const TWMBackground = () => {
 						"--x": pos.x + "px",
 						"--y": pos.y + "px",
 						"--z": pos.z,
-						"--t": pos.t*6 + "s",
+						"--t": pos.t * 6 + "s",
 					}}
 				>
 					<Screen />

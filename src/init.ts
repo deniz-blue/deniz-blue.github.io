@@ -9,5 +9,5 @@ import "./init-events";
 
 import { useBackgroundStore } from "./components/background/PageBackground";
 useBackgroundStore.setState({
-	background: { type: "starfield", data: {} },
+	background: { type: "twm", data: {} },
 });

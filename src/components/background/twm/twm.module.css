@@ -1,5 +1,5 @@
 .overlayA {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -12,7 +12,7 @@
 }
 
 .overlayC {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
@@ -51,7 +51,7 @@
 
 .backgroundItem {
 	position: absolute;
-	top: calc(var(--y) + (var(--scroll-y) * 0.2px * var(--z)));
+	top: calc(var(--y) + (var(--scroll-y, 0) * 0.2px * var(--z)));
 	left: var(--x);
 	animation: float 3s ease-in-out infinite alternate;
 	animation-delay: var(--t);

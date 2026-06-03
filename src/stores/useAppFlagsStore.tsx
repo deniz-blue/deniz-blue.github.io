@@ -7,7 +7,7 @@ export const defaultAppFlags = {
     showPamphletV2: false,
 	showCornerstone: true,
     showCountdown: false,
-    showWD: false,
+    showEgg: false,
     rain: false,
     sunShattered: false,
 };

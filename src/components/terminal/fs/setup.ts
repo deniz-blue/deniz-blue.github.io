@@ -22,28 +22,28 @@ export const setupReadOnlyFileSystem = () => {
 							showDevice: true,
 						});
 					}),
-					"NOTE.txt": createFileNode("this section is still a WIP"),
-					archive: createDirectoryNode({
-						girl: createFileNode("mrrp :3"),
-						roomba: createDirectoryNode({
-							"2038-08-17-1.log": createFileNode(roomba_log),
-						}),
-						"goddrinksjava.java": createFileNode(goddrinksjava),
-						"2026": createExecutableNode((ctx) => {
-							useBackgroundStore.getState().setBackground({ type: "oneshot", data: {} });
-							useAppFlagsStore.setState({
-								showTerminal: false,
-								showCountdown: true,
-							});
-						}),
-					}),
-					website: createExecutableNode((ctx) => {
-						useBackgroundStore.getState().setBackground({ type: "starfield", data: {} });
-						useAppFlagsStore.setState({
-							showTerminal: false,
-							showCornerstone: true,
-						});
-					}),
+					// "NOTE.txt": createFileNode("this section is still a WIP"),
+					// archive: createDirectoryNode({
+					// 	girl: createFileNode("mrrp :3"),
+					// 	roomba: createDirectoryNode({
+					// 		"2038-08-17-1.log": createFileNode(roomba_log),
+					// 	}),
+					// 	"goddrinksjava.java": createFileNode(goddrinksjava),
+					// 	"2026": createExecutableNode((ctx) => {
+					// 		useBackgroundStore.getState().setBackground({ type: "oneshot", data: {} });
+					// 		useAppFlagsStore.setState({
+					// 			showTerminal: false,
+					// 			showCountdown: true,
+					// 		});
+					// 	}),
+					// }),
+					// website: createExecutableNode((ctx) => {
+					// 	useBackgroundStore.getState().setBackground({ type: "starfield", data: {} });
+					// 	useAppFlagsStore.setState({
+					// 		showTerminal: false,
+					// 		showCornerstone: true,
+					// 	});
+					// }),
 				}),
 			}),
 			bin: createDirectoryNode(Object.fromEntries(Object.entries(programModules).map(([path, mod]) => {
