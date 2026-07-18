@@ -3,7 +3,7 @@ import { Anchor, Box, Image, Text, Tooltip } from "@mantine/core";
 export const Thing = ({ icon, url, label }: { icon: string; url?: string; label?: string }) => {
 	const size = 20;
 	const img =
-		icon.startsWith("http") || icon.startsWith("/") ? (
+		icon.startsWith("http") || icon.startsWith("data:") || icon.startsWith("/") ? (
 			<Image
 				src={icon}
 				alt={label}
