@@ -1,16 +1,1 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Lexend:wght@100..900&display=swap');
-
-@font-face {
-    font-family: "Deltarune";
-    src: url("/assets/fonts/utdr.ttf") format("truetype");
-}
-
-@font-face {
-	font-family: "Prophecy";
-	src: url("/assets/fonts/PROPHECYTYPE.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "orb";
-    src: url("https://eyeorb.net/fonts/orbitron.ttf");
-}

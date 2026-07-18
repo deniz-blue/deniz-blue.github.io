@@ -1,13 +1,14 @@
 import { createTheme, DEFAULT_THEME, MantineProvider, TooltipProps } from "@mantine/core";
-import { ModalsProvider } from "@mantine/modals";
-import { Notifications } from "@mantine/notifications";
-import { IndexPage } from ".";
-import { PageBackground } from "./components/background/PageBackground";
 import "./init";
+import { Page } from "./app/Page";
 
 const theme = createTheme({
 	fontFamily: "Lexend, " + DEFAULT_THEME.fontFamily,
 	fontFamilyMonospace: "Deltarune, " + DEFAULT_THEME.fontFamilyMonospace,
+	fontWeights: {
+		bold: "600",
+		regular: "350",
+	},
 	primaryColor: "violet",
 	components: {
 		Tooltip: {
@@ -15,7 +16,7 @@ const theme = createTheme({
 				color: "dark",
 			},
 			styles: {
-				color: "var(--mantine-color-text)"
+				color: "var(--mantine-color-text)",
 			},
 		} as Partial<TooltipProps>,
 	},
@@ -23,16 +24,8 @@ const theme = createTheme({
 
 export const Root = () => {
 	return (
-		<span suppressHydrationWarning style={{ height: "100%" }}>
-			<MantineProvider theme={theme} forceColorScheme="dark">
-				<Notifications position="top-right" classNames={{
-					notification: "frost bordered",
-				}} />
-				<ModalsProvider>
-					<PageBackground />
-					<IndexPage />
-				</ModalsProvider>
-			</MantineProvider>
-		</span>
+		<MantineProvider theme={theme} forceColorScheme="dark">
+			<Page />
+		</MantineProvider>
 	);
 };
