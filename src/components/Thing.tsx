@@ -1,24 +1,33 @@
 import { Anchor, Box, Image, Text, Tooltip } from "@mantine/core";
 
-export const Thing = ({ icon, url, label }: { icon: string; url?: string; label?: string }) => {
+export const Thing = ({
+	icon,
+	url,
+	label,
+	emoji,
+}: {
+	icon?: string;
+	emoji?: string;
+	url?: string;
+	label?: string;
+}) => {
 	const size = 20;
-	const img =
-		icon.startsWith("http") || icon.startsWith("data:") || icon.startsWith("/") ? (
-			<Image
-				src={icon}
-				alt={label}
-				width={size}
-				height={size}
-				w={size}
-				h={size}
-				style={{ display: "inline", verticalAlign: "middle" }}
-				aria-hidden={!!url}
-			/>
-		) : (
-			<Text span inline>
-				{icon}
-			</Text>
-		);
+	const img = icon ? (
+		<Image
+			src={icon}
+			alt={label}
+			width={size}
+			height={size}
+			w={size}
+			h={size}
+			style={{ display: "inline", verticalAlign: "middle" }}
+			aria-hidden={!!url}
+		/>
+	) : (
+		<Text span inline>
+			{emoji}
+		</Text>
+	);
 
 	return (
 		<Tooltip label={label} disabled={!label} position="top" withArrow>

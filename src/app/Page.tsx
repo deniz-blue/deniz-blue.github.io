@@ -175,7 +175,7 @@ export const Page = () => {
 										Contact me via:
 									</Text>
 									<Group gap={0}>
-										<Thing label="Email" url="mailto:deniz@deniz.blue" icon="📧" />
+										<Thing label="Email" url="mailto:deniz@deniz.blue" emoji="📧" />
 										<Thing
 											label="Discord"
 											url="https://deniz.blue/discord-invite/?id=1197520507617153064"

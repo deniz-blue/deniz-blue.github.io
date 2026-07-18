@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { VirtualModule, SimpleSSG } from "@deniz-blue/vite-plugins";
+import { VirtualModule } from "@deniz-blue/vite-plugins";
 
 export default defineConfig({
 	resolve: {
@@ -17,6 +17,6 @@ export default defineConfig({
 				return `export const projects = ${JSON.stringify(json)};`;
 			},
 		),
-		SimpleSSG(),
+		// SimpleSSG(),
 	],
 })
