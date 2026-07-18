@@ -1,11 +1,28 @@
 import { Anchor, Box, Container, Group, Stack, Text, Title } from "@mantine/core";
 import { Thing } from "../components/Thing";
+import { PropsWithChildren } from "react";
 import sun from "./sun.png";
 import pluralring from "./pluralring.png";
 import minecraft from "./minecraft.webp";
 import osu from "./osu.png";
 import blueheart from "./blueheart.gif";
-import { PropsWithChildren } from "react";
+import typescript from "./typescript.png";
+import react from "./react.ico";
+import rust from "./rust.png";
+import vite from "./vite.svg";
+import mantine from "./mantine.svg";
+import pages from "./pages.ico";
+import pnpm from "./pnpm.png";
+import arch from "./arch.ico";
+import niri from "./niri.svg";
+import figura from "./figura.gif";
+import create from "./create.webp";
+import deltarune from "./deltarune.ico";
+import github from "./github.svg";
+import bsky from "./bsky.png";
+import discord from "./discord.png";
+import matrix from "./matrix.svg";
+import therian from "./therian.svg";
 
 export const Page = () => {
 	return (
@@ -81,44 +98,20 @@ export const Page = () => {
 										<Thing
 											label="TypeScript"
 											url="https://www.typescriptlang.org/"
-											icon="https://www.typescriptlang.org/favicon-32x32.png"
+											icon={typescript}
 										/>
-										<Thing
-											label="React"
-											url="https://react.dev/"
-											icon="https://react.dev/favicon.ico"
-										/>
-										<Thing
-											label="Rust"
-											url="https://www.rust-lang.org/"
-											icon="https://www.rust-lang.org/static/logos/rust-logo-16x16.png"
-										/>
-										<Thing label="Vite" url="https://vite.dev/" icon="https://vite.dev/logo.svg" />
-										<Thing
-											label="Mantine"
-											url="https://mantine.dev/"
-											icon="https://mantine.dev/favicon.svg"
-										/>
+										<Thing label="React" url="https://react.dev/" icon={react} />
+										<Thing label="Rust" url="https://www.rust-lang.org/" icon={rust} />
+										<Thing label="Vite" url="https://vite.dev/" icon={vite} />
+										<Thing label="Mantine" url="https://mantine.dev/" icon={mantine} />
 										<Thing
 											label="Cloudflare Pages"
 											url="https://pages.cloudflare.com/"
-											icon="https://pages.cloudflare.com/favicon.ico"
+											icon={pages}
 										/>
-										<Thing
-											label="pnpm"
-											url="https://pnpm.io/"
-											icon="https://pnpm.io/img/favicon.png"
-										/>
-										<Thing
-											label="Arch Linux"
-											url="https://archlinux.org/"
-											icon="https://archlinux.org/favicon.ico"
-										/>
-										<Thing
-											label="Niri"
-											url="https://niri-wm.github.io/niri/"
-											icon="https://niri-wm.github.io/niri/_assets/icons/logo.svg"
-										/>
+										<Thing label="pnpm" url="https://pnpm.io/" icon={pnpm} />
+										<Thing label="Arch Linux" url="https://archlinux.org/" icon={arch} />
+										<Thing label="Niri" url="https://niri-wm.github.io/niri/" icon={niri} />
 									</Group>
 								</Group>
 								<Group gap="xs">
@@ -126,29 +119,17 @@ export const Page = () => {
 										I love these:
 									</Text>
 									<Group gap={0}>
-										<Thing
-											label="Figura"
-											url="https://figuramc.org/"
-											icon="https://figuramc.org/_app/immutable/assets/transparent.968a8a0e.gif"
-										/>
+										<Thing label="Figura" url="https://figuramc.org/" icon={figura} />
 										<Thing
 											label="OneShot"
 											url="https://futurecatgames.itch.io/oneshot"
 											icon={sun}
 										/>
-										<Thing
-											label="DELTARUNE"
-											url="https://deltarune.com/"
-											icon="https://deltarune.com/favicon.ico"
-										/>
+										<Thing label="DELTARUNE" url="https://deltarune.com/" icon={deltarune} />
 										<Thing label="Minecraft" url="https://minecraft.wiki/" icon={minecraft} />
 										<Thing label="osu!" url="https://osu.ppy.sh/" icon={osu} />
 										<Thing label="Celeste" url="https://celeste.ink/" icon={blueheart} />
-										<Thing
-											url="https://modrinth.com/mod/create"
-											label="Create"
-											icon="https://cdn.modrinth.com/data/LNytGWDc/61d716699bcf1ec42ed4926a9e1c7311be6087e2_96.webp"
-										/>
+										<Thing url="https://modrinth.com/mod/create" label="Create" icon={create} />
 									</Group>
 								</Group>
 							</Stack>
@@ -158,16 +139,8 @@ export const Page = () => {
 										Follow me on:
 									</Text>
 									<Group gap={0}>
-										<Thing
-											label="GitHub"
-											url="https://github.com/deniz-blue"
-											icon="https://github.githubassets.com/favicons/favicon-dark.svg"
-										/>
-										<Thing
-											label="BlueSky"
-											url="https://bsky.app/profile/deniz.blue"
-											icon="https://web-cdn.bsky.app/static/favicon-16x16.png"
-										/>
+										<Thing label="GitHub" url="https://github.com/deniz-blue" icon={github} />
+										<Thing label="BlueSky" url="https://bsky.app/profile/deniz.blue" icon={bsky} />
 									</Group>
 								</Group>
 								<Group gap="xs">
@@ -179,12 +152,12 @@ export const Page = () => {
 										<Thing
 											label="Discord"
 											url="https://deniz.blue/discord-invite/?id=1197520507617153064"
-											icon="https://cdn.prod.website-files.com/6257adef93867e50d84d30e2/62fddf0fde45a8baedcc7ee5_847541504914fd33810e70a0ea73177e%20(2)-1.png"
+											icon={discord}
 										/>
 										<Thing
 											label="Matrix"
 											url="https://matrix.to/#/@deniz:catgirl.cloud"
-											icon="https://matrix.org/assets/favicon.svg"
+											icon={matrix}
 										/>
 									</Group>
 								</Group>
@@ -195,7 +168,7 @@ export const Page = () => {
 										<Thing
 											label="This user is a Therian"
 											url="https://en.wikipedia.org/wiki/Therian_subculture"
-											icon="https://raw.githubusercontent.com/deniz-blue/md-emojis/refs/heads/main/emojis/identity/thetadelta-white.svg"
+											icon={therian}
 										/>
 										<Thing
 											label="This user is a System"
@@ -205,11 +178,13 @@ export const Page = () => {
 										<Thing
 											label="This user is Transgender"
 											url="https://en.wikipedia.org/wiki/Transgender"
-											icon="🏳️‍⚧️"
+											emoji="🏳️‍⚧️"
 										/>
 									</Group>
 								</Group>
-								<Text c="#ffffff1a">Be kind, for everyone you meet is fighting a harder battle.</Text>
+								<Text c="#ffffff1a">
+									Be kind, for everyone you meet is fighting a harder battle.
+								</Text>
 							</Stack>
 						</Stack>
 					</Stack>
