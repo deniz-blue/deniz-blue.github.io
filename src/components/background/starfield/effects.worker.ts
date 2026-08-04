@@ -19,73 +19,72 @@ let scrollPosition: Vec2 = vec2();
 let elapsedTime = 0;
 
 const init = () => {
-    if (!dim) throw new Error("dim not initialized");
-    if (!canvas) throw new Error("canvas not initialized");
+	if (!dim) throw new Error("dim not initialized");
+	if (!canvas) throw new Error("canvas not initialized");
 
-    gl = canvas.getContext("webgl2", {
-        antialias: false,
-        powerPreference: "low-power",
-        desynchronized: true,
-        failIfMajorPerformanceCaveat: true,
-    })!;
+	gl = canvas.getContext("webgl2", {
+		antialias: false,
+		powerPreference: "low-power",
+		desynchronized: true,
+		failIfMajorPerformanceCaveat: true,
+	})!;
 
-    if (!gl) throw new Error("GL2 failed to init");
+	if (!gl) throw new Error("GL2 failed to init");
 
-    for(let sf of starfields) sf.resize(simulationDim);
-    for(let sf of starfields) sf.update(1);
-    gl.viewport(0, 0, dim.x, dim.y);
-    self.postMessage({ type: "initialized" } as EffectsWorkerOutput);
+	for (let sf of starfields) sf.resize(simulationDim);
+	for (let sf of starfields) sf.update(1);
+	gl.viewport(0, 0, dim.x, dim.y);
+	self.postMessage({ type: "initialized" } as EffectsWorkerOutput);
 
-    let init = starfield_rendergl2_init(gl);
+	let init = starfield_rendergl2_init(gl);
 
-    console.log("worker: gl2 init complete")
+	console.log("worker: gl2 init complete");
 
-    setRafInterval((dt) => {
-        elapsedTime += dt;
+	setRafInterval((dt) => {
+		elapsedTime += dt;
 
-        gl.clearColor(0, 0, 0, 0);
-        gl.clear(gl.COLOR_BUFFER_BIT);
+		gl.clearColor(0, 0, 0, 0);
+		gl.clear(gl.COLOR_BUFFER_BIT);
 
-        for (let s of starfields)
-            s.update(dt);
+		for (let s of starfields) s.update(dt);
 
-        starfield_rendergl2(gl, init, {
-            dimensions: dim,
-            simulationDim,
-            scrollPosition,
-            mists,
-            elapsedTime,
-            starfields,
-        });
-    }, 24);
+		starfield_rendergl2(gl, init, {
+			dimensions: dim,
+			simulationDim,
+			scrollPosition,
+			mists,
+			elapsedTime,
+			starfields,
+		});
+	}, 24);
 };
 
 self.onmessage = (e: MessageEvent<EffectsWorkerInput>) => {
-    const msg = e.data;
-    match(msg)({
-        init: (offscreen) => {
-            dim = vec2(offscreen.width, offscreen.height);
-            canvas = offscreen;
-            init();
-        },
+	const msg = e.data;
+	match(msg)({
+		init: (offscreen) => {
+			dim = vec2(offscreen.width, offscreen.height);
+			canvas = offscreen;
+			init();
+		},
 
-        dimensionsChange: (dims) => {
-            dim = dims;
-            
-            if(canvas) {
-                canvas.width = dim.x;
-                canvas.height = dim.y;
-            }
+		dimensionsChange: (dims) => {
+			dim = dims;
 
-            if(gl) gl.viewport(0,0,dim.x,dim.y);
-        },
+			if (canvas) {
+				canvas.width = dim.x;
+				canvas.height = dim.y;
+			}
 
-        scroll: (v) => {
-            scrollPosition = v;
-        },
+			if (gl) gl.viewport(0, 0, dim.x, dim.y);
+		},
 
-        _: () => { },
-    })
+		scroll: (v) => {
+			scrollPosition = v;
+		},
+
+		_: () => {},
+	});
 };
 
 console.log("worker: effects worker loaded");

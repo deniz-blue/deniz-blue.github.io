@@ -27,8 +27,8 @@ export const Screen = () => {
 						</feTurbulence>
 					</filter>
 
-					<rect width='100%' height='100%' fill="#3f0c75" />
-					<rect width='100%' height='100%' opacity={0.4} filter='url(#noiseFilter)' />
+					<rect width="100%" height="100%" fill="#3f0c75" />
+					<rect width="100%" height="100%" opacity={0.4} filter="url(#noiseFilter)" />
 				</svg>
 			</div>
 		</div>
@@ -54,8 +54,8 @@ export const TWMBackground = () => {
 			for (let x = 0; x < width; x += 96 * 0.5) {
 				if (rand() < 0.1) {
 					positions.push({
-						x: x + (rand() * 96 * 1.5 - 96 * 1.5 / 2),
-						y: y + (rand() * 96 * 1.5 - 96 * 1.5 / 2),
+						x: x + (rand() * 96 * 1.5 - (96 * 1.5) / 2),
+						y: y + (rand() * 96 * 1.5 - (96 * 1.5) / 2),
 						t: rand(),
 						z: rand(),
 					});
@@ -68,12 +68,7 @@ export const TWMBackground = () => {
 
 	return (
 		<div className={"scrollableBackground fullSize " + classes.background} ref={ref}>
-			<audio
-				src={TWM}
-				loop
-				autoPlay
-				ref={audioRef}
-			/>
+			<audio src={TWM} loop autoPlay ref={audioRef} />
 
 			<div className={classes.overlayA} />
 			<div className={classes.overlayB} />
@@ -93,6 +88,5 @@ export const TWMBackground = () => {
 				</Box>
 			))}
 		</div>
-	)
+	);
 };
-

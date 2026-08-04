@@ -47,11 +47,11 @@ interface PlayingNowResponse {
 		playing_now: boolean;
 		user_id: string;
 	};
-};
+}
 
 const endpoint = `https://api.listenbrainz.org/1/user/${user}/playing-now`;
 const res = await fetch(endpoint);
-const data = await res.json() as PlayingNowResponse;
+const data = (await res.json()) as PlayingNowResponse;
 const track = data?.payload?.listens?.[0]?.track_metadata ?? null;
 ```
 

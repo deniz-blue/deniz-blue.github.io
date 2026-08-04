@@ -4,14 +4,34 @@ import "./styles.css";
 export const SanctuaryBackground = () => {
 	return (
 		<div className="SanctuaryBackground scroll-listener">
-
-			<Box className="spire fade parallax" style={{ "--depth": 0.5, "--y": "260px", "--x": "45%" }} />
-			<Box className="spire fade parallax" style={{ "--depth": 0.3, "--y": "40px", "--x": "12%" }} />
-			<Box className="spire fade parallax" style={{ "--depth": 0.1, "--y": "15px", "--x": "88%" }} />
-			<Box className="spire fade parallax" style={{ "--depth": 0.5, "--y": "810px", "--x": "23%" }} />
-			<Box className="spire fade parallax" style={{ "--depth": 0.4, "--y": "1310px", "--x": "92%" }} />
-			<Box className="spire fade parallax" style={{ "--depth": 0.3, "--y": "250px", "--x": "5%" }} />
-			<Box className="spire fade parallax" style={{ "--depth": 0.5, "--y": "175px", "--x": "70%" }} />
+			<Box
+				className="spire fade parallax"
+				style={{ "--depth": 0.5, "--y": "260px", "--x": "45%" }}
+			/>
+			<Box
+				className="spire fade parallax"
+				style={{ "--depth": 0.3, "--y": "40px", "--x": "12%" }}
+			/>
+			<Box
+				className="spire fade parallax"
+				style={{ "--depth": 0.1, "--y": "15px", "--x": "88%" }}
+			/>
+			<Box
+				className="spire fade parallax"
+				style={{ "--depth": 0.5, "--y": "810px", "--x": "23%" }}
+			/>
+			<Box
+				className="spire fade parallax"
+				style={{ "--depth": 0.4, "--y": "1310px", "--x": "92%" }}
+			/>
+			<Box
+				className="spire fade parallax"
+				style={{ "--depth": 0.3, "--y": "250px", "--x": "5%" }}
+			/>
+			<Box
+				className="spire fade parallax"
+				style={{ "--depth": 0.5, "--y": "175px", "--x": "70%" }}
+			/>
 
 			{/* <span
 				style={{
@@ -59,7 +79,7 @@ export const SanctuaryBackground = () => {
 				WITH HOPE CROSSED ON HER HEART
 			</span> */}
 		</div>
-	)
+	);
 };
 
 // export const ScrollCamera = () => {

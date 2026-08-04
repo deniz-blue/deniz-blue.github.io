@@ -1,6 +1,3 @@
 export const AuroraBackground = () => {
-    return (
-        <div
-        />
-    )
+	return <div />;
 };

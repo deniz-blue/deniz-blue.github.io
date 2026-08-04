@@ -1,21 +1,87 @@
 body {
 	background-color: black;
 	--color: #ffffff10;
-	background: radial-gradient(var(--color) 15%, transparent 16%) 0 0, radial-gradient(var(--color) 15%, transparent 16%) 6px 6px, radial-gradient(var(--color) 15%, transparent 20%) 0 1px, radial-gradient(var(--color) 15%, transparent 20%) 6px 7px;
+	background:
+		radial-gradient(var(--color) 15%, transparent 16%) 0 0,
+		radial-gradient(var(--color) 15%, transparent 16%) 6px 6px,
+		radial-gradient(var(--color) 15%, transparent 20%) 0 1px,
+		radial-gradient(var(--color) 15%, transparent 20%) 6px 7px;
 	background-size: 12px 12px;
 }
 
 .glass {
 	background-color: #161616;
 	--fill: #111111;
-	background-image: conic-gradient(from 60deg at 56.25% calc(425% / 6), transparent 0deg, transparent 0.5deg, var(--fill) 0.5deg, var(--fill) 119.5deg, transparent 119.5deg, transparent 120deg), conic-gradient(from 60deg at 56.25% calc(425% / 6), transparent 0deg, transparent 0.5deg, var(--fill) 0.5deg, var(--fill) 119.5deg, transparent 119.5deg, transparent 120deg), conic-gradient(from 180deg at 43.75% calc(425% / 6), transparent 0deg, transparent 0.5deg, var(--fill) 0.5deg, var(--fill) 119.5deg, transparent 119.5deg, transparent 120deg), conic-gradient(from 180deg at 43.75% calc(425% / 6), transparent 0deg, transparent 0.5deg, var(--fill) 0.5deg, var(--fill) 119.5deg, transparent 119.5deg, transparent 120deg), conic-gradient(from -60deg at 50% calc(175% / 12), transparent 0deg, transparent 0.5deg, var(--fill) 0.5deg, var(--fill) 119.5deg, transparent 119.5deg, transparent 120deg), conic-gradient(from -60deg at 50% calc(175% / 12), transparent 0deg, transparent 0.5deg, var(--fill) 0.5deg, var(--fill) 119.5deg, transparent 119.5deg, transparent 120deg);
-	background-position: 0 0, 12px 21px, 0 0, 12px 21px, 12px 0, 0 21px;
+	background-image:
+		conic-gradient(
+			from 60deg at 56.25% calc(425% / 6),
+			transparent 0deg,
+			transparent 0.5deg,
+			var(--fill) 0.5deg,
+			var(--fill) 119.5deg,
+			transparent 119.5deg,
+			transparent 120deg
+		),
+		conic-gradient(
+			from 60deg at 56.25% calc(425% / 6),
+			transparent 0deg,
+			transparent 0.5deg,
+			var(--fill) 0.5deg,
+			var(--fill) 119.5deg,
+			transparent 119.5deg,
+			transparent 120deg
+		),
+		conic-gradient(
+			from 180deg at 43.75% calc(425% / 6),
+			transparent 0deg,
+			transparent 0.5deg,
+			var(--fill) 0.5deg,
+			var(--fill) 119.5deg,
+			transparent 119.5deg,
+			transparent 120deg
+		),
+		conic-gradient(
+			from 180deg at 43.75% calc(425% / 6),
+			transparent 0deg,
+			transparent 0.5deg,
+			var(--fill) 0.5deg,
+			var(--fill) 119.5deg,
+			transparent 119.5deg,
+			transparent 120deg
+		),
+		conic-gradient(
+			from -60deg at 50% calc(175% / 12),
+			transparent 0deg,
+			transparent 0.5deg,
+			var(--fill) 0.5deg,
+			var(--fill) 119.5deg,
+			transparent 119.5deg,
+			transparent 120deg
+		),
+		conic-gradient(
+			from -60deg at 50% calc(175% / 12),
+			transparent 0deg,
+			transparent 0.5deg,
+			var(--fill) 0.5deg,
+			var(--fill) 119.5deg,
+			transparent 119.5deg,
+			transparent 120deg
+		);
+	background-position:
+		0 0,
+		12px 21px,
+		0 0,
+		12px 21px,
+		12px 0,
+		0 21px;
 	background-size: 24px 42px;
 }
 
 .round {
 	border-radius: var(--mantine-radius-md);
-	box-shadow: 0 0 0 1px var(--mantine-color-gray-9), 0;
+	box-shadow:
+		0 0 0 1px var(--mantine-color-gray-9),
+		0;
 }
 
 .thing {

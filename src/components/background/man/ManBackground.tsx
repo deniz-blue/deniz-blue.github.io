@@ -3,27 +3,20 @@ import MAN from "./man.ogg";
 import { useAudioUnlocker } from "../../../hooks/useAudioUnlocker";
 
 export const ManBackground = () => {
-    const audioRef = useAudioUnlocker();
+	const audioRef = useAudioUnlocker();
 
-    return (
-        <div
-            className="pageBackground"
-        >
-            <div
-                className="fullscreen"
-                style={{
-                    backgroundImage: `url("${TREE}")`,
-                    backgroundPosition: "center center",
-                    backgroundRepeat: "no-repeat",
-                }}
-            />
+	return (
+		<div className="pageBackground">
+			<div
+				className="fullscreen"
+				style={{
+					backgroundImage: `url("${TREE}")`,
+					backgroundPosition: "center center",
+					backgroundRepeat: "no-repeat",
+				}}
+			/>
 
-            <audio
-                src={MAN}
-                loop
-                autoPlay
-                ref={audioRef}
-            />
-        </div>
-    )
+			<audio src={MAN} loop autoPlay ref={audioRef} />
+		</div>
+	);
 };

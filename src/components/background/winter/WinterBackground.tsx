@@ -25,21 +25,11 @@ interface Snowflake {
 	sinkSpeed: number;
 	alpha: number;
 	sway: number;
-};
+}
 
-const SnowflakeColors = [
-	"#AAAACC",
-	"#DDDDFF",
-	"#CCCCDD",
-	"#F3F3F3",
-	"#F0FFFF",
-];
+const SnowflakeColors = ["#AAAACC", "#DDDDFF", "#CCCCDD", "#F3F3F3", "#F0FFFF"];
 
-const SnowflakeFonts = [
-	"Times",
-	"Arial",
-	"Verdana",
-];
+const SnowflakeFonts = ["Times", "Arial", "Verdana"];
 
 export const WinterBackground = () => {
 	const init: UseCanvasInit = useCallback((ctx) => {
@@ -52,17 +42,17 @@ export const WinterBackground = () => {
 		return {
 			update(dt: number) {
 				for (let flake of flakes) {
-					if ((flake.y + flake.size) >= ctx.canvas.height) {
+					if (flake.y + flake.size >= ctx.canvas.height) {
 						flake.y = ctx.canvas.height - flake.size;
 						if (flake.decay > 1) {
 							flakes.delete(flake);
 						} else {
-							flake.decay += (decaySpeed * flake.vy * dt);
+							flake.decay += decaySpeed * flake.vy * dt;
 						}
 					} else {
 						flake.vy += flake.sinkSpeed * 0.01 * dt;
-						flake.x += (wind.x * dt);
-						flake.y += (flake.vy * dt) + (wind.y * dt);
+						flake.x += wind.x * dt;
+						flake.y += flake.vy * dt + wind.y * dt;
 					}
 				}
 
@@ -92,12 +82,7 @@ export const WinterBackground = () => {
 					const x = flake.x + Math.sin(flake.y / 36) * flake.sway;
 					const y = flake.y;
 					// ctx.fillText("*", x, y);
-					ctx.fillRect(
-						x,
-						y,
-						flake.size,
-						flake.size,
-					);
+					ctx.fillRect(x, y, flake.size, flake.size);
 				}
 			},
 		};
@@ -107,60 +92,65 @@ export const WinterBackground = () => {
 
 	const audioRef = useAudioUnlocker();
 	useEffect(() => {
-		if (audioRef.current)
-			audioRef.current.volume = 0.1;
+		if (audioRef.current) audioRef.current.volume = 0.1;
 	}, [audioRef]);
 
 	return (
 		<div className="pageBackground fullscreen">
-			<audio
-				src={env_amb_worldmap}
-				ref={audioRef}
-				autoPlay
-				loop
-			/>
+			<audio src={env_amb_worldmap} ref={audioRef} autoPlay loop />
 
-			<canvas
-				className="fullscreen"
-				ref={ref}
-			/>
+			<canvas className="fullscreen" ref={ref} />
 
-			{([
-				[back, {}],
-				[c3bg0, {}],
-				[bgCloud, {
-					backgroundSize: "25%",
-					backgroundPositionY: "top",
-					backgroundRepeat: "repeat-x",
-					opacity: "0.2",
-				}],
-				[c3bg1, {}],
-				[c3bg3, {
-					backgroundSize: "100%",
-					backgroundPositionY: "bottom",
-					backgroundRepeat: "repeat-x",
-				}],
-				// [c0bg2, {
-				//     backgroundSize: "50%",
-				//     backgroundPositionY: "bottom",
-				//     backgroundRepeat: "repeat-x",
-				// }],
-				// [c0bg3, {
-				//     backgroundSize: "50%",
-				//     backgroundPositionY: "bottom",
-				//     backgroundRepeat: "repeat-x",
-				// }],
-				[c3bg3b, {
-					backgroundSize: "12.5%",
-					backgroundPositionY: "bottom",
-					backgroundRepeat: "repeat-x",
-				}],
-				[c3fg0, {
-					backgroundSize: "25%",
-					backgroundPositionY: "bottom",
-					backgroundRepeat: "repeat-x",
-				}],
-			] as [string, React.CSSProperties][]).map(([src, sx], i) => (
+			{(
+				[
+					[back, {}],
+					[c3bg0, {}],
+					[
+						bgCloud,
+						{
+							backgroundSize: "25%",
+							backgroundPositionY: "top",
+							backgroundRepeat: "repeat-x",
+							opacity: "0.2",
+						},
+					],
+					[c3bg1, {}],
+					[
+						c3bg3,
+						{
+							backgroundSize: "100%",
+							backgroundPositionY: "bottom",
+							backgroundRepeat: "repeat-x",
+						},
+					],
+					// [c0bg2, {
+					//     backgroundSize: "50%",
+					//     backgroundPositionY: "bottom",
+					//     backgroundRepeat: "repeat-x",
+					// }],
+					// [c0bg3, {
+					//     backgroundSize: "50%",
+					//     backgroundPositionY: "bottom",
+					//     backgroundRepeat: "repeat-x",
+					// }],
+					[
+						c3bg3b,
+						{
+							backgroundSize: "12.5%",
+							backgroundPositionY: "bottom",
+							backgroundRepeat: "repeat-x",
+						},
+					],
+					[
+						c3fg0,
+						{
+							backgroundSize: "25%",
+							backgroundPositionY: "bottom",
+							backgroundRepeat: "repeat-x",
+						},
+					],
+				] as [string, React.CSSProperties][]
+			).map(([src, sx], i) => (
 				<div
 					className="pageBackground"
 					key={i}
@@ -174,5 +164,5 @@ export const WinterBackground = () => {
 				/>
 			))}
 		</div>
-	)
+	);
 };

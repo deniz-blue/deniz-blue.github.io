@@ -9,7 +9,7 @@ const RESIZE_DEBOUNCE_MS = 120;
 
 export const StarfieldBackground = memo(() => {
 	// const [mounted, setMounted] = useState(false);
-	const loading = useStarfieldStore(store => store.loading);
+	const loading = useStarfieldStore((store) => store.loading);
 
 	// useEffect(() => {
 	// 	const id = requestAnimationFrame(() => setMounted(true));
@@ -29,12 +29,14 @@ export const StarfieldBackground = memo(() => {
 
 			<Transition mounted={loading} duration={200}>
 				{(styles) => (
-					<Affix position={{ bottom: 20, right: 20 }} zIndex={1000} style={{ ...styles, pointerEvents: "none" }}>
+					<Affix
+						position={{ bottom: 20, right: 20 }}
+						zIndex={1000}
+						style={{ ...styles, pointerEvents: "none" }}
+					>
 						<Paper p="xs">
 							<Group align="center" justify="center">
-								<Text>
-									Loading...
-								</Text>
+								<Text>Loading...</Text>
 								<Loader size="sm" />
 							</Group>
 						</Paper>
@@ -57,8 +59,8 @@ export const useStarfieldStore = create<{
 	canvas: null,
 	offscreen: null,
 	handleCanvasRef: (canvas: HTMLCanvasElement | null) => {
-		if(!canvas) return;
-		if(get().canvas === canvas) return;
+		if (!canvas) return;
+		if (get().canvas === canvas) return;
 
 		set({ canvas });
 
@@ -78,10 +80,8 @@ export const useStarfieldStore = create<{
 		set({ worker });
 
 		worker.postMessage({
-			type: "scroll", data: vec2(
-				0,
-				window.scrollY
-			)
+			type: "scroll",
+			data: vec2(0, window.scrollY),
 		});
 
 		worker.onmessage = (ev: MessageEvent<EffectsWorkerOutput>) => {
@@ -93,22 +93,24 @@ export const useStarfieldStore = create<{
 
 		return () => {};
 	},
-}))
+}));
 
 export const StarfieldCanvas = () => {
-	const canvas = useStarfieldStore(store => store.canvas);
+	const canvas = useStarfieldStore((store) => store.canvas);
 
 	useEffect(() => {
 		let abortController = new AbortController();
 
-		window.addEventListener("scroll", () => {
-			useStarfieldStore.getState().worker?.postMessage({
-				type: "scroll", data: vec2(
-					0,
-					window.scrollY
-				)
-			});
-		}, { signal: abortController.signal });
+		window.addEventListener(
+			"scroll",
+			() => {
+				useStarfieldStore.getState().worker?.postMessage({
+					type: "scroll",
+					data: vec2(0, window.scrollY),
+				});
+			},
+			{ signal: abortController.signal },
+		);
 
 		return () => {
 			abortController.abort();
@@ -125,7 +127,12 @@ export const StarfieldCanvas = () => {
 		const sendDimensions = () => {
 			const storeCanvas = canvas ?? useStarfieldStore.getState().canvas;
 			const width = Math.max(1, Math.round(storeCanvas?.clientWidth ?? window.innerWidth));
-			const height = Math.max(1, Math.round(storeCanvas?.clientHeight ?? (window.visualViewport?.height ?? window.innerHeight)));
+			const height = Math.max(
+				1,
+				Math.round(
+					storeCanvas?.clientHeight ?? window.visualViewport?.height ?? window.innerHeight,
+				),
+			);
 
 			if (width === lastWidth && height === lastHeight) return;
 			lastWidth = width;
@@ -163,11 +170,11 @@ export const StarfieldCanvas = () => {
 		};
 	}, [canvas]);
 
-	const handleCanvasRef = useStarfieldStore(store => store.handleCanvasRef);
+	const handleCanvasRef = useStarfieldStore((store) => store.handleCanvasRef);
 
 	return (
 		<canvas
-			ref={ref => {
+			ref={(ref) => {
 				try {
 					return handleCanvasRef(ref);
 				} catch (e) {
@@ -186,6 +193,3 @@ export const StarfieldCanvas = () => {
 		/>
 	);
 };
-
-
-

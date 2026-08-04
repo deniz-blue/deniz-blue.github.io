@@ -40,8 +40,8 @@ export const useBackgroundStore = create<{
 	setBackground: (bg: Background) => void;
 }>()((set, get) => ({
 	background: defaultBackground,
-	setBackground: (background) => set(state => ({ background })),
-}))
+	setBackground: (background) => set((state) => ({ background })),
+}));
 
 // @ts-ignore
 globalThis.useBackgroundStore = useBackgroundStore;
@@ -60,8 +60,8 @@ export const BackgroundComponentRegistry: Record<string, React.ComponentType<any
 };
 
 export const PageBackground = () => {
-	const background = useBackgroundStore(store => store.background);
-	const rain = useAppFlagsStore(store => store.rain);
+	const background = useBackgroundStore((store) => store.background);
+	const rain = useAppFlagsStore((store) => store.rain);
 
 	const content = useMemo(() => {
 		const Component = BackgroundComponentRegistry[background.type] ?? (() => null);
@@ -71,21 +71,23 @@ export const PageBackground = () => {
 				{rain && <RainForeground />}
 			</>
 		);
-	}, [JSON.stringify(background), rain])
+	}, [JSON.stringify(background), rain]);
 
 	return (
-		<div style={{
-			position: "absolute",
-			zIndex: -1,
-			pointerEvents: "none",
-			width: "100%",
-			height: "100%",
-			inset: 0,
-			minHeight: "100svh",
-		}}>
+		<div
+			style={{
+				position: "absolute",
+				zIndex: -1,
+				pointerEvents: "none",
+				width: "100%",
+				height: "100%",
+				inset: 0,
+				minHeight: "100svh",
+			}}
+		>
 			<Swapper
 				content={content}
-				duration={(background.type == "null" && background.data.fade !== true) ? 0 : 500}
+				duration={background.type == "null" && background.data.fade !== true ? 0 : 500}
 				styles={{
 					wrapper: {
 						width: "100%",
@@ -98,5 +100,5 @@ export const PageBackground = () => {
 				}}
 			/>
 		</div>
-	)
+	);
 };

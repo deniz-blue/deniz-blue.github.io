@@ -9,14 +9,13 @@ export default defineConfig({
 
 	plugins: [
 		react(),
-		VirtualModule(
-			"projects",
-			async () => {
-				const res = await fetch("https://raw.githubusercontent.com/deniz-blue/deniz-blue/refs/heads/main/projects.json");
-				const json = await res.json();
-				return `export const projects = ${JSON.stringify(json)};`;
-			},
-		),
+		VirtualModule("projects", async () => {
+			const res = await fetch(
+				"https://raw.githubusercontent.com/deniz-blue/deniz-blue/refs/heads/main/projects.json",
+			);
+			const json = await res.json();
+			return `export const projects = ${JSON.stringify(json)};`;
+		}),
 		// SimpleSSG(),
 	],
-})
+});

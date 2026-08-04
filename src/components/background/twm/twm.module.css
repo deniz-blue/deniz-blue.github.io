@@ -48,7 +48,6 @@
 	image-rendering: pixelated;
 }
 
-
 .backgroundItem {
 	position: absolute;
 	top: calc(var(--y) + (var(--scroll-y, 0) * 0.2px * var(--z)));

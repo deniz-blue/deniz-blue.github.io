@@ -11,16 +11,20 @@ You can actually use normal blocks to make it look more structured:
 ```javascript
 const value = 10;
 switch (value) {
-	case 1: {
-		console.log("one!!!");	
-	} break;
-	case 10: {
-		console.log("ten!!!");
-	} break;
+	case 1:
+		{
+			console.log("one!!!");
+		}
+		break;
+	case 10:
+		{
+			console.log("ten!!!");
+		}
+		break;
 	default: {
 		console.log("idk!!!");
 	}
-};
+}
 ```
 
 Having the braces around the cases makes it look more structured in my opinion.
@@ -30,12 +34,16 @@ Also, usually in a `switch` statement, you would switch on an expression and hav
 ```javascript
 const value = 10;
 switch (true) {
-	case value < 5: {
-		console.log("come back when you're mmmm a little richer");
-	} break;
-	case value === 67: {
-		console.log("r u serious");
-	} break;
+	case value < 5:
+		{
+			console.log("come back when you're mmmm a little richer");
+		}
+		break;
+	case value === 67:
+		{
+			console.log("r u serious");
+		}
+		break;
 	default: {
 		console.log("yea sure");
 	}
@@ -146,9 +154,8 @@ Do you have times when you want to call a function that returns something or ass
 You can use the `void` keyword to ignore the return type of an expression!
 
 ```typescript
-type O = { fn: () => void }
+type O = { fn: () => void };
 const o: O = {
 	fn: () => void Math.random(),
 };
 ```
-

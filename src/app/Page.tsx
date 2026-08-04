@@ -1,28 +1,28 @@
 import { Anchor, Box, Container, Group, Stack, Text, Title } from "@mantine/core";
 import { Thing } from "../components/Thing";
 import { PropsWithChildren } from "react";
-import sun from "./sun.png";
-import pluralring from "./pluralring.png";
-import minecraft from "./minecraft.webp";
-import osu from "./osu.png";
-import blueheart from "./blueheart.gif";
-import typescript from "./typescript.png";
-import react from "./react.ico";
-import rust from "./rust.png";
-import vite from "./vite.svg";
-import mantine from "./mantine.svg";
-import pages from "./pages.ico";
-import pnpm from "./pnpm.png";
-import arch from "./arch.ico";
-import niri from "./niri.svg";
-import figura from "./figura.gif";
-import create from "./create.webp";
-import deltarune from "./deltarune.ico";
-import github from "./github.svg";
-import bsky from "./bsky.png";
-import discord from "./discord.png";
-import matrix from "./matrix.svg";
-import therian from "./therian.svg";
+import sun from "./icons/sun.png";
+import pluralring from "./icons/pluralring.png";
+import minecraft from "./icons/minecraft.webp";
+import osu from "./icons/osu.png";
+import blueheart from "./icons/blueheart.gif";
+import typescript from "./icons/typescript.png";
+import react from "./icons/react.ico";
+import rust from "./icons/rust.png";
+import vite from "./icons/vite.svg";
+import mantine from "./icons/mantine.svg";
+import pages from "./icons/pages.ico";
+import pnpm from "./icons/pnpm.png";
+import arch from "./icons/arch.ico";
+import niri from "./icons/niri.svg";
+import figura from "./icons/figura.gif";
+import create from "./icons/create.webp";
+import deltarune from "./icons/deltarune.ico";
+import github from "./icons/github.svg";
+import bsky from "./icons/bsky.png";
+import discord from "./icons/discord.png";
+import matrix from "./icons/matrix.svg";
+import therian from "./icons/therian.svg";
 
 export const Page = () => {
 	return (
@@ -59,7 +59,7 @@ export const Page = () => {
 									<ProjectItem
 										icon="👗"
 										name="CosQR"
-										url="https://cos.tsx.lt/"
+										url="https://play.google.com/store/apps/details?id=lt.tsx.cos"
 										text="Share contacts offline."
 									/>
 									<ProjectItem
