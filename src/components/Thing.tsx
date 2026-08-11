@@ -11,7 +11,7 @@ export const Thing = ({
 	url?: string;
 	label?: string;
 }) => {
-	const size = 20;
+	const size = 24;
 	const img = icon ? (
 		<Image
 			src={icon}

@@ -32,7 +32,7 @@ export const Page = () => {
 					<Stack gap={0} py="xl" px="md" maw={500} className="glass round">
 						<Stack gap="lg">
 							<Title fw={600} c="#ffffff">
-								deniz 🌸
+								🌸 deniz
 							</Title>
 							<Stack gap={0}>
 								<Text>
@@ -57,10 +57,10 @@ export const Page = () => {
 										text="A modern event format."
 									/>
 									<ProjectItem
-										icon="👗"
-										name="CosQR"
-										url="https://play.google.com/store/apps/details?id=lt.tsx.cos"
-										text="Share contacts offline."
+										icon="🧭"
+										name="Vantage"
+										url="https://vantage.tsx.lt/"
+										text="Calendar using Open Evnt."
 									/>
 									<ProjectItem
 										icon="🪟"
@@ -72,9 +72,15 @@ export const Page = () => {
 							</Stack>
 							<Stack gap="xs">
 								<Text inline inherit span>
-									I'm maintaining:
+									I've made:
 								</Text>
 								<ProjectList>
+									<ProjectItem
+										icon="👗"
+										name="CosQR"
+										url="https://play.google.com/store/apps/details?id=lt.tsx.cos"
+										text="An app to share contacts at conventions."
+									/>
 									<ProjectItem
 										icon="📦"
 										name="mcman"
@@ -85,9 +91,38 @@ export const Page = () => {
 										icon="⚛️"
 										name="discord-jsx-renderer"
 										url="https://github.com/deniz-blue/discordjsx"
-										text="React for Discord bots."
+										text="React renderer for discord.js"
 									/>
 								</ProjectList>
+							</Stack>
+							<Stack gap={0}>
+								<Group gap="xs">
+									<Text inline inherit span>
+										Find me on:
+									</Text>
+									<Group gap={0}>
+										<Thing label="GitHub" url="https://github.com/deniz-blue" icon={github} />
+									</Group>
+								</Group>
+								<Group gap="xs">
+									<Text inline inherit span>
+										Contact me via:
+									</Text>
+									<Group gap={0}>
+										<Thing label="Email" url="mailto:deniz@deniz.blue" emoji="📧" />
+										<Thing
+											label="Discord"
+											url="https://deniz.blue/discord-invite/?id=1197520507617153064"
+											icon={discord}
+										/>
+										<Thing
+											label="Matrix"
+											url="https://matrix.to/#/@deniz:catgirl.cloud"
+											icon={matrix}
+										/>
+										<Thing label="BlueSky" url="https://bsky.app/profile/deniz.blue" icon={bsky} />
+									</Group>
+								</Group>
 							</Stack>
 							<Stack>
 								<Group gap="xs">
@@ -135,35 +170,6 @@ export const Page = () => {
 							</Stack>
 							<Stack gap={0}>
 								<Group gap="xs">
-									<Text inline inherit span>
-										Follow me on:
-									</Text>
-									<Group gap={0}>
-										<Thing label="GitHub" url="https://github.com/deniz-blue" icon={github} />
-										<Thing label="BlueSky" url="https://bsky.app/profile/deniz.blue" icon={bsky} />
-									</Group>
-								</Group>
-								<Group gap="xs">
-									<Text inline inherit span>
-										Contact me via:
-									</Text>
-									<Group gap={0}>
-										<Thing label="Email" url="mailto:deniz@deniz.blue" emoji="📧" />
-										<Thing
-											label="Discord"
-											url="https://deniz.blue/discord-invite/?id=1197520507617153064"
-											icon={discord}
-										/>
-										<Thing
-											label="Matrix"
-											url="https://matrix.to/#/@deniz:catgirl.cloud"
-											icon={matrix}
-										/>
-									</Group>
-								</Group>
-							</Stack>
-							<Stack gap={0}>
-								<Group gap="xs">
 									<Group gap={0}>
 										<Thing
 											label="This user is a Therian"
@@ -182,9 +188,6 @@ export const Page = () => {
 										/>
 									</Group>
 								</Group>
-								<Text c="#ffffff1a">
-									Be kind, for everyone you meet is fighting a harder battle.
-								</Text>
 							</Stack>
 						</Stack>
 					</Stack>
