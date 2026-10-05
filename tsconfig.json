@@ -1,24 +1,11 @@
 {
-	"include": ["**/*"],
+	"extends": "astro/tsconfigs/strict",
+	"include": [".astro/types.d.ts", "**/*"],
+	"exclude": ["dist"],
 	"compilerOptions": {
-		"lib": ["DOM", "DOM.Iterable", "ES2022"],
-		"types": ["vite/client"],
-		"target": "ES2022",
-		"module": "ES2022",
-		"moduleResolution": "bundler",
-		"jsx": "react-jsx",
+		"noUncheckedIndexedAccess": true,
 		"paths": {
 			"~/*": ["./src/*"]
-		},
-		"esModuleInterop": true,
-		"noEmit": true,
-		"resolveJsonModule": true,
-		"skipLibCheck": true,
-		"allowArbitraryExtensions": true,
-		"isolatedModules": true,
-		"allowSyntheticDefaultImports": true,
-		"allowImportingTsExtensions": true,
-		"allowJs": true,
-		"strict": true
+		}
 	}
 }

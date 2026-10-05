@@ -1,0 +1,70 @@
+---
+import Base from "~/layouts/Base.astro";
+import Flex from "~/components/Flex.astro";
+import Heading from "~/components/Heading.astro";
+---
+
+<Base title="deniz.blue">
+	<main>
+		<article>
+			<Flex>
+				<div class="frosted-glass heading">
+					<h1>deniz</h1>
+				</div>
+
+				<p>I make stuff on computers :3</p>
+
+				<section>
+					<Heading> javascript (deragatory) </Heading>
+					<p>
+						I really love this cursed language. You could even call
+						me a JavaScript witch!
+					</p>
+				</section>
+
+				<section>
+					<Heading> minecraft </Heading>
+					<p>
+						Best sandbox game? Outside playing it, toying with it is
+						fun too.
+					</p>
+
+					<span> </span>
+				</section>
+
+				<section>
+					<Heading> events & such </Heading>
+					<p>Sometimes I like to touch grass.</p>
+				</section>
+			</Flex>
+		</article>
+	</main>
+</Base>
+
+<style>
+	main {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		min-height: 100vh;
+	}
+
+	article {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 1rem;
+	}
+
+	h1 {
+		text-align: center;
+	}
+
+	.frosted-glass {
+		background: rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(2px);
+		border-radius: 0.5rem;
+	}
+</style>

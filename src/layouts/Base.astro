@@ -1,0 +1,93 @@
+---
+import "~/styles/global.css";
+
+interface Props {
+	title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="viewport"
+			content="width=device-width, initial-scale=1.0, viewport-fit=contain"
+		/>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{title}</title>
+	</head>
+	<body class="gradient">
+		<div class="fullsize dotgrid"></div>
+		<div class="fullsize vignette"></div>
+		<slot />
+	</body>
+</html>
+
+<style is:global>
+	:root {
+		--tint-left: #2e2290;
+		--tint-middle: #32285f;
+		--tint-right: #71203f;
+		--tint-top: #0a5468;
+		--tint-warm: #5f4440;
+		--tint-bottom: #141350;
+		--vignette: #07031a;
+	}
+
+	.fullsize {
+		position: absolute;
+		inset: 0;
+		pointer-events: none;
+	}
+
+	.gradient {
+		background:
+			radial-gradient(
+				ellipse 80% 85% at 50% 50%,
+				transparent 60%,
+				var(--vignette) 100%
+			),
+			radial-gradient(
+				45% 60% at 40% 0%,
+				var(--tint-top),
+				transparent 80%
+			),
+			radial-gradient(
+				30% 50% at 72% 0%,
+				var(--tint-warm),
+				transparent 80%
+			),
+			radial-gradient(
+				70% 45% at 45% 100%,
+				var(--tint-bottom),
+				transparent 85%
+			),
+			linear-gradient(
+				90deg,
+				var(--tint-left),
+				var(--tint-middle) 48%,
+				var(--tint-right)
+			);
+	}
+
+	.dotgrid {
+		--dot: #ffffff10;
+		background: radial-gradient(var(--dot) 2px, transparent 1.4px) 0 0/22px
+			22px;
+	}
+
+	.vignette {
+		background: radial-gradient(
+			ellipse at center,
+			transparent 80%,
+			#0000005c 100%
+		);
+	}
+</style>

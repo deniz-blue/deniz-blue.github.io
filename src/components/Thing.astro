@@ -1,0 +1,32 @@
+---
+interface Props {
+	label: string;
+	url: string;
+	icon?: string;
+	emoji?: string;
+}
+
+const { label, url, icon, emoji } = Astro.props;
+---
+
+<a class="thing" href={url} title={label} aria-label={label} target="_blank" rel="noopener noreferrer">
+	{icon ? <img src={icon} alt="" width="24" height="24" /> : <span aria-hidden="true">{emoji}</span>}
+</a>
+
+<style>
+	.thing {
+		display: inline-block;
+		padding: 0 4px;
+		vertical-align: middle;
+		transition: transform 0.2s ease-in-out;
+	}
+
+	.thing:hover {
+		transform: scale(1.1);
+		text-decoration: none;
+	}
+
+	img {
+		display: block;
+	}
+</style>
