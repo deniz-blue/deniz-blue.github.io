@@ -1,0 +1,1297 @@
+{
+	"textureSize": {
+		"width": 64,
+		"height": 64
+	},
+	"layers": {
+		"head": [
+			{
+				"name": "root",
+				"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-root, translateZ(0))",
+				"faces": [],
+				"children": [
+					{
+						"name": "Head",
+						"transform": "translate3d(0px,-192px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-Head, translateZ(0))",
+						"faces": [],
+						"children": [
+							{
+								"name": "Head",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+								"faces": [
+									{
+										"width": 64,
+										"height": 64,
+										"offsetU": 0,
+										"offsetV": 64,
+										"matrix": "0,0,1,0,0,1,0,0,-1,0,0,0,-32,-64,-32,1",
+										"direction": "east",
+										"texture": 1
+									},
+									{
+										"width": 64,
+										"height": 64,
+										"offsetU": 128,
+										"offsetV": 64,
+										"matrix": "0,0,-1,0,0,1,0,0,1,0,0,0,32,-64,32,1",
+										"direction": "west",
+										"texture": 1
+									},
+									{
+										"width": 64,
+										"height": 64,
+										"offsetU": 64,
+										"offsetV": 0,
+										"matrix": "1,0,0,0,0,0,1,0,0,-1,0,0,-32,-64,-32,1",
+										"direction": "up",
+										"texture": 1
+									},
+									{
+										"width": 64,
+										"height": 64,
+										"offsetU": 128,
+										"offsetV": 0,
+										"matrix": "1,0,0,0,0,0,1,0,0,-1,0,0,-32,0,-32,1",
+										"direction": "down",
+										"texture": 1
+									},
+									{
+										"width": 64,
+										"height": 64,
+										"offsetU": 64,
+										"offsetV": 64,
+										"matrix": "1,0,0,0,0,1,0,0,0,0,1,0,-32,-64,32,1",
+										"direction": "north",
+										"texture": 1
+									}
+								],
+								"children": []
+							},
+							{
+								"name": "Hat",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+								"faces": [
+									{
+										"width": 64,
+										"height": 64,
+										"offsetU": 256,
+										"offsetV": 64,
+										"matrix": "0,0,1.125,0,0,1.125,0,0,-1,0,0,0,-36,-68,-36,1",
+										"direction": "east",
+										"texture": 1
+									},
+									{
+										"width": 64,
+										"height": 64,
+										"offsetU": 384,
+										"offsetV": 64,
+										"matrix": "0,0,-1.125,0,0,1.125,0,0,1,0,0,0,36,-68,36,1",
+										"direction": "west",
+										"texture": 1
+									},
+									{
+										"width": 64,
+										"height": 64,
+										"offsetU": 320,
+										"offsetV": 0,
+										"matrix": "1.125,0,0,0,0,0,1.125,0,0,-1,0,0,-36,-68,-36,1",
+										"direction": "up",
+										"texture": 1
+									},
+									{
+										"width": 64,
+										"height": 64,
+										"offsetU": 384,
+										"offsetV": 0,
+										"matrix": "1.125,0,0,0,0,0,1.125,0,0,-1,0,0,-36,4,-36,1",
+										"direction": "down",
+										"texture": 1
+									},
+									{
+										"width": 64,
+										"height": 64,
+										"offsetU": 320,
+										"offsetV": 64,
+										"matrix": "1.125,0,0,0,0,1.125,0,0,0,0,1,0,-36,-68,36,1",
+										"direction": "north",
+										"texture": 1
+									}
+								],
+								"children": []
+							},
+							{
+								"name": "Eyes",
+								"transform": "translate3d(8px,-10px,31.6px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-Eyes, translateZ(0))",
+								"faces": [],
+								"children": [
+									{
+										"name": "Sclera",
+										"transform": "translate3d(0px,-8px,-0.24px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+										"faces": [
+											{
+												"width": 48,
+												"height": 24,
+												"offsetU": 448,
+												"offsetV": 200,
+												"matrix": "1,0,0,0,0,0.6667,0,0,0,0,1,0,-32,-6,0,1",
+												"direction": "north",
+												"texture": 1
+											}
+										],
+										"children": []
+									},
+									{
+										"name": "Irises",
+										"transform": "translate3d(0px,224px,-32px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-Irises, translateZ(0))",
+										"faces": [],
+										"children": [
+											{
+												"name": "LeftIris",
+												"transform": "translate3d(12px,-224px,31.84px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeftIris, translateZ(0))",
+												"faces": [],
+												"children": [
+													{
+														"name": "Iris",
+														"transform": "translate3d(-6px,2px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+														"faces": [
+															{
+																"width": 8,
+																"height": 8,
+																"offsetU": 480,
+																"offsetV": 184,
+																"matrix": "1,0,0,0,0,2,0,0,0,0,1,0,-6,-16,0,1",
+																"direction": "north",
+																"texture": 1
+															}
+														],
+														"children": []
+													}
+												]
+											},
+											{
+												"name": "RightIris",
+												"transform": "translate3d(-12px,-224px,31.84px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-RightIris, translateZ(0))",
+												"faces": [],
+												"children": [
+													{
+														"name": "Iris",
+														"transform": "translate3d(-8px,2px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+														"faces": [
+															{
+																"width": 8,
+																"height": 8,
+																"offsetU": 456,
+																"offsetV": 184,
+																"matrix": "1,0,0,0,0,2,0,0,0,0,1,0,-4,-16,0,1",
+																"direction": "north",
+																"texture": 1
+															}
+														],
+														"children": []
+													}
+												]
+											}
+										]
+									},
+									{
+										"name": "Eyelids",
+										"transform": "translate3d(0px,224px,-32px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-Eyelids, translateZ(0))",
+										"faces": [],
+										"children": [
+											{
+												"name": "LeftEyelid",
+												"transform": "translate3d(12px,-240px,31.92px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeftEyelid, translateZ(0))",
+												"faces": [],
+												"children": [
+													{
+														"name": "Eyelid",
+														"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+														"faces": [
+															{
+																"width": 16,
+																"height": 16,
+																"offsetU": 448,
+																"offsetV": 128,
+																"matrix": "1,0,0,0,0,1,0,0,0,0,1,0,-12,-8,0,1",
+																"direction": "north",
+																"texture": 1
+															}
+														],
+														"children": []
+													},
+													{
+														"name": "LeftBrow",
+														"transform": "translate3d(-2px,4px,0.16px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeftBrow, translateZ(0))",
+														"faces": [],
+														"children": [
+															{
+																"name": "Brow",
+																"transform": "translate3d(2px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+																"faces": [
+																	{
+																		"width": 16,
+																		"height": 8,
+																		"offsetU": 480,
+																		"offsetV": 176,
+																		"matrix": "1,0,0,0,0,1,0,0,0,0,1,0,-12,-4,0,1",
+																		"direction": "north",
+																		"texture": 1
+																	}
+																],
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"name": "RightEyelid",
+												"transform": "translate3d(-12px,-240px,31.92px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-RightEyelid, translateZ(0))",
+												"faces": [],
+												"children": [
+													{
+														"name": "Eyelid",
+														"transform": "translate3d(-12px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+														"faces": [
+															{
+																"width": 16,
+																"height": 16,
+																"offsetU": 448,
+																"offsetV": 128,
+																"matrix": "1,0,0,0,0,1,0,0,0,0,1,0,-8,-8,0,1",
+																"direction": "north",
+																"texture": 1
+															}
+														],
+														"children": []
+													},
+													{
+														"name": "RightBrow",
+														"transform": "translate3d(0px,4px,0.16px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-RightBrow, translateZ(0))",
+														"faces": [],
+														"children": [
+															{
+																"name": "Brow",
+																"transform": "translate3d(-12px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+																"faces": [
+																	{
+																		"width": 16,
+																		"height": 8,
+																		"offsetU": 448,
+																		"offsetV": 176,
+																		"matrix": "1,0,0,0,0,1,0,0,0,0,1,0,-8,-4,0,1",
+																		"direction": "north",
+																		"texture": 1
+																	}
+																],
+																"children": []
+															}
+														]
+													}
+												]
+											}
+										]
+									}
+								]
+							},
+							{
+								"name": "CatEars",
+								"transform": "translate3d(0px,-40px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-CatEars, translateZ(0))",
+								"faces": [],
+								"children": [
+									{
+										"name": "LeftCatEar",
+										"transform": "translate3d(21.3334px,-10.6666px,-2.6666px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeftCatEar, translateZ(0))",
+										"faces": [],
+										"children": [
+											{
+												"name": "Shape",
+												"transform": "translate3d(0px,0px,0px) rotateZ(-143.98997deg) rotateY(-26.32776deg) rotateX(-14.92735deg) var(--pose-Shape, translateZ(0))",
+												"faces": [],
+												"children": [
+													{
+														"name": "cube",
+														"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+														"faces": [
+															{
+																"width": 16,
+																"height": 80,
+																"offsetU": 48,
+																"offsetV": 0,
+																"matrix": "0,0,0.3333,0,0,0.3333,0,0,-1,0,0,0,-15.6159,29.6778,-3.1682,1",
+																"direction": "east",
+																"texture": 0
+															},
+															{
+																"width": 16,
+																"height": 80,
+																"offsetU": 112,
+																"offsetV": 0,
+																"matrix": "0,0,-0.3333,0,0,0.3333,0,0,1,0,0,0,0.3841,29.6778,2.1651,1",
+																"direction": "west",
+																"texture": 0
+															},
+															{
+																"width": 48,
+																"height": 80,
+																"offsetU": 64,
+																"offsetV": 0,
+																"matrix": "-0.3333,0,0,0,0,0.3333,0,0,0,0,-1,0,0.3841,29.6778,-3.1682,1",
+																"direction": "south",
+																"texture": 0
+															},
+															{
+																"width": 48,
+																"height": 80,
+																"offsetU": 0,
+																"offsetV": 0,
+																"matrix": "0.3333,0,0,0,0,0.3333,0,0,0,0,1,0,-15.6159,29.6778,2.1651,1",
+																"direction": "north",
+																"texture": 0
+															}
+														],
+														"children": []
+													},
+													{
+														"name": "cube",
+														"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+														"faces": [
+															{
+																"width": 8,
+																"height": 80,
+																"offsetU": 176,
+																"offsetV": 0,
+																"matrix": "0,0,-0.1333,0,0,0.3333,0,0,1,0,0,0,-0.6826,-1.2554,10.1333,1",
+																"direction": "west",
+																"texture": 0
+															},
+															{
+																"width": 48,
+																"height": 80,
+																"offsetU": 128,
+																"offsetV": 0,
+																"matrix": "0.3333,0,0,0,0,0.3333,0,0,0,0,1,0,-16.6826,-1.2554,10.1333,1",
+																"direction": "north",
+																"texture": 0
+															}
+														],
+														"children": []
+													},
+													{
+														"name": "cube",
+														"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+														"faces": [
+															{
+																"width": 40,
+																"height": 112,
+																"offsetU": 280,
+																"offsetV": 0,
+																"matrix": "0,0,0.3333,0,0,0.3333,0,0,-1,0,0,0,-26.2826,-2.3222,-7.4349,1",
+																"direction": "east",
+																"texture": 0
+															},
+															{
+																"width": 40,
+																"height": 112,
+																"offsetU": 416,
+																"offsetV": 0,
+																"matrix": "0,0,-0.3333,0,0,0.3333,0,0,1,0,0,0,5.7174,-2.3222,5.8984,1",
+																"direction": "west",
+																"texture": 0
+															},
+															{
+																"width": 96,
+																"height": 40,
+																"offsetU": 0,
+																"offsetV": 112,
+																"matrix": "-0.3333,0,0,0,0,0,-0.3333,0,0,-1,0,0,5.7174,-2.3222,5.8984,1",
+																"direction": "up",
+																"texture": 0
+															},
+															{
+																"width": 96,
+																"height": 40,
+																"offsetU": 96,
+																"offsetV": 112,
+																"matrix": "-0.3333,0,0,0,0,0,0.3333,0,0,1,0,0,5.7174,35.0112,-7.4349,1",
+																"direction": "down",
+																"texture": 0
+															},
+															{
+																"width": 96,
+																"height": 112,
+																"offsetU": 320,
+																"offsetV": 0,
+																"matrix": "-0.3333,0,0,0,0,0.3333,0,0,0,0,-1,0,5.7174,-2.3222,-7.4349,1",
+																"direction": "south",
+																"texture": 0
+															},
+															{
+																"width": 96,
+																"height": 112,
+																"offsetU": 184,
+																"offsetV": 0,
+																"matrix": "0.3333,0,0,0,0,0.3333,0,0,0,0,1,0,-26.2826,-2.3222,5.8984,1",
+																"direction": "north",
+																"texture": 0
+															}
+														],
+														"children": []
+													},
+													{
+														"name": "Tilted",
+														"transform": "translate3d(-9.4908px,0.3053px,25.6px) rotateZ(20deg) rotateY(0deg) rotateX(2.5deg) var(--pose-Tilted, translateZ(0))",
+														"faces": [],
+														"children": [
+															{
+																"name": "cube",
+																"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+																"faces": [
+																	{
+																		"width": 32,
+																		"height": 176,
+																		"offsetU": 240,
+																		"offsetV": 112,
+																		"matrix": "0,0,0.3333,0,0,0.3333,0,0,-1,0,0,0,10.1334,-17.655,-33.6,1",
+																		"direction": "east",
+																		"texture": 0
+																	},
+																	{
+																		"width": 32,
+																		"height": 176,
+																		"offsetU": 320,
+																		"offsetV": 112,
+																		"matrix": "0,0,-0.3333,0,0,0.3333,0,0,1,0,0,0,26.1334,-17.655,-22.9334,1",
+																		"direction": "west",
+																		"texture": 0
+																	},
+																	{
+																		"width": 48,
+																		"height": 32,
+																		"offsetU": 352,
+																		"offsetV": 112,
+																		"matrix": "-0.3333,0,0,0,0,0,-0.3333,0,0,-1,0,0,26.1334,-17.655,-22.9334,1",
+																		"direction": "up",
+																		"texture": 0
+																	},
+																	{
+																		"width": 48,
+																		"height": 32,
+																		"offsetU": 352,
+																		"offsetV": 112,
+																		"matrix": "-0.3333,0,0,0,0,0,0.3333,0,0,1,0,0,26.1334,41.0116,-33.6,1",
+																		"direction": "down",
+																		"texture": 0
+																	},
+																	{
+																		"width": 48,
+																		"height": 176,
+																		"offsetU": 272,
+																		"offsetV": 112,
+																		"matrix": "-0.3333,0,0,0,0,0.3333,0,0,0,0,-1,0,26.1334,-17.655,-33.6,1",
+																		"direction": "south",
+																		"texture": 0
+																	},
+																	{
+																		"width": 48,
+																		"height": 176,
+																		"offsetU": 192,
+																		"offsetV": 112,
+																		"matrix": "0.3333,0,0,0,0,0.3333,0,0,0,0,1,0,10.1334,-17.655,-22.9334,1",
+																		"direction": "north",
+																		"texture": 0
+																	}
+																],
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"name": "Bell",
+												"transform": "translate3d(0px,0px,0px) rotateZ(-95.86815deg) rotateY(-6.21271deg) rotateX(-29.40842deg)",
+												"faces": [
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 456,
+														"offsetV": 112,
+														"matrix": "0,0,0.2857,0,0,0.2857,0,0,-1,0,0,0,-18.3782,3.0078,2.8629,1",
+														"direction": "east",
+														"texture": 0
+													},
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 456,
+														"offsetV": 112,
+														"matrix": "0,0,-0.2857,0,0,0.2857,0,0,1,0,0,0,-2.3782,3.0078,18.8629,1",
+														"direction": "west",
+														"texture": 0
+													},
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 456,
+														"offsetV": 112,
+														"matrix": "-0.2857,0,0,0,0,0,-0.2857,0,0,-1,0,0,-2.3782,3.0078,18.8629,1",
+														"direction": "up",
+														"texture": 0
+													},
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 456,
+														"offsetV": 112,
+														"matrix": "-0.2857,0,0,0,0,0,0.2857,0,0,1,0,0,-2.3782,19.0078,2.8629,1",
+														"direction": "down",
+														"texture": 0
+													},
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 456,
+														"offsetV": 112,
+														"matrix": "-0.2857,0,0,0,0,0.2857,0,0,0,0,-1,0,-2.3782,3.0078,2.8629,1",
+														"direction": "south",
+														"texture": 0
+													},
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 400,
+														"offsetV": 112,
+														"matrix": "0.2857,0,0,0,0,0.2857,0,0,0,0,1,0,-18.3782,3.0078,18.8629,1",
+														"direction": "north",
+														"texture": 0
+													}
+												],
+												"children": []
+											}
+										]
+									},
+									{
+										"name": "RightCatEar",
+										"transform": "translate3d(-21.3334px,-10.6666px,-2.6666px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-RightCatEar, translateZ(0))",
+										"faces": [],
+										"children": [
+											{
+												"name": "Shape",
+												"transform": "translate3d(0px,0px,0px) rotateZ(143.98997deg) rotateY(26.32776deg) rotateX(-14.92735deg) var(--pose-Shape, translateZ(0))",
+												"faces": [],
+												"children": [
+													{
+														"name": "cube",
+														"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+														"faces": [
+															{
+																"width": 16,
+																"height": 80,
+																"offsetU": 112,
+																"offsetV": 0,
+																"matrix": "0,0,-0.3333,0,0,0.3333,0,0,1,0,0,0,-0.3841,29.6778,2.1651,1",
+																"direction": "east",
+																"texture": 0
+															},
+															{
+																"width": 16,
+																"height": 80,
+																"offsetU": 48,
+																"offsetV": 0,
+																"matrix": "0,0,0.3333,0,0,0.3333,0,0,-1,0,0,0,15.6159,29.6778,-3.1682,1",
+																"direction": "west",
+																"texture": 0
+															},
+															{
+																"width": 48,
+																"height": 80,
+																"offsetU": 64,
+																"offsetV": 0,
+																"matrix": "0.3333,0,0,0,0,0.3333,0,0,0,0,1,0,-0.3841,29.6778,-3.1682,1",
+																"direction": "south",
+																"texture": 0
+															},
+															{
+																"width": 48,
+																"height": 80,
+																"offsetU": 0,
+																"offsetV": 0,
+																"matrix": "-0.3333,0,0,0,0,0.3333,0,0,0,0,-1,0,15.6159,29.6778,2.1651,1",
+																"direction": "north",
+																"texture": 0
+															}
+														],
+														"children": []
+													},
+													{
+														"name": "cube",
+														"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+														"faces": [
+															{
+																"width": 8,
+																"height": 80,
+																"offsetU": 176,
+																"offsetV": 0,
+																"matrix": "0,0,-0.1333,0,0,0.3333,0,0,1,0,0,0,0.6826,-1.2554,10.1333,1",
+																"direction": "east",
+																"texture": 0
+															},
+															{
+																"width": 48,
+																"height": 80,
+																"offsetU": 128,
+																"offsetV": 0,
+																"matrix": "-0.3333,0,0,0,0,0.3333,0,0,0,0,-1,0,16.6826,-1.2554,10.1333,1",
+																"direction": "north",
+																"texture": 0
+															}
+														],
+														"children": []
+													},
+													{
+														"name": "cube",
+														"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+														"faces": [
+															{
+																"width": 40,
+																"height": 112,
+																"offsetU": 416,
+																"offsetV": 0,
+																"matrix": "0,0,-0.3333,0,0,0.3333,0,0,1,0,0,0,-5.7174,-2.3222,5.8984,1",
+																"direction": "east",
+																"texture": 0
+															},
+															{
+																"width": 40,
+																"height": 112,
+																"offsetU": 280,
+																"offsetV": 0,
+																"matrix": "0,0,0.3333,0,0,0.3333,0,0,-1,0,0,0,26.2826,-2.3222,-7.4349,1",
+																"direction": "west",
+																"texture": 0
+															},
+															{
+																"width": 96,
+																"height": 40,
+																"offsetU": 0,
+																"offsetV": 112,
+																"matrix": "0.3333,0,0,0,0,0,-0.3333,0,0,1,0,0,-5.7174,-2.3222,5.8984,1",
+																"direction": "up",
+																"texture": 0
+															},
+															{
+																"width": 96,
+																"height": 40,
+																"offsetU": 96,
+																"offsetV": 112,
+																"matrix": "0.3333,0,0,0,0,0,0.3333,0,0,-1,0,0,-5.7174,35.0112,-7.4349,1",
+																"direction": "down",
+																"texture": 0
+															},
+															{
+																"width": 96,
+																"height": 112,
+																"offsetU": 320,
+																"offsetV": 0,
+																"matrix": "0.3333,0,0,0,0,0.3333,0,0,0,0,1,0,-5.7174,-2.3222,-7.4349,1",
+																"direction": "south",
+																"texture": 0
+															},
+															{
+																"width": 96,
+																"height": 112,
+																"offsetU": 184,
+																"offsetV": 0,
+																"matrix": "-0.3333,0,0,0,0,0.3333,0,0,0,0,-1,0,26.2826,-2.3222,5.8984,1",
+																"direction": "north",
+																"texture": 0
+															}
+														],
+														"children": []
+													},
+													{
+														"name": "Tilted",
+														"transform": "translate3d(9.4908px,0.3053px,25.6px) rotateZ(-20deg) rotateY(0deg) rotateX(2.5deg) var(--pose-Tilted, translateZ(0))",
+														"faces": [],
+														"children": [
+															{
+																"name": "cube",
+																"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+																"faces": [
+																	{
+																		"width": 32,
+																		"height": 176,
+																		"offsetU": 320,
+																		"offsetV": 112,
+																		"matrix": "0,0,-0.3333,0,0,0.3333,0,0,1,0,0,0,-26.1334,-17.655,-22.9334,1",
+																		"direction": "east",
+																		"texture": 0
+																	},
+																	{
+																		"width": 32,
+																		"height": 176,
+																		"offsetU": 240,
+																		"offsetV": 112,
+																		"matrix": "0,0,0.3333,0,0,0.3333,0,0,-1,0,0,0,-10.1334,-17.655,-33.6,1",
+																		"direction": "west",
+																		"texture": 0
+																	},
+																	{
+																		"width": 48,
+																		"height": 32,
+																		"offsetU": 352,
+																		"offsetV": 112,
+																		"matrix": "0.3333,0,0,0,0,0,-0.3333,0,0,1,0,0,-26.1334,-17.655,-22.9334,1",
+																		"direction": "up",
+																		"texture": 0
+																	},
+																	{
+																		"width": 48,
+																		"height": 32,
+																		"offsetU": 352,
+																		"offsetV": 112,
+																		"matrix": "0.3333,0,0,0,0,0,0.3333,0,0,-1,0,0,-26.1334,41.0116,-33.6,1",
+																		"direction": "down",
+																		"texture": 0
+																	},
+																	{
+																		"width": 48,
+																		"height": 176,
+																		"offsetU": 272,
+																		"offsetV": 112,
+																		"matrix": "0.3333,0,0,0,0,0.3333,0,0,0,0,1,0,-26.1334,-17.655,-33.6,1",
+																		"direction": "south",
+																		"texture": 0
+																	},
+																	{
+																		"width": 48,
+																		"height": 176,
+																		"offsetU": 192,
+																		"offsetV": 112,
+																		"matrix": "-0.3333,0,0,0,0,0.3333,0,0,0,0,-1,0,-10.1334,-17.655,-22.9334,1",
+																		"direction": "north",
+																		"texture": 0
+																	}
+																],
+																"children": []
+															}
+														]
+													}
+												]
+											},
+											{
+												"name": "Bell",
+												"transform": "translate3d(0px,0px,0px) rotateZ(95.86815deg) rotateY(6.21271deg) rotateX(-29.40842deg)",
+												"faces": [
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 456,
+														"offsetV": 112,
+														"matrix": "0,0,-0.2857,0,0,0.2857,0,0,1,0,0,0,2.3782,3.0078,18.8629,1",
+														"direction": "east",
+														"texture": 0
+													},
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 456,
+														"offsetV": 112,
+														"matrix": "0,0,0.2857,0,0,0.2857,0,0,-1,0,0,0,18.3782,3.0078,2.8629,1",
+														"direction": "west",
+														"texture": 0
+													},
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 456,
+														"offsetV": 112,
+														"matrix": "0.2857,0,0,0,0,0,-0.2857,0,0,1,0,0,2.3782,3.0078,18.8629,1",
+														"direction": "up",
+														"texture": 0
+													},
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 456,
+														"offsetV": 112,
+														"matrix": "0.2857,0,0,0,0,0,0.2857,0,0,-1,0,0,2.3782,19.0078,2.8629,1",
+														"direction": "down",
+														"texture": 0
+													},
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 456,
+														"offsetV": 112,
+														"matrix": "0.2857,0,0,0,0,0.2857,0,0,0,0,1,0,2.3782,3.0078,2.8629,1",
+														"direction": "south",
+														"texture": 0
+													},
+													{
+														"width": 56,
+														"height": 56,
+														"offsetU": 400,
+														"offsetV": 112,
+														"matrix": "-0.2857,0,0,0,0,0.2857,0,0,0,0,-1,0,18.3782,3.0078,18.8629,1",
+														"direction": "north",
+														"texture": 0
+													}
+												],
+												"children": []
+											}
+										]
+									}
+								]
+							},
+							{
+								"name": "LeftSpyglassPivot",
+								"transform": "translate3d(16px,-32px,32px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeftSpyglassPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							},
+							{
+								"name": "RightSpyglassPivot",
+								"transform": "translate3d(-16px,-32px,32px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-RightSpyglassPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							},
+							{
+								"name": "HelmetItemPivot",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-HelmetItemPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							},
+							{
+								"name": "HelmetPivot",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-HelmetPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							}
+						]
+					}
+				]
+			}
+		],
+		"body": [
+			{
+				"name": "root",
+				"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-root, translateZ(0))",
+				"faces": [],
+				"children": [
+					{
+						"name": "Body",
+						"transform": "translate3d(0px,-192px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-Body, translateZ(0))",
+						"faces": [],
+						"children": [
+							{
+								"name": "Body",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+								"faces": [
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 128,
+										"offsetV": 160,
+										"matrix": "0,0,1,0,0,1,0,0,-1,0,0,0,-32,0,-16,1",
+										"direction": "east",
+										"texture": 1
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 224,
+										"offsetV": 160,
+										"matrix": "0,0,-1,0,0,1,0,0,1,0,0,0,32,0,16,1",
+										"direction": "west",
+										"texture": 1
+									},
+									{
+										"width": 64,
+										"height": 32,
+										"offsetU": 160,
+										"offsetV": 128,
+										"matrix": "1,0,0,0,0,0,1,0,0,-1,0,0,-32,0,-16,1",
+										"direction": "up",
+										"texture": 1
+									},
+									{
+										"width": 64,
+										"height": 96,
+										"offsetU": 160,
+										"offsetV": 160,
+										"matrix": "1,0,0,0,0,1,0,0,0,0,1,0,-32,0,16,1",
+										"direction": "north",
+										"texture": 1
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 128,
+										"offsetV": 160,
+										"matrix": "0,0,1.025,0,0,1.0083,0,0,-1,0,0,0,-32.4,-0.4,-16.4,1",
+										"direction": "east",
+										"texture": 2
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 224,
+										"offsetV": 160,
+										"matrix": "0,0,-1.025,0,0,1.0083,0,0,1,0,0,0,32.4,-0.4,16.4,1",
+										"direction": "west",
+										"texture": 2
+									},
+									{
+										"width": 64,
+										"height": 32,
+										"offsetU": 160,
+										"offsetV": 128,
+										"matrix": "1.0125,0,0,0,0,0,1.025,0,0,-1,0,0,-32.4,-0.4,-16.4,1",
+										"direction": "up",
+										"texture": 2
+									},
+									{
+										"width": 64,
+										"height": 96,
+										"offsetU": 160,
+										"offsetV": 160,
+										"matrix": "1.0125,0,0,0,0,1.0083,0,0,0,0,1,0,-32.4,-0.4,16.4,1",
+										"direction": "north",
+										"texture": 2
+									}
+								],
+								"children": []
+							},
+							{
+								"name": "Jacket",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+								"faces": [
+									{
+										"width": 64,
+										"height": 96,
+										"offsetU": 160,
+										"offsetV": 288,
+										"matrix": "1.065,0,0,0,0,1.0433,0,0,0,0,1,0,-34.08,-2.08,18.08,1",
+										"direction": "north",
+										"texture": 2
+									}
+								],
+								"children": []
+							},
+							{
+								"name": "LeftParrotPivot",
+								"transform": "translate3d(48px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeftParrotPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							},
+							{
+								"name": "RightParrotPivot",
+								"transform": "translate3d(-48px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-RightParrotPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							},
+							{
+								"name": "ChestplatePivot",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-ChestplatePivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							},
+							{
+								"name": "LeftElytraPivot",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeftElytraPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							},
+							{
+								"name": "RightElytraPivot",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-RightElytraPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							},
+							{
+								"name": "LeggingsPivot",
+								"transform": "translate3d(0px,96px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeggingsPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							}
+						]
+					}
+				]
+			}
+		],
+		"arms": [
+			{
+				"name": "root",
+				"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-root, translateZ(0))",
+				"faces": [],
+				"children": [
+					{
+						"name": "LeftArm",
+						"transform": "translate3d(40px,-176px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeftArm, translateZ(0))",
+						"faces": [],
+						"children": [
+							{
+								"name": "LeftArm",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+								"faces": [
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 256,
+										"offsetV": 416,
+										"matrix": "0,0,1,0,0,1,0,0,-1,0,0,0,-8,-16,-16,1",
+										"direction": "east",
+										"texture": 1
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 312,
+										"offsetV": 416,
+										"matrix": "0,0,-1,0,0,1,0,0,1,0,0,0,16,-16,16,1",
+										"direction": "west",
+										"texture": 1
+									},
+									{
+										"width": 24,
+										"height": 32,
+										"offsetU": 312,
+										"offsetV": 384,
+										"matrix": "1,0,0,0,0,0,1,0,0,-1,0,0,-8,80,-16,1",
+										"direction": "down",
+										"texture": 1
+									},
+									{
+										"width": 24,
+										"height": 96,
+										"offsetU": 288,
+										"offsetV": 416,
+										"matrix": "1,0,0,0,0,1,0,0,0,0,1,0,-8,-16,16,1",
+										"direction": "north",
+										"texture": 1
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 256,
+										"offsetV": 416,
+										"matrix": "0,0,1.025,0,0,1.0083,0,0,-1,0,0,0,-8.4,-16.4,-16.4,1",
+										"direction": "east",
+										"texture": 2
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 312,
+										"offsetV": 416,
+										"matrix": "0,0,-1.025,0,0,1.0083,0,0,1,0,0,0,16.4,-16.4,16.4,1",
+										"direction": "west",
+										"texture": 2
+									},
+									{
+										"width": 24,
+										"height": 96,
+										"offsetU": 288,
+										"offsetV": 416,
+										"matrix": "1.0333,0,0,0,0,1.0083,0,0,0,0,1,0,-8.4,-16.4,16.4,1",
+										"direction": "north",
+										"texture": 2
+									}
+								],
+								"children": []
+							},
+							{
+								"name": "Left Sleeve",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+								"faces": [
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 384,
+										"offsetV": 416,
+										"matrix": "0,0,1.13,0,0,1.0433,0,0,-1,0,0,0,-10.08,-18.08,-18.08,1",
+										"direction": "east",
+										"texture": 2
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 440,
+										"offsetV": 416,
+										"matrix": "0,0,-1.13,0,0,1.0433,0,0,1,0,0,0,18.08,-18.08,18.08,1",
+										"direction": "west",
+										"texture": 2
+									},
+									{
+										"width": 24,
+										"height": 96,
+										"offsetU": 416,
+										"offsetV": 416,
+										"matrix": "1.1733,0,0,0,0,1.0433,0,0,0,0,1,0,-10.08,-18.08,18.08,1",
+										"direction": "north",
+										"texture": 2
+									}
+								],
+								"children": []
+							},
+							{
+								"name": "LeftItemPivot",
+								"transform": "translate3d(8px,80px,16px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeftItemPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							},
+							{
+								"name": "LeftShoulderPivot",
+								"transform": "translate3d(8px,-16px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-LeftShoulderPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							}
+						]
+					},
+					{
+						"name": "RightArm",
+						"transform": "translate3d(-40px,-176px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-RightArm, translateZ(0))",
+						"faces": [],
+						"children": [
+							{
+								"name": "RightArm",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+								"faces": [
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 320,
+										"offsetV": 160,
+										"matrix": "0,0,1,0,0,1,0,0,-1,0,0,0,-16,-16,-16,1",
+										"direction": "east",
+										"texture": 1
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 376,
+										"offsetV": 160,
+										"matrix": "0,0,-1,0,0,1,0,0,1,0,0,0,8,-16,16,1",
+										"direction": "west",
+										"texture": 1
+									},
+									{
+										"width": 24,
+										"height": 32,
+										"offsetU": 376,
+										"offsetV": 128,
+										"matrix": "1,0,0,0,0,0,1,0,0,-1,0,0,-16,80,-16,1",
+										"direction": "down",
+										"texture": 1
+									},
+									{
+										"width": 24,
+										"height": 96,
+										"offsetU": 352,
+										"offsetV": 160,
+										"matrix": "1,0,0,0,0,1,0,0,0,0,1,0,-16,-16,16,1",
+										"direction": "north",
+										"texture": 1
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 320,
+										"offsetV": 160,
+										"matrix": "0,0,1.025,0,0,1.0083,0,0,-1,0,0,0,-16.4,-16.4,-16.4,1",
+										"direction": "east",
+										"texture": 2
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 376,
+										"offsetV": 160,
+										"matrix": "0,0,-1.025,0,0,1.0083,0,0,1,0,0,0,8.4,-16.4,16.4,1",
+										"direction": "west",
+										"texture": 2
+									},
+									{
+										"width": 24,
+										"height": 96,
+										"offsetU": 352,
+										"offsetV": 160,
+										"matrix": "1.0333,0,0,0,0,1.0083,0,0,0,0,1,0,-16.4,-16.4,16.4,1",
+										"direction": "north",
+										"texture": 2
+									}
+								],
+								"children": []
+							},
+							{
+								"name": "Right Sleeve",
+								"transform": "translate3d(0px,0px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg)",
+								"faces": [
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 320,
+										"offsetV": 288,
+										"matrix": "0,0,1.13,0,0,1.0433,0,0,-1,0,0,0,-18.08,-18.08,-18.08,1",
+										"direction": "east",
+										"texture": 2
+									},
+									{
+										"width": 32,
+										"height": 96,
+										"offsetU": 376,
+										"offsetV": 288,
+										"matrix": "0,0,-1.13,0,0,1.0433,0,0,1,0,0,0,10.08,-18.08,18.08,1",
+										"direction": "west",
+										"texture": 2
+									},
+									{
+										"width": 24,
+										"height": 96,
+										"offsetU": 352,
+										"offsetV": 288,
+										"matrix": "1.1733,0,0,0,0,1.0433,0,0,0,0,1,0,-18.08,-18.08,18.08,1",
+										"direction": "north",
+										"texture": 2
+									}
+								],
+								"children": []
+							},
+							{
+								"name": "RightItemPivot",
+								"transform": "translate3d(-8px,80px,16px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-RightItemPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							},
+							{
+								"name": "RightShoulderPivot",
+								"transform": "translate3d(-8px,-16px,0px) rotateZ(0deg) rotateY(0deg) rotateX(0deg) var(--pose-RightShoulderPivot, translateZ(0))",
+								"faces": [],
+								"children": []
+							}
+						]
+					}
+				]
+			}
+		]
+	},
+	"shadedTextureUrls": {
+		"avatar-texture-1-east": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABBklEQVR42u2XPQoCMRBGcw57CxsbW72Bvb3H8BDaynbaWdrYr3qvyCwMjJEVBPPh4nswJJtik3n52WxKAAAA8LdM0iLP0ypbGeteKvpfTzcvfVn/1l5dgHU0S8vspSfvddUElMl6u2wFeMJWxrpiAmTJ9gkoV0BsU4zBt4B6+3XE2fbklYPw5EsJPjnVBYzS+Cl5e76eDl0oVoAn79uhlCMRUIYLsLpCQN+zZAu+E2ChOoe4kADAIGn32xzj2++3g/h+OXehOpR/ToD6q/QRt2OTYyAAAQhAAAIQgAAEIKCCALsO8/MBAAAAAAAAAAAAg6ZtdjkGAhCAAAQgAAEIQAACEIAACQ9JHElrAdYqWAAAAABJRU5ErkJggg==",
+		"avatar-texture-1-west": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAA+UlEQVR42u2aOw7CMBAF9xz0FDQ0tHCD9PQcg0NAi9JBl5KGns+9jBxp0WIlCIG8AXlGejJusD1+RCkQAQAAAPiQiSzCXJYhjpqZVI8x9/q6dt+exGsDcdSDWwleF9C3J7cG2Fu3jRi6ldkXS2/d2vcSkP4MV9O1n3xbd41nA7TmXc8itwZcmn2bkYyfFo9zjwvommsTsguIh7QC0ngKSA/s0gA9/FAC3m0GAMBPcN5tgs1X31Vvgw0C/oHroQ42CEAAAhCAAAQgAAEIKEUAAAAAAAAAAAAAgLz4A9btdGwTPxcpwAYBCEAAAhCAAAQgAAGloK/AOQXcAUb5RTiUjpE2AAAAAElFTkSuQmCC",
+		"avatar-texture-1-up": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAsElEQVR42u3UwQ3CMAwAQK/Ehx9vWIEJGIBF2IIBGIlBgvIIsqoW+NQgdCdFqdyHa9dJxBubOLRdHFvfx9rHqY14rOy8vTzz52/q8RxbzUje91F4bkpV/l5wbkDVD4hp8dMmVOWfi5dMwNzo5+f4d/m8T8e/v/v7BuSCc+FlZ/AXGjBXfNURWJq0sgnMhX9jApYuu7JLEADgU/fbtb1aGqABGgAAAAAAAAAAAAAAsLoHAdrwYIeutfMAAAAASUVORK5CYII=",
+		"avatar-texture-1-down": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAvklEQVR42u3aMQrCMBQG4HcRwcFJZ1c3r+AJ3JxcdBIc1UtXIgRqcFMSab4PQtIpvJ/XUGgivjSL1ZDGMjZv8yLWrzkq+LRPrb0jF5qLHz+ndYviq4ZQdkC5jqkbt3v5KtTogOZy8ffz8W10cwbkDigDqHUGJNv5rl0AZeHlaNUBn0KZbADpvGnWAQAALeSPrdthPwhAAB16XC99BwAAAAAAAABMQ/rpWfPC5f8GcOo9gN47IN0DcCAAAAC/9AQ6YrlYNoGlJQAAAABJRU5ErkJggg==",
+		"avatar-texture-1-north": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABgklEQVR42u2aO04DMRBAfQoaKtLSICEqGkQPd+AGuQA3QaKip+ICKC3QQkuFFBqQ+ITCMBGzMit7FcAeTPyeNMrGG2XWb8f2amXnAAAAABJsuX2/58Z+1x14Oe5/ls4vuWN5DrePTPJ3FxBK0Db5bnEDwuvQ/OE5kwoIk4efFlUY5tQ7b5XbhSX/fH42j1CI5TDUzpuVv9qXTr9eX3wJabMYAmFntfNDc0OxMSho52PnLPLHbk5xAWtuo0uiQyB2rmQF/EROVgGpIWAhINVRszngv+On914CEwA26EqRit/+v07Aj6fHdY7r2c2lH4ocAmZXk3oFvN3d+qHIIUBiUQHro02/ujLqfivH0taMAGG8c+Jjx2WGwEd5zqNf/p/tfyHAdg6oTMDTw4uPRVkBqUkQARPzVWApBdT9HFBZBSylAK2CuleBROR4zqhaAAAAAAAAAAAAAMB3kNfduimrWQHy9rhpAf0NmQhAAAIQwCrAcwAV4JrZadr0HKACcuwpXIR3irJlA5nN3dkAAAAASUVORK5CYII=",
+		"avatar-texture-0-east": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABDElEQVR42u2YMQ7CIBSGWd29hIuLq97A3d1jeBgXb+HWiWNhMHlKYmqaH1ra8n0JU5M/fV8LD3Cuh507hTjU5wox7+DOwbKVfMs4ust7yO+IgEoCrAArQs2woWQUEeS9l17+ur99BKh/QCqx9EdCwJgCYvEmwUTkriNKBgJKCFAzTYK6gM1mCiAgI9N6eJSRmzHaFBhTau5GKDcDATUF2PZVXcERsBQBQwstUczjvg19oxkB3XPzM6oKGNqrEbBmAc1PgSG3NgigC3yPx4va1CCgUBdIj8fK6RABSzj5NTsFmhcwVRtEwBxJr67/XX6uVsCUx2EEsAYggCmAAAAAAAAAAAAAAAAAAABomhf8s3qCucPrrgAAAABJRU5ErkJggg==",
+		"avatar-texture-0-west": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABDElEQVR42u2YMQ7CIBSGWd29hIuLq97A3d1jeBgXb+HWiWNhMHlKYmqaH1ra8n0JU5M/fV8LD3Cuh507hTjU5wox7+DOwbKVfMs4ust7yO+IgEoCrAArQs2woWQUEeS9l17+ur99BKh/QCqx9EdCwJgCYvEmwUTkriNKBgJKCFAzTYK6gM1mCiAgI9N6eJSRmzHaFBhTau5GKDcDATUF2PZVXcERsBQBQwstUczjvg19oxkB3XPzM6oKGNqrEbBmAc1PgSG3NgigC3yPx4va1CCgUBdIj8fK6RABSzj5NTsFmhcwVRtEwBxJr67/XX6uVsCUx2EEsAYggCmAAAAAAAAAAAAAAAAAAABomhf8s3qCucPrrgAAAABJRU5ErkJggg==",
+		"avatar-texture-0-south": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABIElEQVR42u2ZOw4CIRBAp7T2DhY2lnoBa2sv4VFsvITdXnENJpNMENeGgcV5LyFhQwHzAsNnRX5wlMu8k9O72Lo04iDnOZXUp63reHRM2lZ9AOEFNOtooX/tV8eRi7B1twHkpfUMyGei/XafAQjoKMD2WQrcPTchoFPgpSSYj8UmQ5XjKkA6EF6ABnnd3/qcA3qTAtfgtZ7nglTXNgT8Gxrk0hKwbQgYlVKWr5V4H/ft/K2EETA9Nx9lVQLsVlb7ZIeAEQTY+37tk90wM8DrcoOAEXaB0ptfr/sHAnqfA1wfOREwyBJwe+BAwIoF2B8fIZdAaAHNfnSseQbos1bYg1BoATZw+/CJgIhLIOw2GFoAAAAAAAAAAAAAAAAAALjyAryybRNLszC1AAAAAElFTkSuQmCC",
+		"avatar-texture-0-north": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABO0lEQVR42u2Zuw3CMBBA3bMBe1DR0cMObMACbMJEdPS0NDS0dEaOOMky+UDi2If9nnSSASnJveQutjErs7Nbc2jCjSXMD9g34fdyLP/YG7NvYuo5o4EA7wJ8GWMEhBL8JG/Xe2dkFRDehSkXE4qQu92XvIsx0hEwVwnEFCDHGkpeVQ+oTkCXhBhN8Lg+WRdDDTBrCXSJiPEarF6AJNYnwf2WvQTmQp4AJ6EtcUlexggojbbmKnMD+Vx0CVQvIJxp+onHPs/lvLRdUY2A52PxEdkFhI+9jOcUEI4RoKURpioBdQJS7P6o7gGpBKh8C/iPvYhQsfBBQGHzAARoXg+o+Q8AAQpKYK6ZIAI0l0CKtcBfbIrI9lhV8wAEeJueRW+AIuCLtYBLvLomWL0AAAAAAAAAAAAAAAAAAFDBCxsXvZ7E530LAAAAAElFTkSuQmCC",
+		"avatar-texture-0-up": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAiElEQVR42u3VwQnCMBQG4Hd2gq7hAJ7tCk7gjp4cxKN7RJ4QqGnNwYu0/T74IdAkhJ/QRAAAALBDp7iUzDHGco7rOzluU+f9+7xLZ8v01txvQ/mWjwJq2iJyvPYCno/DLArIAqZXvN20FjH9tukbsIZ/wC+6BeyBAnqvAAAAAAAAAAAAAABs0wtJggMvPcUvGgAAAABJRU5ErkJggg==",
+		"avatar-texture-0-down": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAl0lEQVR42u3VOwrCQBQF0FdZugPBwkprWzu34DYsXIKNux6ZwMAwGn9EyMA5cCEhCZl3yScCAAAA3lrFLuVsYp/Kdsk2DkPyseP6NORf92/z6prLeZnG8vUC8nDt8GXwer+cN5cCbtfFQ34qoB5y7An4dGEK6LGAeshnr0P7fZjDd2vSAnqkgCn/AgAAAAAAAAAAAADQhzuEKdBk7pboGAAAAABJRU5ErkJggg==",
+		"avatar-texture-2-east": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAkElEQVR42u3ZMQ7CMAwF0CxMVNAtQ87CNeAoHN+sXkuFlOD3pL9G1ZeH1GkNAAAAAOCA/b5HzmrnK+Cs3nvkrHa+AhSggLk/8HV7R065Ah6XZ+SYABNQ7CJU/ioMANQ1xogcjZgAoJLp9wEA8L3tukWOApq1ugLaP70em4AfF7B8gdO//vrbMwFzT4B9Aed8AM3nzSEbs3otAAAAAElFTkSuQmCC",
+		"avatar-texture-2-west": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAkUlEQVR42u3ZIQ4CQQwF0DEoNrBuxJyFa8BROH5JUHUIAtmm7yXfrvip6HbGAAAAAAD4of26R84339rOW+QooII5Z+QcpUwFKEAB9Qp4XJ6R066A2+keOSbABDRbhNqvwgDAaH9eW2u9oxFbJdBJyXsAAFh1FTD+/IjSsoDyBZqA7hNQ8vXX354JOM4EuBfw2Qt9Zsyt9D1/0wAAAABJRU5ErkJggg==",
+		"avatar-texture-2-up": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAUUlEQVR42u3QMQrAIAxAUS9Qoa56ooL3P45FB0eXLoW8B4GQLT8lAAAAgI/KXcZpQgXIV14TLkCrbfSn72fnPm8CRAgAAAAAAAAAAAAAAPzCC+59JM3uUZyTAAAAAElFTkSuQmCC",
+		"avatar-texture-2-north": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAPoAAAD6AG1e1JrAAABEUlEQVR42u2ZMQrCMBRAi4ubBS1udtCrOItDz+CoR/Ac7t7CY3gCL2Ad3L98ISWULtpfSPnvwSefBgJ5/Q1pkmUAAAAAAAAAAAAAPSgWhZSrUqp9JeGZ5vpM+yzG18hnuSQvQNs4dyFAJ7pZb76T1jbOtc9ifCuZgwrQeD0mfgUs72ep61qe22sjxF0FHG7vJncpoB0WAk7zi4RwKWA3PUoIKiBlAeFbDeGmAsJGqCuSXbgQAAAAtrTPA1wK6MoR0JOwrU5+TzHkW1cBbteW0VQAQMYFSRxW4yZ/HtA1eWsJo3v77gQAAPyLXnu7XjTdC4iP1RHgUaDFBEZdPe4rIPnb36EZxd8eFZBwBbivIPiRDx8AKWs6vYkhAAAAAElFTkSuQmCC"
+	}
+}

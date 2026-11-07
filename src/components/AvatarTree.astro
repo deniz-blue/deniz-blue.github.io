@@ -1,0 +1,44 @@
+---
+import { faceTextureClass } from "~/avatar/css";
+import type { AvatarNode } from "~/avatar/types";
+
+type Props = { nodes: AvatarNode[] };
+
+const { nodes } = Astro.props;
+---
+
+{
+	nodes.map((node) => (
+		<div class="node" data-part={node.name} style={{ transform: node.transform }}>
+			{node.faces.map((face) => (
+				<div
+					class={`face ${faceTextureClass(face)}`}
+					style={{
+						width: `${face.width}px`,
+						height: `${face.height}px`,
+						backgroundPosition: `${-face.offsetU}px ${-face.offsetV}px`,
+						transform: `matrix3d(${face.matrix})`,
+					}}
+				/>
+			))}
+			<Astro.self nodes={node.children} />
+		</div>
+	))
+}
+
+<style>
+	.node,
+	.face {
+		position: absolute;
+		top: 0;
+		left: 0;
+		transform-origin: 0 0;
+		transform-style: preserve-3d;
+	}
+
+	.face {
+		background-repeat: no-repeat;
+		background-size: calc(var(--texture-columns) * var(--unit)) calc(var(--texture-rows) * var(--unit));
+		image-rendering: pixelated;
+	}
+</style>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="31.18" height="54" viewBox="0 0 31.18 54">
+	<defs>
+		<g id="cube">
+			<path fill="#141418" d="M0 -18L15.59 -9L0 0L-15.59 -9Z" />
+			<path fill="#0f0f12" d="M-15.59 -9L0 0V18L-15.59 9Z" />
+			<path fill="#0a0a0c" d="M15.59 -9V9L0 18V0Z" />
+		</g>
+	</defs>
+	<use href="#cube" x="15.59" y="18" />
+	<use href="#cube" x="0" y="45" />
+	<use href="#cube" x="31.18" y="45" />
+	<use href="#cube" x="0" y="-9" />
+	<use href="#cube" x="31.18" y="-9" />
+</svg>

@@ -1,70 +1,128 @@
 ---
 import Base from "~/layouts/Base.astro";
-import Flex from "~/components/Flex.astro";
-import Heading from "~/components/Heading.astro";
+import Title from "~/components/Title.astro";
+import ContentCard from "~/components/ContentCard.astro";
+import CosQR from "~/components/CosQR.astro";
+import Mcman from "~/components/Mcman.astro";
+import StarsoulIndustries from "~/components/StarsoulIndustries.astro";
+import Discordjsx from "~/components/Discordjsx.astro";
+import Figura from "~/components/Figura.astro";
+import ProtoCal from "~/components/ProtoCal.astro";
+import Vantage from "~/components/Vantage.astro";
+import Anchor from "~/components/Anchor.astro";
+import PeekingAvatar from "~/components/PeekingAvatar.astro";
 ---
 
 <Base title="deniz.blue">
 	<main>
-		<article>
-			<Flex>
-				<div class="frosted-glass heading">
-					<h1>deniz</h1>
+		<PeekingAvatar />
+		<ContentCard>
+			<div class="superspaced">
+				<div>
+					<h1>Hi, I'm Deniz!</h1>
+					<p>I do software development, mostly.</p>
 				</div>
 
-				<p>I make stuff on computers :3</p>
+				<div class="spaced">
+					<Title>Minecraft Stuff</Title>
 
-				<section>
-					<Heading> javascript (deragatory) </Heading>
+					<Figura />
+
+					<StarsoulIndustries />
+
 					<p>
-						I really love this cursed language. You could even call
-						me a JavaScript witch!
+						I maintain <Mcman />, a tool for other developers to
+						manage their servers using Git
 					</p>
-				</section>
+				</div>
 
-				<section>
-					<Heading> minecraft </Heading>
+				<div class="spaced">
+					<Title>Conventions & Cosplay</Title>
+
 					<p>
-						Best sandbox game? Outside playing it, toying with it is
-						fun too.
+						I'm still trying to fix the issue of not being able to
+						find and keep up with events. If you're a developer as
+						well, help me out on <Anchor
+							href="https://evnt.directory">Open Evnt</Anchor
+						>!
 					</p>
 
-					<span> </span>
-				</section>
+					<p>
+						I'm working on <Vantage />, an android calendar app that
+						can follow events from anywhere
+					</p>
 
-				<section>
-					<Heading> events & such </Heading>
-					<p>Sometimes I like to touch grass.</p>
-				</section>
-			</Flex>
-		</article>
+					<p>
+						I'm also building <ProtoCal />, a Discord bot that turns
+						forum posts into events.
+					</p>
+
+					<CosQR />
+				</div>
+
+				<div class="spaced">
+					<Title>JavaScript (deragotory)</Title>
+
+					<p>
+						You can call me a JavaScript Witch, I love this cursed
+						language.
+					</p>
+
+					<Discordjsx />
+
+					<p>
+						We got 8th place on site using just JS at <Anchor
+							href="https://nordic.icpc.io/ncpc2026/"
+							>NCPC 2026</Anchor
+						>!
+					</p>
+				</div>
+			</div>
+		</ContentCard>
 	</main>
 </Base>
 
 <style>
 	main {
+		position: relative;
 		display: flex;
 		flex-direction: column;
-		align-items: center;
 		justify-content: center;
+		align-items: center;
+		box-sizing: border-box;
+		max-width: 1140px;
 		min-height: 100vh;
+		margin: 0 auto;
+		padding: var(--spacing-xl) var(--spacing-md) 50vh;
 	}
 
-	article {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		gap: 1rem;
+	@media (width < 33.75rem) {
+		main {
+			padding-inline: var(--spacing-xs);
+		}
 	}
 
 	h1 {
-		text-align: center;
+		margin: 0;
+		color: var(--color-text-strong);
+		font-size: 1.875rem;
+		font-weight: 600;
+		line-height: 1.3;
 	}
 
-	.frosted-glass {
-		background: rgba(255, 255, 255, 0.1);
-		backdrop-filter: blur(2px);
-		border-radius: 0.5rem;
+	p {
+		margin: 0;
+	}
+
+	.superspaced {
+		display: flex;
+		flex-direction: column;
+		gap: calc(var(--spacing-xl) * 1.5);
+	}
+
+	.spaced {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-md);
 	}
 </style>

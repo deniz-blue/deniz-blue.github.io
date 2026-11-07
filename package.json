@@ -14,7 +14,8 @@
 		"dev": "astro dev",
 		"build": "astro build",
 		"preview": "astro preview",
-		"astro": "astro"
+		"astro": "astro",
+		"convert-avatar": "node tools/avatar/convert.ts"
 	},
 	"dependencies": {
 		"astro": "^7.3.5"
@@ -22,6 +23,7 @@
 	"devDependencies": {
 		"oxfmt": "^0.61.0",
 		"oxlint": "^1.82.0",
+		"sharp": "^0.35.5",
 		"typescript": "^6.0.3"
 	}
 }

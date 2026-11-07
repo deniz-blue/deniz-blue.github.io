@@ -1,14 +1,38 @@
-<a>
-	<slot />
-</a>
+---
+import type { HTMLAttributes } from "astro/types";
+
+type Props = HTMLAttributes<"a">;
+
+const { href, class: className, ...rest } = Astro.props;
+const external = typeof href === "string" && /^https?:\/\//.test(href);
+---
+
+<a
+	class:list={["anchor", className]}
+	href={href}
+	target={external ? "_blank" : undefined}
+	rel={external ? "noopener noreferrer" : undefined}
+	{...rest}
+><slot /></a>
 
 <style>
-	a {
+	.anchor {
+		padding-bottom: 1px;
+		background:
+			linear-gradient(var(--color-primary), var(--color-primary)) 0 100% / 0% 2px no-repeat,
+			linear-gradient(rgb(255 255 255 / 30%), rgb(255 255 255 / 30%)) 0 100% / 100% 1px no-repeat;
+		box-decoration-break: clone;
 		color: inherit;
 		text-decoration: none;
+		transition:
+			background-size 0.3s ease-in-out,
+			color 0.15s ease-in-out;
 	}
 
-	a:hover {
-		text-decoration: underline;
+	.anchor:hover {
+		background-size:
+			100% 2px,
+			100% 1px;
+		color: var(--color-text-strong);
 	}
 </style>

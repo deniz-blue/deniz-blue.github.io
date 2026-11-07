@@ -1,0 +1,26 @@
+---
+const html = await Astro.slots.render("default");
+const id = html
+	.replace(/<[^>]*>|&\w+;/g, "")
+	.toLowerCase()
+	.replace(/[^a-z0-9]+/g, "-")
+	.replace(/^-|-$/g, "");
+---
+
+<h2 id={id}><a href={`#${id}`}>#</a><Fragment set:html={html} /></h2>
+
+<style>
+	h2 {
+		font-size: var(--font-size-lg);
+		font-weight: 700;
+		color: var(--color-text-strong);
+		scroll-margin-top: var(--spacing-xl);
+		margin: 0 var(--spacing-xs);
+	}
+
+	a {
+		margin-right: 0.4em;
+		color: var(--color-primary);
+		text-decoration: none;
+	}
+</style>

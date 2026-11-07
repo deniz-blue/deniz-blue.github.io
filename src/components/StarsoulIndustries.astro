@@ -1,0 +1,79 @@
+---
+import { getImage } from "astro:assets";
+import starsoulBackground from "~/assets/backgrounds/starsoul.webp";
+
+const background = await getImage({ src: starsoulBackground, width: 1000 });
+---
+
+<a
+	class="starsoul"
+	href="https://starsoul.industries"
+	target="_blank"
+	rel="noopener noreferrer"
+	style={`--background: url(${background.src})`}
+>
+	<span class="prefix">I'm a developer at</span>
+	<span class="title">Starsoul Industries</span>
+</a>
+
+<style>
+	.starsoul {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		justify-content: end;
+		align-items: start;
+		min-height: 5.5rem;
+		padding: var(--spacing-sm) var(--spacing-md);
+		border-radius: var(--radius-md);
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.starsoul::before,
+	.starsoul::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+	}
+
+	.starsoul::before {
+		z-index: -2;
+		background: var(--background) center / cover;
+		transition-property: scale, rotate;
+		transition-duration: 0.8s;
+		transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+	}
+
+	.starsoul::after {
+		z-index: -1;
+		border-radius: inherit;
+		box-shadow: inset 0 0 0 1px rgb(255 255 255 / 8%);
+		background: linear-gradient(90deg, rgb(11 11 13 / 88%), rgb(11 11 13 / 30%));
+		transition: opacity 0.4s;
+	}
+
+	.starsoul:hover::before {
+		scale: 1.25;
+		rotate: 2deg;
+	}
+
+	.starsoul:hover::after {
+		opacity: 0.75;
+	}
+
+	.prefix {
+		color: var(--color-text-dim);
+		font-size: var(--font-size-sm);
+		line-height: 1.2;
+	}
+
+	.title {
+		color: var(--color-text-strong);
+		font-size: var(--font-size-md);
+		font-weight: 600;
+		line-height: 1.2;
+	}
+</style>
