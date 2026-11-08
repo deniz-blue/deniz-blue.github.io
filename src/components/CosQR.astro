@@ -2,14 +2,16 @@
 import { Image } from "astro:assets";
 import Anchor from "~/components/Anchor.astro";
 import cosIcon from "~/assets/icons/cos.png";
+import { externalLinkAttributes } from "~/scripts/links";
+
+const COS_URL = "https://cos.tsx.lt";
 ---
 
 <div class="cos">
 	<a
 		class="badge"
-		href="https://cos.tsx.lt"
-		target="_blank"
-		rel="noopener noreferrer"
+		href={COS_URL}
+		{...externalLinkAttributes(COS_URL)}
 		aria-label="CosQR"
 	>
 		<span class="badge-head">Hello</span>
@@ -89,7 +91,7 @@ import cosIcon from "~/assets/icons/cos.png";
 		padding: 7px 0 2px;
 		background: linear-gradient(135deg, #0192ff, #c901ff);
 		color: var(--color-text-strong);
-		font-size: 9px;
+		font-size: var(--font-size-xs);
 		font-weight: 700;
 		line-height: 1.2;
 		white-space: nowrap;

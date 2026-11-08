@@ -1,4 +1,4 @@
-import type { AnimationTracks, PositionKeyframe } from "~/avatar/types";
+import type { AnimationTracks, PositionKeyframe } from "~/scripts/avatar/types";
 import type { BlockbenchKeyframe, BlockbenchModel } from "./blockbench.ts";
 
 const SMOOTH_INTERPOLATIONS = ["bezier", "catmullrom"];

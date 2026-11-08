@@ -39,6 +39,7 @@ body {
 }
 
 body {
+	background: #0b0b0d;
 	font-family: Lexend, system-ui, sans-serif;
 	font-size: var(--font-size-sm);
 	font-weight: 400;
@@ -46,4 +47,8 @@ body {
 	font-optical-sizing: auto;
 	font-style: normal;
 	color: var(--color-text);
+}
+
+p {
+	margin: 0;
 }

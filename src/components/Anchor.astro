@@ -1,19 +1,13 @@
 ---
 import type { HTMLAttributes } from "astro/types";
+import { externalLinkAttributes } from "~/scripts/links";
 
-type Props = HTMLAttributes<"a">;
+type Props = HTMLAttributes<"a"> & { href: string };
 
 const { href, class: className, ...rest } = Astro.props;
-const external = typeof href === "string" && /^https?:\/\//.test(href);
 ---
 
-<a
-	class:list={["anchor", className]}
-	href={href}
-	target={external ? "_blank" : undefined}
-	rel={external ? "noopener noreferrer" : undefined}
-	{...rest}
-><slot /></a>
+<a class:list={["anchor", className]} href={href} {...externalLinkAttributes(href)} {...rest}><slot /></a>
 
 <style>
 	.anchor {

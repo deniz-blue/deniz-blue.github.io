@@ -1,0 +1,43 @@
+---
+import Clock from "~/assets/icons/clock.svg";
+import { describeMyUtcOffset } from "~/scripts/localTime";
+---
+
+<p class="local-time">
+	<Clock class="clock" aria-hidden="true" />
+	<span class="time">{describeMyUtcOffset(new Date())}</span>
+</p>
+
+<script>
+	import {
+		describeDifferenceFromVisitor,
+		describeMyLocalTime,
+		millisecondsToNextMinute,
+	} from "~/scripts/localTime";
+
+	const time = document.querySelector<HTMLElement>(".local-time .time")!;
+
+	const update = () => {
+		const now = new Date();
+		time.textContent = `${describeMyLocalTime(now)}, ${describeDifferenceFromVisitor(now)}`;
+		setTimeout(update, millisecondsToNextMinute(now));
+	};
+
+	update();
+</script>
+
+<style>
+	.local-time {
+		display: flex;
+		align-items: center;
+		gap: 0.3rem;
+		color: var(--color-text-dim);
+		font-size: var(--font-size-sm);
+		font-variant-numeric: tabular-nums;
+	}
+
+	.clock {
+		width: 0.875rem;
+		height: 0.875rem;
+	}
+</style>

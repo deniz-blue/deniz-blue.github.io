@@ -1,6 +1,7 @@
 ---
 import { Code } from "astro:components";
 import { Image } from "astro:assets";
+import ArrowRight from "~/assets/icons/arrow-right.svg";
 import discordjsxAvatar from "~/assets/icons/discordjsx-avatar.svg";
 import Anchor from "~/components/Anchor.astro";
 
@@ -12,27 +13,42 @@ const example = `const [count, setCount] = useState(0);
 
 <div class="discordjsx">
 	<p>
-		I've made <Anchor href="https://github.com/deniz-blue/discordjsx">a library</Anchor> that allows
-		you to use React for Discord.js!
+		I've made <Anchor href="https://github.com/deniz-blue/discordjsx"
+			>a library</Anchor
+		> that allows you to use React for Discord.js!
 	</p>
 	<div class="example">
-		<div class="code">
+		<div class="code" data-solid>
 			<Code code={example} lang="tsx" theme="github-dark-dimmed" />
 		</div>
-		<svg class="arrow" viewBox="0 0 24 24" aria-hidden="true">
-			<path d="M4 12h16M14 6l6 6-6 6"></path>
-		</svg>
+		<ArrowRight class="arrow" aria-hidden="true" />
 		<div class="discord-message">
-			<Image class="avatar" src={discordjsxAvatar} alt="" width={40} height={40} />
+			<Image
+				class="avatar"
+				src={discordjsxAvatar}
+				alt=""
+				width={40}
+				height={40}
+				data-solid
+			/>
 			<div class="message-body">
 				<div class="author">
 					<span class="name">discord-jsx-renderer</span>
 					<span class="app">APP</span>
 					<span class="time">17:01</span>
 				</div>
-				<button class="discord-button" type="button" data-clicker>
-					<span class="label">Clicked <span data-count>0</span> times</span>
-					<span class="loading" aria-hidden="true"><span></span><span></span><span></span></span>
+				<button
+					class="discord-button"
+					type="button"
+					data-clicker
+					data-solid
+				>
+					<span class="label"
+						>Clicked <span data-count>0</span> times</span
+					>
+					<span class="loading" aria-hidden="true"
+						><span></span><span></span><span></span></span
+					>
 				</button>
 			</div>
 		</div>
@@ -60,10 +76,6 @@ const example = `const [count, setCount] = useState(0);
 		flex-direction: column;
 		gap: var(--spacing-md);
 		container-type: inline-size;
-	}
-
-	p {
-		margin: 0;
 	}
 
 	.example {
@@ -94,11 +106,7 @@ const example = `const [count, setCount] = useState(0);
 		align-self: center;
 		width: 1.25rem;
 		height: 1.25rem;
-		fill: none;
-		stroke: var(--color-text-dim);
-		stroke-width: 2;
-		stroke-linecap: round;
-		stroke-linejoin: round;
+		color: var(--color-text-dim);
 	}
 
 	.discord-message {
@@ -141,7 +149,7 @@ const example = `const [count, setCount] = useState(0);
 		border-radius: var(--radius-sm);
 		background: #5865f2;
 		color: #fff;
-		font-size: 0.625rem;
+		font-size: var(--font-size-xs);
 		font-weight: 700;
 		line-height: 1rem;
 	}

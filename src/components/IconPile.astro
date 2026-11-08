@@ -1,0 +1,99 @@
+---
+import type { SvgComponent } from "astro/types";
+import type { IconShape, RestPosition } from "~/scripts/iconPile/bodies";
+
+export type PileIcon = {
+	name: string;
+	icon: SvgComponent;
+	shape: IconShape;
+	restPosition: RestPosition;
+};
+type Props = { icons: PileIcon[] };
+
+const { icons } = Astro.props;
+---
+
+<div class="icon-layer" data-icon-pile>
+	{
+		icons.map(({ name, icon: Icon, shape, restPosition }) => (
+			<div
+				class="icon"
+				data-pile-icon
+				data-shape={shape}
+				data-rest-position={JSON.stringify(restPosition)}
+				style={{
+					"--icons-from-right": restPosition.iconsFromRight,
+					"--icons-above-floor": restPosition.iconsAboveFloor,
+				}}
+				title={name}
+				role="img"
+				aria-label={name}
+			>
+				<Icon aria-hidden="true" />
+			</div>
+		))
+	}
+</div>
+
+<script>
+	import { animateIconPiles } from "~/scripts/iconPile/animate";
+
+	animateIconPiles([...document.querySelectorAll<HTMLElement>("[data-icon-pile]")]);
+</script>
+
+<style>
+	:global(body) {
+		position: relative;
+	}
+
+	.icon-layer {
+		position: absolute;
+		inset: 0;
+		z-index: 10;
+		pointer-events: none;
+	}
+
+	.icon-layer[data-simulated] {
+		overflow: hidden;
+	}
+
+	.icon {
+		position: absolute;
+		top: calc(var(--icons-above-floor) * -2rem);
+		left: calc(100% - var(--icons-from-right) * 2rem);
+		display: block;
+		width: 2rem;
+		height: 2rem;
+		translate: -50% -50%;
+		pointer-events: auto;
+		touch-action: none;
+		user-select: none;
+	}
+
+	[data-simulated] .icon {
+		top: 0;
+		left: 0;
+		translate: none;
+		cursor: grab;
+	}
+
+	[data-simulated] .icon:active {
+		cursor: grabbing;
+	}
+
+	.icon[data-shape="circle"] {
+		border-radius: 50%;
+	}
+
+	.icon[data-shape="square"] {
+		overflow: hidden;
+		border-radius: 8%;
+	}
+
+	.icon > :global(svg) {
+		display: block;
+		width: 100%;
+		height: 100%;
+		pointer-events: none;
+	}
+</style>

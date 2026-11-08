@@ -1,16 +1,19 @@
 ---
 import { getImage } from "astro:assets";
 import starsoulBackground from "~/assets/backgrounds/starsoul.webp";
+import { externalLinkAttributes } from "~/scripts/links";
+
+const STARSOUL_URL = "https://starsoul.industries";
 
 const background = await getImage({ src: starsoulBackground, width: 1000 });
 ---
 
 <a
 	class="starsoul"
-	href="https://starsoul.industries"
-	target="_blank"
-	rel="noopener noreferrer"
+	href={STARSOUL_URL}
+	{...externalLinkAttributes(STARSOUL_URL)}
 	style={`--background: url(${background.src})`}
+	data-solid
 >
 	<span class="prefix">I'm a developer at</span>
 	<span class="title">Starsoul Industries</span>
@@ -51,7 +54,11 @@ const background = await getImage({ src: starsoulBackground, width: 1000 });
 		z-index: -1;
 		border-radius: inherit;
 		box-shadow: inset 0 0 0 1px rgb(255 255 255 / 8%);
-		background: linear-gradient(90deg, rgb(11 11 13 / 88%), rgb(11 11 13 / 30%));
+		background: linear-gradient(
+			90deg,
+			rgb(11 11 13 / 88%),
+			rgb(11 11 13 / 30%)
+		);
 		transition: opacity 0.4s;
 	}
 

@@ -1,5 +1,5 @@
-import type { AvatarFace, AvatarNode, FaceDirection, Vector3 } from "~/avatar/types";
-import { poseVariable } from "../../src/avatar/css.ts";
+import type { AvatarFace, AvatarNode, FaceDirection, Vector3 } from "~/scripts/avatar/types";
+import { poseVariable } from "../../src/scripts/avatar/css.ts";
 import type { BlockbenchElement, BlockbenchGroup, BlockbenchModel, BlockbenchOutlinerNode, Uv } from "./blockbench.ts";
 import { FACE_DIRECTIONS, boxCorners, placeFace, placeNode, subtract } from "./geometry.ts";
 

@@ -1,0 +1,95 @@
+---
+import GitHubActivity from "~/components/GitHubActivity.astro";
+import IconPile, { type PileIcon } from "~/components/IconPile.astro";
+import dotnet from "~/assets/icons/dotnet.svg";
+import javascript from "~/assets/icons/javascript.svg";
+import pages from "~/assets/icons/pages.svg";
+import react from "~/assets/icons/react.svg";
+import rust from "~/assets/icons/rust.svg";
+import typescript from "~/assets/icons/typescript.svg";
+import vite from "~/assets/icons/vite.svg";
+
+const icons: PileIcon[] = [
+	{
+		name: "Cloudflare Pages",
+		icon: pages,
+		shape: "square",
+		restPosition: { iconsFromRight: 2.5, iconsAboveFloor: 1.5 },
+	},
+	{
+		name: "JavaScript",
+		icon: javascript,
+		shape: "square",
+		restPosition: { iconsFromRight: 4, iconsAboveFloor: 0.5 },
+	},
+	{
+		name: "React",
+		icon: react,
+		shape: "circle",
+		restPosition: { iconsFromRight: 3.5, iconsAboveFloor: 1.5 },
+	},
+	{
+		name: "TypeScript",
+		icon: typescript,
+		shape: "square",
+		restPosition: { iconsFromRight: 3, iconsAboveFloor: 0.5 },
+	},
+	{
+		name: "Rust",
+		icon: rust,
+		shape: "circle",
+		restPosition: { iconsFromRight: 1.5, iconsAboveFloor: 1.5 },
+	},
+	{
+		name: ".NET",
+		icon: dotnet,
+		shape: "square",
+		restPosition: { iconsFromRight: 2, iconsAboveFloor: 0.5 },
+	},
+	{
+		name: "Vite",
+		icon: vite,
+		shape: "square",
+		restPosition: { iconsFromRight: 1, iconsAboveFloor: 0.5 },
+	},
+];
+---
+
+<div class="github-activity-section">
+	<div class="header">
+		<span class="title">GitHub Activity</span>
+		<div class="shelf" data-solid>
+			<IconPile icons={icons} />
+		</div>
+	</div>
+	<GitHubActivity />
+</div>
+
+<style>
+	.github-activity-section {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-xs);
+		margin-top: 4rem;
+	}
+
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.title {
+		color: var(--color-text-dim);
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+	}
+
+	.shelf {
+		position: relative;
+		width: 10rem;
+		height: 0.25rem;
+		border-radius: 999px;
+		background: rgb(255 255 255 / 10%);
+	}
+</style>

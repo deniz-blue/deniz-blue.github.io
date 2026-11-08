@@ -1,4 +1,4 @@
-import type { FaceDirection, Vector3 } from "~/avatar/types";
+import type { FaceDirection, Vector3 } from "~/scripts/avatar/types";
 
 export type Uv = [number, number, number, number];
 

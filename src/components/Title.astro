@@ -7,7 +7,7 @@ const id = html
 	.replace(/^-|-$/g, "");
 ---
 
-<h2 id={id}><a href={`#${id}`}>#</a><Fragment set:html={html} /></h2>
+<h2 id={id}><Fragment set:html={html} /></h2>
 
 <style>
 	h2 {
@@ -18,9 +18,9 @@ const id = html
 		margin: 0 var(--spacing-xs);
 	}
 
-	a {
+	h2::before {
+		content: "#" / "";
 		margin-right: 0.4em;
 		color: var(--color-primary);
-		text-decoration: none;
 	}
 </style>

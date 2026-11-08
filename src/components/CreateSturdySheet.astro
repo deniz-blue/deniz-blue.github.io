@@ -1,0 +1,260 @@
+---
+import andesiteBeltFunnel from "~/assets/create/andesite_belt_funnel.png";
+import beltFrames from "~/assets/create/belt_frames.png";
+import cogwheelSide from "~/assets/create/cogwheel_side.png";
+import cogwheel from "~/assets/create/cogwheel.png";
+import fluidTank from "~/assets/create/fluid_tank.png";
+import gearbox from "~/assets/create/gearbox.png";
+import itemVault from "~/assets/create/item_vault.png";
+import largeCogwheel from "~/assets/create/large_cogwheel.png";
+import lavaFlowWest from "~/assets/create/lava_flow_west.png";
+import lavaStill from "~/assets/create/lava_still.png";
+import pipeRun from "~/assets/create/pipe_run.png";
+import powderedObsidian from "~/assets/create/powdered_obsidian.png";
+import pressHead from "~/assets/create/press_head.png";
+import press from "~/assets/create/press.png";
+import pump from "~/assets/create/pump.png";
+import shaftEnd from "~/assets/create/shaft_end.png";
+import shaftSide from "~/assets/create/shaft_side.png";
+import spoutBottom from "~/assets/create/spout_bottom.png";
+import spoutMiddle from "~/assets/create/spout_middle.png";
+import spoutTop from "~/assets/create/spout_top.png";
+import spout from "~/assets/create/spout.png";
+import sturdySheet from "~/assets/create/sturdy_sheet.png";
+import unprocessedObsidianSheet from "~/assets/create/unprocessed_obsidian_sheet.png";
+import {
+	BELT_LOOP_SECONDS,
+	BELT_TOP,
+	BELT_UNITS_PER_SECOND,
+	MACHINE_TOP,
+	STATIONS,
+	TICKS_PER_SECOND,
+	TURN_SECONDS,
+} from "~/scripts/assembly/sturdySheetLine";
+
+const UNIT_PIXELS = 2;
+const MACHINE_WIDTH = 112;
+const MACHINE_BOTTOM = -2;
+const MACHINE_HEIGHT = MACHINE_TOP - MACHINE_BOTTOM;
+// Minecraft: lava_flow.png.mcmeta shows each of its 16 frames for 3 ticks.
+const LAVA_FLOW_SECONDS = (16 * 3) / TICKS_PER_SECOND;
+
+const placed = (left: number, top: number, width: number, height?: number) =>
+	[
+		`--left: ${left}`,
+		`--top: ${MACHINE_TOP - top}`,
+		`--width: ${width}`,
+		...(height ? [`--height: ${height}`] : []),
+	].join("; ");
+
+const sprite = (image: { src: string }, frames: number) =>
+	`background-image: url(${image.src}); --frames: ${frames}`;
+
+const whole = placed(0, MACHINE_TOP, MACHINE_WIDTH, MACHINE_HEIGHT);
+const glassPipeLava = [
+	placed(32, 59, 32, 6),
+	sprite(lavaFlowWest, 16),
+	"background-size: calc(var(--unit) * 16) calc(100% * var(--frames))",
+	"background-repeat: repeat-x",
+	`--seconds: ${LAVA_FLOW_SECONDS}s`,
+].join("; ");
+const belowBeltTop = `calc(var(--unit) * ${MACHINE_TOP - BELT_TOP})`;
+const beltEnd = `calc(var(--unit) * ${STATIONS.beltEnd})`;
+const aboveBelt = `clip-path: polygon(0 0, 100% 0, 100% 100%, ${beltEnd} 100%, ${beltEnd} ${belowBeltTop}, 0 ${belowBeltTop})`;
+
+const timing = [
+	`--unit: ${UNIT_PIXELS}px`,
+	`--machine-width: ${MACHINE_WIDTH}`,
+	`--machine-height: ${MACHINE_HEIGHT}`,
+	`--turn-seconds: ${TURN_SECONDS}s`,
+	`--belt-loop-seconds: ${BELT_LOOP_SECONDS}s`,
+	`--lava: url(${lavaStill.src})`,
+].join("; ");
+---
+
+<div
+	class="machine"
+	style={timing}
+	aria-hidden="true"
+	data-create-sturdy-sheet
+	data-lava-texture={lavaStill.src}
+	data-unprocessed-sheet-texture={unprocessedObsidianSheet.src}
+>
+	<span class="lava" style={placed(97, 59.75, 14, 10.5)}></span>
+	<img src={fluidTank.src} alt="" style={placed(96, 64, 16)} />
+	<span class="lava" data-part="spout-lava" style={placed(18.5, 45.5, 11, 11)}
+	></span>
+	<canvas data-particles="behind" style={whole}></canvas>
+	<span
+		class="sprite"
+		style={`${placed(0, 13, 80, 10)}; ${sprite(beltFrames, 16)}; --seconds: var(--belt-loop-seconds)`}
+		data-solid
+		data-belt-speed={BELT_UNITS_PER_SECOND * UNIT_PIXELS}></span>
+	<img class="turning" src={shaftEnd.src} alt="" style={placed(6, 10, 4)} />
+	<span
+		class="item"
+		data-part="item"
+		data-stage="finished"
+		style={placed(STATIONS.start - 4, 19, 8, 8)}
+	>
+		<img class="powder" src={powderedObsidian.src} alt="" />
+		<img class="unprocessed" src={unprocessedObsidianSheet.src} alt="" />
+		<img class="finished" src={sturdySheet.src} alt="" />
+	</span>
+	<canvas data-particles="inside" style={`${whole}; ${aboveBelt}`}></canvas>
+	<img src={andesiteBeltFunnel.src} alt="" style={placed(72, 32, 11, 21)} />
+	<img src={itemVault.src} alt="" style={placed(80, 32, 16, 16)} />
+	<span
+		class="sprite"
+		style={`${placed(32, 43, 16, 6)}; ${sprite(shaftSide, 16)}`}></span>
+	<span
+		class="sprite"
+		style={`${placed(48, 43, 16, 6)}; ${sprite(shaftSide, 16)}`}></span>
+	<span
+		class="sprite"
+		style={`${placed(64, 43, 16, 6)}; ${sprite(shaftSide, 16)}`}></span>
+	<span
+		class="lava"
+		data-part="stream"
+		style={placed(STATIONS.spout, 32, 0, 19.2)}></span>
+	<img
+		data-part="first-press-head"
+		src={pressHead.src}
+		alt=""
+		style={placed(32, 59, 16)}
+	/>
+	<img src={press.src} alt="" style={placed(32, 48, 16)} />
+	<img
+		data-part="second-press-head"
+		src={pressHead.src}
+		alt=""
+		style={placed(48, 59, 16)}
+	/>
+	<img src={press.src} alt="" style={placed(48, 48, 16)} />
+	<img src={gearbox.src} alt="" style={placed(64, 48, 16)} />
+	<span class="sprite" style={glassPipeLava}></span>
+	<img src={pipeRun.src} alt="" style={placed(18, 61, 62, 17)} />
+	<img src={spoutTop.src} alt="" style={placed(16, 32, 16)} />
+	<img
+		data-part="nozzle-middle"
+		src={spoutMiddle.src}
+		alt=""
+		style={placed(16, 30, 16)}
+	/>
+	<img
+		data-part="nozzle-bottom"
+		src={spoutBottom.src}
+		alt=""
+		style={placed(16, 28, 16)}
+	/>
+	<img src={spout.src} alt="" style={placed(16, 48, 16)} />
+	<span
+		class="sprite"
+		style={`${placed(80, 50, 16, 20)}; ${sprite(cogwheelSide, 16)}`}></span>
+	<span
+		class="sprite"
+		style={`${placed(80, 66, 16, 20)}; ${sprite(pump, 16)}`}></span>
+	<canvas data-particles="front" style={whole}></canvas>
+	<img
+		class="turning backwards large"
+		src={largeCogwheel.src}
+		alt=""
+		style={placed(72, 40, 32)}
+	/>
+	<img class="turning" src={cogwheel.src} alt="" style={placed(62, 18, 20)} />
+	<img class="turning" src={cogwheel.src} alt="" style={placed(62, 50, 20)} />
+</div>
+
+<script>
+	import { animateSturdySheetLine } from "~/scripts/assembly/sturdySheetLineAnimation";
+
+	document
+		.querySelectorAll<HTMLElement>("[data-create-sturdy-sheet]")
+		.forEach(animateSturdySheetLine);
+</script>
+
+<style>
+	.machine {
+		position: relative;
+		width: calc(var(--unit) * var(--machine-width));
+		height: calc(var(--unit) * var(--machine-height));
+	}
+
+	.machine > * {
+		position: absolute;
+		left: calc(var(--unit) * var(--left));
+		top: calc(var(--unit) * var(--top));
+		width: calc(var(--unit) * var(--width));
+		height: calc(var(--unit) * var(--height));
+		image-rendering: pixelated;
+	}
+
+	.sprite {
+		background-size: 100% calc(100% * var(--frames));
+		animation: run-sprite var(--seconds, calc(var(--turn-seconds) / 4))
+			steps(var(--frames)) infinite;
+	}
+
+	.lava {
+		background: var(--lava) 0 0 / calc(var(--unit) * 16)
+			calc(var(--unit) * 320);
+		animation: run-lava 2s steps(20) infinite;
+	}
+
+	.item img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		opacity: 0;
+	}
+
+	.item[data-stage="powder"] .powder,
+	.item[data-stage="unprocessed"] .unprocessed,
+	.item[data-stage="finished"] .finished {
+		opacity: 1;
+	}
+
+	.turning {
+		rotate: var(--phase, 0deg);
+		animation: turn var(--turn-seconds) linear infinite;
+	}
+
+	.large {
+		--phase: 11.25deg;
+	}
+
+	.turning.backwards {
+		animation-duration: calc(var(--turn-seconds) * 2);
+		animation-direction: reverse;
+	}
+
+	@keyframes run-sprite {
+		to {
+			background-position-y: calc(
+				var(--unit) * var(--height) * var(--frames) * -1
+			);
+		}
+	}
+
+	@keyframes run-lava {
+		to {
+			background-position-y: calc(var(--unit) * -320);
+		}
+	}
+
+	@keyframes turn {
+		from {
+			rotate: var(--phase, 0deg);
+		}
+
+		to {
+			rotate: calc(var(--phase, 0deg) + 360deg);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.machine * {
+			animation: none !important;
+		}
+	}
+</style>

@@ -1,5 +1,5 @@
 import sharp from "sharp";
-import type { FaceDirection } from "~/avatar/types";
+import type { FaceDirection } from "~/scripts/avatar/types";
 import type { Uv } from "./blockbench.ts";
 
 export type DecodedTexture = { pixels: Uint8Array; width: number; height: number };

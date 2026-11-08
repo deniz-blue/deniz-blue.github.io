@@ -1,0 +1,188 @@
+---
+import type { ImageMetadata } from "astro";
+import ArrowRight from "~/assets/icons/arrow-right.svg";
+import celesteStrawberry from "~/assets/games/celeste-strawberry.png";
+import deltaruneDepth from "~/assets/games/deltarune-depth.webp";
+import deltaruneSoul from "~/assets/games/deltarune-soul.png";
+import oneshotLightbulb from "~/assets/games/oneshot-lightbulb.png";
+import oneshotSunRays from "~/assets/games/oneshot-sun-rays.png";
+import { externalLinkAttributes } from "~/scripts/links";
+
+type Game = {
+	name: string;
+	className: string;
+	href: string;
+	background?: ImageMetadata;
+	sprite: ImageMetadata;
+	spriteScale: number;
+	frames?: number;
+};
+
+const ROOT_FONT_PIXELS = 16;
+
+const steamPage = (appId: number) => `https://store.steampowered.com/app/${appId}/`;
+const rem = (pixels: number) => `${pixels / ROOT_FONT_PIXELS}rem`;
+
+const GAMES: Game[] = [
+	{
+		name: "DELTARUNE",
+		className: "deltarune",
+		href: steamPage(1671210),
+		background: deltaruneDepth,
+		sprite: deltaruneSoul,
+		spriteScale: 1.5,
+	},
+	{
+		name: "OneShot",
+		className: "oneshot",
+		href: steamPage(420530),
+		background: oneshotSunRays,
+		sprite: oneshotLightbulb,
+		spriteScale: 1.125,
+	},
+	{ name: "Celeste", className: "celeste", href: steamPage(504230), sprite: celesteStrawberry, spriteScale: 2, frames: 36 },
+];
+
+const spriteStyle = ({ sprite, spriteScale, frames = 1 }: Game) =>
+	`--sheet: url(${sprite.src}); --frames: ${frames}; --width: ${rem((sprite.width / frames) * spriteScale)}; height: ${rem(sprite.height * spriteScale)}`;
+---
+
+<div class="favorite-games">
+	<p class="label">
+		These are my favorite games
+		<ArrowRight class="arrow" aria-hidden="true" />
+	</p>
+	<div class="games">
+		{
+			GAMES.map((game) => (
+				<a
+					class:list={["game", game.className]}
+					href={game.href}
+					{...externalLinkAttributes(game.href)}
+					title={game.name}
+					aria-label={game.name}
+					style={game.background && `--background: url(${game.background.src})`}
+				>
+					<span class:list={["sprite", { animated: (game.frames ?? 1) > 1 }]} style={spriteStyle(game)} />
+				</a>
+			))
+		}
+	</div>
+</div>
+
+<style>
+	.favorite-games {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: var(--spacing-md);
+	}
+
+	.label {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-xs);
+		color: var(--color-text-dim);
+	}
+
+	.arrow {
+		flex: none;
+		width: 1.25rem;
+		height: 1.25rem;
+	}
+
+	.games {
+		display: flex;
+		flex: none;
+		margin-inline: var(--spacing-sm);
+		transform: skewX(-8deg);
+	}
+
+	.game {
+		position: relative;
+		display: grid;
+		place-items: center;
+		width: 3.25rem;
+		height: 4.125rem;
+		overflow: hidden;
+		background: var(--background, none) center / cover #000;
+		image-rendering: pixelated;
+		transition: width 0.2s ease-out;
+	}
+
+	.game:hover {
+		width: 3.75rem;
+	}
+
+	.game + .game {
+		border-left: 1px solid rgb(255 255 255 / 25%);
+	}
+
+	.game::before,
+	.game::after {
+		content: "";
+		position: absolute;
+	}
+
+	.sprite {
+		position: relative;
+		z-index: 1;
+		width: var(--width);
+		background: var(--sheet) 0 0 / calc(var(--frames) * var(--width)) 100%;
+		transform: skewX(8deg);
+	}
+
+	.animated {
+		animation: play calc(var(--frames) * 0.1s) steps(var(--frames)) infinite;
+	}
+
+	@keyframes play {
+		to {
+			background-position: calc(-1 * var(--frames) * var(--width)) 0;
+		}
+	}
+
+	.oneshot::before {
+		inset: 0;
+		background: radial-gradient(circle at 50% 55%, rgb(255 190 80 / 35%), transparent 45%);
+	}
+
+	.celeste::before {
+		inset: 35% 0 0;
+		background: #1b1f40;
+		clip-path: polygon(0 100%, 0 60%, 18% 35%, 30% 50%, 52% 0, 68% 38%, 80% 25%, 100% 55%, 100% 100%);
+	}
+
+	.celeste::after {
+		inset: 0;
+		background-image:
+			radial-gradient(circle, #fff 0 1px, transparent 1.5px),
+			radial-gradient(circle, rgb(255 255 255 / 50%) 0 1px, transparent 1.5px);
+		background-position:
+			0 0,
+			0.5rem 0.7rem;
+		background-size:
+			1.75rem 1.75rem,
+			1.1rem 1.1rem;
+		animation: snow 5s linear infinite;
+	}
+
+	@keyframes snow {
+		to {
+			background-position:
+				3.5rem 1.75rem,
+				3.8rem 1.8rem;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.game {
+			transition: none;
+		}
+
+		.celeste::after,
+		.animated {
+			animation: none;
+		}
+	}
+</style>

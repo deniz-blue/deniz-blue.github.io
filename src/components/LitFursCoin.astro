@@ -1,0 +1,94 @@
+---
+import PawFlag from "~/assets/icons/paw-flag.svg";
+---
+
+<button class="coin" type="button" aria-label="Spin" data-coin data-solid>
+	<span class="faces">
+		<span class="face"><PawFlag aria-hidden="true" /></span>
+		<span class="face back"><span class="record"></span></span>
+	</span>
+</button>
+
+<script>
+	document.querySelectorAll<HTMLElement>("[data-coin]").forEach((coin) => {
+		let turns = 0;
+		coin.addEventListener("click", () =>
+			coin.style.setProperty("--turns", String(++turns)),
+		);
+	});
+</script>
+
+<style>
+	.coin {
+		flex-shrink: 0;
+		width: 2.5rem;
+		height: 2.5rem;
+		padding: 0;
+		border: none;
+		background: none;
+		cursor: pointer;
+		perspective: 10rem;
+	}
+
+	.faces {
+		position: relative;
+		display: block;
+		width: 100%;
+		height: 100%;
+		transform: rotateY(calc(var(--turns, 0) * 360deg));
+		transform-style: preserve-3d;
+		transition: transform 1s ease;
+	}
+
+	.face {
+		position: absolute;
+		inset: 0;
+		overflow: hidden;
+		border-radius: 33%;
+		isolation: isolate;
+		backface-visibility: hidden;
+	}
+
+	.face > :global(svg) {
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+
+	.back {
+		transform: rotateY(180deg);
+	}
+
+	.record {
+		position: absolute;
+		inset: 4%;
+		border-radius: 50%;
+		background:
+			conic-gradient(
+				from 30deg,
+				transparent,
+				rgb(255 255 255 / 12%) 8%,
+				transparent 16% 50%,
+				rgb(255 255 255 / 12%) 58%,
+				transparent 66%
+			),
+			radial-gradient(circle closest-side, #000 0 6%, transparent 6.5%),
+			repeating-radial-gradient(
+				circle closest-side,
+				#111 0 3%,
+				#1d1d1d 3% 6%
+			);
+		mask: radial-gradient(
+			circle closest-side,
+			#000 0 6%,
+			transparent 6.5% 34%,
+			#000 35%
+		);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.faces {
+			transition: none;
+		}
+	}
+</style>

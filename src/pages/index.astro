@@ -3,37 +3,45 @@ import Base from "~/layouts/Base.astro";
 import Title from "~/components/Title.astro";
 import ContentCard from "~/components/ContentCard.astro";
 import CosQR from "~/components/CosQR.astro";
-import Mcman from "~/components/Mcman.astro";
+import CreateSturdySheet from "~/components/CreateSturdySheet.astro";
 import StarsoulIndustries from "~/components/StarsoulIndustries.astro";
 import Discordjsx from "~/components/Discordjsx.astro";
 import Figura from "~/components/Figura.astro";
-import ProtoCal from "~/components/ProtoCal.astro";
-import Vantage from "~/components/Vantage.astro";
+import Pill from "~/components/Pill.astro";
+import vantageIcon from "~/assets/icons/vantage.png";
 import Anchor from "~/components/Anchor.astro";
-import PeekingAvatar from "~/components/PeekingAvatar.astro";
+import Avatar from "~/components/Avatar.astro";
+import LinksRow from "~/components/LinksRow.astro";
+import GitHubActivitySection from "~/components/GitHubActivitySection.astro";
+import LitFursCoin from "~/components/LitFursCoin.astro";
+import FavoriteGames from "~/components/FavoriteGames.astro";
+import MemoryMerge from "~/components/MemoryMerge.astro";
+import LocalTime from "~/components/LocalTime.astro";
+import TherianSymbol from "~/assets/icons/therian.svg";
 ---
 
 <Base title="deniz.blue">
 	<main>
-		<PeekingAvatar />
+		<Avatar />
 		<ContentCard>
 			<div class="superspaced">
-				<div>
-					<h1>Hi, I'm Deniz!</h1>
-					<p>I do software development, mostly.</p>
-				</div>
-
 				<div class="spaced">
-					<Title>Minecraft Stuff</Title>
-
-					<Figura />
-
-					<StarsoulIndustries />
-
-					<p>
-						I maintain <Mcman />, a tool for other developers to
-						manage their servers using Git
-					</p>
+					<div>
+						<h1>
+							Hi, I'm Deniz! <span title="Therian"
+								><TherianSymbol
+									class="therian"
+									role="img"
+									aria-label="Therian"
+								/></span
+							>
+						</h1>
+						<p>I do software development, mostly.</p>
+					</div>
+					<div>
+						<LinksRow />
+						<LocalTime />
+					</div>
 				</div>
 
 				<div class="spaced">
@@ -48,34 +56,104 @@ import PeekingAvatar from "~/components/PeekingAvatar.astro";
 					</p>
 
 					<p>
-						I'm working on <Vantage />, an android calendar app that
-						can follow events from anywhere
+						I'm working on <Pill
+							href="https://vantage.tsx.lt/android/"
+							icon={vantageIcon}
+							name="Vantage"
+							glowGradient="conic-gradient(from 270deg, #ff4800 10%, #dfd902 35%, #20dc68, #0092f4, #da54d8 72% 75%, #ff4800 95%)"
+							data-solid
+						/>, an android calendar app that can follow events from
+						anywhere
 					</p>
 
 					<p>
-						I'm also building <ProtoCal />, a Discord bot that turns
-						forum posts into events.
+						I'm also building <Pill
+							href="https://github.com/deniz-blue/ProtoCal"
+							name="ProtoCal"
+							workInProgress
+							data-solid
+						/>, a Discord bot that turns forum posts into events.
 					</p>
 
 					<CosQR />
 				</div>
 
 				<div class="spaced">
-					<Title>JavaScript (deragotory)</Title>
+					<Title>Minecraft Stuff</Title>
 
-					<p>
-						You can call me a JavaScript Witch, I love this cursed
-						language.
-					</p>
+					<Figura />
+
+					<StarsoulIndustries />
+
+					<div class="side-by-side">
+						<div class="spaced">
+							<p>
+								I maintain <Pill
+									href="https://github.com/deniz-blue/mcman"
+									name="mcman"
+								/>, a tool for other developers to manage their
+								servers using Git.
+							</p>
+
+							<p>
+								I helped organize <Anchor
+									href="https://modfest.net">ModFest</Anchor
+								> once.
+							</p>
+
+							<p>
+								Oh and I really love <Anchor
+									href="https://modrinth.com/mod/create"
+									>Create Mod</Anchor
+								>!
+							</p>
+						</div>
+
+						<CreateSturdySheet />
+					</div>
+				</div>
+
+				<div class="spaced">
+					<Title>Programming Stuff</Title>
+
+					<p>Certified JavaScript Witch</p>
 
 					<Discordjsx />
 
 					<p>
-						We got 8th place on site using just JS at <Anchor
-							href="https://nordic.icpc.io/ncpc2026/"
-							>NCPC 2026</Anchor
-						>!
+						I wrote <Anchor
+							href="https://github.com/deniz-blue/protodef-next"
+							>protodef-next</Anchor
+						>, a modern ProtoDef implementation in TypeScript.
 					</p>
+
+					<p>
+						My <Anchor href="https://neko.lt">partner</Anchor> also has
+						a <Anchor href="https://tenna.tsx.lt"
+							>TV remote application</Anchor
+						>.
+					</p>
+
+					<GitHubActivitySection />
+				</div>
+
+				<div class="spaced">
+					<Title>Communities & Fandoms</Title>
+
+					<div class="icon-row">
+						<LitFursCoin />
+						<div>
+							<p>I'm active in the</p>
+							<p class="community-name">
+								<Anchor href="https://furiai.lt"
+									>Lithuanian Furry Community</Anchor
+								> :3
+							</p>
+						</div>
+					</div>
+
+					<FavoriteGames />
+					<MemoryMerge />
 				</div>
 			</div>
 		</ContentCard>
@@ -93,7 +171,7 @@ import PeekingAvatar from "~/components/PeekingAvatar.astro";
 		max-width: 1140px;
 		min-height: 100vh;
 		margin: 0 auto;
-		padding: var(--spacing-xl) var(--spacing-md) 50vh;
+		padding: calc(1.5 * var(--spacing-xl)) var(--spacing-md) 50vh;
 	}
 
 	@media (width < 33.75rem) {
@@ -105,13 +183,16 @@ import PeekingAvatar from "~/components/PeekingAvatar.astro";
 	h1 {
 		margin: 0;
 		color: var(--color-text-strong);
-		font-size: 1.875rem;
+		font-size: var(--font-size-xl);
 		font-weight: 600;
 		line-height: 1.3;
 	}
 
-	p {
-		margin: 0;
+	.therian {
+		color: var(--color-text-strong);
+		width: 1em;
+		height: 1em;
+		vertical-align: -0.05em;
 	}
 
 	.superspaced {
@@ -124,5 +205,27 @@ import PeekingAvatar from "~/components/PeekingAvatar.astro";
 		display: flex;
 		flex-direction: column;
 		gap: var(--spacing-md);
+	}
+
+	.side-by-side {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: flex-end;
+		gap: var(--spacing-md);
+	}
+
+	.side-by-side > .spaced {
+		flex: 1 1 16rem;
+	}
+
+	.icon-row {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-sm);
+	}
+
+	.community-name {
+		font-weight: 600;
 	}
 </style>

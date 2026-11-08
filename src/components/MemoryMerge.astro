@@ -1,0 +1,128 @@
+---
+import Anchor from "~/components/Anchor.astro";
+import { EVIDENCE_BOARD_VIEW_BOX, PINS, paperLayers, stringPaths } from "~/scripts/evidenceBoard";
+---
+
+<div class="memory-merge" data-solid>
+	{
+		paperLayers.map(({ scrollRate, papers }, index) => (
+			<svg
+				class="layer"
+				viewBox={EVIDENCE_BOARD_VIEW_BOX}
+				preserveAspectRatio="xMidYMid slice"
+				aria-hidden="true"
+				data-scroll-rate={scrollRate}
+			>
+				{papers.map(({ x, y, size, tilt, tone, mark }) => (
+					<g transform={`translate(${x} ${y}) rotate(${tilt})`} opacity={0.35 + size / 40}>
+						<rect class="paper" x={-size / 2} y={-size * 0.65} width={size} height={size * 1.3} fill={tone} />
+						{mark && <path class:list={["mark", { filled: mark.filled }]} d={mark.path} />}
+					</g>
+				))}
+				{index === paperLayers.length - 1 && (
+					<>
+						{PINS.map(({ x, y, tilt }) => (
+							<rect class="pinned" x={x - 11} y={y - 3} width="22" height="28" transform={`rotate(${tilt} ${x} ${y})`} />
+						))}
+						{stringPaths.map((d) => <path class="string" d={d} />)}
+						{PINS.map(({ x, y }) => <circle class="pin" cx={x} cy={y} r="2" />)}
+					</>
+				)}
+			</svg>
+		))
+	}
+	<span class="listen"><Anchor href="https://www.youtube.com/watch?v=lgzCxqQUU5g">Listen</Anchor></span>
+</div>
+
+<script>
+	import { animateOnScroll } from "~/scripts/motion";
+
+	const layers = [...document.querySelectorAll<SVGElement>(".memory-merge .layer")];
+
+	animateOnScroll(() => {
+		for (const layer of layers) {
+			const box = layer.parentElement!.getBoundingClientRect();
+			const fromCenter = innerHeight / 2 - (box.top + box.height / 2);
+			layer.style.translate = `0 ${fromCenter * Number(layer.dataset.scrollRate)}px`;
+		}
+	});
+</script>
+
+<style>
+	.memory-merge {
+		position: relative;
+		isolation: isolate;
+		overflow: hidden;
+		display: flex;
+		justify-content: end;
+		align-items: end;
+		min-height: 5.5rem;
+		padding: var(--spacing-sm) var(--spacing-md);
+		border-radius: var(--radius-md);
+		background: linear-gradient(#2b2856, #1c1a3a);
+	}
+
+	.memory-merge::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: -1;
+		border-radius: inherit;
+		background:
+			repeating-linear-gradient(transparent 0 2px, rgb(0 0 0 / 18%) 2px 3px),
+			radial-gradient(ellipse 40% 70% at 50% 115%, rgb(255 70 130 / 45%), transparent),
+			radial-gradient(ellipse 25% 60% at 100% 100%, rgb(20 18 40 / 85%), transparent);
+		box-shadow:
+			inset 0 0 2rem rgb(0 0 0 / 60%),
+			inset 0 0 0 1px rgb(255 255 255 / 8%);
+	}
+
+	.layer {
+		position: absolute;
+		inset: 0;
+		z-index: -2;
+		width: 100%;
+		height: 100%;
+		overflow: visible;
+		will-change: translate;
+	}
+
+	.paper {
+		stroke: rgb(255 255 255 / 12%);
+		stroke-width: 0.5;
+	}
+
+	.mark {
+		fill: none;
+		stroke: rgb(20 18 40 / 55%);
+		stroke-width: 1;
+	}
+
+	.mark.filled {
+		fill: rgb(20 18 40 / 45%);
+		stroke: none;
+	}
+
+	.pinned {
+		fill: #9c99cc;
+		stroke: rgb(255 255 255 / 20%);
+		stroke-width: 0.5;
+	}
+
+	.pin {
+		fill: #ff3b6b;
+		filter: drop-shadow(0 0 1.5px #ff3b6b);
+	}
+
+	.string {
+		fill: none;
+		stroke: #ff3b6b;
+		stroke-width: 0.8;
+		filter: drop-shadow(0 0 1.5px #ff3b6b);
+	}
+
+	.listen {
+		color: var(--color-text-strong);
+		font-weight: 600;
+	}
+</style>

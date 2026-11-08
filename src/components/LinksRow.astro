@@ -1,0 +1,138 @@
+---
+import { Image } from "astro:assets";
+import discord from "~/assets/icons/discord.png";
+import github from "~/assets/icons/github.svg";
+import mail from "~/assets/icons/mail.svg";
+import { externalLinkAttributes } from "~/scripts/links";
+
+const links = [
+	{ name: "GitHub", href: "https://github.com/deniz-blue", icon: github },
+	{ name: "Discord", copy: "deniz.blue", icon: discord },
+	{ name: "Mail", href: "mailto:deniz@deniz.blue", icon: mail },
+];
+---
+
+<div class="links-row">
+	{
+		links.map(({ name, href, copy, icon }) =>
+			copy === undefined ? (
+				<a href={href} {...externalLinkAttributes(href)}>
+					<Image src={icon} alt="" aria-hidden loading="eager" width={14} height={14} densities={[1, 2]} />
+					{name}
+				</a>
+			) : (
+				<button type="button" data-copy={copy} title={`Copy ${copy}`}>
+					<Image src={icon} alt="" aria-hidden loading="eager" width={14} height={14} densities={[1, 2]} />
+					<span class="name">{name}</span>
+					<span class="copied" aria-hidden="true"></span>
+				</button>
+			),
+		)
+	}
+</div>
+
+<script>
+	import { prefersReducedMotion } from "~/scripts/motion";
+
+	const messages = [
+		"Username copied!",
+		"Username double copied!",
+		"Username triple copied!",
+		"COPY COMBO x4!",
+		"Ctrl+C Ctrl+C Ctrl+C",
+		"Level up! You are now a Copy Machine.",
+		"I'm running out of ideas! Stop!",
+		"Copied...",
+	];
+
+	for (const button of document.querySelectorAll<HTMLButtonElement>(".links-row button[data-copy]")) {
+		const text = button.dataset.copy ?? "";
+		const template = button.querySelector<HTMLElement>(".copied")!;
+		let copies = 0;
+		const rising = new Set<Animation>();
+		button.addEventListener("click", async () => {
+			try {
+				await navigator.clipboard.writeText(text);
+			} catch {
+				button.querySelector(".name")!.textContent = text;
+				return;
+			}
+			const message = template.cloneNode() as HTMLElement;
+			message.textContent = messages[Math.min(copies, messages.length - 1)]!;
+			copies++;
+			const x = `calc(-50% + ${Math.round((Math.random() - 0.5) * 24)}px)`;
+			const rise = prefersReducedMotion() ? "0" : "-1.5rem";
+			button.append(message);
+			for (const older of rising) older.updatePlaybackRate(3);
+			const animation = message.animate(
+				[
+					{ opacity: 0, translate: `${x} 0.25rem` },
+					{ opacity: 1, translate: `${x} 0`, offset: 0.15 },
+					{ opacity: 1, translate: `${x} -0.5rem`, offset: 0.5 },
+					{ opacity: 0, translate: `${x} ${rise}` },
+				],
+				{ duration: 1200, easing: "ease-out" },
+			);
+			rising.add(animation);
+			animation.onfinish = () => {
+				rising.delete(animation);
+				message.remove();
+			};
+		});
+	}
+</script>
+
+<style>
+	.links-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-sm);
+	}
+
+	a,
+	button {
+		position: relative;
+		display: inline-flex;
+		align-items: center;
+		gap: 0.3rem;
+		padding: 0;
+		border: 0;
+		background: none;
+		color: var(--color-text);
+		font: inherit;
+		font-weight: 500;
+		text-decoration: none;
+		cursor: pointer;
+		transition: color 0.15s ease-in-out;
+	}
+
+	img {
+		opacity: 0.8;
+		transition: opacity 0.15s ease-in-out;
+	}
+
+	a:hover,
+	button:hover {
+		color: var(--color-text-strong);
+	}
+
+	a:hover img,
+	button:hover img {
+		opacity: 1;
+	}
+
+	.copied {
+		position: absolute;
+		bottom: 100%;
+		left: 50%;
+		translate: -50% 0;
+		opacity: 0;
+		color: var(--color-primary);
+		font-size: var(--font-size-xs);
+		font-weight: 600;
+		white-space: nowrap;
+		pointer-events: none;
+		z-index: 1;
+		text-shadow: 0 0 4px rgb(0 0 0 / 80%);
+	}
+</style>

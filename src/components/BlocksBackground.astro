@@ -1,0 +1,62 @@
+---
+import blocks from "~/assets/patterns/blocks.svg";
+import blocksFront from "~/assets/patterns/blocks-front.svg";
+import blocksMiddle from "~/assets/patterns/blocks-middle.svg";
+
+const layers = [
+	{ image: blocks, scrollRate: 0.15, filter: "none" },
+	{ image: blocksMiddle, scrollRate: 0.4, filter: "drop-shadow(0 6px 10px rgb(0 0 0 / 45%))" },
+	{ image: blocksFront, scrollRate: 0.7, filter: "drop-shadow(0 8px 14px rgb(0 0 0 / 35%))" },
+];
+---
+
+<div class="blocks-background" aria-hidden="true">
+	{
+		layers.map(({ image, scrollRate, filter }) => (
+			<div
+				class="layer"
+				data-scroll-rate={scrollRate}
+				data-tile-height={image.height}
+				style={{
+					backgroundImage: `url(${image.src})`,
+					height: `calc(100% + ${image.height}px)`,
+					filter,
+				}}
+			/>
+		))
+	}
+</div>
+
+<script>
+	import { animateOnScroll } from "~/scripts/motion";
+
+	const layers = [...document.querySelectorAll<HTMLElement>(".blocks-background .layer")].map((element) => ({
+		element,
+		scrollRate: Number(element.dataset.scrollRate),
+		tileHeight: Number(element.dataset.tileHeight),
+	}));
+
+	const moveLayers = () => {
+		for (const { element, scrollRate, tileHeight } of layers) {
+			element.style.translate = `0 ${-((scrollY * scrollRate) % tileHeight)}px`;
+		}
+	};
+
+	animateOnScroll(moveLayers);
+</script>
+
+<style>
+	.blocks-background {
+		position: fixed;
+		inset: 0;
+		z-index: -1;
+		overflow: hidden;
+		pointer-events: none;
+	}
+
+	.layer {
+		position: absolute;
+		inset: 0 0 auto;
+		will-change: translate;
+	}
+</style>

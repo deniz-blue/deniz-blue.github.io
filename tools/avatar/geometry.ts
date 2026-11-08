@@ -1,5 +1,5 @@
-import type { AvatarFace, FaceDirection, Vector3 } from "~/avatar/types";
-import { PIXELS_PER_UNIT } from "../../src/avatar/css.ts";
+import type { AvatarFace, FaceDirection, Vector3 } from "~/scripts/avatar/types";
+import { PIXELS_PER_UNIT } from "../../src/scripts/avatar/css.ts";
 import type { Uv } from "./blockbench.ts";
 
 type FaceCorners = { u1v1: Vector3; u2v1: Vector3; u1v2: Vector3; u2v2: Vector3 };
