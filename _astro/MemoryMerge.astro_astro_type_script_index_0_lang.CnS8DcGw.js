@@ -1,0 +1,1 @@
+import{t as e}from"./motion.B1J3qmcw.js";var t=[...document.querySelectorAll(`.memory-merge .layer`)];e(()=>{for(let e of t){let t=e.parentElement.getBoundingClientRect(),n=innerHeight/2-(t.top+t.height/2);e.style.translate=`0 ${n*Number(e.dataset.scrollRate)}px`}});
