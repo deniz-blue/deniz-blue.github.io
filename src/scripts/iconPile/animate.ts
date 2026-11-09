@@ -37,7 +37,7 @@ const iconsOfPile = (pile: HTMLElement): PiledIcon[] => {
 	});
 };
 
-const keepPageMeasured = (engine: Engine, bodies: Body[]) => {
+const keepPageMeasured = (engine: Engine, bodies: Body[], resumeSimulation: () => void) => {
 	let solids: Solid[] = [];
 	let solidsInWorld = Composite.create();
 	let page = measurePage();
@@ -51,6 +51,7 @@ const keepPageMeasured = (engine: Engine, bodies: Body[]) => {
 		Composite.remove(engine.world, solidsInWorld);
 		solidsInWorld = Composite.create({ bodies: solidBodies(next, page) });
 		Composite.add(engine.world, solidsInWorld);
+		resumeSimulation();
 	};
 	const remeasure = () => (pending ??= requestAnimationFrame(measure));
 	measure();
@@ -86,16 +87,27 @@ const createEngine = (bodies: Body[]) => {
 };
 
 const runEngine = (engine: Engine, icons: PiledIcon[]) => {
-	let lastTime = performance.now();
+	let lastTime = 0;
 	let owedMs = 0;
+	let running = false;
 	const tick = (now: number) => {
 		owedMs = Math.min(owedMs + now - lastTime, STEP_MS * MAX_STEPS_PER_FRAME);
 		lastTime = now;
 		for (; owedMs >= STEP_MS; owedMs -= STEP_MS) Engine.update(engine, STEP_MS);
 		place(icons);
+		running = !icons.every(({ body }) => body.isSleeping);
+		if (running) requestAnimationFrame(tick);
+	};
+	const resumeSimulation = () => {
+		if (running) return;
+		running = true;
+		lastTime = performance.now();
+		owedMs = 0;
 		requestAnimationFrame(tick);
 	};
-	requestAnimationFrame(tick);
+	icons.forEach(({ body }) => Events.on(body, "sleepEnd", resumeSimulation));
+	resumeSimulation();
+	return resumeSimulation;
 };
 
 export const animateIconPiles = (piles: HTMLElement[]) => {
@@ -104,12 +116,12 @@ export const animateIconPiles = (piles: HTMLElement[]) => {
 	document.body.append(...piles);
 	piles.forEach((pile) => (pile.dataset.simulated = ""));
 	const engine = createEngine(bodies);
-	const measured = keepPageMeasured(engine, bodies);
+	const resumeSimulation = runEngine(engine, icons);
+	const measured = keepPageMeasured(engine, bodies, resumeSimulation);
 	carryRidersOnScroll(bodies, measured.solids);
 	Events.on(engine, "afterUpdate", () =>
 		bodies.forEach((body) => wrapBelowPage(body, measured.page())),
 	);
 	place(icons);
 	listenForDrags(engine, icons);
-	runEngine(engine, icons);
 };
