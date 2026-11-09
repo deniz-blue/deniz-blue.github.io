@@ -1,11 +1,19 @@
 import { cssDegrees, cssPixels, poseVariable } from "~/scripts/avatar/css";
 import type { Vector3 } from "~/scripts/avatar/types";
 import { AVATAR_ANIMATIONS } from "~/assets/avatar/avatarAnimations";
+import { RESTING_EARS } from "~/scripts/avatar/ears";
 import { sampleAnimation } from "~/scripts/avatar/keyframes";
 import { addVectors, lerp, type Point } from "~/scripts/avatar/math";
 import type { SimulationState } from "~/scripts/avatar/simulation";
 
 const { lookHorizontal, lookVertical, blink } = AVATAR_ANIMATIONS;
+const HEAD_BONE = "Head";
+
+export const ANIMATED_BONES = [
+	HEAD_BONE,
+	...new Set(Object.values(AVATAR_ANIMATIONS).flatMap((tracks) => Object.keys(tracks.bones))),
+	...RESTING_EARS.map((ear) => ear.bone),
+];
 
 const blinkSecondsAt = (previous: SimulationState, current: SimulationState, delta: number) =>
 	current.blinkSeconds === undefined ? blink.length : lerp(previous.blinkSeconds ?? 0, current.blinkSeconds, delta);
@@ -33,7 +41,7 @@ export const poseValues = (previous: SimulationState, current: SimulationState, 
 		return [poseVariable(ear.bone), `rotateZ(${cssDegrees(lean)}) rotateX(${cssDegrees(pitch)})`];
 	});
 	return [
-		[poseVariable("Head"), `rotateY(${cssDegrees(head.yaw)}) rotateX(${cssDegrees(head.pitch)})`],
+		[poseVariable(HEAD_BONE), `rotateY(${cssDegrees(head.yaw)}) rotateX(${cssDegrees(head.pitch)})`],
 		...offsets.map(([bone, offset]): [string, string] => [poseVariable(bone), translate(offset)]),
 		...ears,
 	];

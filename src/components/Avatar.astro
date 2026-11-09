@@ -1,12 +1,14 @@
 ---
 import heartParticle from "~/assets/avatar/heart-particle.png";
 import avatarData from "~/assets/avatar/avatar.json";
-import { PIXELS_PER_UNIT } from "~/scripts/avatar/css";
+import { PIXELS_PER_UNIT, poseVariable } from "~/scripts/avatar/css";
+import { ANIMATED_BONES } from "~/scripts/avatar/pose";
 import type { AvatarData } from "~/scripts/avatar/types";
 import AvatarTree from "~/components/AvatarTree.astro";
 
 const avatar = avatarData as AvatarData;
 const textureCss = Object.entries(avatar.shadedTextureUrls).map(([name, url]) => `.${name}{background-image:url("${url}")}`);
+const poseProperties = ANIMATED_BONES.map((bone) => `@property ${poseVariable(bone)}{syntax:"*";inherits:false}`);
 ---
 
 <div class="avatar" data-avatar aria-hidden="true">
@@ -19,7 +21,7 @@ const textureCss = Object.entries(avatar.shadedTextureUrls).map(([name, url]) =>
 	<div class="hearts" data-hearts="front"></div>
 </div>
 
-<style is:inline set:html={textureCss.join("")}></style>
+<style is:inline set:html={[...textureCss, ...poseProperties].join("")}></style>
 
 <script>
 	import { animateAvatar } from "~/scripts/avatar/animate";

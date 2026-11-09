@@ -8,9 +8,12 @@ const layers = [
 	{ image: blocksMiddle, scrollRate: 0.4, filter: "drop-shadow(0 6px 10px rgb(0 0 0 / 45%))" },
 	{ image: blocksFront, scrollRate: 0.7, filter: "drop-shadow(0 8px 14px rgb(0 0 0 / 35%))" },
 ];
+
+// CSS: a scroll-driven animation splits its range evenly between its iterations.
+const LONGEST_PAGE_PIXELS = 1_000_000;
 ---
 
-<div class="blocks-background" aria-hidden="true">
+<div class="blocks-background" aria-hidden="true" style={`--scroll-range: ${LONGEST_PAGE_PIXELS}px`}>
 	{
 		layers.map(({ image, scrollRate, filter }) => (
 			<div
@@ -21,6 +24,8 @@ const layers = [
 					backgroundImage: `url(${image.src})`,
 					height: `calc(100% + ${image.height}px)`,
 					filter,
+					"--tile-height": `${image.height}px`,
+					"--tiles-in-range": (LONGEST_PAGE_PIXELS * scrollRate) / image.height,
 				}}
 			/>
 		))
@@ -28,7 +33,7 @@ const layers = [
 </div>
 
 <script>
-	import { animateOnScroll } from "~/scripts/motion";
+	import { animateOnScroll, supportsScrollDrivenAnimations } from "~/scripts/motion";
 
 	const layers = [...document.querySelectorAll<HTMLElement>(".blocks-background .layer")].map((element) => ({
 		element,
@@ -42,7 +47,7 @@ const layers = [
 		}
 	};
 
-	animateOnScroll(moveLayers);
+	if (!supportsScrollDrivenAnimations()) animateOnScroll(moveLayers);
 </script>
 
 <style>
@@ -58,5 +63,22 @@ const layers = [
 		position: absolute;
 		inset: 0 0 auto;
 		will-change: translate;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		@supports (animation-timeline: scroll()) {
+			.layer {
+				animation: scroll-tiles linear;
+				animation-iteration-count: var(--tiles-in-range);
+				animation-timeline: scroll(root);
+				animation-range: 0 var(--scroll-range);
+			}
+		}
+	}
+
+	@keyframes scroll-tiles {
+		to {
+			translate: 0 calc(-1 * var(--tile-height));
+		}
 	}
 </style>

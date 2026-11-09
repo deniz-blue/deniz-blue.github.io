@@ -15,10 +15,15 @@ import { measurePage, measureSolids, solidBodies, type Solid } from "~/scripts/i
 const STEP_MS = 1000 / 60;
 const MAX_STEPS_PER_FRAME = 4;
 
+const placedTransforms = new WeakMap<HTMLElement, string>();
+
 const place = (icons: PiledIcon[]) =>
 	icons.forEach(({ element, body, size }) => {
 		const { x, y } = body.position;
-		element.style.transform = `translate(${x - size / 2}px, ${y - size / 2}px) rotate(${body.angle}rad)`;
+		const transform = `translate(${x - size / 2}px, ${y - size / 2}px) rotate(${body.angle}rad)`;
+		if (placedTransforms.get(element) === transform) return;
+		element.style.transform = transform;
+		placedTransforms.set(element, transform);
 	});
 
 const iconsOfPile = (pile: HTMLElement): PiledIcon[] => {

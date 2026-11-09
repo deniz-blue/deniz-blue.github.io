@@ -1,6 +1,6 @@
 import type { ParticleSpawn, Vector } from "~/scripts/assembly/minecraftParticles";
 import { itemParticleVelocity } from "~/scripts/assembly/minecraftParticles";
-import { BELT_TOP, FILL_TICK, STATIONS, isSpoutDripping, pressHitTick } from "~/scripts/assembly/sturdySheetLine";
+import { BELT_TOP, CYCLE_TICKS, FILL_TICK, STATIONS, isSpoutDripping, pressHitTick } from "~/scripts/assembly/sturdySheetLine";
 
 const BLOCK = 16;
 const SPOUT_CENTRE: Vector = [8, 40, STATIONS.spout];
@@ -38,5 +38,14 @@ export const particlesSpawnedAt = (tick: number, random: () => number): Particle
 	...(tick === pressHitTick("firstPress") ? repeat(15, () => crumb(STATIONS.firstPress, random)) : []),
 	...(tick === pressHitTick("secondPress") ? repeat(15, () => crumb(STATIONS.secondPress, random)) : []),
 ];
+
+const SPAWN_TICKS = new Set(
+	Array.from({ length: CYCLE_TICKS }, (_, tick) => tick).filter((tick) => particlesSpawnedAt(tick, Math.random).length > 0),
+);
+
+export const nextSpawnTick = (after: number) => {
+	for (let tick = after + 1; tick < after + CYCLE_TICKS; tick++) if (SPAWN_TICKS.has(tick % CYCLE_TICKS)) return tick;
+	return after + CYCLE_TICKS;
+};
 
 export const lineFloorAt = (x: number, z: number) => (x >= 1 && x <= 15 && z >= 0 && z <= STATIONS.beltEnd ? BELT_TOP : 0);

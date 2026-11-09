@@ -11,7 +11,7 @@ import { EVIDENCE_BOARD_VIEW_BOX, PINS, paperLayers, stringPaths } from "~/scrip
 				viewBox={EVIDENCE_BOARD_VIEW_BOX}
 				preserveAspectRatio="xMidYMid slice"
 				aria-hidden="true"
-				data-scroll-rate={scrollRate}
+				style={`--scroll-rate: ${scrollRate}`}
 			>
 				{papers.map(({ x, y, size, tilt, tone, mark }) => (
 					<g transform={`translate(${x} ${y}) rotate(${tilt})`} opacity={0.35 + size / 40}>
@@ -35,17 +35,19 @@ import { EVIDENCE_BOARD_VIEW_BOX, PINS, paperLayers, stringPaths } from "~/scrip
 </div>
 
 <script>
-	import { animateOnScroll } from "~/scripts/motion";
+	import { animateOnScroll, supportsScrollDrivenAnimations } from "~/scripts/motion";
 
 	const layers = [...document.querySelectorAll<SVGElement>(".memory-merge .layer")];
 
-	animateOnScroll(() => {
+	const moveLayers = () => {
 		for (const layer of layers) {
 			const box = layer.parentElement!.getBoundingClientRect();
 			const fromCenter = innerHeight / 2 - (box.top + box.height / 2);
-			layer.style.translate = `0 ${fromCenter * Number(layer.dataset.scrollRate)}px`;
+			layer.style.translate = `0 ${fromCenter * Number(layer.style.getPropertyValue("--scroll-rate"))}px`;
 		}
-	});
+	};
+
+	if (!supportsScrollDrivenAnimations()) animateOnScroll(moveLayers);
 </script>
 
 <style>
@@ -85,6 +87,31 @@ import { EVIDENCE_BOARD_VIEW_BOX, PINS, paperLayers, stringPaths } from "~/scrip
 		height: 100%;
 		overflow: visible;
 		will-change: translate;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		@supports (animation-timeline: scroll()) {
+			.memory-merge {
+				view-timeline: --memory-merge;
+			}
+
+			.layer {
+				animation-name: drift-past-center;
+				animation-timing-function: linear;
+				animation-fill-mode: both;
+				animation-timeline: --memory-merge;
+			}
+		}
+	}
+
+	@keyframes drift-past-center {
+		from {
+			translate: 0 calc((100dvh + 100%) * var(--scroll-rate) / -2);
+		}
+
+		to {
+			translate: 0 calc((100dvh + 100%) * var(--scroll-rate) / 2);
+		}
 	}
 
 	.paper {

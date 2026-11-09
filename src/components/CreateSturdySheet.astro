@@ -31,8 +31,13 @@ import {
 	TICKS_PER_SECOND,
 	TURN_SECONDS,
 } from "~/scripts/assembly/sturdySheetLine";
+import {
+	SPOUT_TANK_HEIGHT,
+	UNIT_PIXELS,
+	animationStyle,
+	sturdySheetLineKeyframes,
+} from "~/scripts/assembly/sturdySheetLineKeyframes";
 
-const UNIT_PIXELS = 2;
 const MACHINE_WIDTH = 112;
 const MACHINE_BOTTOM = -2;
 const MACHINE_HEIGHT = MACHINE_TOP - MACHINE_BOTTOM;
@@ -47,15 +52,13 @@ const placed = (left: number, top: number, width: number, height?: number) =>
 		...(height ? [`--height: ${height}`] : []),
 	].join("; ");
 
-const sprite = (image: { src: string }, frames: number) =>
-	`background-image: url(${image.src}); --frames: ${frames}`;
+const sprite = (image: { src: string }, frames: number) => `--sheet: url(${image.src}); --frames: ${frames}`;
 
 const whole = placed(0, MACHINE_TOP, MACHINE_WIDTH, MACHINE_HEIGHT);
 const glassPipeLava = [
 	placed(32, 59, 32, 6),
 	sprite(lavaFlowWest, 16),
-	"background-size: calc(var(--unit) * 16) calc(100% * var(--frames))",
-	"background-repeat: repeat-x",
+	"--tile-width: calc(var(--unit) * 16)",
 	`--seconds: ${LAVA_FLOW_SECONDS}s`,
 ].join("; ");
 const belowBeltTop = `calc(var(--unit) * ${MACHINE_TOP - BELT_TOP})`;
@@ -80,80 +83,77 @@ const timing = [
 	data-lava-texture={lavaStill.src}
 	data-unprocessed-sheet-texture={unprocessedObsidianSheet.src}
 >
-	<span class="lava" style={placed(97, 59.75, 14, 10.5)}></span>
+	<span class="lava" style={placed(97, 59.75, 14, 10.5)}><span class="frames"></span></span>
 	<img src={fluidTank.src} alt="" style={placed(96, 64, 16)} />
-	<span class="lava" data-part="spout-lava" style={placed(18.5, 45.5, 11, 11)}
-	></span>
+	<span class="lava" style={placed(18.5, 45.5, 11, SPOUT_TANK_HEIGHT)}>
+		<span class="level" style={animationStyle("spout-level")}>
+			<span class="level" style={animationStyle("spout-lava")}><span class="frames"></span></span>
+		</span>
+	</span>
 	<canvas data-particles="behind" style={whole}></canvas>
 	<span
 		class="sprite"
 		style={`${placed(0, 13, 80, 10)}; ${sprite(beltFrames, 16)}; --seconds: var(--belt-loop-seconds)`}
 		data-solid
-		data-belt-speed={BELT_UNITS_PER_SECOND * UNIT_PIXELS}></span>
+		data-belt-speed={BELT_UNITS_PER_SECOND * UNIT_PIXELS}><span class="frames"></span></span>
 	<img class="turning" src={shaftEnd.src} alt="" style={placed(6, 10, 4)} />
 	<span
 		class="item"
-		data-part="item"
-		data-stage="finished"
-		style={placed(STATIONS.start - 4, 19, 8, 8)}
+		style={`${placed(STATIONS.start - 4, 19, 8, 8)}; ${animationStyle("item-z", "item-opacity")}`}
 	>
-		<img class="powder" src={powderedObsidian.src} alt="" />
-		<img class="unprocessed" src={unprocessedObsidianSheet.src} alt="" />
-		<img class="finished" src={sturdySheet.src} alt="" />
+		<img src={powderedObsidian.src} alt="" style={animationStyle("item-powder")} />
+		<img src={unprocessedObsidianSheet.src} alt="" style={animationStyle("item-unprocessed")} />
+		<img src={sturdySheet.src} alt="" style={animationStyle("item-finished")} />
 	</span>
 	<canvas data-particles="inside" style={`${whole}; ${aboveBelt}`}></canvas>
 	<img src={andesiteBeltFunnel.src} alt="" style={placed(72, 32, 11, 21)} />
 	<img src={itemVault.src} alt="" style={placed(80, 32, 16, 16)} />
 	<span
 		class="sprite"
-		style={`${placed(32, 43, 16, 6)}; ${sprite(shaftSide, 16)}`}></span>
+		style={`${placed(32, 43, 16, 6)}; ${sprite(shaftSide, 16)}`}><span class="frames"></span></span>
 	<span
 		class="sprite"
-		style={`${placed(48, 43, 16, 6)}; ${sprite(shaftSide, 16)}`}></span>
+		style={`${placed(48, 43, 16, 6)}; ${sprite(shaftSide, 16)}`}><span class="frames"></span></span>
 	<span
 		class="sprite"
-		style={`${placed(64, 43, 16, 6)}; ${sprite(shaftSide, 16)}`}></span>
+		style={`${placed(64, 43, 16, 6)}; ${sprite(shaftSide, 16)}`}><span class="frames"></span></span>
 	<span
 		class="lava"
-		data-part="stream"
-		style={placed(STATIONS.spout, 32, 0, 19.2)}></span>
+		style={`${placed(STATIONS.spout - 0.5, 32, 1, 19.2)}; ${animationStyle("stream")}`}
+	><span class="frames"></span></span>
 	<img
-		data-part="first-press-head"
 		src={pressHead.src}
 		alt=""
-		style={placed(32, 59, 16)}
+		style={`${placed(32, 59, 16)}; ${animationStyle("first-press-head")}`}
 	/>
 	<img src={press.src} alt="" style={placed(32, 48, 16)} />
 	<img
-		data-part="second-press-head"
 		src={pressHead.src}
 		alt=""
-		style={placed(48, 59, 16)}
+		style={`${placed(48, 59, 16)}; ${animationStyle("second-press-head")}`}
 	/>
 	<img src={press.src} alt="" style={placed(48, 48, 16)} />
 	<img src={gearbox.src} alt="" style={placed(64, 48, 16)} />
-	<span class="sprite" style={glassPipeLava}></span>
+	<span class="sprite" style={glassPipeLava}><span class="frames"></span></span>
 	<img src={pipeRun.src} alt="" style={placed(18, 61, 62, 17)} />
 	<img src={spoutTop.src} alt="" style={placed(16, 32, 16)} />
 	<img
-		data-part="nozzle-middle"
 		src={spoutMiddle.src}
 		alt=""
-		style={placed(16, 30, 16)}
+		style={`${placed(16, 30, 16)}; ${animationStyle("nozzle-middle")}`}
 	/>
 	<img
-		data-part="nozzle-bottom"
 		src={spoutBottom.src}
 		alt=""
-		style={placed(16, 28, 16)}
+		style={`${placed(16, 28, 16)}; ${animationStyle("nozzle-bottom")}`}
 	/>
 	<img src={spout.src} alt="" style={placed(16, 48, 16)} />
 	<span
 		class="sprite"
-		style={`${placed(80, 50, 16, 20)}; ${sprite(cogwheelSide, 16)}`}></span>
+		style={`${placed(80, 50, 16, 20)}; ${sprite(cogwheelSide, 16)}`}><span class="frames"></span></span>
 	<span
 		class="sprite"
-		style={`${placed(80, 66, 16, 20)}; ${sprite(pump, 16)}`}></span>
+		style={`${placed(80, 66, 16, 20)}; ${sprite(pump, 16)}`}><span class="frames"></span></span>
 	<canvas data-particles="front" style={whole}></canvas>
 	<img
 		class="turning backwards large"
@@ -165,12 +165,14 @@ const timing = [
 	<img class="turning" src={cogwheel.src} alt="" style={placed(62, 50, 20)} />
 </div>
 
+<style is:inline set:html={sturdySheetLineKeyframes()}></style>
+
 <script>
-	import { animateSturdySheetLine } from "~/scripts/assembly/sturdySheetLineAnimation";
+	import { animateSturdySheetLineParticles } from "~/scripts/assembly/sturdySheetLineAnimation";
 
 	document
 		.querySelectorAll<HTMLElement>("[data-create-sturdy-sheet]")
-		.forEach(animateSturdySheetLine);
+		.forEach(animateSturdySheetLineParticles);
 </script>
 
 <style>
@@ -189,13 +191,30 @@ const timing = [
 		image-rendering: pixelated;
 	}
 
-	.sprite {
-		background-size: 100% calc(100% * var(--frames));
+	.sprite,
+	.lava {
+		overflow: hidden;
+	}
+
+	.frames {
+		display: block;
+	}
+
+	.sprite .frames {
+		height: calc(100% * var(--frames));
+		background: var(--sheet) 0 0 / var(--tile-width, 100%) 100%;
 		animation: run-sprite var(--seconds, calc(var(--turn-seconds) / 4))
 			steps(var(--frames)) infinite;
 	}
 
-	.lava {
+	.level {
+		display: block;
+		height: 100%;
+		overflow: hidden;
+	}
+
+	.lava .frames {
+		height: calc(100% + var(--unit) * 320);
 		background: var(--lava) 0 0 / calc(var(--unit) * 16)
 			calc(var(--unit) * 320);
 		animation: run-lava 2s steps(20) infinite;
@@ -205,13 +224,6 @@ const timing = [
 		position: absolute;
 		inset: 0;
 		width: 100%;
-		opacity: 0;
-	}
-
-	.item[data-stage="powder"] .powder,
-	.item[data-stage="unprocessed"] .unprocessed,
-	.item[data-stage="finished"] .finished {
-		opacity: 1;
 	}
 
 	.turning {
@@ -230,15 +242,13 @@ const timing = [
 
 	@keyframes run-sprite {
 		to {
-			background-position-y: calc(
-				var(--unit) * var(--height) * var(--frames) * -1
-			);
+			translate: 0 -100%;
 		}
 	}
 
 	@keyframes run-lava {
 		to {
-			background-position-y: calc(var(--unit) * -320);
+			translate: 0 calc(var(--unit) * -320);
 		}
 	}
 

@@ -16,6 +16,7 @@ type Game = {
 	sprite: ImageMetadata;
 	spriteScale: number;
 	frames?: number;
+	snowing?: boolean;
 };
 
 const ROOT_FONT_PIXELS = 16;
@@ -40,7 +41,15 @@ const GAMES: Game[] = [
 		sprite: oneshotLightbulb,
 		spriteScale: 1.125,
 	},
-	{ name: "Celeste", className: "celeste", href: steamPage(504230), sprite: celesteStrawberry, spriteScale: 2, frames: 36 },
+	{
+		name: "Celeste",
+		className: "celeste",
+		href: steamPage(504230),
+		sprite: celesteStrawberry,
+		spriteScale: 2,
+		frames: 36,
+		snowing: true,
+	},
 ];
 
 const spriteStyle = ({ sprite, spriteScale, frames = 1 }: Game) =>
@@ -63,12 +72,22 @@ const spriteStyle = ({ sprite, spriteScale, frames = 1 }: Game) =>
 					aria-label={game.name}
 					style={game.background && `--background: url(${game.background.src})`}
 				>
-					<span class:list={["sprite", { animated: (game.frames ?? 1) > 1 }]} style={spriteStyle(game)} />
+					{game.snowing && <span class="snow far" />}
+					{game.snowing && <span class="snow near" />}
+					<span class:list={["sprite", { animated: (game.frames ?? 1) > 1 }]} style={spriteStyle(game)}>
+						<span class="frames" />
+					</span>
 				</a>
 			))
 		}
 	</div>
 </div>
+
+<script>
+	import { pauseAnimationsOffScreen } from "~/scripts/onScreen";
+
+	document.querySelectorAll<HTMLElement>(".favorite-games").forEach(pauseAnimationsOffScreen);
+</script>
 
 <style>
 	.favorite-games {
@@ -118,8 +137,7 @@ const spriteStyle = ({ sprite, spriteScale, frames = 1 }: Game) =>
 		border-left: 1px solid rgb(255 255 255 / 25%);
 	}
 
-	.game::before,
-	.game::after {
+	.game::before {
 		content: "";
 		position: absolute;
 	}
@@ -128,17 +146,24 @@ const spriteStyle = ({ sprite, spriteScale, frames = 1 }: Game) =>
 		position: relative;
 		z-index: 1;
 		width: var(--width);
-		background: var(--sheet) 0 0 / calc(var(--frames) * var(--width)) 100%;
+		overflow: hidden;
 		transform: skewX(8deg);
 	}
 
-	.animated {
+	.frames {
+		display: block;
+		width: calc(var(--frames) * 100%);
+		height: 100%;
+		background: var(--sheet) 0 0 / 100% 100%;
+	}
+
+	.animated .frames {
 		animation: play calc(var(--frames) * 0.1s) steps(var(--frames)) infinite;
 	}
 
 	@keyframes play {
 		to {
-			background-position: calc(-1 * var(--frames) * var(--width)) 0;
+			translate: -100% 0;
 		}
 	}
 
@@ -153,25 +178,32 @@ const spriteStyle = ({ sprite, spriteScale, frames = 1 }: Game) =>
 		clip-path: polygon(0 100%, 0 60%, 18% 35%, 30% 50%, 52% 0, 68% 38%, 80% 25%, 100% 55%, 100% 100%);
 	}
 
-	.celeste::after {
-		inset: 0;
-		background-image:
-			radial-gradient(circle, #fff 0 1px, transparent 1.5px),
-			radial-gradient(circle, rgb(255 255 255 / 50%) 0 1px, transparent 1.5px);
-		background-position:
-			0 0,
-			0.5rem 0.7rem;
-		background-size:
-			1.75rem 1.75rem,
-			1.1rem 1.1rem;
+	.snow {
+		position: absolute;
+		inset: calc(-1 * var(--drift-y)) 0 0 calc(-1 * var(--drift-x));
+		background: radial-gradient(circle, var(--flake) 0 1px, transparent 1.5px) var(--start) / var(--tile) var(--tile);
 		animation: snow 5s linear infinite;
+	}
+
+	.snow.near {
+		--flake: #fff;
+		--start: 0 0;
+		--tile: 1.75rem;
+		--drift-x: 3.5rem;
+		--drift-y: 1.75rem;
+	}
+
+	.snow.far {
+		--flake: rgb(255 255 255 / 50%);
+		--start: 0.5rem 0.7rem;
+		--tile: 1.1rem;
+		--drift-x: 3.3rem;
+		--drift-y: 1.1rem;
 	}
 
 	@keyframes snow {
 		to {
-			background-position:
-				3.5rem 1.75rem,
-				3.8rem 1.8rem;
+			translate: var(--drift-x) var(--drift-y);
 		}
 	}
 
@@ -180,8 +212,8 @@ const spriteStyle = ({ sprite, spriteScale, frames = 1 }: Game) =>
 			transition: none;
 		}
 
-		.celeste::after,
-		.animated {
+		.snow,
+		.animated .frames {
 			animation: none;
 		}
 	}

@@ -52,3 +52,10 @@ body {
 p {
 	margin: 0;
 }
+
+[data-off-screen],
+[data-off-screen] *,
+[data-off-screen] *::before,
+[data-off-screen] *::after {
+	animation-play-state: paused !important;
+}

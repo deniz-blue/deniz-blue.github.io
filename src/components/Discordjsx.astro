@@ -197,7 +197,7 @@ const example = `const [count, setCount] = useState(0);
 		height: 0.375rem;
 		border-radius: 50%;
 		background: currentColor;
-		animation: discord-pulsing-ellipsis 1.4s ease-in-out infinite;
+		animation: 1.4s ease-in-out infinite;
 	}
 
 	.loading span:nth-child(2) {
@@ -219,6 +219,10 @@ const example = `const [count, setCount] = useState(0);
 
 	.discord-button[aria-busy="true"] .loading {
 		visibility: visible;
+	}
+
+	.discord-button[aria-busy="true"] .loading span {
+		animation-name: discord-pulsing-ellipsis;
 	}
 
 	@keyframes discord-pulsing-ellipsis {
