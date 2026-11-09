@@ -1,0 +1,1 @@
+import{r as e,t}from"./motion.CdVqYcGQ.js";var n=[...document.querySelectorAll(`.blocks-background .layer`)].map(e=>({element:e,scrollRate:Number(e.dataset.scrollRate),tileHeight:Number(e.dataset.tileHeight)}));e()||t(()=>{for(let{element:e,scrollRate:t,tileHeight:r}of n)e.style.translate=`0 ${-(scrollY*t%r)}px`});

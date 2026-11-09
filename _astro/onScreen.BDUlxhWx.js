@@ -1,0 +1,1 @@
+var e=(e,t)=>new IntersectionObserver(([e])=>t(e?.isIntersecting??!1)).observe(e),t=t=>e(t,e=>t.toggleAttribute(`data-off-screen`,!e));export{e as n,t};

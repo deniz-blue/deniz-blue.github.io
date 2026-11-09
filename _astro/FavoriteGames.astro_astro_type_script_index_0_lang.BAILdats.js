@@ -1,0 +1,1 @@
+import{t as e}from"./onScreen.BDUlxhWx.js";document.querySelectorAll(`.favorite-games`).forEach(e);

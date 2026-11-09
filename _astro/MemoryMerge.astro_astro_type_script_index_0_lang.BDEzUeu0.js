@@ -1,0 +1,1 @@
+import{r as e,t}from"./motion.CdVqYcGQ.js";var n=[...document.querySelectorAll(`.memory-merge .layer`)];e()||t(()=>{for(let e of n){let t=e.parentElement.getBoundingClientRect(),n=innerHeight/2-(t.top+t.height/2);e.style.translate=`0 ${n*Number(e.style.getPropertyValue(`--scroll-rate`))}px`}});

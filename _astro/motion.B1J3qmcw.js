@@ -1,1 +1,0 @@
-var e=()=>matchMedia(`(prefers-reduced-motion: reduce)`).matches,t=t=>{e()||(t(),addEventListener(`scroll`,t,{passive:!0}),addEventListener(`resize`,t))};export{e as n,t};

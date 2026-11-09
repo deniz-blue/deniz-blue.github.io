@@ -1,0 +1,1 @@
+var e=()=>matchMedia(`(prefers-reduced-motion: reduce)`).matches,t=()=>CSS.supports(`animation-timeline: scroll()`),n=t=>{e()||(t(),addEventListener(`scroll`,t,{passive:!0}),addEventListener(`resize`,t))};export{e as n,t as r,n as t};
