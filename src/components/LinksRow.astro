@@ -8,15 +8,15 @@ import { externalLinkAttributes } from "~/scripts/links";
 const links = [
 	{ name: "GitHub", href: "https://github.com/deniz-blue", icon: github },
 	{ name: "Discord", copy: "deniz.blue", icon: discord },
-	{ name: "Mail", href: "mailto:deniz@deniz.blue", icon: mail },
+	{ name: "Mail", email: "deniz@deniz.blue", icon: mail },
 ];
 ---
 
 <div class="links-row">
 	{
-		links.map(({ name, href, copy, icon }) =>
+		links.map(({ name, href, email, copy, icon }) =>
 			copy === undefined ? (
-				<a href={href} {...externalLinkAttributes(href)}>
+				<a href={href} data-email-base64={email && btoa(email)} {...externalLinkAttributes(href)}>
 					<Image src={icon} alt="" aria-hidden loading="eager" width={14} height={14} densities={[1, 2]} />
 					{name}
 				</a>
@@ -33,6 +33,9 @@ const links = [
 
 <script>
 	import { prefersReducedMotion } from "~/scripts/motion";
+
+	for (const link of document.querySelectorAll<HTMLAnchorElement>(".links-row a[data-email-base64]"))
+		link.href = `mailto:${atob(link.dataset.emailBase64!)}`;
 
 	const messages = [
 		"Username copied!",
